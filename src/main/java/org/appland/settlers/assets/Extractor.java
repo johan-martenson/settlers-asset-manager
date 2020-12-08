@@ -23,6 +23,7 @@ public class Extractor {
     private static final String NATURE_DIRECTORY = "nature";
     private static final String SIGNS_DIRECTORY = "signs";
     private static final String TERRAIN_SUB_DIRECTORY = "terrain";
+    private static final String GREENLAND_DIRECTORY = "greenland";
 
     private static final int FLAG_INDEX = 4;
     private static final int HEADQUARTER_INDEX = 60;
@@ -350,79 +351,99 @@ public class Extractor {
         String natureDir = toDir + "/" + NATURE_DIRECTORY;
         String signDir = toDir + "/" + SIGNS_DIRECTORY;
         String terrainDir = natureDir + "/" + TERRAIN_SUB_DIRECTORY;
+        String greenlandDir = terrainDir + "/" + GREENLAND_DIRECTORY;
 
         Utils.createDirectory(uiDir);
         Utils.createDirectory(natureDir);
         Utils.createDirectory(signDir);
         Utils.createDirectory(terrainDir);
+        Utils.createDirectory(greenlandDir);
 
         /* Extract the terrain */
         LBMGameResource textureGameResource = (LBMGameResource) assetManager.loadGameResourcesFromLBMFile(fromDir + "/" + TEXTURE_FILE, defaultPalette);
 
         Bitmap textureBitmap = textureGameResource.getLbmFile().getBitmap();
-        textureBitmap.writeToFile(terrainDir + "/allterrain.png");
+        textureBitmap.writeToFile(greenlandDir + "/allterrain.png");
+
+        /* Create the greenland world */
 
         /* Snow */
         Bitmap snowTextureBitmap = textureBitmap.getSubBitmap(0, 0, 48, 48);
-        snowTextureBitmap.writeToFile(terrainDir + "/snow.png");
+        snowTextureBitmap.writeToFile(greenlandDir + "/snow.png");
 
         /* Mountain */
         Bitmap grassTextureBitmap = textureBitmap.getSubBitmap(48, 0, 96, 48);
-        grassTextureBitmap.writeToFile(terrainDir + "/mountain.png");
+        grassTextureBitmap.writeToFile(greenlandDir + "/mountain.png");
 
         /* Swamp */
         Bitmap otherTextureBitmap = textureBitmap.getSubBitmap(96, 0, 144, 48);
-        otherTextureBitmap.writeToFile(terrainDir + "/swamp.png");
+        otherTextureBitmap.writeToFile(greenlandDir + "/swamp.png");
 
         /* Grass - flower meadow */
         Bitmap otherTextureBitmap2 = textureBitmap.getSubBitmap(144, 0, 192, 48);
-        otherTextureBitmap2.writeToFile(terrainDir + "/flower-meadow.png");
+        otherTextureBitmap2.writeToFile(greenlandDir + "/flower-meadow.png");
 
         /* Water */
         Bitmap waterTextureBitmap = textureBitmap.getDiagonalSubBitmap(192, 48, 192 + 56, 48 + 56);
-        waterTextureBitmap.writeToFile(terrainDir + "/water.png");
+        waterTextureBitmap.writeToFile(greenlandDir + "/water.png");
 
         /* Lava */
         Bitmap lavaTexture = textureBitmap.getDiagonalSubBitmap(192, 48 + 56, 192 + 56, 48 + 56 + 56);
-        lavaTexture.writeToFile(terrainDir + "/lava.png");
+        lavaTexture.writeToFile(greenlandDir + "/lava.png");
 
         /* Meadows */
         Bitmap meadowTexture1 = textureBitmap.getSubBitmap(48, 48 * 2, 48 * 2, 48 * 3);
         Bitmap meadowTexture2 = textureBitmap.getSubBitmap(48 * 2, 48 * 2, 48 * 3, 48 * 3);
         Bitmap meadowTexture3 = textureBitmap.getSubBitmap(48 * 3, 48 * 2, 48 * 4, 48 * 3);
 
-        meadowTexture1.writeToFile(terrainDir + "/meadow1.png");
-        meadowTexture2.writeToFile(terrainDir + "/meadow2.png");
-        meadowTexture3.writeToFile(terrainDir + "/meadow3.png");
-
-        /* Mountain meadow */
-        Bitmap mountainMeadowTexture = textureBitmap.getSubBitmap(0, 48 * 2, 48, 48 * 3);
-        mountainMeadowTexture.writeToFile(terrainDir + "/mountain-meadow.png");
+        meadowTexture1.writeToFile(greenlandDir + "/meadow1.png");
+        meadowTexture2.writeToFile(greenlandDir + "/meadow2.png");
+        meadowTexture3.writeToFile(greenlandDir + "/meadow3.png");
 
         /* Savannah */
-        Bitmap savannahTexture = textureBitmap.getSubBitmap(48, 0, 48 * 2, 48);
-        savannahTexture.writeToFile(terrainDir + "/savannah.png");
+        Bitmap savannahTexture = textureBitmap.getSubBitmap(0, 48 * 2, 48, 48 * 3);
+        savannahTexture.writeToFile(greenlandDir + "/savannah.png");
+
+        /* Desert */
+        Bitmap desertTexture = textureBitmap.getSubBitmap(48, 0, 48 * 2, 48);
+        desertTexture.writeToFile(greenlandDir + "/desert.png");
 
         /* Mountains */
         Bitmap mountainTexture1 = textureBitmap.getSubBitmap(0, 48, 48, 48 * 2);
         Bitmap mountainTexture2 = textureBitmap.getSubBitmap(48, 48, 48 * 2, 48 * 2);
         Bitmap mountainTexture3 = textureBitmap.getSubBitmap(48 * 2, 48, 48 * 3, 48 * 2);
+        Bitmap mountainTexture4 = textureBitmap.getSubBitmap(48 * 3, 48, 48 * 4, 48 * 2);
 
-        mountainTexture1.writeToFile(terrainDir + "/mountain1.png");
-        mountainTexture2.writeToFile(terrainDir + "/mountain2.png");
-        mountainTexture3.writeToFile(terrainDir + "/mountain3.png");
+        mountainTexture1.writeToFile(greenlandDir + "/mountain1.png");
+        mountainTexture2.writeToFile(greenlandDir + "/mountain2.png");
+        mountainTexture3.writeToFile(greenlandDir + "/mountain3.png");
+        mountainTexture4.writeToFile(greenlandDir + "/mountain4.png");
 
-        /* Desert */
-        Bitmap desertTexture = textureBitmap.getSubBitmap(48 * 3, 48, 48 * 4, 48 * 2);
-        desertTexture.writeToFile(terrainDir + "/desert.png");
+        /* Mountain meadow */
+        Bitmap mountainMeadowTexture = textureBitmap.getSubBitmap(48, 48 * 3, 48 * 2, 48 * 4);
+        mountainMeadowTexture.writeToFile(greenlandDir + "/mountain-meadow.png");
 
         /* Steppe */
-        Bitmap steppeTexture = textureBitmap.getSubBitmap(48, 48 * 3, 48 * 2, 48 * 4);
-        steppeTexture.writeToFile(terrainDir + "/steppe.png");
+        Bitmap steppeMountainTexture = textureBitmap.getSubBitmap(0, 48 * 3, 48, 48 * 4);
+        steppeMountainTexture.writeToFile(greenlandDir + "/steppe.png");
 
-        /* Buildable mountain */
-        Bitmap buildableMountainTexture = textureBitmap.getSubBitmap(0, 48 * 3, 48, 48 * 4);
-        buildableMountainTexture.writeToFile(terrainDir + "/buildable-mountain.png");
+        /* Collect roads */
+
+        /* Regular road */
+        Bitmap regularRoad = textureBitmap.getSubBitmap(192, 0, 192 + 64, 16);
+        regularRoad.writeToFile(greenlandDir + "/regular-road.png");
+
+        /* Main road */
+        Bitmap mainRoad = textureBitmap.getSubBitmap(192, 16, 192 + 64, 16 + 16);
+        mainRoad.writeToFile(greenlandDir + "/main-road.png");
+
+        /* Boat road */
+        Bitmap boatRoad = textureBitmap.getSubBitmap(192, 32, 192 + 64, 32 + 16);
+        boatRoad.writeToFile(greenlandDir + "/boat-road.png");
+
+        /* Mountain road */
+        Bitmap mountainRoad = textureBitmap.getSubBitmap(192, 160, 192 + 64, 160 + 16);
+        mainRoad.writeToFile(greenlandDir + "/mountain-road.png");
 
         /* Extract UI elements */
         Map<Integer, String> imagesToFileMap = new HashMap<>();
