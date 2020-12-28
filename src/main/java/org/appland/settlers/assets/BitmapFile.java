@@ -79,8 +79,8 @@ public class BitmapFile extends Bitmap {
         return this;
     }
 
-    public BitmapFile setColorUsed(int clrused) {
-        this.colorUsed = clrused;
+    public BitmapFile setColorUsed(int colorUsed) {
+        this.colorUsed = colorUsed;
 
         return this;
     }

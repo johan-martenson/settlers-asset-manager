@@ -54,7 +54,7 @@ public enum ResourceType {
             case 15:
                 return PALETTE_ANIM;
             default:
-                throw new UnknownResourceTypeException("Unkown resource type: " + type);
+                throw new UnknownResourceTypeException("Unknown resource type: " + type);
         }
     }
 }

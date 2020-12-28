@@ -17,11 +17,11 @@ public class Bitmap {
     private final int bitsPerPixel;
     protected final int height;
     protected final int width;
+    private final TextureFormat format;
 
     protected byte[] imageData; // uint 8
 
     private Palette palette;
-    private TextureFormat format;
     private boolean debug = false;
 
     public Bitmap(int width, int height, Palette palette, TextureFormat format) {
@@ -84,10 +84,6 @@ public class Bitmap {
         } else {
             throw new RuntimeException("Cannot set pixel in format " + format);
         }
-    }
-
-    private int getPixelSize() {
-        return 4;
     }
 
     public int getHeight() {

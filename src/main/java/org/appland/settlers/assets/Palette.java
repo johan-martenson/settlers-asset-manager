@@ -2,6 +2,7 @@ package org.appland.settlers.assets;
 
 import java.io.IOException;
 import java.nio.ByteOrder;
+import java.util.Arrays;
 
 public class Palette {
     public static final int DEFAULT_TRANSPARENT_INDEX = 0;
@@ -56,7 +57,7 @@ public class Palette {
     @Override
     public String toString() {
         return "Palette{" +
-                "colors=" + colors +
+                "colors=" + Arrays.toString(colors) +
                 ", transparentIndex=" + transparentIndex +
                 '}';
     }

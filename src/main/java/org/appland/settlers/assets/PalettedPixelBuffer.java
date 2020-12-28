@@ -4,7 +4,7 @@ public class PalettedPixelBuffer {
     private final int transparentIndex;
     private final int width;
     private final int height;
-    private byte[] data;
+    private final byte[] data;
 
     public PalettedPixelBuffer(int width, int height, int defaultTransparentIndex) {
         this.width = width;

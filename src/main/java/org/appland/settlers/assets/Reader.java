@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Reader {
@@ -48,7 +49,7 @@ public class Reader {
 
         /* Read the file */
         Map<String, List<GameResource>> gameResourceMap = new HashMap<>();
-        if (assetFilename != null && assetFilename != "") {
+        if (!Objects.equals(assetFilename, "")) {
             gameResourceMap.put(assetFilename, reader.loadFile(assetFilename));
 
             System.out.println("Read file " + assetFilename);
@@ -56,7 +57,7 @@ public class Reader {
         }
 
         /* Read the directory */
-        if (assetDir != null && assetDir != "") {
+        if (!Objects.equals(assetDir, "")) {
             gameResourceMap.putAll(reader.loadDirectory(assetDir, type));
 
             System.out.println("Read directory: " + assetDir);
@@ -69,14 +70,14 @@ public class Reader {
         }
 
         /* Write the resources to file */
-        if (dirToWrite != null && dirToWrite != "") {
+        if (!Objects.equals(dirToWrite, "")) {
             writeToDirectory(gameResourceMap, dirToWrite);
 
             System.out.println("Wrote: " + dirToWrite);
         }
     }
 
-    private Map<String, List<GameResource>> loadDirectory(String assetDir, String type) throws IOException, UnknownResourceTypeException, InvalidHeaderException, InvalidFormatException {
+    private Map<String, List<GameResource>> loadDirectory(String assetDir, String type) throws IOException, InvalidFormatException {
 
         Map<String, List<GameResource>> gameResourceMap = new HashMap<>();
 

@@ -14,7 +14,8 @@ public class Extractor {
 
     private static final String ROMAN_FILE = "BLUEBYTE/SETTLER2/DATA/MBOB/ROM_Y.LST";
     private static final String MAP_FILE = "BLUEBYTE/SETTLER2/DATA/MAPBOBS.LST";
-    private static final String TEXTURE_FILE = "BLUEBYTE/SETTLER2/GFX/TEXTURES/TEX5.LBM";
+    private static final String GREENLAND_TEXTURE_FILE = "BLUEBYTE/SETTLER2/GFX/TEXTURES/TEX5.LBM";
+    private static final String WINTER_TEXTURE_FILE = "BLUEBYTE/SETTLER2/GFX/TEXTURES/TEX7.LBM";
 
     private static final String DEFAULT_PALETTE = "/home/johan/projects/settlers-image-manager/src/main/resources/default-palette.act";
 
@@ -24,6 +25,7 @@ public class Extractor {
     private static final String SIGNS_DIRECTORY = "signs";
     private static final String TERRAIN_SUB_DIRECTORY = "terrain";
     private static final String GREENLAND_DIRECTORY = "greenland";
+    private static final String WINTER_DIRECTORY = "winter";
 
     private static final int FLAG_INDEX = 4;
     private static final int HEADQUARTER_INDEX = 60;
@@ -176,10 +178,10 @@ public class Extractor {
      * 66    Tree medium type 3
      * 67-70 Tree falling animation type 3
      * 71-78 Tree animation type 4
-     * 79    Tree mini type 3
-     * 80    Tree small type 3
-     * 81      Tree medium type 3
-     * 82-85   Tree falling animation type 3
+     * 79    Tree mini type 4
+     * 80    Tree small type 4
+     * 81      Tree medium type 4
+     * 82-85   Tree falling animation type 4
      * 86-93   Tree animation type 5
      * 94      Tree mini type 5
      * 95      Tree small type 5
@@ -352,21 +354,143 @@ public class Extractor {
         String signDir = toDir + "/" + SIGNS_DIRECTORY;
         String terrainDir = natureDir + "/" + TERRAIN_SUB_DIRECTORY;
         String greenlandDir = terrainDir + "/" + GREENLAND_DIRECTORY;
+        String winterDir = terrainDir + "/" + WINTER_DIRECTORY;
 
         Utils.createDirectory(uiDir);
         Utils.createDirectory(natureDir);
         Utils.createDirectory(signDir);
         Utils.createDirectory(terrainDir);
         Utils.createDirectory(greenlandDir);
+        Utils.createDirectory(winterDir);
 
-        /* Extract the terrain */
-        LBMGameResource textureGameResource = (LBMGameResource) assetManager.loadGameResourcesFromLBMFile(fromDir + "/" + TEXTURE_FILE, defaultPalette);
+        /* Extract the terrains */
+        LBMGameResource greenlandGameResource = (LBMGameResource) assetManager.loadGameResourcesFromLBMFile(fromDir + "/" + GREENLAND_TEXTURE_FILE, defaultPalette);
+        LBMGameResource winterGameResource = (LBMGameResource) assetManager.loadGameResourcesFromLBMFile(fromDir + "/" + WINTER_TEXTURE_FILE, defaultPalette);
 
-        Bitmap textureBitmap = textureGameResource.getLbmFile().getBitmap();
-        textureBitmap.writeToFile(greenlandDir + "/allterrain.png");
+        Bitmap greenlandTextureBitmap = greenlandGameResource.getLbmFile().getBitmap();
+        Bitmap winterTextureBitmap = winterGameResource.getLbmFile().getBitmap();
+
+        greenlandTextureBitmap.writeToFile(greenlandDir + "/greenland-texture.png");
+        winterTextureBitmap.writeToFile(winterDir + "/winter-texture.png");
 
         /* Create the greenland world */
+        extractGreenlandTerrain(greenlandDir, greenlandTextureBitmap);
 
+        /* Create the winter world */
+        extractWinterTerrain(winterDir, winterTextureBitmap);
+
+        /* Extract UI elements */
+        Map<Integer, String> imagesToFileMap = new HashMap<>();
+
+        imagesToFileMap.put(SELECTED_POINT, uiDir + "/selected-point.png");
+        imagesToFileMap.put(HOVER_POINT, uiDir + "/hover-point.png");
+        imagesToFileMap.put(HOVER_AVAILABLE_FLAG, uiDir + "/hover-available-flag.png");
+        imagesToFileMap.put(HOVER_AVAILABLE_MINE, uiDir + "/hover-available-mine.png");
+        imagesToFileMap.put(HOVER_AVAILABLE_SMALL_BUILDING, uiDir + "/hover-available-small-building.png");
+        imagesToFileMap.put(HOVER_AVAILABLE_MEDIUM_BUILDING, uiDir + "/hover-available-medium-building.png");
+        imagesToFileMap.put(HOVER_AVAILABLE_LARGE_BUILDING, uiDir + "/hover-available-large-building.png");
+        imagesToFileMap.put(HOVER_AVAILABLE_HARBOR, uiDir + "/hover-available-harbor.png");
+        imagesToFileMap.put(AVAILABLE_FLAG, uiDir + "/available-flag.png");
+        imagesToFileMap.put(AVAILABLE_SMALL_BUILDING, uiDir + "/available-small-building.png");
+        imagesToFileMap.put(AVAILABLE_MEDIUM_BUILDING, uiDir + "/available-medium-building.png");
+        imagesToFileMap.put(AVAILABLE_LARGE_BUILDING, uiDir + "/available-large-building.png");
+        imagesToFileMap.put(AVAILABLE_MINE, uiDir + "/available-mine.png");
+        imagesToFileMap.put(AVAILABLE_HARBOR, uiDir + "/available-harbor.png");
+
+        /* Extract signs */
+        imagesToFileMap.put(IRON_SIGN_SMALL_UP_RIGHT, signDir + "/iron-sign-small.png");
+        imagesToFileMap.put(IRON_SIGN_MEDIUM_UP_RIGHT, signDir + "/iron-sign-medium.png");
+        imagesToFileMap.put(IRON_SIGN_LARGE_UP_RIGHT, signDir + "/iron-sign-large.png");
+        imagesToFileMap.put(GOLD_SIGN_SMALL_UP_RIGHT, signDir + "/gold-sign-small.png");
+        imagesToFileMap.put(GOLD_SIGN_MEDIUM_UP_RIGHT, signDir + "/gold-sign-medium.png");
+        imagesToFileMap.put(GOLD_SIGN_LARGE_UP_RIGHT, signDir + "/gold-sign-large.png");
+        imagesToFileMap.put(COAL_SIGN_SMALL_UP_RIGHT, signDir + "/coal-sign-small.png");
+        imagesToFileMap.put(COAL_SIGN_MEDIUM_UP_RIGHT, signDir + "/coal-sign-medium.png");
+        imagesToFileMap.put(COAL_SIGN_LARGE_UP_RIGHT, signDir + "/coal-sign-large.png");
+        imagesToFileMap.put(GRANITE_SIGN_SMALL_UP_RIGHT, signDir + "/granite-sign-small.png");
+        imagesToFileMap.put(GRANITE_SIGN_MEDIUM_UP_RIGHT, signDir + "/granite-sign-medium.png");
+        imagesToFileMap.put(GRANITE_SIGN_LARGE_UP_RIGHT, signDir + "/granite-sign-large.png");
+        imagesToFileMap.put(WATER_SIGN_LARGE_UP_RIGHT, signDir + "/water-sign-large.png");
+        imagesToFileMap.put(NOTHING_SIGN_UP_RIGHT, signDir + "/nothing-sign.png");
+
+        writeFilesFromMap(gameResourceList, imagesToFileMap);
+    }
+
+    private void extractWinterTerrain(String winterDir, Bitmap winterTextureBitmap) throws IOException {
+
+        /* Ice water */
+        Bitmap iceWaterTexture = winterTextureBitmap.getSubBitmap(0, 0, 30, 30);
+        iceWaterTexture.writeToFile(winterDir + "/ice-water.png");
+
+        /* Ice floe - type of water */
+        Bitmap iceLand = winterTextureBitmap.getSubBitmap(48, 0, 48 + 32, 32);
+        iceLand.writeToFile(winterDir + "/ice-land.png");
+
+        /* Ice water 2 */
+        Bitmap iceWaterTexture2 = winterTextureBitmap.getSubBitmap(48 * 2, 0, 48 * 2 + 32, 32);
+        iceWaterTexture2.writeToFile(winterDir + "/ice-water-2.png");
+
+        /* Tundra */
+        Bitmap tundraTexture = winterTextureBitmap.getSubBitmap(48 * 3, 0, 48 * 3 + 32, 32);
+        Bitmap tundraTexture2 = winterTextureBitmap.getSubBitmap(48, 96, 48 + 32, 96 + 32);
+        Bitmap tundraTexture3 = winterTextureBitmap.getSubBitmap(48 * 2, 48 * 2, 48 * 2 + 32, 48 * 2 + 32);
+        Bitmap tundraTexture4 = winterTextureBitmap.getSubBitmap(48 * 3, 48 * 2, 48 * 3 + 32, 48 * 2 + 32);
+        Bitmap tundraTexture5 = winterTextureBitmap.getSubBitmap(0, 48 * 3, 32, 48 * 3 + 32);
+
+        tundraTexture.writeToFile(winterDir + "/tundra.png");
+        tundraTexture2.writeToFile(winterDir + "/tundra-2.png");
+        tundraTexture3.writeToFile(winterDir + "/tundra-3.png");
+        tundraTexture4.writeToFile(winterDir + "/tundra-4.png");
+        tundraTexture5.writeToFile(winterDir + "/tundra-5.png");
+
+        /* Mountains */
+        Bitmap mountainTexture1 = winterTextureBitmap.getSubBitmap(0, 48, 32, 48 + 32);
+        Bitmap mountainTexture2 = winterTextureBitmap.getSubBitmap(48, 48, 48 + 32, 48 + 32);
+        Bitmap mountainTexture3 = winterTextureBitmap.getSubBitmap(48 * 2, 48, 48 * 2 + 32, 48 + 32);
+        Bitmap mountainTexture4 = winterTextureBitmap.getSubBitmap(48 * 3, 48, 48 * 3 + 32, 48 + 32);
+
+        mountainTexture1.writeToFile(winterDir + "/mountain-1.png");
+        mountainTexture2.writeToFile(winterDir + "/mountain-2.png");
+        mountainTexture3.writeToFile(winterDir + "/mountain-3.png");
+        mountainTexture4.writeToFile(winterDir + "/mountain-4.png");
+
+        /* Taiga */
+        Bitmap taigaTexture = winterTextureBitmap.getSubBitmap(0, 48 * 2, 32, 48 * 2 + 32);
+        taigaTexture.writeToFile(winterDir + "/taiga.png");
+
+        /* Snow */
+        Bitmap snowTexture = winterTextureBitmap.getSubBitmap(48, 48 * 3, 48 + 32, 48 * 3 + 32);
+        snowTexture.writeToFile(winterDir + "/snow.png");
+
+        /* Water */ // FIXME
+        Bitmap waterTexture = winterTextureBitmap.getSubBitmap(48 * 4, 48, 48 * 4 + 32, 48 + 32);
+        waterTexture.writeToFile(winterDir + "/water.png");
+
+        /* Lava */ // FIXME
+        Bitmap lavaTexture = winterTextureBitmap.getSubBitmap(48 * 4, 48 * 2, 48 * 4 + 32, 48 * 2 + 32);
+        lavaTexture.writeToFile(winterDir + "/lava.png");
+
+
+        /* Collect roads */
+
+        /* Regular road */
+        Bitmap regularRoad = winterTextureBitmap.getSubBitmap(192, 0, 192 + 64, 16);
+        regularRoad.writeToFile(winterDir + "/regular-road.png");
+
+        /* Main road */
+        Bitmap mainRoad = winterTextureBitmap.getSubBitmap(192, 16, 192 + 64, 16 + 16);
+        mainRoad.writeToFile(winterDir + "/main-road.png");
+
+        /* Boat road */
+        Bitmap boatRoad = winterTextureBitmap.getSubBitmap(192, 32, 192 + 64, 32 + 16);
+        boatRoad.writeToFile(winterDir + "/boat-road.png");
+
+        /* Mountain road */
+        Bitmap mountainRoad = winterTextureBitmap.getSubBitmap(192, 160, 192 + 64, 160 + 16);
+        mountainRoad.writeToFile(winterDir + "/mountain-road.png");
+    }
+
+    private void extractGreenlandTerrain(String greenlandDir, Bitmap textureBitmap) throws IOException {
         /* Snow */
         Bitmap snowTextureBitmap = textureBitmap.getSubBitmap(0, 0, 48, 48);
         snowTextureBitmap.writeToFile(greenlandDir + "/snow.png");
@@ -404,7 +528,7 @@ public class Extractor {
         Bitmap savannahTexture = textureBitmap.getSubBitmap(0, 48 * 2, 48, 48 * 3);
         savannahTexture.writeToFile(greenlandDir + "/savannah.png");
 
-        /* Desert */
+        /* Deserts */
         Bitmap desertTexture = textureBitmap.getSubBitmap(48, 0, 48 * 2, 48);
         desertTexture.writeToFile(greenlandDir + "/desert.png");
 
@@ -443,43 +567,7 @@ public class Extractor {
 
         /* Mountain road */
         Bitmap mountainRoad = textureBitmap.getSubBitmap(192, 160, 192 + 64, 160 + 16);
-        mainRoad.writeToFile(greenlandDir + "/mountain-road.png");
-
-        /* Extract UI elements */
-        Map<Integer, String> imagesToFileMap = new HashMap<>();
-
-        imagesToFileMap.put(SELECTED_POINT, uiDir + "/selected-point.png");
-        imagesToFileMap.put(HOVER_POINT, uiDir + "/hover-point.png");
-        imagesToFileMap.put(HOVER_AVAILABLE_FLAG, uiDir + "/hover-available-flag.png");
-        imagesToFileMap.put(HOVER_AVAILABLE_MINE, uiDir + "/hover-available-mine.png");
-        imagesToFileMap.put(HOVER_AVAILABLE_SMALL_BUILDING, uiDir + "/hover-available-small-building.png");
-        imagesToFileMap.put(HOVER_AVAILABLE_MEDIUM_BUILDING, uiDir + "/hover-available-medium-building.png");
-        imagesToFileMap.put(HOVER_AVAILABLE_LARGE_BUILDING, uiDir + "/hover-available-large-building.png");
-        imagesToFileMap.put(HOVER_AVAILABLE_HARBOR, uiDir + "/hover-available-harbor.png");
-        imagesToFileMap.put(AVAILABLE_FLAG, uiDir + "/available-flag.png");
-        imagesToFileMap.put(AVAILABLE_SMALL_BUILDING, uiDir + "/available-small-building.png");
-        imagesToFileMap.put(AVAILABLE_MEDIUM_BUILDING, uiDir + "/available-medium-building.png");
-        imagesToFileMap.put(AVAILABLE_LARGE_BUILDING, uiDir + "/available-large-building.png");
-        imagesToFileMap.put(AVAILABLE_MINE, uiDir + "/available-mine.png");
-        imagesToFileMap.put(AVAILABLE_HARBOR, uiDir + "/available-harbor.png");
-
-        /* Extract signs */
-        imagesToFileMap.put(IRON_SIGN_SMALL_UP_RIGHT, signDir + "/iron-sign-small.png");
-        imagesToFileMap.put(IRON_SIGN_MEDIUM_UP_RIGHT, signDir + "/iron-sign-medium.png");
-        imagesToFileMap.put(IRON_SIGN_LARGE_UP_RIGHT, signDir + "/iron-sign-large.png");
-        imagesToFileMap.put(GOLD_SIGN_SMALL_UP_RIGHT, signDir + "/gold-sign-small.png");
-        imagesToFileMap.put(GOLD_SIGN_MEDIUM_UP_RIGHT, signDir + "/gold-sign-medium.png");
-        imagesToFileMap.put(GOLD_SIGN_LARGE_UP_RIGHT, signDir + "/gold-sign-large.png");
-        imagesToFileMap.put(COAL_SIGN_SMALL_UP_RIGHT, signDir + "/coal-sign-small.png");
-        imagesToFileMap.put(COAL_SIGN_MEDIUM_UP_RIGHT, signDir + "/coal-sign-medium.png");
-        imagesToFileMap.put(COAL_SIGN_LARGE_UP_RIGHT, signDir + "/coal-sign-large.png");
-        imagesToFileMap.put(GRANITE_SIGN_SMALL_UP_RIGHT, signDir + "/granite-sign-small.png");
-        imagesToFileMap.put(GRANITE_SIGN_MEDIUM_UP_RIGHT, signDir + "/granite-sign-medium.png");
-        imagesToFileMap.put(GRANITE_SIGN_LARGE_UP_RIGHT, signDir + "/granite-sign-large.png");
-        imagesToFileMap.put(WATER_SIGN_LARGE_UP_RIGHT, signDir + "/water-sign-large.png");
-        imagesToFileMap.put(NOTHING_SIGN_UP_RIGHT, signDir + "/nothing-sign.png");
-
-        writeFilesFromMap(gameResourceList, imagesToFileMap);
+        mountainRoad.writeToFile(greenlandDir + "/mountain-road.png");
     }
 
     private void loadDefaultPalette() throws IOException {
@@ -688,8 +776,6 @@ public class Extractor {
         GameResource flagResource = gameResourceList.get(FLAG_INDEX); // TODO: make this an animation instead!
         PlayerBitmapResource flagRLEBitmapResource = (PlayerBitmapResource) flagResource;
         flagRLEBitmapResource.getBitmap().writeToFile(toDir + "/" + ROMAN_BUILDINGS_DIRECTORY + "/flag.png");
-
-        //imagesToFileMap.put(FLAG_INDEX, BUILDINGS_DIR + "/flag.png");
 
         /* Write the buildings to the out directory */
 

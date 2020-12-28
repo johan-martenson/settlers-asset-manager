@@ -41,7 +41,8 @@ public class AssetManager {
     // int16 + uint 16 + uint 16 + uint 32
     private static final int TEXT_FILE_HEADER_SIZE = 2 + 2 + 2 + 4;
 
-    private TextureFormat globalTextureFormat = TextureFormat.BGRA;
+    private final TextureFormat globalTextureFormat = TextureFormat.BGRA;
+
     private TextureFormat wantedTextureFormat;
     private boolean debug = false;
 
@@ -339,9 +340,7 @@ public class AssetManager {
             fullTextAsBytes[0] = header[0];
             fullTextAsBytes[1] = header[1];
 
-            for (int i = 0; i < remainingBytes.length; i++) {
-                fullTextAsBytes[2 + i] = remainingBytes[i];
-            }
+            System.arraycopy(remainingBytes, 0, fullTextAsBytes, 2, remainingBytes.length);
 
             String text = Utils.nullTerminatedByteArrayToString(fullTextAsBytes);
 
@@ -655,7 +654,7 @@ public class AssetManager {
             int[] starts = streamReader.getUint16ArrayAsInts(bodyImageHeight);
             short ny = streamReader.getUint8();
 
-            /**
+            /*
              * X_OFFSET
              * ny
              *
@@ -683,9 +682,7 @@ public class AssetManager {
 
         PlayerBitmap[] allPlayerBitmaps = new PlayerBitmap[(int)(NUM_BODY_IMAGES + numberOverlayImages)];
 
-        for (int i = 0; i < playerBitmaps.length; i++) {
-            allPlayerBitmaps[i] = playerBitmaps[i];
-        }
+        System.arraycopy(playerBitmaps, 0, allPlayerBitmaps, 0, playerBitmaps.length);
 
         for (int i = 0; i < numberOverlayImages; i++) {
             int overlayImageId = streamReader.getUint16();
@@ -769,14 +766,18 @@ public class AssetManager {
 
             String subHeaderAsString = streamReader.getUint8ArrayAsString(4); // 4 x uint 8
 
-            if (subHeaderAsString.equals("XMID")) {
-                soundType = XMIDI;
-            } else if (subHeaderAsString.equals("XDIR")) {
-                soundType = XMID_DIR;
-            } else if (subHeaderAsString.equals("WAVE")) {
-                soundType = WAVE;
-            } else {
-                throw new InvalidFormatException("Failed to locate sound type.");
+            switch (subHeaderAsString) {
+                case "XMID":
+                    soundType = XMIDI;
+                    break;
+                case "XDIR":
+                    soundType = XMID_DIR;
+                    break;
+                case "WAVE":
+                    soundType = WAVE;
+                    break;
+                default:
+                    throw new InvalidFormatException("Failed to locate sound type.");
             }
 
             if (debug) {
@@ -1234,7 +1235,6 @@ public class AssetManager {
             int frameSize = 1;
             int bitsPerSample = 8;
             String dataId = "data";
-            long dataSize = length;
 
             waveFile = new WaveFile(
                     formatId,
@@ -1246,7 +1246,7 @@ public class AssetManager {
                     frameSize,
                     bitsPerSample,
                     dataId,
-                    dataSize
+                    length
             );
         }
 
@@ -1794,7 +1794,7 @@ public class AssetManager {
                     throw new InvalidFormatException("Header is not read.");
                 }
 
-                // if bitmap == null, invalidformat palette missing
+                // if bitmap == null, invalid format palette missing
 
                 if (compression == 0) {
                     if (chunkLength != width * height) {

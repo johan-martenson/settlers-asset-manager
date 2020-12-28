@@ -87,7 +87,7 @@ public class StreamReader {
             ints[i] = Unsigned.getUnsignedShort(ByteBuffer.wrap(bytes).order(order));
         }
 
-        offset = offset + length * 4;
+        offset = offset + length * 4L;
 
         return ints;
     }
@@ -97,8 +97,8 @@ public class StreamReader {
 
         List<Integer> list = new ArrayList<>();
 
-        for (int i = 0; i < array.length; i++) {
-            list.add(array[i]);
+        for (int j : array) {
+            list.add(j);
         }
 
         return list;
@@ -239,7 +239,7 @@ public class StreamReader {
             ints[i] = Unsigned.getUnsignedShort(byteBuffer, i * 2);
         }
 
-        offset = offset + length * 2;
+        offset = offset + length * 2L;
 
         return ints;
     }

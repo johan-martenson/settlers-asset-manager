@@ -6,10 +6,10 @@ import java.util.List;
 public class Bob {
     private static final int NUM_BODY_IMAGES = 2 * 6 * 8;
 
-    int numberBodyImages;
-    int numberOverlayImages;
-    int[] links;
-    PlayerBitmap[] playerBitmaps;
+    final int numberBodyImages;
+    final int numberOverlayImages;
+    final int[] links;
+    final PlayerBitmap[] playerBitmaps;
     private int size;
 
     public Bob(int numberOverlayImages, int[] links, PlayerBitmap[] playerBitmaps) {
@@ -22,9 +22,7 @@ public class Bob {
     public PlayerBitmap[] getBodyBitmaps() {
         PlayerBitmap[] bodyBitmaps = new PlayerBitmap[NUM_BODY_IMAGES];
 
-        for (int i = 0; i < NUM_BODY_IMAGES; i++) {
-            bodyBitmaps[i] = playerBitmaps[i];
-        }
+        System.arraycopy(playerBitmaps, 0, bodyBitmaps, 0, NUM_BODY_IMAGES);
 
         return bodyBitmaps;
     }
@@ -39,10 +37,6 @@ public class Bob {
 
     public int getNumberLinks() {
         return links.length;
-    }
-
-    public int getSize() {
-        return size;
     }
 
     public List<PlayerBitmap> getAllBitmaps() {

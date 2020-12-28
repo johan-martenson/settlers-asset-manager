@@ -3,7 +3,7 @@ package org.appland.settlers.assets;
 import java.util.Map;
 
 public class FontGameResource implements GameResource {
-    private Map<String, PlayerBitmap> letterMap;
+    private final Map<String, PlayerBitmap> letterMap;
 
     public FontGameResource(Map<String, PlayerBitmap> letterMap) {
         this.letterMap = letterMap;

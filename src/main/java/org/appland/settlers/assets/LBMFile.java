@@ -3,7 +3,7 @@ package org.appland.settlers.assets;
 import java.util.List;
 
 public class LBMFile {
-    private Bitmap bitmap;
+    private final Bitmap bitmap;
     private List<PaletteAnim> paletteAnimList;
 
     public LBMFile(Bitmap bitmap) {
