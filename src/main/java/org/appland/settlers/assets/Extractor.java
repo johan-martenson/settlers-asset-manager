@@ -90,6 +90,17 @@ public class Extractor {
     private static final int GRANITE_SIGN_LARGE_UP_RIGHT = 383;
     private static final int WATER_SIGN_LARGE_UP_RIGHT = 384;
     private static final int NOTHING_SIGN_UP_RIGHT = 385;
+    private static final int DEAD_TREE = 288;
+    private static final int FALLEN_DEAD_TREE = 287;
+    private static final int TREE_ANIMATION_TYPE_1 = 26;
+    private static final int TREE_ANIMATION_TYPE_2 = 41;
+    private static final int TREE_ANIMATION_TYPE_3 = 56;
+    private static final int TREE_ANIMATION_TYPE_4 = 71;
+    private static final int TREE_ANIMATION_TYPE_5 = 86;
+    private static final int TREE_ANIMATION_TYPE_6 = 101;
+    private static final int TREE_ANIMATION_TYPE_7 = 109;
+    private static final int TREE_ANIMATION_TYPE_8 = 124;
+    private static final int TREE_ANIMATION_TYPE_9 = 139;
 
     @Option(name = "--from-dir", usage = "Asset directory to load from")
     static String fromDir;
@@ -216,8 +227,8 @@ public class Extractor {
      * 284     Mini decorative stone
      * 285     Mini decorative stones
      * 286     Small decorative stone
-     * 287     Fallen decorative tree
-     * 288     Standing decorative tree
+     * 287     Fallen dead decorative tree
+     * 288     Standing dead decorative tree
      * 289     Skeleton decorative
      * 290     Mini decorative skeleton
      * 291     Flowers decorative
@@ -412,6 +423,100 @@ public class Extractor {
         imagesToFileMap.put(GRANITE_SIGN_LARGE_UP_RIGHT, signDir + "/granite-sign-large.png");
         imagesToFileMap.put(WATER_SIGN_LARGE_UP_RIGHT, signDir + "/water-sign-large.png");
         imagesToFileMap.put(NOTHING_SIGN_UP_RIGHT, signDir + "/nothing-sign.png");
+
+        /* Extract nature elements */
+        imagesToFileMap.put(FALLEN_DEAD_TREE, natureDir + "/fallen-dead-tree.png");
+        imagesToFileMap.put(DEAD_TREE, natureDir + "/dead-tree.png");
+
+        /* Extract animation for tree type 1 in wind */
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_1, natureDir + "/tree-type-1-animation-0.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_1 + 1, natureDir + "/tree-type-1-animation-1.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_1 + 2, natureDir + "/tree-type-1-animation-2.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_1 + 3, natureDir + "/tree-type-1-animation-3.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_1 + 4, natureDir + "/tree-type-1-animation-4.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_1 + 5, natureDir + "/tree-type-1-animation-5.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_1 + 6, natureDir + "/tree-type-1-animation-6.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_1 + 7, natureDir + "/tree-type-1-animation-7.png");
+
+        /* Extract animation for tree type 2 in wind */
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_2, natureDir + "/tree-type-2-animation-0.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_2 + 1, natureDir + "/tree-type-2-animation-1.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_2 + 2, natureDir + "/tree-type-2-animation-2.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_2 + 3, natureDir + "/tree-type-2-animation-3.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_2 + 4, natureDir + "/tree-type-2-animation-4.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_2 + 5, natureDir + "/tree-type-2-animation-5.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_2 + 6, natureDir + "/tree-type-2-animation-6.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_2 + 7, natureDir + "/tree-type-2-animation-7.png");
+
+        /* Extract animation for tree type 3 in wind */
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_3, natureDir + "/tree-type-3-animation-0.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_3 + 1, natureDir + "/tree-type-3-animation-1.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_3 + 2, natureDir + "/tree-type-3-animation-2.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_3 + 3, natureDir + "/tree-type-3-animation-3.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_3 + 4, natureDir + "/tree-type-3-animation-4.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_3 + 5, natureDir + "/tree-type-3-animation-5.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_3 + 6, natureDir + "/tree-type-3-animation-6.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_3 + 7, natureDir + "/tree-type-3-animation-7.png");
+
+        /* Extract animation for tree type 4 in wind */
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_4, natureDir + "/tree-type-4-animation-0.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_4 + 1, natureDir + "/tree-type-4-animation-1.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_4 + 2, natureDir + "/tree-type-4-animation-2.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_4 + 3, natureDir + "/tree-type-4-animation-3.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_4 + 4, natureDir + "/tree-type-4-animation-4.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_4 + 5, natureDir + "/tree-type-4-animation-5.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_4 + 6, natureDir + "/tree-type-4-animation-6.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_4 + 7, natureDir + "/tree-type-4-animation-7.png");
+
+        /* Extract animation for tree type 5 in wind */
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_5, natureDir + "/tree-type-5-animation-0.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_5 + 1, natureDir + "/tree-type-5-animation-1.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_5 + 2, natureDir + "/tree-type-5-animation-2.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_5 + 3, natureDir + "/tree-type-5-animation-3.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_5 + 4, natureDir + "/tree-type-5-animation-4.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_5 + 5, natureDir + "/tree-type-5-animation-5.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_5 + 6, natureDir + "/tree-type-5-animation-6.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_5 + 7, natureDir + "/tree-type-5-animation-7.png");
+
+        /* Extract animation for tree type 6 in wind */
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_6, natureDir + "/tree-type-6-animation-0.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_6 + 1, natureDir + "/tree-type-6-animation-1.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_6 + 2, natureDir + "/tree-type-6-animation-2.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_6 + 3, natureDir + "/tree-type-6-animation-3.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_6 + 4, natureDir + "/tree-type-6-animation-4.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_6 + 5, natureDir + "/tree-type-6-animation-5.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_6 + 6, natureDir + "/tree-type-6-animation-6.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_6 + 7, natureDir + "/tree-type-6-animation-7.png");
+
+        /* Extract animation for tree type 7 in wind */
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_7, natureDir + "/tree-type-7-animation-0.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_7 + 1, natureDir + "/tree-type-7-animation-1.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_7 + 2, natureDir + "/tree-type-7-animation-2.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_7 + 3, natureDir + "/tree-type-7-animation-3.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_7 + 4, natureDir + "/tree-type-7-animation-4.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_7 + 5, natureDir + "/tree-type-7-animation-5.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_7 + 6, natureDir + "/tree-type-7-animation-6.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_7 + 7, natureDir + "/tree-type-7-animation-7.png");
+
+        /* Extract animation for tree type 8 in wind */
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_8, natureDir + "/tree-type-8-animation-0.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_8 + 1, natureDir + "/tree-type-8-animation-1.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_8 + 2, natureDir + "/tree-type-8-animation-2.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_8 + 3, natureDir + "/tree-type-8-animation-3.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_8 + 4, natureDir + "/tree-type-8-animation-4.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_8 + 5, natureDir + "/tree-type-8-animation-5.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_8 + 6, natureDir + "/tree-type-8-animation-6.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_8 + 7, natureDir + "/tree-type-8-animation-7.png");
+
+        /* Extract animation for tree type 9 in wind */
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_9, natureDir + "/tree-type-9-animation-0.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_9 + 1, natureDir + "/tree-type-9-animation-1.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_9 + 2, natureDir + "/tree-type-9-animation-2.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_9 + 3, natureDir + "/tree-type-9-animation-3.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_9 + 4, natureDir + "/tree-type-9-animation-4.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_9 + 5, natureDir + "/tree-type-9-animation-5.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_9 + 6, natureDir + "/tree-type-9-animation-6.png");
+        imagesToFileMap.put(TREE_ANIMATION_TYPE_9 + 7, natureDir + "/tree-type-9-animation-7.png");
 
         writeFilesFromMap(gameResourceList, imagesToFileMap);
     }
@@ -781,36 +886,67 @@ public class Extractor {
 
         imagesToFileMap.put(HEADQUARTER_INDEX, BUILDINGS_DIR+ "/headquarter.png");
         imagesToFileMap.put(BARRACKS_INDEX, BUILDINGS_DIR + "/barracks.png");
+        imagesToFileMap.put(BARRACKS_INDEX + 2, BUILDINGS_DIR + "/barracks-under-construction.png");
         imagesToFileMap.put(GUARDHOUSE_INDEX, BUILDINGS_DIR + "/guardhouse.png");
+        imagesToFileMap.put(GUARDHOUSE_INDEX + 2, BUILDINGS_DIR + "/guardhouse-under-construction.png");
         imagesToFileMap.put(WATCHTOWER_INDEX, BUILDINGS_DIR + "/watchtower.png");
+        imagesToFileMap.put(WATCHTOWER_INDEX + 2, BUILDINGS_DIR + "/watchtower-under-construction.png");
         imagesToFileMap.put(FORTRESS_INDEX, BUILDINGS_DIR + "/fortress.png");
+        imagesToFileMap.put(FORTRESS_INDEX + 2, BUILDINGS_DIR + "/fortress-under-construction.png");
         imagesToFileMap.put(GRANITE_MINE_INDEX, BUILDINGS_DIR + "/granite-mine.png");
+        imagesToFileMap.put(GRANITE_MINE_INDEX + 2, BUILDINGS_DIR + "/granite-mine-under-construction.png");
         imagesToFileMap.put(COAL_MINE_INDEX, BUILDINGS_DIR + "/coal-mine.png");
+        imagesToFileMap.put(COAL_MINE_INDEX + 2, BUILDINGS_DIR + "/coal-mine-under-construction.png");
         imagesToFileMap.put(IRON_MINE_RESOURCE, BUILDINGS_DIR + "/iron-mine.png");
+        imagesToFileMap.put(IRON_MINE_RESOURCE + 2, BUILDINGS_DIR + "/iron-mine-under-construction.png");
         imagesToFileMap.put(GOLD_MINE_INDEX, BUILDINGS_DIR + "/gold-mine.png");
+        imagesToFileMap.put(GOLD_MINE_INDEX + 2, BUILDINGS_DIR + "/gold-mine-under-construction.png");
         imagesToFileMap.put(LOOKOUT_TOWER_INDEX, BUILDINGS_DIR + "/lookout-tower.png");
+        imagesToFileMap.put(LOOKOUT_TOWER_INDEX + 2, BUILDINGS_DIR + "/lookout-tower-under-construction.png");
         imagesToFileMap.put(CATAPULT_INDEX, BUILDINGS_DIR + "/catapult.png");
+        imagesToFileMap.put(CATAPULT_INDEX + 2, BUILDINGS_DIR + "/catapult-under-construction.png");
         imagesToFileMap.put(WOODCUTTER_INDEX, BUILDINGS_DIR + "/woodcutter.png");
+        imagesToFileMap.put(WOODCUTTER_INDEX + 2, BUILDINGS_DIR + "/woodcutter-under-construction.png");
         imagesToFileMap.put(FISHERY_INDEX, BUILDINGS_DIR + "/fishery.png");
+        imagesToFileMap.put(FISHERY_INDEX + 2, BUILDINGS_DIR + "/fishery-under-construction.png");
         imagesToFileMap.put(QUARRY_INDEX, BUILDINGS_DIR + "/quarry.png");
+        imagesToFileMap.put(QUARRY_INDEX + 2, BUILDINGS_DIR + "/quarry-under-construction.png");
         imagesToFileMap.put(FORESTER_HUT_INDEX, BUILDINGS_DIR + "/forester-hut.png");
+        imagesToFileMap.put(FORESTER_HUT_INDEX + 2, BUILDINGS_DIR + "/forester-hut-under-construction.png");
         imagesToFileMap.put(SLAUGHTER_HOUSE_INDEX, BUILDINGS_DIR + "/slaughter-house.png");
+        imagesToFileMap.put(SLAUGHTER_HOUSE_INDEX + 2, BUILDINGS_DIR + "/slaughter-house-under-construction.png");
         imagesToFileMap.put(HUNTER_HUT_INDEX, BUILDINGS_DIR + "/hunter-hut.png");
+        imagesToFileMap.put(HUNTER_HUT_INDEX + 2, BUILDINGS_DIR + "/hunter-hut-under-construction.png");
         imagesToFileMap.put(BREWERY_INDEX, BUILDINGS_DIR + "/brewery.png");
+        imagesToFileMap.put(BREWERY_INDEX + 2, BUILDINGS_DIR + "/brewery-under-construction.png");
         imagesToFileMap.put(ARMORY_INDEX, BUILDINGS_DIR + "/armory.png");
+        imagesToFileMap.put(ARMORY_INDEX + 2, BUILDINGS_DIR + "/armory-under-construction.png");
         imagesToFileMap.put(METALWORKS_INDEX, BUILDINGS_DIR + "/metalworks.png");
+        imagesToFileMap.put(METALWORKS_INDEX + 2, BUILDINGS_DIR + "/metalworks-under-construction.png");
         imagesToFileMap.put(IRON_SMELTER_INDEX, BUILDINGS_DIR + "/iron-smelter.png");
+        imagesToFileMap.put(IRON_SMELTER_INDEX + 2, BUILDINGS_DIR + "/iron-smelter-under-construction.png");
         imagesToFileMap.put(PIG_FARM_INDEX, BUILDINGS_DIR + "/pig-farm.png");
+        imagesToFileMap.put(PIG_FARM_INDEX + 2, BUILDINGS_DIR + "/pig-farm-under-construction.png");
         imagesToFileMap.put(STOREHOUSE_INDEX, BUILDINGS_DIR + "/storehouse.png");
+        imagesToFileMap.put(STOREHOUSE_INDEX + 2, BUILDINGS_DIR + "/storehouse-under-construction.png");
         imagesToFileMap.put(MILL_NO_FAN_INDEX, BUILDINGS_DIR + "/mill-no-fan.png");
+        imagesToFileMap.put(MILL_NO_FAN_INDEX + 2, BUILDINGS_DIR + "/mill-no-fan-under-construction.png");
         imagesToFileMap.put(BAKERY_INDEX, BUILDINGS_DIR + "/bakery.png");
+        imagesToFileMap.put(BAKERY_INDEX + 2, BUILDINGS_DIR + "/bakery-under-construction.png");
         imagesToFileMap.put(SAWMILL_INDEX, BUILDINGS_DIR + "/sawmill.png");
+        imagesToFileMap.put(SAWMILL_INDEX + 2, BUILDINGS_DIR + "/sawmill-under-construction.png");
         imagesToFileMap.put(MINT_INDEX, BUILDINGS_DIR + "/mint.png");
+        imagesToFileMap.put(MINT_INDEX + 2, BUILDINGS_DIR + "/mint-under-construction.png");
         imagesToFileMap.put(WELL_INDEX, BUILDINGS_DIR + "/well.png");
+        imagesToFileMap.put(WELL_INDEX + 2, BUILDINGS_DIR + "/well-under-construction.png");
         imagesToFileMap.put(SHIPYARD_INDEX, BUILDINGS_DIR + "/shipyard.png");
+        imagesToFileMap.put(SHIPYARD_INDEX + 2, BUILDINGS_DIR + "/shipyard-under-construction.png");
         imagesToFileMap.put(FARM_INDEX, BUILDINGS_DIR + "/farm.png");
+        imagesToFileMap.put(FARM_INDEX + 2, BUILDINGS_DIR + "/farm-under-construction.png");
         imagesToFileMap.put(DONKEY_BREEDER_INDEX, BUILDINGS_DIR + "/donkey-breeder.png");
+        imagesToFileMap.put(DONKEY_BREEDER_INDEX + 2, BUILDINGS_DIR + "/donkey-breeder-under-construction.png");
         imagesToFileMap.put(HARBOR_INDEX, BUILDINGS_DIR + "/harbor.png");
+        imagesToFileMap.put(HARBOR_INDEX + 2, BUILDINGS_DIR + "/harbor-under-construction.png");
         imagesToFileMap.put(CONSTRUCTION_PLANNED_INDEX, BUILDINGS_DIR + "/construction-planned-sign.png");
         imagesToFileMap.put(CONSTRUCTION_JUST_STARTED_INDEX, BUILDINGS_DIR + "/construction-started-sign.png");
 

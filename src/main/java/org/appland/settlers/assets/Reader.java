@@ -22,7 +22,7 @@ public class Reader {
     private static final String DEFAULT_PALETTE = "/home/johan/projects/settlers-image-manager/src/test/resources/pal5.act";
 
     @Option(name = "--dir", usage = "Asset directory to load")
-    static String assetDir;
+    static String assetDir = "";
 
     @Option(name = "--file", usage = "Asset file to load")
     static String assetFilename;
