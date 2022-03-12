@@ -1,6 +1,8 @@
 package org.appland.settlers.assets;
 
 import javax.imageio.ImageIO;
+import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.Transparency;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
@@ -23,12 +25,20 @@ public class Bitmap {
 
     private Palette palette;
     private boolean debug = false;
+    int nx;
+    int ny;
 
     public Bitmap(int width, int height, Palette palette, TextureFormat format) {
+        this(width, height, 0, 0, palette, format);
+    }
+
+    public Bitmap(int width, int height, int nx, int ny, Palette palette, TextureFormat format) {
         this.width = width;
         this.height = height;
         this.palette = palette;
         this.format = format;
+        this.nx = nx;
+        this.ny = ny;
 
         if (format == TextureFormat.BGRA) {
 
@@ -98,10 +108,12 @@ public class Bitmap {
         int samplesPerPixel = 4;
         int[] bandOffsets = {2, 1, 0, 3}; // BGRA order
 
-        System.out.println(width);
-        System.out.println(height);
-        System.out.println(width * height * 4);
-        System.out.println(imageData.length);
+        if (debug) {
+            System.out.println(width);
+            System.out.println(height);
+            System.out.println(width * height * 4);
+            System.out.println(imageData.length);
+        }
 
         DataBuffer buffer = new DataBufferByte(imageData, imageData.length);
         WritableRaster raster = Raster.createInterleavedRaster(buffer, width, height, samplesPerPixel * width, samplesPerPixel, bandOffsets, null);
@@ -278,5 +290,133 @@ public class Bitmap {
         subBitmap.setImageDataFromBuffer(subImage);
 
         return subBitmap;
+    }
+
+    public void copyNonTransparentPixels(Bitmap bitmap, Point toUpperLeft, Point fromUpperLeft, Dimension fromSize) {
+
+        Point toIterator = new Point(toUpperLeft.x, toUpperLeft.y);
+
+        for (int fromY = fromUpperLeft.y; fromY < fromSize.height + fromUpperLeft.y; fromY++) {
+            for (int fromX = fromUpperLeft.x; fromX < fromSize.width + fromUpperLeft.x; fromX++) {
+                byte blue = bitmap.getBlueAsByte(fromX, fromY);
+                byte green = bitmap.getGreenAsByte(fromX, fromY);
+                byte red = bitmap.getRedAsByte(fromX, fromY);
+                byte alpha = bitmap.getAlphaAsByte(fromX, fromY);
+
+                if (alpha != 0) {
+                    setPixelValue(toIterator.x, toIterator.y, red, green, blue, alpha);
+                }
+
+                toIterator.x = toIterator.x + 1;
+            }
+
+            toIterator.y = toIterator.y + 1;
+            toIterator.x = toUpperLeft.x;
+        }
+    }
+
+    Area getVisibleArea() {
+
+        int firstVisibleY;
+        int firstVisibleX;
+        int visibleWidth;
+        int visibleHeight;
+
+        // Find first non-transparent pixel from top
+        firstVisibleY = -1;
+        for(int y = 0; y < height; y++) {
+
+            int x;
+            for(x = 0; x < width; x++) {
+                if(!isTransparent(x, y)) {
+                    firstVisibleY = y;
+                    break;
+                }
+            }
+
+            if(x != width) {
+                break;
+            }
+        }
+
+        // No non-transparent pixels in whole image
+        if(firstVisibleY < 0) {
+            return new Area(0, 0, 0, 0);
+        }
+
+        // Find first non-transparent pixel from bottom
+        int lastVisibleY = firstVisibleY;
+        for(int y = height - 1; y > firstVisibleY; y--) {
+
+            int x;
+            for(x = 0; x < width; x++) {
+                if(!isTransparent(x, y)) {
+                    lastVisibleY = y;
+                    break;
+                }
+            }
+
+            if(x != width) {
+                break;
+            }
+        }
+
+        // Find first non-transparent pixel from left
+        firstVisibleX = 0;
+        for(int x = 0; x < width; x++) {
+
+            int y;
+            for(y = firstVisibleY; y <= lastVisibleY; y++) {
+                if(!isTransparent(x, y)) {
+                    firstVisibleX = x;
+                    break;
+                }
+            }
+
+            if(y != lastVisibleY + 1) {
+                break;
+            }
+        }
+
+        // Find first non-transparent pixel from right
+        int lastVisibleX = firstVisibleX;
+        for(int x = width - 1; x > firstVisibleX; x--) {
+
+            int y;
+            for(y = firstVisibleY; y <= lastVisibleY; y++) {
+                if(!isTransparent(x, y)) {
+                    lastVisibleX = x;
+                    break;
+                }
+            }
+
+            if(y != lastVisibleY + 1) {
+                break;
+            }
+        }
+
+        visibleWidth = lastVisibleX + 1 - firstVisibleX;
+        visibleHeight = lastVisibleY + 1 - firstVisibleY;
+
+        return new Area(firstVisibleX, firstVisibleY, visibleWidth, visibleHeight);
+    }
+
+    Point getOrigin() {
+        Area visibleArea = getVisibleArea();
+
+        int originX = this.nx - visibleArea.x;
+        int originY = this.ny - visibleArea.y;
+
+        return new Point(originX, originY);
+    }
+
+    private boolean isTransparent(int x, int y) {
+        byte alpha = getAlphaAsByte(x, y);
+
+        return alpha == 0;
+    }
+
+    public Dimension getDimension() {
+        return new Dimension(width, height);
     }
 }

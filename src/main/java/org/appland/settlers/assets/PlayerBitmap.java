@@ -8,8 +8,6 @@ public class PlayerBitmap extends Bitmap {
     private final PalettedPixelBuffer texturePixelData;
 
     private boolean debug = false;
-    private int nx;
-    private int ny;
     private long length;
 
     public PlayerBitmap(int width, int height, Palette palette, TextureFormat format) {
@@ -25,8 +23,6 @@ public class PlayerBitmap extends Bitmap {
 
         playerBitmap.nx = nx;
         playerBitmap.ny = ny;
-
-        //System.out.println("NOT YET LOADING PLAYER BITMAP");
 
         playerBitmap.loadImageFromData(colorBlock.pixels, starts, absoluteStarts);
 

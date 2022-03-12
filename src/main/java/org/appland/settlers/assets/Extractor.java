@@ -1,21 +1,32 @@
 package org.appland.settlers.assets;
 
+import org.appland.settlers.model.Tree;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
 
+import java.awt.Dimension;
+import java.awt.Point;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import static org.appland.settlers.assets.Direction.*;
+
 public class Extractor {
 
-    private static final String ROMAN_FILE = "BLUEBYTE/SETTLER2/DATA/MBOB/ROM_Y.LST";
-    private static final String MAP_FILE = "BLUEBYTE/SETTLER2/DATA/MAPBOBS.LST";
-    private static final String GREENLAND_TEXTURE_FILE = "BLUEBYTE/SETTLER2/GFX/TEXTURES/TEX5.LBM";
-    private static final String WINTER_TEXTURE_FILE = "BLUEBYTE/SETTLER2/GFX/TEXTURES/TEX7.LBM";
+    private static final String AFRICAN_GRAPHICS_Z = "DATA/MBOB/AFR_Z.LST";
+    private static final String JAPANESE_GRAPHICS_Z = "DATA/MBOB/JAP_Z.LST";
+    private static final String ROMAN_GRAPHICS_Z = "DATA/MBOB/ROM_Z.LST";
+    private static final String VIKING_GRAPHICS_Z = "DATA/MBOB/VIK_Z.LST";
+
+    private static final String ROMAN_FILE = "DATA/MBOB/ROM_Y.LST";
+    private static final String MAP_FILE = "DATA/MAPBOBS.LST";
+    private static final String GREENLAND_TEXTURE_FILE = "GFX/TEXTURES/TEX5.LBM";
+    private static final String WINTER_TEXTURE_FILE = "GFX/TEXTURES/TEX7.LBM";
 
     private static final String DEFAULT_PALETTE = "/home/johan/projects/settlers-image-manager/src/main/resources/default-palette.act";
 
@@ -101,6 +112,19 @@ public class Extractor {
     private static final int TREE_ANIMATION_TYPE_7 = 109;
     private static final int TREE_ANIMATION_TYPE_8 = 124;
     private static final int TREE_ANIMATION_TYPE_9 = 139;
+    private static final int WILD_ANIMAL_FRAMES_PER_ANIMATION = 8;
+    private static final int FOX_WALKING_SOUTH = 601;
+    private static final int RABBIT_WALKING_SOUTH = 525;
+    private static final int STAG_WALKING_SOUTH = 699;
+    private static final int DEER_WALKING_SOUTH = 644;
+    private static final int SHEEP_WALKING_SOUTH = 818;
+    private static final int ICE_BEAR_WALKING_SOUTH = 475;
+    private static final int DEER_2_WALKING_SOUTH = 761;
+    private static final int DUCK = 754;
+    private static final int MINI_FIRE_ANIMATION = 419;
+    private static final int SMALL_FIRE_ANIMATION = 1031;
+    private static final int MEDIUM_FIRE_ANIMATION = 1039;
+    private static final int LARGE_FIRE_ANIMATION = 1047;
 
     @Option(name = "--from-dir", usage = "Asset directory to load from")
     static String fromDir;
@@ -120,11 +144,11 @@ public class Extractor {
         parser.parseArgument(args);
 
         /* Verify that the from and to directories are set correctly */
-        if (!Utils.isValidGameDirectory(fromDir)) {
+/*        if (!Utils.isValidGameDirectory(fromDir)) {
             System.out.println("Invalid game directory specified: " + fromDir);
 
             return;
-        }
+        }*/
 
         if (!Utils.isDirectory(toDir) || !Utils.isEmptyDirectory(toDir)) {
             System.out.println("Must specify an empty directory to extract assets into: " + toDir);
@@ -138,6 +162,244 @@ public class Extractor {
 
         /* Populate nature and gui elements */
         extractor.populateNatureAndUIElements(fromDir, toDir);
+
+        /* Create animations for all workers */
+        extractor.populateWorkers(fromDir, toDir);
+
+        /* Extract flag animation */
+        extractor.populateFlags(fromDir, toDir);
+    }
+
+    private void populateFlags(String fromDir, String toDir) throws InvalidFormatException, UnknownResourceTypeException, InvalidHeaderException, IOException {
+        Map<Nation, List<GameResource>> nationGraphics = new HashMap<>();
+
+        nationGraphics.put(Nation.AFRICANS, assetManager.loadLstFile(fromDir + "/" + AFRICAN_GRAPHICS_Z, defaultPalette));
+        nationGraphics.put(Nation.JAPANESE, assetManager.loadLstFile(fromDir + "/" + JAPANESE_GRAPHICS_Z, defaultPalette));
+        nationGraphics.put(Nation.ROMANS, assetManager.loadLstFile(fromDir + "/" + ROMAN_GRAPHICS_Z, defaultPalette));
+        nationGraphics.put(Nation.VIKINGS, assetManager.loadLstFile(fromDir + "/" + VIKING_GRAPHICS_Z, defaultPalette));
+
+        FlagImageCollection flagImageCollection = new FlagImageCollection();
+
+        for (Nation nation : Nation.values()) {
+            List<GameResource> nationResources = nationGraphics.get(nation);
+
+            Utils.createDirectory(toDir + "/" + nation.name().toLowerCase() + "-flags");
+
+            for (FlagType flagType : FlagType.values()) {
+                for (int animationStep = 0; animationStep < 8; animationStep++) {
+                    int nr = animationStep + 4 + 16 * flagType.ordinal();
+
+                    GameResource flagGameResource = nationResources.get(nr);
+                    GameResource shadowGameResource = nationResources.get(nr + 8);
+
+                    Bitmap flagImage = Utils.getBitmapFromGameResource(flagGameResource);
+                    Bitmap shadowImage = Utils.getBitmapFromGameResource(shadowGameResource);
+
+                    // TODO: combine the flag image with the shadow image
+
+                    if (flagImage == null) {
+                        System.out.println("Failed to load flag for: " + nation + ", " + flagType + ", " + animationStep);
+
+                        continue;
+                    }
+
+                    // Write each individual animation frame as separate files
+                    flagImage.writeToFile(toDir + "/" + nation.name().toLowerCase() + "-flags/" + flagType.name().toLowerCase() + "-" + animationStep + ".png");
+
+                    // Collect the flag images into an image atlas
+                    flagImageCollection.addImageForFlag(nation, flagType, flagImage);
+                }
+            }
+        }
+
+        // Write the image atlas to file - one image file and one json file with meta data
+        flagImageCollection.writeImageAtlas(toDir + "/", defaultPalette);
+    }
+
+    private void populateWorkers(String fromDir, String toDir) throws InvalidFormatException, UnknownResourceTypeException, InvalidHeaderException, IOException {
+
+        /* Load worker image parts */
+        String jobsFilename = fromDir + "DATA/BOBS/JOBS.BOB";
+
+        List<GameResource> workerGameResources = assetManager.loadLstFile(jobsFilename, defaultPalette);
+
+        System.out.println("Loaded worker images");
+        System.out.println(workerGameResources);
+
+        if (workerGameResources.size() != 1) {
+            throw new RuntimeException("Wrong size of game resources in bob file. Must be 1, but was: " + workerGameResources.size());
+        }
+
+        if (! (workerGameResources.get(0) instanceof BobGameResource)) {
+            throw new RuntimeException("Element must be Bob game resource. Was: " + workerGameResources.get(0).getClass().getName());
+        }
+
+        BobGameResource bobGameResource = (BobGameResource) workerGameResources.get(0);
+
+        /* Construct the worker details map */
+        Map<JobType, WorkerDetails> workerDetailsMap = new HashMap<>();
+
+        // FIXME: assume RANGER == FORESTER
+
+        /*
+        * Translate ids:
+        *  - 0 (Africans) -> 3
+        *  - 1 (Japanese) -> 2
+        *  - 2 (Romans)   -> 0
+        *  - 3 (Vikings)  -> 1
+        * */
+
+        workerDetailsMap.put(JobType.HELPER, new WorkerDetails(false, 0));
+        workerDetailsMap.put(JobType.WOODCUTTER, new WorkerDetails(false, 5));
+        workerDetailsMap.put(JobType.FISHER, new WorkerDetails(false, 12));
+        workerDetailsMap.put(JobType.FORESTER, new WorkerDetails(false, 8));
+        workerDetailsMap.put(JobType.CARPENTER, new WorkerDetails(false, 6));
+        workerDetailsMap.put(JobType.STONEMASON, new WorkerDetails(false, 7));
+        workerDetailsMap.put(JobType.HUNTER, new WorkerDetails(false, 20));
+        workerDetailsMap.put(JobType.FARMER, new WorkerDetails(false, 13));
+        workerDetailsMap.put(JobType.MILLER, new WorkerDetails(true, 16));
+        workerDetailsMap.put(JobType.BAKER, new WorkerDetails(true, 17));
+        workerDetailsMap.put(JobType.BUTCHER, new WorkerDetails(false, 15));
+        workerDetailsMap.put(JobType.MINER, new WorkerDetails(false, 10));
+        workerDetailsMap.put(JobType.BREWER, new WorkerDetails(true, 3));
+        workerDetailsMap.put(JobType.PIG_BREEDER, new WorkerDetails(false, 14));
+        workerDetailsMap.put(JobType.DONKEY_BREEDER, new WorkerDetails(false, 24));
+        workerDetailsMap.put(JobType.IRON_FOUNDER, new WorkerDetails(false, 11));
+        workerDetailsMap.put(JobType.MINTER, new WorkerDetails(false, 9));
+        workerDetailsMap.put(JobType.METALWORKER, new WorkerDetails(false, 18));
+        workerDetailsMap.put(JobType.ARMORER, new WorkerDetails(true, 4));
+        workerDetailsMap.put(JobType.BUILDER, new WorkerDetails(false, 23));
+        workerDetailsMap.put(JobType.PLANER, new WorkerDetails(false, 22));
+        workerDetailsMap.put(JobType.PRIVATE, new WorkerDetails(false, -30));
+        workerDetailsMap.put(JobType.PRIVATE_FIRST_CLASS, new WorkerDetails(false, -31));
+        workerDetailsMap.put(JobType.SERGEANT, new WorkerDetails(false, -32));
+        workerDetailsMap.put(JobType.OFFICER, new WorkerDetails(false, -33));
+        workerDetailsMap.put(JobType.GENERAL, new WorkerDetails(false, -34));
+        workerDetailsMap.put(JobType.GEOLOGIST, new WorkerDetails(false, 26));
+        workerDetailsMap.put(JobType.SHIP_WRIGHT, new WorkerDetails(false, 25));
+        workerDetailsMap.put(JobType.SCOUT, new WorkerDetails(false, -35));
+        workerDetailsMap.put(JobType.PACK_DONKEY, new WorkerDetails(false, 37));
+        workerDetailsMap.put(JobType.BOAT_CARRIER, new WorkerDetails(false, 37));
+        workerDetailsMap.put(JobType.CHAR_BURNER, new WorkerDetails(false, 37));
+
+        /* Composite the worker images and animations */
+        Map<JobType, RenderedWorker> renderedWorkers = assetManager.renderWorkerImages(bobGameResource.getBob(), workerDetailsMap);
+
+        for (Nation nation : Nation.values()) {
+            Utils.createDirectory(toDir + "/" + nation.name().toLowerCase() + "-workers");
+
+            for (JobType jobType1 : JobType.values()) {
+                Utils.createDirectory(toDir + "/" + nation.name().toLowerCase() + "-workers/" + jobType1.name().toLowerCase());
+            }
+        }
+
+        for (JobType jobType : JobType.values()) {
+            RenderedWorker renderedWorker = renderedWorkers.get(jobType);
+
+            WorkerImageCollection workerImageCollection = new WorkerImageCollection(jobType.name().toLowerCase());
+
+            for (Nation nation : Nation.values()) {
+                for (Direction direction : Direction.values()) {
+
+                    StackedBitmaps[] stackedBitmaps = renderedWorker.getAnimation(nation, direction);
+
+                    if (stackedBitmaps == null) {
+                        System.out.println("Stacked bitmaps is null");
+                        System.out.println(jobType);
+                        System.out.println(nation);
+                        System.out.println(direction);
+                    }
+
+                    for (int i = 0; i < stackedBitmaps.length; i++) {
+                        StackedBitmaps frame = stackedBitmaps[i];
+
+                        PlayerBitmap body = frame.getBitmaps().get(0);
+                        PlayerBitmap head = frame.getBitmaps().get(1);
+
+                        /* Calculate the dimension */
+                        Point origin = new Point(0, 0);
+                        Dimension size = new Dimension(0, 0);
+
+                        if (!frame.getBitmaps().isEmpty()) {
+
+                            origin.x = Integer.MIN_VALUE;
+                            origin.y = Integer.MIN_VALUE;
+
+                            Point maxPosition = origin;
+
+                            boolean hasPlayer = false;
+
+                            for (Bitmap bitmap : frame.getBitmaps()) {
+
+                                if (bitmap instanceof PlayerBitmap) {
+                                    hasPlayer = true;
+                                }
+
+                                Area bitmapVisibleArea = bitmap.getVisibleArea();
+                                Point bitmapOrigin = bitmap.getOrigin();
+
+                                origin.x = Math.max(origin.x, bitmapOrigin.x);
+                                origin.y = Math.max(origin.y, bitmapOrigin.y);
+
+                                maxPosition.x = Math.max(maxPosition.x, bitmapVisibleArea.width - bitmapOrigin.x);
+                                maxPosition.y = Math.max(maxPosition.y, bitmapVisibleArea.height - bitmapOrigin.y);
+                            }
+
+                            /* Create a bitmap to merge both body and head into */
+                            Bitmap merged = new Bitmap(origin.x + maxPosition.x, origin.y + maxPosition.y, defaultPalette, TextureFormat.BGRA);
+
+                            /* Draw the body */
+                            Area bodyVisibleArea = body.getVisibleArea();
+
+                            Point bodyToUpperleft = new Point(origin.x - body.getOrigin().x, origin.y - body.getOrigin().y);
+                            Point bodyFromUpperLeft = bodyVisibleArea.getUpperLeftCoordinate();
+
+                            merged.copyNonTransparentPixels(body, bodyToUpperleft, bodyFromUpperLeft, bodyVisibleArea.getDimension());
+
+                            /* Draw the head */
+                            Area headVisibleArea = head.getVisibleArea();
+
+                            Point headToUpperLeft = new Point(origin.x - head.getOrigin().x, origin.y - head.getOrigin().y);
+                            Point headFromUpperLeft = headVisibleArea.getUpperLeftCoordinate();
+
+                            merged.copyNonTransparentPixels(head, headToUpperLeft, headFromUpperLeft, headVisibleArea.getDimension());
+
+                            /* Store the image in the worker image collection */
+                            workerImageCollection.addImage(nation, direction, merged);
+
+                            /* Write the merged bitmap to file */
+                            String directionString = getDirectionString(direction);
+
+                            merged.writeToFile(toDir + "/" + nation.name().toLowerCase() + "-workers/" +
+                                    jobType.name().toLowerCase() + "-" + directionString + "-" + i + ".png");
+                        }
+                    }
+                }
+            }
+
+            /* Write the worker's image atlas */
+            workerImageCollection.writeImageAtlas(toDir + "/", defaultPalette);
+        }
+    }
+
+    private String getDirectionString(Direction direction) {
+        String directionString = "unknown";
+
+        switch (direction) {
+            case EAST: directionString = "east";
+                break;
+            case SOUTH_EAST: directionString = "south-east";
+                break;
+            case SOUTH_WEST: directionString = "south-west";
+                break;
+            case WEST: directionString = "west";
+                break;
+            case NORTH_WEST: directionString = "north-west";
+                break;
+            case NORTH_EAST: directionString = "north-east";
+                break;
+        }
+        return directionString;
     }
 
     /**
@@ -322,6 +584,8 @@ public class Extractor {
      * 747         Rain deer killed
      * 748-753     Rain deer shadows
      *
+     * 754-        Duck, east, south-east, south-west, west, north-west, north-east,
+     *
      * 761-808     Horse animated ...
      *
      * 812-817     Donkey bags ...
@@ -329,6 +593,8 @@ public class Extractor {
      * 818-829     Sheep animated ...
      *
      * 832-843     Pig animated ...
+     *
+     * 844-891     Smaller pig (?) animated
      *
      * ...
      *
@@ -369,6 +635,7 @@ public class Extractor {
 
         Utils.createDirectory(uiDir);
         Utils.createDirectory(natureDir);
+        Utils.createDirectory(natureDir + "/animals");
         Utils.createDirectory(signDir);
         Utils.createDirectory(terrainDir);
         Utils.createDirectory(greenlandDir);
@@ -428,7 +695,29 @@ public class Extractor {
         imagesToFileMap.put(FALLEN_DEAD_TREE, natureDir + "/fallen-dead-tree.png");
         imagesToFileMap.put(DEAD_TREE, natureDir + "/dead-tree.png");
 
-        /* Extract animation for tree type 1 in wind */
+        /* Extract mini fire animation */
+        for (int i = 0; i < 8; i++) {
+            imagesToFileMap.put(MINI_FIRE_ANIMATION + i, natureDir + "/mini-fire-" + i + ".png");
+        }
+
+        /* Extract small fire animation */
+        for (int i = 0; i < 8; i++) {
+            imagesToFileMap.put(SMALL_FIRE_ANIMATION + i, natureDir + "/small-fire-" + i + ".png");
+        }
+
+        /* Extract medium fire animation */
+        for (int i = 0; i < 8; i++) {
+            imagesToFileMap.put(MEDIUM_FIRE_ANIMATION + i, natureDir + "/medium-fire-" + i + ".png");
+        }
+
+        /* Extract large fire animation */
+        for (int i = 0; i < 8; i++) {
+            imagesToFileMap.put(LARGE_FIRE_ANIMATION + i, natureDir + "/large-fire-" + i + ".png");
+        }
+
+        TreeImageCollection treeImageCollection = new TreeImageCollection("trees");
+
+        /* Extract animation for tree type 1 in wind -- cypress (?) */
         imagesToFileMap.put(TREE_ANIMATION_TYPE_1, natureDir + "/tree-type-1-animation-0.png");
         imagesToFileMap.put(TREE_ANIMATION_TYPE_1 + 1, natureDir + "/tree-type-1-animation-1.png");
         imagesToFileMap.put(TREE_ANIMATION_TYPE_1 + 2, natureDir + "/tree-type-1-animation-2.png");
@@ -438,7 +727,9 @@ public class Extractor {
         imagesToFileMap.put(TREE_ANIMATION_TYPE_1 + 6, natureDir + "/tree-type-1-animation-6.png");
         imagesToFileMap.put(TREE_ANIMATION_TYPE_1 + 7, natureDir + "/tree-type-1-animation-7.png");
 
-        /* Extract animation for tree type 2 in wind */
+        treeImageCollection.addImagesForTree(Tree.TreeType.CYPRESS, getImagesFromResourceLocations(gameResourceList, TREE_ANIMATION_TYPE_1, 8));
+
+        /* Extract animation for tree type 2 in wind -- birch, for sure */
         imagesToFileMap.put(TREE_ANIMATION_TYPE_2, natureDir + "/tree-type-2-animation-0.png");
         imagesToFileMap.put(TREE_ANIMATION_TYPE_2 + 1, natureDir + "/tree-type-2-animation-1.png");
         imagesToFileMap.put(TREE_ANIMATION_TYPE_2 + 2, natureDir + "/tree-type-2-animation-2.png");
@@ -448,7 +739,9 @@ public class Extractor {
         imagesToFileMap.put(TREE_ANIMATION_TYPE_2 + 6, natureDir + "/tree-type-2-animation-6.png");
         imagesToFileMap.put(TREE_ANIMATION_TYPE_2 + 7, natureDir + "/tree-type-2-animation-7.png");
 
-        /* Extract animation for tree type 3 in wind */
+        treeImageCollection.addImagesForTree(Tree.TreeType.BIRCH, getImagesFromResourceLocations(gameResourceList, TREE_ANIMATION_TYPE_2, 8));
+
+        /* Extract animation for tree type 3 in wind -- oak */
         imagesToFileMap.put(TREE_ANIMATION_TYPE_3, natureDir + "/tree-type-3-animation-0.png");
         imagesToFileMap.put(TREE_ANIMATION_TYPE_3 + 1, natureDir + "/tree-type-3-animation-1.png");
         imagesToFileMap.put(TREE_ANIMATION_TYPE_3 + 2, natureDir + "/tree-type-3-animation-2.png");
@@ -458,7 +751,9 @@ public class Extractor {
         imagesToFileMap.put(TREE_ANIMATION_TYPE_3 + 6, natureDir + "/tree-type-3-animation-6.png");
         imagesToFileMap.put(TREE_ANIMATION_TYPE_3 + 7, natureDir + "/tree-type-3-animation-7.png");
 
-        /* Extract animation for tree type 4 in wind */
+        treeImageCollection.addImagesForTree(Tree.TreeType.OAK, getImagesFromResourceLocations(gameResourceList, TREE_ANIMATION_TYPE_3, 8));
+
+        /* Extract animation for tree type 4 in wind -- short palm */
         imagesToFileMap.put(TREE_ANIMATION_TYPE_4, natureDir + "/tree-type-4-animation-0.png");
         imagesToFileMap.put(TREE_ANIMATION_TYPE_4 + 1, natureDir + "/tree-type-4-animation-1.png");
         imagesToFileMap.put(TREE_ANIMATION_TYPE_4 + 2, natureDir + "/tree-type-4-animation-2.png");
@@ -468,7 +763,9 @@ public class Extractor {
         imagesToFileMap.put(TREE_ANIMATION_TYPE_4 + 6, natureDir + "/tree-type-4-animation-6.png");
         imagesToFileMap.put(TREE_ANIMATION_TYPE_4 + 7, natureDir + "/tree-type-4-animation-7.png");
 
-        /* Extract animation for tree type 5 in wind */
+        treeImageCollection.addImagesForTree(Tree.TreeType.PALM_1, getImagesFromResourceLocations(gameResourceList, TREE_ANIMATION_TYPE_4, 8));
+
+        /* Extract animation for tree type 5 in wind -- tall palm */
         imagesToFileMap.put(TREE_ANIMATION_TYPE_5, natureDir + "/tree-type-5-animation-0.png");
         imagesToFileMap.put(TREE_ANIMATION_TYPE_5 + 1, natureDir + "/tree-type-5-animation-1.png");
         imagesToFileMap.put(TREE_ANIMATION_TYPE_5 + 2, natureDir + "/tree-type-5-animation-2.png");
@@ -478,7 +775,9 @@ public class Extractor {
         imagesToFileMap.put(TREE_ANIMATION_TYPE_5 + 6, natureDir + "/tree-type-5-animation-6.png");
         imagesToFileMap.put(TREE_ANIMATION_TYPE_5 + 7, natureDir + "/tree-type-5-animation-7.png");
 
-        /* Extract animation for tree type 6 in wind */
+        treeImageCollection.addImagesForTree(Tree.TreeType.PALM_2, getImagesFromResourceLocations(gameResourceList, TREE_ANIMATION_TYPE_5, 8));
+
+        /* Extract animation for tree type 6 in wind -- fat palm - pine apple*/
         imagesToFileMap.put(TREE_ANIMATION_TYPE_6, natureDir + "/tree-type-6-animation-0.png");
         imagesToFileMap.put(TREE_ANIMATION_TYPE_6 + 1, natureDir + "/tree-type-6-animation-1.png");
         imagesToFileMap.put(TREE_ANIMATION_TYPE_6 + 2, natureDir + "/tree-type-6-animation-2.png");
@@ -488,7 +787,9 @@ public class Extractor {
         imagesToFileMap.put(TREE_ANIMATION_TYPE_6 + 6, natureDir + "/tree-type-6-animation-6.png");
         imagesToFileMap.put(TREE_ANIMATION_TYPE_6 + 7, natureDir + "/tree-type-6-animation-7.png");
 
-        /* Extract animation for tree type 7 in wind */
+        treeImageCollection.addImagesForTree(Tree.TreeType.PINE_APPLE, getImagesFromResourceLocations(gameResourceList, TREE_ANIMATION_TYPE_6, 8));
+
+        /* Extract animation for tree type 7 in wind -- pine */
         imagesToFileMap.put(TREE_ANIMATION_TYPE_7, natureDir + "/tree-type-7-animation-0.png");
         imagesToFileMap.put(TREE_ANIMATION_TYPE_7 + 1, natureDir + "/tree-type-7-animation-1.png");
         imagesToFileMap.put(TREE_ANIMATION_TYPE_7 + 2, natureDir + "/tree-type-7-animation-2.png");
@@ -498,7 +799,9 @@ public class Extractor {
         imagesToFileMap.put(TREE_ANIMATION_TYPE_7 + 6, natureDir + "/tree-type-7-animation-6.png");
         imagesToFileMap.put(TREE_ANIMATION_TYPE_7 + 7, natureDir + "/tree-type-7-animation-7.png");
 
-        /* Extract animation for tree type 8 in wind */
+        treeImageCollection.addImagesForTree(Tree.TreeType.PINE, getImagesFromResourceLocations(gameResourceList, TREE_ANIMATION_TYPE_7, 8));
+
+        /* Extract animation for tree type 8 in wind -- cherry */
         imagesToFileMap.put(TREE_ANIMATION_TYPE_8, natureDir + "/tree-type-8-animation-0.png");
         imagesToFileMap.put(TREE_ANIMATION_TYPE_8 + 1, natureDir + "/tree-type-8-animation-1.png");
         imagesToFileMap.put(TREE_ANIMATION_TYPE_8 + 2, natureDir + "/tree-type-8-animation-2.png");
@@ -508,7 +811,9 @@ public class Extractor {
         imagesToFileMap.put(TREE_ANIMATION_TYPE_8 + 6, natureDir + "/tree-type-8-animation-6.png");
         imagesToFileMap.put(TREE_ANIMATION_TYPE_8 + 7, natureDir + "/tree-type-8-animation-7.png");
 
-        /* Extract animation for tree type 9 in wind */
+        treeImageCollection.addImagesForTree(Tree.TreeType.CHERRY, getImagesFromResourceLocations(gameResourceList, TREE_ANIMATION_TYPE_8, 8));
+
+        /* Extract animation for tree type 9 in wind -- fir (?) */
         imagesToFileMap.put(TREE_ANIMATION_TYPE_9, natureDir + "/tree-type-9-animation-0.png");
         imagesToFileMap.put(TREE_ANIMATION_TYPE_9 + 1, natureDir + "/tree-type-9-animation-1.png");
         imagesToFileMap.put(TREE_ANIMATION_TYPE_9 + 2, natureDir + "/tree-type-9-animation-2.png");
@@ -518,7 +823,127 @@ public class Extractor {
         imagesToFileMap.put(TREE_ANIMATION_TYPE_9 + 6, natureDir + "/tree-type-9-animation-6.png");
         imagesToFileMap.put(TREE_ANIMATION_TYPE_9 + 7, natureDir + "/tree-type-9-animation-7.png");
 
+        treeImageCollection.addImagesForTree(Tree.TreeType.FIR, getImagesFromResourceLocations(gameResourceList, TREE_ANIMATION_TYPE_9, 8));
+
+        treeImageCollection.writeImageAtlas(natureDir, defaultPalette);
+
+        /* Extract animal animations */
+        AnimalImageCollection iceBearImageCollection = new AnimalImageCollection("ice-bear");
+        AnimalImageCollection foxImageCollection = new AnimalImageCollection("fox");
+        AnimalImageCollection rabbitImageCollection = new AnimalImageCollection("rabbit");
+        AnimalImageCollection stagImageCollection = new AnimalImageCollection("stag");
+        AnimalImageCollection deerImageCollection = new AnimalImageCollection("deer");
+        AnimalImageCollection sheepImageCollection = new AnimalImageCollection("sheep");
+        AnimalImageCollection deer2ImageCollection = new AnimalImageCollection("deer2");
+        AnimalImageCollection duckImageCollection = new AnimalImageCollection("duck");
+
+        for (Direction direction : Direction.values()) {
+
+            String directionString = getDirectionString(direction);
+
+            /* Ice bear */
+            for (int i = 0; i < WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
+                int index = ICE_BEAR_WALKING_SOUTH + WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
+                String filename = natureDir + "/animals/ice-bear-" + directionString + "-" + i + ".png";
+
+                imagesToFileMap.put(index, filename);
+
+                Bitmap image = getImageFromResourceLocation(gameResourceList, index);
+                iceBearImageCollection.addImage(direction, image);
+            }
+
+            /* Fox */
+            for (int i = 0; i < WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
+                int index = FOX_WALKING_SOUTH + WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
+                String filename = natureDir + "/animals/fox-" + directionString + "-" + i + ".png";
+
+                imagesToFileMap.put(index, filename);
+
+                Bitmap image = getImageFromResourceLocation(gameResourceList, index);
+                foxImageCollection.addImage(direction, image);
+            }
+
+            /* Rabbit */
+            for (int i = 0; i < WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
+                int index = RABBIT_WALKING_SOUTH + WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
+                String filename = natureDir + "/animals/rabbit-" + directionString + "-" + i + ".png";
+
+                imagesToFileMap.put(index, filename);
+
+                Bitmap image = getImageFromResourceLocation(gameResourceList, index);
+                rabbitImageCollection.addImage(direction, image);
+            }
+
+            /* Stag */
+            for (int i = 0; i < WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
+                int index = STAG_WALKING_SOUTH + WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
+                String filename = natureDir + "/animals/stag-" + directionString + "-" + i + ".png";
+
+                imagesToFileMap.put(index, filename);
+
+                Bitmap image = getImageFromResourceLocation(gameResourceList, index);
+                stagImageCollection.addImage(direction, image);
+            }
+
+            /* Deer */
+            for (int i = 0; i < WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
+                int index = DEER_WALKING_SOUTH + WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
+                String filename = natureDir + "/animals/deer-" + directionString + "-" + i + ".png";
+
+                imagesToFileMap.put(index, filename);
+
+                Bitmap image = getImageFromResourceLocation(gameResourceList, index);
+                deerImageCollection.addImage(direction, image);
+            }
+
+            /* Sheep */
+            for (int i = 0; i < 2; i++) {
+                int index = SHEEP_WALKING_SOUTH + 2 * direction.ordinal() + i;
+                String filename = natureDir + "/animals/sheep-" + directionString + "-" + i + ".png";
+
+                imagesToFileMap.put(index, filename);
+
+                Bitmap image = getImageFromResourceLocation(gameResourceList, index);
+                sheepImageCollection.addImage(direction, image);
+            }
+
+            /* Deer 2 (horse?) */
+            for (int i = 0; i < WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
+                int index = DEER_2_WALKING_SOUTH + WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
+                String filename = natureDir + "/animals/deer-2-" + directionString + "-" + i + ".png";
+
+                imagesToFileMap.put(index, filename);
+
+                Bitmap image = getImageFromResourceLocation(gameResourceList, index);
+                deer2ImageCollection.addImage(direction, image);
+            }
+        }
+
+        /* Extract duck */
+        imagesToFileMap.put(DUCK, natureDir + "/animals/duck-east-0.png");
+        imagesToFileMap.put(DUCK + 1, natureDir + "/animals/duck-south-east-0.png");
+        imagesToFileMap.put(DUCK + 2, natureDir + "/animals/duck-south-west-0.png");
+        imagesToFileMap.put(DUCK + 3, natureDir + "/animals/duck-west-0.png");
+        imagesToFileMap.put(DUCK + 4, natureDir + "/animals/duck-north-west-0.png");
+        imagesToFileMap.put(DUCK + 5, natureDir + "/animals/duck-north-east-0.png");
+
+        duckImageCollection.addImage(EAST, getImageFromResourceLocation(gameResourceList, DUCK));
+        duckImageCollection.addImage(SOUTH_EAST, getImageFromResourceLocation(gameResourceList, DUCK + 1));
+        duckImageCollection.addImage(SOUTH_WEST, getImageFromResourceLocation(gameResourceList, DUCK + 2));
+        duckImageCollection.addImage(WEST, getImageFromResourceLocation(gameResourceList, DUCK + 3));
+        duckImageCollection.addImage(NORTH_WEST, getImageFromResourceLocation(gameResourceList, DUCK + 4));
+        duckImageCollection.addImage(NORTH_EAST, getImageFromResourceLocation(gameResourceList, DUCK + 5));
+
         writeFilesFromMap(gameResourceList, imagesToFileMap);
+
+        iceBearImageCollection.writeImageAtlas(natureDir + "/animals/", defaultPalette);
+        foxImageCollection.writeImageAtlas(natureDir + "/animals/", defaultPalette);
+        rabbitImageCollection.writeImageAtlas(natureDir + "/animals/", defaultPalette);
+        stagImageCollection.writeImageAtlas(natureDir + "/animals/", defaultPalette);
+        deerImageCollection.writeImageAtlas(natureDir + "/animals/", defaultPalette);
+        sheepImageCollection.writeImageAtlas(natureDir + "/animals/", defaultPalette);
+        deer2ImageCollection.writeImageAtlas(natureDir + "/animals/", defaultPalette);
+        duckImageCollection.writeImageAtlas(natureDir + "/animals/", defaultPalette);
     }
 
     private void extractWinterTerrain(String winterDir, Bitmap winterTextureBitmap) throws IOException {
@@ -951,6 +1376,155 @@ public class Extractor {
         imagesToFileMap.put(CONSTRUCTION_JUST_STARTED_INDEX, BUILDINGS_DIR + "/construction-started-sign.png");
 
         writeFilesFromMap(gameResourceList, imagesToFileMap);
+
+        // Create the image atlas
+        Map<Nation, String> nationsAndBobFiles = new HashMap<>();
+
+        nationsAndBobFiles.put(Nation.ROMANS, "DATA/MBOB/ROM_Y.LST");
+        nationsAndBobFiles.put(Nation.JAPANESE, "DATA/MBOB/JAP_Y.LST");
+        nationsAndBobFiles.put(Nation.AFRICANS, "DATA/MBOB/AFR_Y.LST");
+        nationsAndBobFiles.put(Nation.VIKINGS, "DATA/MBOB/VIK_Y.LST");
+
+        BuildingsImageCollection buildingsImageCollection = new BuildingsImageCollection();
+
+        for (Entry<Nation, String> entry : nationsAndBobFiles.entrySet()) {
+            Nation nation = entry.getKey();
+            String filename = fromDir + "/" + entry.getValue();
+
+            List<GameResource> nationResourceList = assetManager.loadLstFile(filename, defaultPalette);
+
+            buildingsImageCollection.addBuildingForNation(nation, "Headquarter", getImageFromResourceLocation(nationResourceList, HEADQUARTER_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Headquarter", getImageFromResourceLocation(nationResourceList, HEADQUARTER_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "Barracks", getImageFromResourceLocation(nationResourceList, BARRACKS_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Barracks", getImageFromResourceLocation(nationResourceList, BARRACKS_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "GuardHouse", getImageFromResourceLocation(nationResourceList, GUARDHOUSE_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "GuardHouse", getImageFromResourceLocation(nationResourceList, GUARDHOUSE_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "WatchTower", getImageFromResourceLocation(nationResourceList, WATCHTOWER_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "WatchTower", getImageFromResourceLocation(nationResourceList, WATCHTOWER_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "Fortress", getImageFromResourceLocation(nationResourceList, FORTRESS_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Fortress", getImageFromResourceLocation(nationResourceList, FORTRESS_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "GraniteMine", getImageFromResourceLocation(nationResourceList, GRANITE_MINE_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "GraniteMine", getImageFromResourceLocation(nationResourceList, GRANITE_MINE_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "CoalMine", getImageFromResourceLocation(nationResourceList, COAL_MINE_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "CoalMine", getImageFromResourceLocation(nationResourceList, COAL_MINE_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "IronMine", getImageFromResourceLocation(nationResourceList, IRON_MINE_RESOURCE));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "IronMine", getImageFromResourceLocation(nationResourceList, IRON_MINE_RESOURCE + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "GoldMine", getImageFromResourceLocation(nationResourceList, GOLD_MINE_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "GoldMine", getImageFromResourceLocation(nationResourceList, GOLD_MINE_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "LookoutTower", getImageFromResourceLocation(nationResourceList, LOOKOUT_TOWER_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "LookoutTower", getImageFromResourceLocation(nationResourceList, LOOKOUT_TOWER_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "Catapult", getImageFromResourceLocation(nationResourceList, CATAPULT_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Catapult", getImageFromResourceLocation(nationResourceList, CATAPULT_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "Woodcutter", getImageFromResourceLocation(nationResourceList, WOODCUTTER_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Woodcutter", getImageFromResourceLocation(nationResourceList, WOODCUTTER_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "Fishery", getImageFromResourceLocation(nationResourceList, FISHERY_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Fishery", getImageFromResourceLocation(nationResourceList, FISHERY_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "Quarry", getImageFromResourceLocation(nationResourceList, QUARRY_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Quarry", getImageFromResourceLocation(nationResourceList, QUARRY_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "ForesterHut", getImageFromResourceLocation(nationResourceList, FORESTER_HUT_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "ForesterHut", getImageFromResourceLocation(nationResourceList, FORESTER_HUT_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "SlaughterHouse", getImageFromResourceLocation(nationResourceList, SLAUGHTER_HOUSE_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "SlaughterHouse", getImageFromResourceLocation(nationResourceList, SLAUGHTER_HOUSE_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "HunterHut", getImageFromResourceLocation(nationResourceList, HUNTER_HUT_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "HunterHut", getImageFromResourceLocation(nationResourceList, HUNTER_HUT_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "Brewery", getImageFromResourceLocation(nationResourceList, BREWERY_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Brewery", getImageFromResourceLocation(nationResourceList, BREWERY_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "Armory", getImageFromResourceLocation(nationResourceList, ARMORY_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Armory", getImageFromResourceLocation(nationResourceList, ARMORY_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "Metalworks", getImageFromResourceLocation(nationResourceList, METALWORKS_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Metalworks", getImageFromResourceLocation(nationResourceList, METALWORKS_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "IronSmelter", getImageFromResourceLocation(nationResourceList, IRON_SMELTER_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "IronSmelter", getImageFromResourceLocation(nationResourceList, IRON_SMELTER_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "PigFarm", getImageFromResourceLocation(nationResourceList, PIG_FARM_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "PigFarm", getImageFromResourceLocation(nationResourceList, PIG_FARM_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "Storehouse", getImageFromResourceLocation(nationResourceList, STOREHOUSE_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Storehouse", getImageFromResourceLocation(nationResourceList, STOREHOUSE_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "Mill", getImageFromResourceLocation(nationResourceList, MILL_NO_FAN_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Mill", getImageFromResourceLocation(nationResourceList, MILL_NO_FAN_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "Bakery", getImageFromResourceLocation(nationResourceList, BAKERY_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Bakery", getImageFromResourceLocation(nationResourceList, BAKERY_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "Sawmill", getImageFromResourceLocation(nationResourceList, SAWMILL_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Sawmill", getImageFromResourceLocation(nationResourceList, SAWMILL_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "Mint", getImageFromResourceLocation(nationResourceList, MINT_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Mint", getImageFromResourceLocation(nationResourceList, MINT_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "Well", getImageFromResourceLocation(nationResourceList, WELL_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Well", getImageFromResourceLocation(nationResourceList, WELL_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "Shipyard", getImageFromResourceLocation(nationResourceList, SHIPYARD_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Shipyard", getImageFromResourceLocation(nationResourceList, SHIPYARD_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "Farm", getImageFromResourceLocation(nationResourceList, FARM_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Farm", getImageFromResourceLocation(nationResourceList, FARM_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "DonkeyBreeder", getImageFromResourceLocation(nationResourceList, DONKEY_BREEDER_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "DonkeyBreeder", getImageFromResourceLocation(nationResourceList, DONKEY_BREEDER_INDEX + 2));
+
+            buildingsImageCollection.addBuildingForNation(nation, "Harbor", getImageFromResourceLocation(nationResourceList, HARBOR_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Harbor", getImageFromResourceLocation(nationResourceList, HARBOR_INDEX + 2));
+
+            buildingsImageCollection.addConstructionPlanned(nation, getImageFromResourceLocation(nationResourceList, CONSTRUCTION_PLANNED_INDEX));
+            buildingsImageCollection.addConstructionJustStarted(nation, getImageFromResourceLocation(nationResourceList, CONSTRUCTION_JUST_STARTED_INDEX + 2));
+        }
+
+        buildingsImageCollection.writeImageAtlas(toDir + "/", defaultPalette);
+    }
+
+    private List<Bitmap> getImagesFromResourceLocations(List<GameResource> gameResourceList, int startLocation, int amount) {
+        List<Bitmap> images = new ArrayList<>();
+
+        for (int i = 0; i < amount; i++) {
+            images.add(getImageFromResourceLocation(gameResourceList, startLocation + i));
+        }
+
+        return images;
+    }
+
+    private Bitmap getImageFromResourceLocation(List<GameResource> gameResourceList, int location) {
+        GameResource gameResource = gameResourceList.get(location);
+
+        switch (gameResource.getType()) {
+            case BITMAP_RLE:
+                BitmapRLEResource headquarterRLEBitmapResource = (BitmapRLEResource) gameResource;
+                return headquarterRLEBitmapResource.getBitmap();
+
+            case PLAYER_BITMAP_RESOURCE:
+                PlayerBitmapResource playerBitmapResource = (PlayerBitmapResource) gameResource;
+                return playerBitmapResource.getBitmap();
+
+            case BITMAP_RESOURCE:
+                BitmapResource bitmapResource = (BitmapResource) gameResource;
+                return bitmapResource.getBitmap();
+
+            default:
+                throw new RuntimeException("CANNOT HANDLE " + gameResource.getClass());
+        }
     }
 
     private void writeFilesFromMap(List<GameResource> gameResourceList, Map<Integer, String> imagesToFileMap) throws IOException {
@@ -958,14 +1532,24 @@ public class Extractor {
             GameResource gameResource = gameResourceList.get(entry.getKey());
             String outFilename = entry.getValue();
 
-            if (gameResource instanceof BitmapRLEResource) {
-                BitmapRLEResource headquarterRLEBitmapResource = (BitmapRLEResource) gameResource;
-                headquarterRLEBitmapResource.getBitmap().writeToFile(outFilename);
-            } else if (gameResource instanceof PlayerBitmapResource){
-                PlayerBitmapResource playerBitmapResource = (PlayerBitmapResource) gameResource;
-                playerBitmapResource.getBitmap().writeToFile(outFilename);
-            } else {
-                throw new RuntimeException("CANNOT HANDLE " + gameResource.getClass());
+            switch (gameResource.getType()) {
+                case BITMAP_RLE:
+                    BitmapRLEResource headquarterRLEBitmapResource = (BitmapRLEResource) gameResource;
+                    headquarterRLEBitmapResource.getBitmap().writeToFile(outFilename);
+                    break;
+
+                case PLAYER_BITMAP_RESOURCE:
+                    PlayerBitmapResource playerBitmapResource = (PlayerBitmapResource) gameResource;
+                    playerBitmapResource.getBitmap().writeToFile(outFilename);
+                    break;
+
+                case BITMAP_RESOURCE:
+                    BitmapResource bitmapResource = (BitmapResource) gameResource;
+                    bitmapResource.getBitmap().writeToFile(outFilename);
+                    break;
+
+                default:
+                    throw new RuntimeException("CANNOT HANDLE " + gameResource.getClass());
             }
         }
     }

@@ -40,6 +40,7 @@ public class AssetManager {
 
     // int16 + uint 16 + uint 16 + uint 32
     private static final int TEXT_FILE_HEADER_SIZE = 2 + 2 + 2 + 4;
+    private static final Object JOB_FILE = "/media/johan/bb340575-f0b7-4908-abfe-a4a296dc355c1/Spel/BLUEBYTE/SETTLER2/DATA/BOBS/JOBS.BOB";
 
     private final TextureFormat globalTextureFormat = TextureFormat.BGRA;
 
@@ -356,7 +357,7 @@ public class AssetManager {
                 // size = fileSize - headerSize
             }
 
-            if (size < count * SIZE_OF_UINT32) {
+            if (size < (long) count * SIZE_OF_UINT32) {
                 throw new InvalidFormatException("Size must be less that count * 4 (" + count * SIZE_OF_UINT32 + "). Not " + size);
             }
 
@@ -463,16 +464,16 @@ public class AssetManager {
         int height = streamReader.getUint16();
 
         /* Verify that the length is correct */
-        if (length != width * height) {
+        if (length != (long) width * height) {
             throw new InvalidFormatException("Length (" + length + ") must equal width (" + width + ") * height (" + height + ")");
         }
 
         // Guess at source format
         TextureFormat sourceFormat;
 
-        if (length == width * height * 4) {
+        if (length == (long) width * height * 4) {
             sourceFormat = TextureFormat.BGRA;
-        } else if (length == width * height) {
+        } else if (length == (long) width * height) {
             sourceFormat = TextureFormat.PALETTED;
         } else {
             throw new RuntimeException("Unknown source format!");
@@ -606,7 +607,7 @@ public class AssetManager {
             throw new RuntimeException("Not implemented support for empty images");
         }
 
-        long position = height * 2;
+        long position = height * 2L;
         Bitmap bitmap = new Bitmap(width, height, palette, TextureFormat.BGRA);
 
         for (int y = 0; y < height; y++) {
@@ -971,7 +972,7 @@ public class AssetManager {
                     System.out.println(" Chunk length: " + chunkLength);
                 }
 
-                if (numberTimbres * 2 + 2 != chunkLength) {
+                if (numberTimbres * 2L + 2 != chunkLength) {
                     throw new InvalidFormatException("Chunk length must match number timbres (" + numberTimbres + ") * 2 + 2. Not " + chunkLength);
                 }
 
@@ -1127,7 +1128,7 @@ public class AssetManager {
 
                 int numberTimbres = streamReaderBigEndian.getUint16();
 
-                if (numberTimbres * 2 + 2 != chunkLength) {
+                if (numberTimbres * 2L + 2 != chunkLength) {
                     throw new InvalidFormatException("Chunk length must match number timbres (" + numberTimbres + ") * 2 + 2. Not " + chunkLength);
                 }
 
@@ -1365,7 +1366,7 @@ public class AssetManager {
         long length = streamReader.getUint32();
 
         /* Verify that length is not too short */
-        if (length <= (height * 2)) {
+        if (length <= (height * 2L)) {
             throw new InvalidFormatException("Length (" + length + ") must be larger than height (" + height + ") * 2");
         }
 
@@ -1529,7 +1530,7 @@ public class AssetManager {
         }
 
         if (numberColorsUsed == 0) {
-            numberColorsUsed = 1 << bitsPerPixel; // bmih.clrused = 1u << uint32_t(bmih.bpp); // 2^n
+            numberColorsUsed = 1L << bitsPerPixel; // bmih.clrused = 1u << uint32_t(bmih.bpp); // 2^n
 
             if (debug) {
                 System.out.println(" ---- 2^" + bitsPerPixel + " = " + numberColorsUsed);
@@ -1572,7 +1573,7 @@ public class AssetManager {
 
         int sourceBytesPerPixel = bitsPerPixel / 8;
 
-        long rowSize = (int)Math.ceil((bitsPerPixel * width) / 32) * 4;
+        long rowSize = (int)Math.ceil((bitsPerPixel * width) / 32) * 4L;
 
         if (debug) {
             System.out.println(" ---- Calculated row size: " + rowSize);
@@ -1797,7 +1798,7 @@ public class AssetManager {
                 // if bitmap == null, invalid format palette missing
 
                 if (compression == 0) {
-                    if (chunkLength != width * height) {
+                    if (chunkLength != (long) width * height) {
                         throw new InvalidFormatException("Length must match width x height (" + width + "x" + height + ". Not " + chunkLength);
                     }
 
@@ -2048,5 +2049,195 @@ public class AssetManager {
             default:
                 throw new RuntimeException("Not implemented yet. " + resourceType);
         }
+    }
+
+    /**
+     * JOBS.BOB
+     * SLIM GUY (no head)
+     * 0-7   - Walk east
+     * 8-15  - Walk north east
+     * 16-23 - Walk south west
+     * 24-31 - Walk west
+     * 32-39 - Walk north west
+     * 40-47 - Walk east (south east?)
+     *
+     * FAT GUY (no head)
+     * 48-55 - Walk east
+     * 56-63 - Walk north east (?)
+     * 64-71 - Walk south west
+     * 72-79 - Walk west
+     * 80-87 - Walk north west
+     * 88-95 - Walk south east
+     *
+     * HEAD 1
+     * 96 - East
+     * 97 - South east (?)
+     * 98 - South west
+     * 99 - West
+     * 100 - North west
+     * 101 - North east
+     *
+     * HEAD 2
+     * 102 - East
+     * 103 - South east
+     * 104 - South west
+     * 105 - West
+     * 106 - North west
+     * 107 - North east
+     *
+     * HEAD 3
+     * 108 - East
+     * 109 - South east
+     * 110 - South west
+     * 111 - West
+     * 112 - North west
+     * 113 - North east
+     *
+     * HEAD 4
+     * 114 - East
+     * 115 - South east
+     * 116 - South west
+     * 117 - West
+     * 118 - North west
+     * 119 - North east
+     *
+     * HEAD 5
+     * 120 - East
+     * 121 - South east
+     * 122 - South west
+     * 123 - West
+     * 124 - North west
+     * 125 - North east
+     *
+     * HEAD 6
+     * 126 - East
+     * 127 - South east
+     * 128 - South west
+     * 129 - West
+     * 130 - North west
+     * 131 - North east
+     *
+     * HEAD 7
+     * 132-137 - E, SE, SW, W, NW, NE
+     *
+     * HEAD 8
+     * 138-142 - E, SE, SW, (W missing) NW, NE
+     *
+     * HEAD 9
+     * 143-148 - E, SE, SW, W, NW, NE
+     *
+     * HEAD 10
+     * 149-152 - E, SE, W, NE
+     *
+     * HEAD 11
+     * 153-156 - E, SE, W, NE
+     *
+     * HEAD 12
+     * 157-158 - E, NE
+     *
+     * HEAD 13
+     * 159-162 - E, SE, NW, NE
+     *
+     * HEAD 14
+     * 163-167 - E, SE, SW, NW, NE
+     *
+     * HEAD 15
+     * 168-172 - E, SE, W, NW, NE
+     *
+     * HEAD 16
+     * 173-178 - E, SE, SW, W, NW, NE
+     *
+     * HEAD 17
+     * 179-184 - E, SE, SW, W, NW, NE
+     *
+     * VERY MINOR DETAIL (overlay?)
+     * 185-189
+     *
+     * HEAD 18
+     * 190-195 - E, SE, SW, W, NW, NE
+     *
+     * HEAD 19
+     * 196-201 - E, SE, SW, W, NW, NE
+     *
+     * HEAD 20
+     * 202-207 - E, SE, SW, W, NW, NE
+     *
+     * HEAD 21
+     * 208-213 - E, SE, SW, W, NW, NE
+     *
+     * ... more heads ...
+     *
+     * HEAD WITH AXE OR HAMMER
+     * 278-283 - E, SE, SW, W, NW, NE
+     *
+     * ...
+     *
+     * WOODCUTTER HEAD
+     * 310-315 - E, SE, SW, W, NW, NE
+     * 316-17 - W - animation(?)
+     *
+     * ... more heads and sometimes bit of body ...
+     *
+     * MILITARY
+     * 859-906 - Roman private (?)
+     * 907-1098 - Other roman soldiers
+     * 1099-1338 - Viking soldiers
+     * 1339-1626 - Japanese soldiers
+     * 1627-1962 - African soldiers (?)
+     *
+     *
+     * @param jobsBob
+     * @param workerDetailsMap
+     * @return
+     */
+    public Map<JobType, RenderedWorker> renderWorkerImages(Bob jobsBob, Map<JobType, WorkerDetails> workerDetailsMap) {
+        Map<JobType, RenderedWorker> workerImages = new HashMap<>();
+
+        /* Go through each job type */
+        for (JobType job : JobType.values()) {
+            RenderedWorker worker = new RenderedWorker(job);
+
+            for (Nation nation : Nation.values()) {
+                for (Direction direction : Direction.values()) {
+
+                    for (int animationStep = 0; animationStep < 8; animationStep++) {
+                        boolean fat;
+                        int id;
+
+                        WorkerDetails workerDetails = workerDetailsMap.get(job);
+
+                        id = workerDetails.getBobId(nation);
+                        fat = workerDetails.isFat();
+
+                        StackedBitmaps bitmaps = new StackedBitmaps();
+
+                        bitmaps.add(jobsBob.getBody(fat, direction.ordinal(), animationStep));
+                        bitmaps.add(jobsBob.getOverlay(id, fat, direction.ordinal(), animationStep));
+
+                        worker.setAnimationStep(nation, direction, bitmaps, animationStep);
+
+                        workerImages.put(job, worker);
+                    }
+                }
+            }
+        }
+
+        /* Also handle fat carrier */
+//        for (int direction = 0; direction < Direction.values().length; direction++) {
+//            for (int animationIndex = 0; animationIndex < 8; animationIndex++) {
+//                boolean fat = false;
+//                long id;
+//
+//                fat = true;
+//                id = 0;
+//
+//                Sprite jobSprite = new Sprite();
+//
+//                jobSprite.add(bobJobs.getBody(fat, imgDir, animationIndex));
+//                jobSprite.add(bobJobs.getOverlay(id, fat, imgDir, animationIndex));
+//            }
+//        }
+
+        return workerImages;
     }
 }

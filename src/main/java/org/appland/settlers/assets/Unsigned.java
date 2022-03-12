@@ -68,7 +68,7 @@ public class Unsigned {
 
         for (int i = 0; i < 8; i++) {
             System.out.println ("" + i + ": "
-                    + Integer.toHexString ((int)getUnsignedByte (buffer, i)));
+                    + Integer.toHexString (getUnsignedByte (buffer, i)));
         }
 
         System.out.println ("2: " + Integer.toHexString (getUnsignedShort (buffer, 2)));
