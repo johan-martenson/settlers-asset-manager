@@ -419,4 +419,40 @@ public class Bitmap {
     public Dimension getDimension() {
         return new Dimension(width, height);
     }
+
+    /*
+    public Bitmap stripExcess() {
+        int startNonTransparentX = width;
+        int startNonTransparentY = height;
+        int endNonTransparentX = 0;
+        int endNonTransparentY = 0;
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+
+                if (!isTransparent(x, y)) {
+                    startNonTransparentX = Math.min(startNonTransparentX, x);
+                    startNonTransparentY = Math.min(startNonTransparentY, y);
+
+                    endNonTransparentX = Math.max(endNonTransparentX, x);
+                    endNonTransparentY = Math.max(endNonTransparentY, y);
+                }
+            }
+        }
+
+        int newWidth = endNonTransparentX - startNonTransparentX;
+        int newHeight = endNonTransparentY - startNonTransparentY;
+
+        Bitmap newImage = new Bitmap(newWidth, newHeight, palette, format);
+
+        for (int sourceX = startNonTransparentX; sourceX < endNonTransparentX; sourceX++) {
+            int targetX = sourceX - startNonTransparentX;
+
+            for (int sourceY = startNonTransparentY; sourceY < endNonTransparentY; sourceY++) {
+                int targetY = sourceY - startNonTransparentY;
+
+                newImage.setPixelValue();
+            }
+        }
+    }*/
 }

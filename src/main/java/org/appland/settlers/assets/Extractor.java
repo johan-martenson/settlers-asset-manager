@@ -696,6 +696,15 @@ public class Extractor {
         imagesToFileMap.put(DEAD_TREE, natureDir + "/dead-tree.png");
 
         /* Extract mini fire animation */
+        FireImageCollection fireImageCollection = new FireImageCollection();
+
+        fireImageCollection.addImagesForFire(FireSize.MINI, getImagesFromResourceLocations(gameResourceList, MINI_FIRE_ANIMATION, 8));
+        fireImageCollection.addImagesForFire(FireSize.SMALL, getImagesFromResourceLocations(gameResourceList, SMALL_FIRE_ANIMATION, 8));
+        fireImageCollection.addImagesForFire(FireSize.MEDIUM, getImagesFromResourceLocations(gameResourceList, MEDIUM_FIRE_ANIMATION, 8));
+        fireImageCollection.addImagesForFire(FireSize.LARGE, getImagesFromResourceLocations(gameResourceList, LARGE_FIRE_ANIMATION, 8));
+
+        fireImageCollection.writeImageAtlas(toDir, defaultPalette);
+
         for (int i = 0; i < 8; i++) {
             imagesToFileMap.put(MINI_FIRE_ANIMATION + i, natureDir + "/mini-fire-" + i + ".png");
         }
