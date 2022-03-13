@@ -441,6 +441,9 @@ public class AssetManager {
 
         BitmapRLE bitmap = new BitmapRLE(width, height, data, palette, length, TextureFormat.BGRA);
 
+        bitmap.setNx(nx_);
+        bitmap.setNy(ny_);
+
         return bitmap;
     }
 
@@ -523,6 +526,9 @@ public class AssetManager {
         }
 
         BitmapRaw bitmapRaw = new BitmapRaw(width, height, length, palette, wantedFormat);
+
+        bitmapRaw.setNx(nx_);
+        bitmapRaw.setNy(ny_);
 
         /* Return the file directly if no conversion is required */
         if (wantedFormat == TextureFormat.PALETTED) {
@@ -609,6 +615,9 @@ public class AssetManager {
 
         long position = height * 2L;
         Bitmap bitmap = new Bitmap(width, height, palette, TextureFormat.BGRA);
+
+        bitmap.setNx(nx_);
+        bitmap.setNy(ny_);
 
         for (int y = 0; y < height; y++) {
             int x = 0;

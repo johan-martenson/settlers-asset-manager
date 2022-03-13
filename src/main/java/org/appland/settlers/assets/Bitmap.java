@@ -420,6 +420,14 @@ public class Bitmap {
         return new Dimension(width, height);
     }
 
+    public void setNx(int nx) {
+        this.nx = nx;
+    }
+
+    public void setNy(int ny) {
+        this.ny = ny;
+    }
+
     /*
     public Bitmap stripExcess() {
         int startNonTransparentX = width;
