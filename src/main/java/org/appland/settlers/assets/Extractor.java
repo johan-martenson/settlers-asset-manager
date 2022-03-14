@@ -143,13 +143,6 @@ public class Extractor {
 
         parser.parseArgument(args);
 
-        /* Verify that the from and to directories are set correctly */
-/*        if (!Utils.isValidGameDirectory(fromDir)) {
-            System.out.println("Invalid game directory specified: " + fromDir);
-
-            return;
-        }*/
-
         if (!Utils.isDirectory(toDir) || !Utils.isEmptyDirectory(toDir)) {
             System.out.println("Must specify an empty directory to extract assets into: " + toDir);
         }
@@ -183,8 +176,6 @@ public class Extractor {
         for (Nation nation : Nation.values()) {
             List<GameResource> nationResources = nationGraphics.get(nation);
 
-            Utils.createDirectory(toDir + "/" + nation.name().toLowerCase() + "-flags");
-
             for (FlagType flagType : FlagType.values()) {
                 for (int animationStep = 0; animationStep < 8; animationStep++) {
                     int nr = animationStep + 4 + 16 * flagType.ordinal();
@@ -202,9 +193,6 @@ public class Extractor {
 
                         continue;
                     }
-
-                    // Write each individual animation frame as separate files
-                    flagImage.writeToFile(toDir + "/" + nation.name().toLowerCase() + "-flags/" + flagType.name().toLowerCase() + "-" + animationStep + ".png");
 
                     // Collect the flag images into an image atlas
                     flagImageCollection.addImageForFlag(nation, flagType, flagImage);
@@ -285,14 +273,6 @@ public class Extractor {
         /* Composite the worker images and animations */
         Map<JobType, RenderedWorker> renderedWorkers = assetManager.renderWorkerImages(bobGameResource.getBob(), workerDetailsMap);
 
-        for (Nation nation : Nation.values()) {
-            Utils.createDirectory(toDir + "/" + nation.name().toLowerCase() + "-workers");
-
-            for (JobType jobType1 : JobType.values()) {
-                Utils.createDirectory(toDir + "/" + nation.name().toLowerCase() + "-workers/" + jobType1.name().toLowerCase());
-            }
-        }
-
         for (JobType jobType : JobType.values()) {
             RenderedWorker renderedWorker = renderedWorkers.get(jobType);
 
@@ -366,12 +346,6 @@ public class Extractor {
 
                             /* Store the image in the worker image collection */
                             workerImageCollection.addImage(nation, direction, merged);
-
-                            /* Write the merged bitmap to file */
-                            String directionString = getDirectionString(direction);
-
-                            merged.writeToFile(toDir + "/" + nation.name().toLowerCase() + "-workers/" +
-                                    jobType.name().toLowerCase() + "-" + directionString + "-" + i + ".png");
                         }
                     }
                 }
@@ -705,133 +679,34 @@ public class Extractor {
 
         fireImageCollection.writeImageAtlas(toDir, defaultPalette);
 
-        for (int i = 0; i < 8; i++) {
-            imagesToFileMap.put(MINI_FIRE_ANIMATION + i, natureDir + "/mini-fire-" + i + ".png");
-        }
-
-        /* Extract small fire animation */
-        for (int i = 0; i < 8; i++) {
-            imagesToFileMap.put(SMALL_FIRE_ANIMATION + i, natureDir + "/small-fire-" + i + ".png");
-        }
-
-        /* Extract medium fire animation */
-        for (int i = 0; i < 8; i++) {
-            imagesToFileMap.put(MEDIUM_FIRE_ANIMATION + i, natureDir + "/medium-fire-" + i + ".png");
-        }
-
-        /* Extract large fire animation */
-        for (int i = 0; i < 8; i++) {
-            imagesToFileMap.put(LARGE_FIRE_ANIMATION + i, natureDir + "/large-fire-" + i + ".png");
-        }
-
+        // Collect tree images
         TreeImageCollection treeImageCollection = new TreeImageCollection("trees");
 
         /* Extract animation for tree type 1 in wind -- cypress (?) */
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_1, natureDir + "/tree-type-1-animation-0.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_1 + 1, natureDir + "/tree-type-1-animation-1.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_1 + 2, natureDir + "/tree-type-1-animation-2.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_1 + 3, natureDir + "/tree-type-1-animation-3.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_1 + 4, natureDir + "/tree-type-1-animation-4.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_1 + 5, natureDir + "/tree-type-1-animation-5.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_1 + 6, natureDir + "/tree-type-1-animation-6.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_1 + 7, natureDir + "/tree-type-1-animation-7.png");
-
         treeImageCollection.addImagesForTree(Tree.TreeType.CYPRESS, getImagesFromResourceLocations(gameResourceList, TREE_ANIMATION_TYPE_1, 8));
 
         /* Extract animation for tree type 2 in wind -- birch, for sure */
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_2, natureDir + "/tree-type-2-animation-0.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_2 + 1, natureDir + "/tree-type-2-animation-1.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_2 + 2, natureDir + "/tree-type-2-animation-2.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_2 + 3, natureDir + "/tree-type-2-animation-3.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_2 + 4, natureDir + "/tree-type-2-animation-4.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_2 + 5, natureDir + "/tree-type-2-animation-5.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_2 + 6, natureDir + "/tree-type-2-animation-6.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_2 + 7, natureDir + "/tree-type-2-animation-7.png");
-
         treeImageCollection.addImagesForTree(Tree.TreeType.BIRCH, getImagesFromResourceLocations(gameResourceList, TREE_ANIMATION_TYPE_2, 8));
 
         /* Extract animation for tree type 3 in wind -- oak */
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_3, natureDir + "/tree-type-3-animation-0.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_3 + 1, natureDir + "/tree-type-3-animation-1.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_3 + 2, natureDir + "/tree-type-3-animation-2.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_3 + 3, natureDir + "/tree-type-3-animation-3.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_3 + 4, natureDir + "/tree-type-3-animation-4.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_3 + 5, natureDir + "/tree-type-3-animation-5.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_3 + 6, natureDir + "/tree-type-3-animation-6.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_3 + 7, natureDir + "/tree-type-3-animation-7.png");
-
         treeImageCollection.addImagesForTree(Tree.TreeType.OAK, getImagesFromResourceLocations(gameResourceList, TREE_ANIMATION_TYPE_3, 8));
 
         /* Extract animation for tree type 4 in wind -- short palm */
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_4, natureDir + "/tree-type-4-animation-0.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_4 + 1, natureDir + "/tree-type-4-animation-1.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_4 + 2, natureDir + "/tree-type-4-animation-2.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_4 + 3, natureDir + "/tree-type-4-animation-3.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_4 + 4, natureDir + "/tree-type-4-animation-4.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_4 + 5, natureDir + "/tree-type-4-animation-5.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_4 + 6, natureDir + "/tree-type-4-animation-6.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_4 + 7, natureDir + "/tree-type-4-animation-7.png");
-
         treeImageCollection.addImagesForTree(Tree.TreeType.PALM_1, getImagesFromResourceLocations(gameResourceList, TREE_ANIMATION_TYPE_4, 8));
 
         /* Extract animation for tree type 5 in wind -- tall palm */
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_5, natureDir + "/tree-type-5-animation-0.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_5 + 1, natureDir + "/tree-type-5-animation-1.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_5 + 2, natureDir + "/tree-type-5-animation-2.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_5 + 3, natureDir + "/tree-type-5-animation-3.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_5 + 4, natureDir + "/tree-type-5-animation-4.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_5 + 5, natureDir + "/tree-type-5-animation-5.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_5 + 6, natureDir + "/tree-type-5-animation-6.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_5 + 7, natureDir + "/tree-type-5-animation-7.png");
-
         treeImageCollection.addImagesForTree(Tree.TreeType.PALM_2, getImagesFromResourceLocations(gameResourceList, TREE_ANIMATION_TYPE_5, 8));
 
         /* Extract animation for tree type 6 in wind -- fat palm - pine apple*/
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_6, natureDir + "/tree-type-6-animation-0.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_6 + 1, natureDir + "/tree-type-6-animation-1.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_6 + 2, natureDir + "/tree-type-6-animation-2.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_6 + 3, natureDir + "/tree-type-6-animation-3.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_6 + 4, natureDir + "/tree-type-6-animation-4.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_6 + 5, natureDir + "/tree-type-6-animation-5.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_6 + 6, natureDir + "/tree-type-6-animation-6.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_6 + 7, natureDir + "/tree-type-6-animation-7.png");
-
         treeImageCollection.addImagesForTree(Tree.TreeType.PINE_APPLE, getImagesFromResourceLocations(gameResourceList, TREE_ANIMATION_TYPE_6, 8));
 
         /* Extract animation for tree type 7 in wind -- pine */
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_7, natureDir + "/tree-type-7-animation-0.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_7 + 1, natureDir + "/tree-type-7-animation-1.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_7 + 2, natureDir + "/tree-type-7-animation-2.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_7 + 3, natureDir + "/tree-type-7-animation-3.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_7 + 4, natureDir + "/tree-type-7-animation-4.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_7 + 5, natureDir + "/tree-type-7-animation-5.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_7 + 6, natureDir + "/tree-type-7-animation-6.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_7 + 7, natureDir + "/tree-type-7-animation-7.png");
-
         treeImageCollection.addImagesForTree(Tree.TreeType.PINE, getImagesFromResourceLocations(gameResourceList, TREE_ANIMATION_TYPE_7, 8));
 
         /* Extract animation for tree type 8 in wind -- cherry */
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_8, natureDir + "/tree-type-8-animation-0.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_8 + 1, natureDir + "/tree-type-8-animation-1.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_8 + 2, natureDir + "/tree-type-8-animation-2.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_8 + 3, natureDir + "/tree-type-8-animation-3.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_8 + 4, natureDir + "/tree-type-8-animation-4.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_8 + 5, natureDir + "/tree-type-8-animation-5.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_8 + 6, natureDir + "/tree-type-8-animation-6.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_8 + 7, natureDir + "/tree-type-8-animation-7.png");
-
         treeImageCollection.addImagesForTree(Tree.TreeType.CHERRY, getImagesFromResourceLocations(gameResourceList, TREE_ANIMATION_TYPE_8, 8));
 
         /* Extract animation for tree type 9 in wind -- fir (?) */
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_9, natureDir + "/tree-type-9-animation-0.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_9 + 1, natureDir + "/tree-type-9-animation-1.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_9 + 2, natureDir + "/tree-type-9-animation-2.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_9 + 3, natureDir + "/tree-type-9-animation-3.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_9 + 4, natureDir + "/tree-type-9-animation-4.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_9 + 5, natureDir + "/tree-type-9-animation-5.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_9 + 6, natureDir + "/tree-type-9-animation-6.png");
-        imagesToFileMap.put(TREE_ANIMATION_TYPE_9 + 7, natureDir + "/tree-type-9-animation-7.png");
-
         treeImageCollection.addImagesForTree(Tree.TreeType.FIR, getImagesFromResourceLocations(gameResourceList, TREE_ANIMATION_TYPE_9, 8));
 
         treeImageCollection.writeImageAtlas(natureDir, defaultPalette);
@@ -853,9 +728,6 @@ public class Extractor {
             /* Ice bear */
             for (int i = 0; i < WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
                 int index = ICE_BEAR_WALKING_SOUTH + WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
-                String filename = natureDir + "/animals/ice-bear-" + directionString + "-" + i + ".png";
-
-                imagesToFileMap.put(index, filename);
 
                 Bitmap image = getImageFromResourceLocation(gameResourceList, index);
                 iceBearImageCollection.addImage(direction, image);
@@ -864,9 +736,6 @@ public class Extractor {
             /* Fox */
             for (int i = 0; i < WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
                 int index = FOX_WALKING_SOUTH + WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
-                String filename = natureDir + "/animals/fox-" + directionString + "-" + i + ".png";
-
-                imagesToFileMap.put(index, filename);
 
                 Bitmap image = getImageFromResourceLocation(gameResourceList, index);
                 foxImageCollection.addImage(direction, image);
@@ -875,9 +744,6 @@ public class Extractor {
             /* Rabbit */
             for (int i = 0; i < WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
                 int index = RABBIT_WALKING_SOUTH + WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
-                String filename = natureDir + "/animals/rabbit-" + directionString + "-" + i + ".png";
-
-                imagesToFileMap.put(index, filename);
 
                 Bitmap image = getImageFromResourceLocation(gameResourceList, index);
                 rabbitImageCollection.addImage(direction, image);
@@ -886,9 +752,6 @@ public class Extractor {
             /* Stag */
             for (int i = 0; i < WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
                 int index = STAG_WALKING_SOUTH + WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
-                String filename = natureDir + "/animals/stag-" + directionString + "-" + i + ".png";
-
-                imagesToFileMap.put(index, filename);
 
                 Bitmap image = getImageFromResourceLocation(gameResourceList, index);
                 stagImageCollection.addImage(direction, image);
@@ -897,9 +760,6 @@ public class Extractor {
             /* Deer */
             for (int i = 0; i < WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
                 int index = DEER_WALKING_SOUTH + WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
-                String filename = natureDir + "/animals/deer-" + directionString + "-" + i + ".png";
-
-                imagesToFileMap.put(index, filename);
 
                 Bitmap image = getImageFromResourceLocation(gameResourceList, index);
                 deerImageCollection.addImage(direction, image);
@@ -908,9 +768,6 @@ public class Extractor {
             /* Sheep */
             for (int i = 0; i < 2; i++) {
                 int index = SHEEP_WALKING_SOUTH + 2 * direction.ordinal() + i;
-                String filename = natureDir + "/animals/sheep-" + directionString + "-" + i + ".png";
-
-                imagesToFileMap.put(index, filename);
 
                 Bitmap image = getImageFromResourceLocation(gameResourceList, index);
                 sheepImageCollection.addImage(direction, image);
@@ -919,9 +776,6 @@ public class Extractor {
             /* Deer 2 (horse?) */
             for (int i = 0; i < WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
                 int index = DEER_2_WALKING_SOUTH + WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
-                String filename = natureDir + "/animals/deer-2-" + directionString + "-" + i + ".png";
-
-                imagesToFileMap.put(index, filename);
 
                 Bitmap image = getImageFromResourceLocation(gameResourceList, index);
                 deer2ImageCollection.addImage(direction, image);
@@ -929,13 +783,6 @@ public class Extractor {
         }
 
         /* Extract duck */
-        imagesToFileMap.put(DUCK, natureDir + "/animals/duck-east-0.png");
-        imagesToFileMap.put(DUCK + 1, natureDir + "/animals/duck-south-east-0.png");
-        imagesToFileMap.put(DUCK + 2, natureDir + "/animals/duck-south-west-0.png");
-        imagesToFileMap.put(DUCK + 3, natureDir + "/animals/duck-west-0.png");
-        imagesToFileMap.put(DUCK + 4, natureDir + "/animals/duck-north-west-0.png");
-        imagesToFileMap.put(DUCK + 5, natureDir + "/animals/duck-north-east-0.png");
-
         duckImageCollection.addImage(EAST, getImageFromResourceLocation(gameResourceList, DUCK));
         duckImageCollection.addImage(SOUTH_EAST, getImageFromResourceLocation(gameResourceList, DUCK + 1));
         duckImageCollection.addImage(SOUTH_WEST, getImageFromResourceLocation(gameResourceList, DUCK + 2));
