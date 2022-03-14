@@ -86,7 +86,7 @@ public class BuildingsImageCollection {
 
             JSONObject jsonBuildings = new JSONObject();
 
-            jsonImageAtlas.put(nation.name(), jsonBuildings);
+            jsonImageAtlas.put(nation.name().toLowerCase(), jsonBuildings);
 
             int startNextBuildingAtY = 0;
             int widthCurrentNation = 0;
@@ -115,6 +115,8 @@ public class BuildingsImageCollection {
                     jsonBuilding.put("readyAtX", startNextNationAtX);
                     jsonBuilding.put("readyWidth", images.buildingReadyImage.width);
                     jsonBuilding.put("readyHeight", images.buildingReadyImage.height);
+                    jsonBuilding.put("readyOffsetX", images.buildingReadyImage.nx);
+                    jsonBuilding.put("readyOffsetY", images.buildingReadyImage.ny);
 
                     currentBuildingMaxHeight = Math.max(currentBuildingMaxHeight, images.buildingReadyImage.height);
                     currentBuildingWidth = currentBuildingWidth + images.buildingReadyImage.width;
@@ -131,6 +133,8 @@ public class BuildingsImageCollection {
                     jsonBuilding.put("underConstructionAtX", placeNextBuildingAtX);
                     jsonBuilding.put("underConstructionWidth", images.buildingUnderConstruction.width);
                     jsonBuilding.put("underConstructionHeight", images.buildingUnderConstruction.height);
+                    jsonBuilding.put("underConstructionOffsetX", images.buildingUnderConstruction.nx);
+                    jsonBuilding.put("underConstructionOffsetY", images.buildingUnderConstruction.ny);
 
                     currentBuildingMaxHeight = Math.max(currentBuildingMaxHeight, images.buildingUnderConstruction.height);
                     currentBuildingWidth = currentBuildingWidth + images.buildingUnderConstruction.width;
