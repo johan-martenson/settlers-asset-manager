@@ -125,6 +125,16 @@ public class Extractor {
     private static final int SMALL_FIRE_ANIMATION = 1031;
     private static final int MEDIUM_FIRE_ANIMATION = 1039;
     private static final int LARGE_FIRE_ANIMATION = 1047;
+    private static final int CROP_TYPE_1_NEWLY_PLANTED = 311;
+    private static final int CROP_TYPE_1_LITTLE_GROWTH = 312;
+    private static final int CROP_TYPE_1_MORE_GROWTH = 313;
+    private static final int CROP_TYPE_1_FULLY_GROWN = 314;
+    private static final int CROP_TYPE_1_JUST_HARVESTED = 315;
+    private static final int CROP_TYPE_2_NEWLY_PLANTED = 316;
+    private static final int CROP_TYPE_2_LITTLE_GROWTH = 317;
+    private static final int CROP_TYPE_2_MORE_GROWTH = 318;
+    private static final int CROP_TYPE_2_FULLY_GROWN = 319;
+    private static final int CROP_TYPE_2_JUST_HARVESTED = 320;
 
     @Option(name = "--from-dir", usage = "Asset directory to load from")
     static String fromDir;
@@ -651,22 +661,22 @@ public class Extractor {
 
         uiElementsImageCollection.writeImageAtlas(toDir, defaultPalette);
 
-        Map<Integer, String> imagesToFileMap = new HashMap<>();
+        /*  Extract the crops */
+        CropImageCollection cropImageCollection = new CropImageCollection();
 
-        imagesToFileMap.put(SELECTED_POINT, uiDir + "/selected-point.png");
-        imagesToFileMap.put(HOVER_POINT, uiDir + "/hover-point.png");
-        imagesToFileMap.put(HOVER_AVAILABLE_FLAG, uiDir + "/hover-available-flag.png");
-        imagesToFileMap.put(HOVER_AVAILABLE_MINE, uiDir + "/hover-available-mine.png");
-        imagesToFileMap.put(HOVER_AVAILABLE_SMALL_BUILDING, uiDir + "/hover-available-small-building.png");
-        imagesToFileMap.put(HOVER_AVAILABLE_MEDIUM_BUILDING, uiDir + "/hover-available-medium-building.png");
-        imagesToFileMap.put(HOVER_AVAILABLE_LARGE_BUILDING, uiDir + "/hover-available-large-building.png");
-        imagesToFileMap.put(HOVER_AVAILABLE_HARBOR, uiDir + "/hover-available-harbor.png");
-        imagesToFileMap.put(AVAILABLE_FLAG, uiDir + "/available-flag.png");
-        imagesToFileMap.put(AVAILABLE_SMALL_BUILDING, uiDir + "/available-small-building.png");
-        imagesToFileMap.put(AVAILABLE_MEDIUM_BUILDING, uiDir + "/available-medium-building.png");
-        imagesToFileMap.put(AVAILABLE_LARGE_BUILDING, uiDir + "/available-large-building.png");
-        imagesToFileMap.put(AVAILABLE_MINE, uiDir + "/available-mine.png");
-        imagesToFileMap.put(AVAILABLE_HARBOR, uiDir + "/available-harbor.png");
+        cropImageCollection.addImage(CropType.TYPE_1, CropGrowth.NEWLY_PLANTED, getImageFromResourceLocation(gameResourceList, CROP_TYPE_1_NEWLY_PLANTED));
+        cropImageCollection.addImage(CropType.TYPE_1, CropGrowth.SMALL, getImageFromResourceLocation(gameResourceList, CROP_TYPE_1_LITTLE_GROWTH));
+        cropImageCollection.addImage(CropType.TYPE_1, CropGrowth.LARGER, getImageFromResourceLocation(gameResourceList, CROP_TYPE_1_MORE_GROWTH));
+        cropImageCollection.addImage(CropType.TYPE_1, CropGrowth.FULLY_GROWN, getImageFromResourceLocation(gameResourceList, CROP_TYPE_1_FULLY_GROWN));
+        cropImageCollection.addImage(CropType.TYPE_1, CropGrowth.NEWLY_HARVESTED, getImageFromResourceLocation(gameResourceList, CROP_TYPE_1_JUST_HARVESTED));
+
+        cropImageCollection.addImage(CropType.TYPE_2, CropGrowth.NEWLY_PLANTED, getImageFromResourceLocation(gameResourceList, CROP_TYPE_2_NEWLY_PLANTED));
+        cropImageCollection.addImage(CropType.TYPE_2, CropGrowth.SMALL, getImageFromResourceLocation(gameResourceList, CROP_TYPE_2_LITTLE_GROWTH));
+        cropImageCollection.addImage(CropType.TYPE_2, CropGrowth.LARGER, getImageFromResourceLocation(gameResourceList, CROP_TYPE_2_MORE_GROWTH));
+        cropImageCollection.addImage(CropType.TYPE_2, CropGrowth.FULLY_GROWN, getImageFromResourceLocation(gameResourceList, CROP_TYPE_2_FULLY_GROWN));
+        cropImageCollection.addImage(CropType.TYPE_2, CropGrowth.NEWLY_HARVESTED, getImageFromResourceLocation(gameResourceList, CROP_TYPE_2_JUST_HARVESTED));
+
+        cropImageCollection.writeImageAtlas(toDir, defaultPalette);
 
         /* Extract signs */
         SignImageCollection signImageCollection = new SignImageCollection();
@@ -694,6 +704,8 @@ public class Extractor {
         signImageCollection.writeImageAtlas(toDir, defaultPalette);
 
         /* Extract nature elements */
+        Map<Integer, String> imagesToFileMap = new HashMap<>();
+
         imagesToFileMap.put(FALLEN_DEAD_TREE, natureDir + "/fallen-dead-tree.png");
         imagesToFileMap.put(DEAD_TREE, natureDir + "/dead-tree.png");
 
