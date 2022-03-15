@@ -5,8 +5,7 @@ import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
 
-import java.awt.Dimension;
-import java.awt.Point;
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +14,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import static org.appland.settlers.assets.Direction.*;
+import static org.appland.settlers.model.Size.*;
 
 public class Extractor {
 
@@ -632,6 +632,25 @@ public class Extractor {
         extractWinterTerrain(winterDir, winterTextureBitmap);
 
         /* Extract UI elements */
+        UIElementsImageCollection uiElementsImageCollection = new UIElementsImageCollection();
+
+        uiElementsImageCollection.addSelectedPointImage(getImageFromResourceLocation(gameResourceList, SELECTED_POINT));
+        uiElementsImageCollection.addHoverPoint(getImageFromResourceLocation(gameResourceList, HOVER_POINT));
+        uiElementsImageCollection.addHoverAvailableFlag(getImageFromResourceLocation(gameResourceList, HOVER_AVAILABLE_FLAG));
+        uiElementsImageCollection.addHoverAvailableMine(getImageFromResourceLocation(gameResourceList, HOVER_AVAILABLE_MINE));
+        uiElementsImageCollection.addHoverAvailableBuilding(SMALL, getImageFromResourceLocation(gameResourceList, HOVER_AVAILABLE_SMALL_BUILDING));
+        uiElementsImageCollection.addHoverAvailableBuilding(MEDIUM, getImageFromResourceLocation(gameResourceList, HOVER_AVAILABLE_MEDIUM_BUILDING));
+        uiElementsImageCollection.addHoverAvailableBuilding(LARGE, getImageFromResourceLocation(gameResourceList, HOVER_AVAILABLE_LARGE_BUILDING));
+        uiElementsImageCollection.addHoverAvailableHarbor(getImageFromResourceLocation(gameResourceList, HOVER_AVAILABLE_HARBOR));
+        uiElementsImageCollection.addAvailableFlag(getImageFromResourceLocation(gameResourceList, AVAILABLE_FLAG));
+        uiElementsImageCollection.addAvailableMine(getImageFromResourceLocation(gameResourceList, AVAILABLE_MINE));
+        uiElementsImageCollection.addAvailableBuilding(SMALL, getImageFromResourceLocation(gameResourceList, AVAILABLE_SMALL_BUILDING));
+        uiElementsImageCollection.addAvailableBuilding(MEDIUM, getImageFromResourceLocation(gameResourceList, AVAILABLE_MEDIUM_BUILDING));
+        uiElementsImageCollection.addAvailableBuilding(LARGE, getImageFromResourceLocation(gameResourceList, AVAILABLE_LARGE_BUILDING));
+        uiElementsImageCollection.addAvailableHarbor(getImageFromResourceLocation(gameResourceList, AVAILABLE_HARBOR));
+
+        uiElementsImageCollection.writeImageAtlas(toDir, defaultPalette);
+
         Map<Integer, String> imagesToFileMap = new HashMap<>();
 
         imagesToFileMap.put(SELECTED_POINT, uiDir + "/selected-point.png");
@@ -650,20 +669,29 @@ public class Extractor {
         imagesToFileMap.put(AVAILABLE_HARBOR, uiDir + "/available-harbor.png");
 
         /* Extract signs */
-        imagesToFileMap.put(IRON_SIGN_SMALL_UP_RIGHT, signDir + "/iron-sign-small.png");
-        imagesToFileMap.put(IRON_SIGN_MEDIUM_UP_RIGHT, signDir + "/iron-sign-medium.png");
-        imagesToFileMap.put(IRON_SIGN_LARGE_UP_RIGHT, signDir + "/iron-sign-large.png");
-        imagesToFileMap.put(GOLD_SIGN_SMALL_UP_RIGHT, signDir + "/gold-sign-small.png");
-        imagesToFileMap.put(GOLD_SIGN_MEDIUM_UP_RIGHT, signDir + "/gold-sign-medium.png");
-        imagesToFileMap.put(GOLD_SIGN_LARGE_UP_RIGHT, signDir + "/gold-sign-large.png");
-        imagesToFileMap.put(COAL_SIGN_SMALL_UP_RIGHT, signDir + "/coal-sign-small.png");
-        imagesToFileMap.put(COAL_SIGN_MEDIUM_UP_RIGHT, signDir + "/coal-sign-medium.png");
-        imagesToFileMap.put(COAL_SIGN_LARGE_UP_RIGHT, signDir + "/coal-sign-large.png");
-        imagesToFileMap.put(GRANITE_SIGN_SMALL_UP_RIGHT, signDir + "/granite-sign-small.png");
-        imagesToFileMap.put(GRANITE_SIGN_MEDIUM_UP_RIGHT, signDir + "/granite-sign-medium.png");
-        imagesToFileMap.put(GRANITE_SIGN_LARGE_UP_RIGHT, signDir + "/granite-sign-large.png");
-        imagesToFileMap.put(WATER_SIGN_LARGE_UP_RIGHT, signDir + "/water-sign-large.png");
-        imagesToFileMap.put(NOTHING_SIGN_UP_RIGHT, signDir + "/nothing-sign.png");
+        SignImageCollection signImageCollection = new SignImageCollection();
+
+        signImageCollection.addImage(SignType.IRON, SMALL, getImageFromResourceLocation(gameResourceList, IRON_SIGN_SMALL_UP_RIGHT));
+        signImageCollection.addImage(SignType.IRON, MEDIUM, getImageFromResourceLocation(gameResourceList, IRON_SIGN_MEDIUM_UP_RIGHT));
+        signImageCollection.addImage(SignType.IRON, LARGE, getImageFromResourceLocation(gameResourceList, IRON_SIGN_LARGE_UP_RIGHT));
+
+        signImageCollection.addImage(SignType.COAL, SMALL, getImageFromResourceLocation(gameResourceList, COAL_SIGN_SMALL_UP_RIGHT));
+        signImageCollection.addImage(SignType.COAL, MEDIUM, getImageFromResourceLocation(gameResourceList, COAL_SIGN_MEDIUM_UP_RIGHT));
+        signImageCollection.addImage(SignType.COAL, LARGE, getImageFromResourceLocation(gameResourceList, COAL_SIGN_LARGE_UP_RIGHT));
+
+        signImageCollection.addImage(SignType.STONE, SMALL, getImageFromResourceLocation(gameResourceList, GRANITE_SIGN_SMALL_UP_RIGHT));
+        signImageCollection.addImage(SignType.STONE, MEDIUM, getImageFromResourceLocation(gameResourceList, GRANITE_SIGN_MEDIUM_UP_RIGHT));
+        signImageCollection.addImage(SignType.STONE, LARGE, getImageFromResourceLocation(gameResourceList, GRANITE_SIGN_LARGE_UP_RIGHT));
+
+        signImageCollection.addImage(SignType.GOLD, SMALL, getImageFromResourceLocation(gameResourceList, GOLD_SIGN_SMALL_UP_RIGHT));
+        signImageCollection.addImage(SignType.GOLD, MEDIUM, getImageFromResourceLocation(gameResourceList, GOLD_SIGN_MEDIUM_UP_RIGHT));
+        signImageCollection.addImage(SignType.GOLD, LARGE, getImageFromResourceLocation(gameResourceList, GOLD_SIGN_LARGE_UP_RIGHT));
+
+        signImageCollection.addImage(SignType.WATER, LARGE, getImageFromResourceLocation(gameResourceList, WATER_SIGN_LARGE_UP_RIGHT));
+
+        signImageCollection.addImage(SignType.NOTHING, LARGE, getImageFromResourceLocation(gameResourceList, NOTHING_SIGN_UP_RIGHT));
+
+        signImageCollection.writeImageAtlas(toDir, defaultPalette);
 
         /* Extract nature elements */
         imagesToFileMap.put(FALLEN_DEAD_TREE, natureDir + "/fallen-dead-tree.png");
