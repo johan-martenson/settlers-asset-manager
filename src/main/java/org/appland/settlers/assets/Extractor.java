@@ -135,6 +135,18 @@ public class Extractor {
     private static final int CROP_TYPE_2_MORE_GROWTH = 318;
     private static final int CROP_TYPE_2_FULLY_GROWN = 319;
     private static final int CROP_TYPE_2_JUST_HARVESTED = 320;
+    private static final int STONE_TYPE_1_MINI = 298;
+    private static final int STONE_TYPE_1_LITTLE = 299;
+    private static final int STONE_TYPE_1_LITTLE_MORE = 300;
+    private static final int STONE_TYPE_1_MIDDLE = 301;
+    private static final int STONE_TYPE_1_ALMOST_FULL = 302;
+    private static final int STONE_TYPE_1_FULL = 303;
+    private static final int STONE_TYPE_2_MINI = 304;
+    private static final int STONE_TYPE_2_LITTLE = 305;
+    private static final int STONE_TYPE_2_LITTLE_MORE = 306;
+    private static final int STONE_TYPE_2_MIDDLE = 307;
+    private static final int STONE_TYPE_2_ALMOST_FULL = 308;
+    private static final int STONE_TYPE_2_FULL = 309;
 
     @Option(name = "--from-dir", usage = "Asset directory to load from")
     static String fromDir;
@@ -640,6 +652,25 @@ public class Extractor {
 
         /* Create the winter world */
         extractWinterTerrain(winterDir, winterTextureBitmap);
+
+        /* Extract the stones */
+        StonesImageCollection stonesImageCollection = new StonesImageCollection();
+
+        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.MINI, getImageFromResourceLocation(gameResourceList, STONE_TYPE_1_MINI));
+        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.LITTLE, getImageFromResourceLocation(gameResourceList, STONE_TYPE_1_LITTLE));
+        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.LITTLE_MORE, getImageFromResourceLocation(gameResourceList, STONE_TYPE_1_LITTLE_MORE));
+        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.MIDDLE, getImageFromResourceLocation(gameResourceList, STONE_TYPE_1_MIDDLE));
+        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.ALMOST_FULL, getImageFromResourceLocation(gameResourceList, STONE_TYPE_1_ALMOST_FULL));
+        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.FULL, getImageFromResourceLocation(gameResourceList, STONE_TYPE_1_FULL));
+
+        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.MINI, getImageFromResourceLocation(gameResourceList, STONE_TYPE_2_MINI));
+        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.LITTLE, getImageFromResourceLocation(gameResourceList, STONE_TYPE_2_LITTLE));
+        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.LITTLE_MORE, getImageFromResourceLocation(gameResourceList, STONE_TYPE_2_LITTLE_MORE));
+        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.MIDDLE, getImageFromResourceLocation(gameResourceList, STONE_TYPE_2_MIDDLE));
+        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.ALMOST_FULL, getImageFromResourceLocation(gameResourceList, STONE_TYPE_2_ALMOST_FULL));
+        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.FULL, getImageFromResourceLocation(gameResourceList, STONE_TYPE_2_FULL));
+
+        stonesImageCollection.writeImageAtlas(toDir, defaultPalette);
 
         /* Extract UI elements */
         UIElementsImageCollection uiElementsImageCollection = new UIElementsImageCollection();
