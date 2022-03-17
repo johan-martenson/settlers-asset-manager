@@ -130,7 +130,7 @@ public class BuildingsImageCollection {
                             new Point(0, 0),
                             images.buildingUnderConstruction.getDimension());
 
-                    jsonBuilding.put("underConstructionAtX", placeNextBuildingAtX);
+                    jsonBuilding.put("underConstructionAtX", startNextNationAtX + placeNextBuildingAtX);
                     jsonBuilding.put("underConstructionWidth", images.buildingUnderConstruction.width);
                     jsonBuilding.put("underConstructionHeight", images.buildingUnderConstruction.height);
                     jsonBuilding.put("underConstructionOffsetX", images.buildingUnderConstruction.nx);
