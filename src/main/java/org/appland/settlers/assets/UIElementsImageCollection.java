@@ -150,7 +150,7 @@ public class UIElementsImageCollection {
         JSONObject jsonHoverAvailableFlag = new JSONObject();
 
         jsonHoverAvailableFlag.put("x", nextStartAtX);
-        jsonHoverAvailableFlag.put("y", 0);
+        jsonHoverAvailableFlag.put("y", row1Height);
         jsonHoverAvailableFlag.put("width", hoverAvailableFlag.width);
         jsonHoverAvailableFlag.put("height", hoverAvailableFlag.height);
         jsonHoverAvailableFlag.put("offsetX", hoverAvailableFlag.nx);
@@ -165,7 +165,7 @@ public class UIElementsImageCollection {
         JSONObject jsonHoverAvailableMine = new JSONObject();
 
         jsonHoverAvailableMine.put("x", nextStartAtX);
-        jsonHoverAvailableMine.put("y", 0);
+        jsonHoverAvailableMine.put("y", row1Height);
         jsonHoverAvailableMine.put("width", hoverAvailableMine.width);
         jsonHoverAvailableMine.put("height", hoverAvailableMine.height);
         jsonHoverAvailableMine.put("offsetX", hoverAvailableMine.nx);
@@ -180,7 +180,7 @@ public class UIElementsImageCollection {
         JSONObject jsonHoverAvailableHarbor = new JSONObject();
 
         jsonHoverAvailableHarbor.put("x", nextStartAtX);
-        jsonHoverAvailableHarbor.put("y", 0);
+        jsonHoverAvailableHarbor.put("y", row1Height);
         jsonHoverAvailableHarbor.put("width", hoverAvailableHarbor.width);
         jsonHoverAvailableHarbor.put("height", hoverAvailableHarbor.height);
         jsonHoverAvailableHarbor.put("offsetX", hoverAvailableHarbor.nx);
@@ -195,7 +195,7 @@ public class UIElementsImageCollection {
         JSONObject jsonHoverAvailableBuildingLarge = new JSONObject();
 
         jsonHoverAvailableBuildingLarge.put("x", nextStartAtX);
-        jsonHoverAvailableBuildingLarge.put("y", 0);
+        jsonHoverAvailableBuildingLarge.put("y", row1Height);
         jsonHoverAvailableBuildingLarge.put("width", hoverAvailableBuildingLarge.width);
         jsonHoverAvailableBuildingLarge.put("height", hoverAvailableBuildingLarge.height);
         jsonHoverAvailableBuildingLarge.put("offsetX", hoverAvailableBuildingLarge.nx);
@@ -210,7 +210,7 @@ public class UIElementsImageCollection {
         JSONObject jsonHoverAvailableBuildingMedium = new JSONObject();
 
         jsonHoverAvailableBuildingMedium.put("x", nextStartAtX);
-        jsonHoverAvailableBuildingMedium.put("y", 0);
+        jsonHoverAvailableBuildingMedium.put("y", row1Height);
         jsonHoverAvailableBuildingMedium.put("width", hoverAvailableBuildingMedium.width);
         jsonHoverAvailableBuildingMedium.put("height", hoverAvailableBuildingMedium.height);
         jsonHoverAvailableBuildingMedium.put("offsetX", hoverAvailableBuildingMedium.nx);
@@ -225,7 +225,7 @@ public class UIElementsImageCollection {
         JSONObject jsonHoverAvailableBuildingSmall = new JSONObject();
 
         jsonHoverAvailableBuildingSmall.put("x", nextStartAtX);
-        jsonHoverAvailableBuildingSmall.put("y", 0);
+        jsonHoverAvailableBuildingSmall.put("y", row1Height);
         jsonHoverAvailableBuildingSmall.put("width", hoverAvailableBuildingSmall.width);
         jsonHoverAvailableBuildingSmall.put("height", hoverAvailableBuildingSmall.height);
         jsonHoverAvailableBuildingSmall.put("offsetX", hoverAvailableBuildingSmall.nx);
