@@ -147,6 +147,27 @@ public class Extractor {
     private static final int STONE_TYPE_2_MIDDLE = 307;
     private static final int STONE_TYPE_2_ALMOST_FULL = 308;
     private static final int STONE_TYPE_2_FULL = 309;
+    private static final int DECORATIVE_MUSHROOM = 283;
+    private static final int DECORATIVE_MINI_STONE = 284;
+    private static final int DECORATIVE_MINI_STONES = 285;
+    private static final int DECORATIVE_STONE = 286;
+    private static final int DECORATIVE_FALLEN_TREE = 287;
+    private static final int DECORATIVE_STANDING_DEAD_TREE = 288;
+    private static final int DECORATIVE_SKELETON = 289;
+    private static final int DECORATIVE_MINI_SKELETON = 290;
+    private static final int DECORATIVE_FLOWERS = 291;
+    private static final int DECORATIVE_BUSH = 292;
+    private static final int DECORATIVE_LARGER_STONES = 293;
+    private static final int DECORATIVE_CACTUS_1 = 294;
+    private static final int DECORATIVE_CACTUS_2 = 295;
+    private static final int DECORATIVE_BEACH_GRASS = 296;
+    private static final int DECORATIVE_SMALL_GRASS = 297;
+    private static final int DONKEY_EAST_START = 785;
+    private static final int DONKEY_SOUTH_EAST_START = 793;
+    private static final int DONKEY_SOUTH_WEST_START = 801;
+    private static final int DONKEY_WEST_START = 809;
+    private static final int DONKEY_NORTH_WEST_START = 817;
+    private static final int DONKEY_NORTH_EAST_START = 825;
 
     @Option(name = "--from-dir", usage = "Asset directory to load from")
     static String fromDir;
@@ -871,6 +892,59 @@ public class Extractor {
         sheepImageCollection.writeImageAtlas(natureDir + "/animals/", defaultPalette);
         deer2ImageCollection.writeImageAtlas(natureDir + "/animals/", defaultPalette);
         duckImageCollection.writeImageAtlas(natureDir + "/animals/", defaultPalette);
+
+        /* Extract the donkey */
+        List<GameResource> mapbobs0 = assetManager.loadLstFile(fromDir + "/DATA/MAPBOBS0.LST", defaultPalette);
+
+        AnimalImageCollection donkeyImageCollection = new AnimalImageCollection("donkey");
+
+        donkeyImageCollection.addImages(EAST, getImagesFromResourceLocations(mapbobs0, DONKEY_EAST_START, 8));
+        donkeyImageCollection.addImages(SOUTH_EAST, getImagesFromResourceLocations(mapbobs0, DONKEY_SOUTH_EAST_START, 8));
+        donkeyImageCollection.addImages(SOUTH_WEST, getImagesFromResourceLocations(mapbobs0, DONKEY_SOUTH_WEST_START, 8));
+        donkeyImageCollection.addImages(WEST, getImagesFromResourceLocations(mapbobs0, DONKEY_WEST_START, 8));
+        donkeyImageCollection.addImages(NORTH_WEST, getImagesFromResourceLocations(mapbobs0, DONKEY_NORTH_WEST_START, 8));
+        donkeyImageCollection.addImages(NORTH_EAST, getImagesFromResourceLocations(mapbobs0, DONKEY_NORTH_EAST_START, 8));
+
+        donkeyImageCollection.writeImageAtlas(natureDir + "/animals/", defaultPalette);
+
+        /*  Extract decorative elements */
+        /*
+         * 283     Mushroom
+         * 284     Mini decorative stone
+         * 285     Mini decorative stones
+         * 286     Small decorative stone
+         * 287     Fallen dead decorative tree
+         * 288     Standing dead decorative tree
+         * 289     Skeleton decorative
+         * 290     Mini decorative skeleton
+         * 291     Flowers decorative
+         * 292     Bush decorative
+         * 293     Larger set of stones (can be extracted?)
+         * 294     Cactus decorative
+         * 295     Cactus decorative
+         * 296     Beach grass decorative
+         * 297     Small grass decorative
+         */
+        DecorativeImageCollection decorativeImageCollection = new DecorativeImageCollection();
+
+        decorativeImageCollection.addMushroomImage(getImageFromResourceLocation(gameResourceList, DECORATIVE_MUSHROOM));
+        decorativeImageCollection.addMiniStoneImage(getImageFromResourceLocation(gameResourceList, DECORATIVE_MINI_STONE));
+        decorativeImageCollection.addMiniStonesImage(getImageFromResourceLocation(gameResourceList, DECORATIVE_MINI_STONES));
+        decorativeImageCollection.addStoneImage(getImageFromResourceLocation(gameResourceList, DECORATIVE_STONE));
+        decorativeImageCollection.addFallenTreeImage(getImageFromResourceLocation(gameResourceList, DECORATIVE_FALLEN_TREE));
+        decorativeImageCollection.addStandingDeadTreeImage(getImageFromResourceLocation(gameResourceList, DECORATIVE_STANDING_DEAD_TREE));
+        decorativeImageCollection.addSkeletonImage(getImageFromResourceLocation(gameResourceList, DECORATIVE_SKELETON));
+        decorativeImageCollection.addMiniSkeletonImage(getImageFromResourceLocation(gameResourceList, DECORATIVE_MINI_SKELETON));
+        decorativeImageCollection.addFlowersImage(getImageFromResourceLocation(gameResourceList, DECORATIVE_FLOWERS));
+        decorativeImageCollection.addBushImage(getImageFromResourceLocation(gameResourceList, DECORATIVE_BUSH));
+        decorativeImageCollection.addLargerStonesImage(getImageFromResourceLocation(gameResourceList, DECORATIVE_LARGER_STONES));
+        decorativeImageCollection.addCactus1Image(getImageFromResourceLocation(gameResourceList, DECORATIVE_CACTUS_1));
+        decorativeImageCollection.addCactus2Image(getImageFromResourceLocation(gameResourceList, DECORATIVE_CACTUS_2));
+        decorativeImageCollection.addBeachGrassImage(getImageFromResourceLocation(gameResourceList, DECORATIVE_BEACH_GRASS));
+        decorativeImageCollection.addSmallGrassImage(getImageFromResourceLocation(gameResourceList, DECORATIVE_SMALL_GRASS));
+
+        decorativeImageCollection.writeImageAtlas(toDir, defaultPalette);
+
     }
 
     private void extractWinterTerrain(String winterDir, Bitmap winterTextureBitmap) throws IOException {

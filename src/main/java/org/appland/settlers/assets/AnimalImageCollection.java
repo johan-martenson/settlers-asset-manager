@@ -81,4 +81,8 @@ public class AnimalImageCollection {
 
         Files.writeString(filePath, jsonImageAtlas.toJSONString());
     }
+
+    public void addImages(Direction direction, List<Bitmap> images) {
+        this.directionToImageMap.get(direction).addAll(images);
+    }
 }
