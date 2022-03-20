@@ -52,7 +52,7 @@ public class BorderImageCollector {
 
             JSONObject jsonNation = new JSONObject();
 
-            jsonImageAtlas.put(nation.name().toUpperCase(), jsonNation);
+            jsonImageAtlas.put(nation.name().toLowerCase(), jsonNation);
 
             BorderForNation borderForNation = borderMap.get(nation);
 
@@ -70,10 +70,12 @@ public class BorderImageCollector {
 
             jsonNation.put("landBorder", jsonLandBorder);
 
-            jsonLandBorder.put("startX", x);
-            jsonLandBorder.put("startY", y);
-            jsonLandBorder.put("width", maxWidth);
-            jsonLandBorder.put("height", maxHeight);
+            jsonLandBorder.put("x", x);
+            jsonLandBorder.put("y", y);
+            jsonLandBorder.put("width", borderForNation.landBorder.width);
+            jsonLandBorder.put("height", borderForNation.landBorder.height);
+            jsonLandBorder.put("offsetX", borderForNation.landBorder.nx);
+            jsonLandBorder.put("offsetY", borderForNation.landBorder.ny);
 
             x = borderForNation.landBorder.width;
             y = nationIndex * maxHeight;
@@ -89,10 +91,12 @@ public class BorderImageCollector {
 
             jsonNation.put("coastBorder", jsonCoastBorder);
 
-            jsonCoastBorder.put("startX", x);
-            jsonCoastBorder.put("startY", y);
-            jsonCoastBorder.put("width", maxWidth);
-            jsonCoastBorder.put("height", maxHeight);
+            jsonCoastBorder.put("x", x);
+            jsonCoastBorder.put("y", y);
+            jsonCoastBorder.put("width", borderForNation.coastBorder.width);
+            jsonCoastBorder.put("height", borderForNation.coastBorder.height);
+            jsonCoastBorder.put("offsetX", borderForNation.coastBorder.nx);
+            jsonCoastBorder.put("offsetY", borderForNation.coastBorder.ny);
 
             nationIndex = nationIndex + 1;
         }
