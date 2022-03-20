@@ -168,6 +168,8 @@ public class Extractor {
     private static final int DONKEY_WEST_START = 809;
     private static final int DONKEY_NORTH_WEST_START = 817;
     private static final int DONKEY_NORTH_EAST_START = 825;
+    private static final int LAND_BORDER_ICON = 0;
+    private static final int COAST_BORDER_ICON = 2;
 
     @Option(name = "--from-dir", usage = "Asset directory to load from")
     static String fromDir;
@@ -204,6 +206,32 @@ public class Extractor {
 
         /* Extract flag animation */
         extractor.populateFlags(fromDir, toDir);
+
+        /*  Populate borders */
+        extractor.populateBorders(fromDir, toDir);
+    }
+
+    private void populateBorders(String fromDir, String toDir) throws UnknownResourceTypeException, IOException, InvalidHeaderException, InvalidFormatException {
+        List<GameResource> afrBobsLst = assetManager.loadLstFile(fromDir + "/DATA/MBOB/AFR_BOBS.LST", defaultPalette);
+        List<GameResource> japBobsLst = assetManager.loadLstFile(fromDir + "/DATA/MBOB/JAP_BOBS.LST", defaultPalette);
+        List<GameResource> romBobsLst = assetManager.loadLstFile(fromDir + "/DATA/MBOB/ROM_BOBS.LST", defaultPalette);
+        List<GameResource> vikBobsLst = assetManager.loadLstFile(fromDir + "/DATA/MBOB/VIK_BOBS.LST", defaultPalette);
+
+        BorderImageCollector borderImageCollector = new BorderImageCollector();
+
+        borderImageCollector.addLandBorderImage(Nation.AFRICANS, getImageFromResourceLocation(afrBobsLst, LAND_BORDER_ICON));
+        borderImageCollector.addWaterBorderImage(Nation.AFRICANS, getImageFromResourceLocation(afrBobsLst, COAST_BORDER_ICON));
+
+        borderImageCollector.addLandBorderImage(Nation.JAPANESE, getImageFromResourceLocation(japBobsLst, LAND_BORDER_ICON));
+        borderImageCollector.addWaterBorderImage(Nation.JAPANESE, getImageFromResourceLocation(japBobsLst, COAST_BORDER_ICON));
+
+        borderImageCollector.addLandBorderImage(Nation.ROMANS, getImageFromResourceLocation(romBobsLst, LAND_BORDER_ICON));
+        borderImageCollector.addWaterBorderImage(Nation.ROMANS, getImageFromResourceLocation(romBobsLst, COAST_BORDER_ICON));
+
+        borderImageCollector.addLandBorderImage(Nation.VIKINGS, getImageFromResourceLocation(vikBobsLst, LAND_BORDER_ICON));
+        borderImageCollector.addWaterBorderImage(Nation.VIKINGS, getImageFromResourceLocation(vikBobsLst, COAST_BORDER_ICON));
+
+        borderImageCollector.writeImageAtlas(toDir, defaultPalette);
     }
 
     private void populateFlags(String fromDir, String toDir) throws InvalidFormatException, UnknownResourceTypeException, InvalidHeaderException, IOException {

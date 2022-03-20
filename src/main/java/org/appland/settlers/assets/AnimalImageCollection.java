@@ -51,6 +51,7 @@ public class AnimalImageCollection {
 
         JSONObject jsonImageAtlas = new JSONObject();
 
+        // Fill in the images into the image atlas
         int i = 0;
         for (Direction direction : Direction.values()) {
 
