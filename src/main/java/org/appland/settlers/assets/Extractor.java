@@ -640,7 +640,7 @@ public class Extractor {
     private void populateNatureAndUIElements(String fromDir, String toDir) throws InvalidFormatException, UnknownResourceTypeException, InvalidHeaderException, IOException {
 
         /* Load from the map asset file */
-        List<GameResource> gameResourceList = assetManager.loadLstFile(fromDir + "/" + MAP_FILE, defaultPalette);
+        List<GameResource> mapbobsLst = assetManager.loadLstFile(fromDir + "/" + MAP_FILE, defaultPalette);
 
         /* Create the out directories */
         String uiDir = toDir + "/" + UI_ELEMENTS_DIRECTORY;
@@ -677,81 +677,81 @@ public class Extractor {
         /* Extract the stones */
         StonesImageCollection stonesImageCollection = new StonesImageCollection();
 
-        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.MINI, getImageFromResourceLocation(gameResourceList, STONE_TYPE_1_MINI));
-        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.LITTLE, getImageFromResourceLocation(gameResourceList, STONE_TYPE_1_LITTLE));
-        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.LITTLE_MORE, getImageFromResourceLocation(gameResourceList, STONE_TYPE_1_LITTLE_MORE));
-        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.MIDDLE, getImageFromResourceLocation(gameResourceList, STONE_TYPE_1_MIDDLE));
-        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.ALMOST_FULL, getImageFromResourceLocation(gameResourceList, STONE_TYPE_1_ALMOST_FULL));
-        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.FULL, getImageFromResourceLocation(gameResourceList, STONE_TYPE_1_FULL));
+        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.MINI, getImageFromResourceLocation(mapbobsLst, STONE_TYPE_1_MINI));
+        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.LITTLE, getImageFromResourceLocation(mapbobsLst, STONE_TYPE_1_LITTLE));
+        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.LITTLE_MORE, getImageFromResourceLocation(mapbobsLst, STONE_TYPE_1_LITTLE_MORE));
+        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.MIDDLE, getImageFromResourceLocation(mapbobsLst, STONE_TYPE_1_MIDDLE));
+        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.ALMOST_FULL, getImageFromResourceLocation(mapbobsLst, STONE_TYPE_1_ALMOST_FULL));
+        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.FULL, getImageFromResourceLocation(mapbobsLst, STONE_TYPE_1_FULL));
 
-        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.MINI, getImageFromResourceLocation(gameResourceList, STONE_TYPE_2_MINI));
-        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.LITTLE, getImageFromResourceLocation(gameResourceList, STONE_TYPE_2_LITTLE));
-        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.LITTLE_MORE, getImageFromResourceLocation(gameResourceList, STONE_TYPE_2_LITTLE_MORE));
-        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.MIDDLE, getImageFromResourceLocation(gameResourceList, STONE_TYPE_2_MIDDLE));
-        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.ALMOST_FULL, getImageFromResourceLocation(gameResourceList, STONE_TYPE_2_ALMOST_FULL));
-        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.FULL, getImageFromResourceLocation(gameResourceList, STONE_TYPE_2_FULL));
+        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.MINI, getImageFromResourceLocation(mapbobsLst, STONE_TYPE_2_MINI));
+        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.LITTLE, getImageFromResourceLocation(mapbobsLst, STONE_TYPE_2_LITTLE));
+        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.LITTLE_MORE, getImageFromResourceLocation(mapbobsLst, STONE_TYPE_2_LITTLE_MORE));
+        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.MIDDLE, getImageFromResourceLocation(mapbobsLst, STONE_TYPE_2_MIDDLE));
+        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.ALMOST_FULL, getImageFromResourceLocation(mapbobsLst, STONE_TYPE_2_ALMOST_FULL));
+        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.FULL, getImageFromResourceLocation(mapbobsLst, STONE_TYPE_2_FULL));
 
         stonesImageCollection.writeImageAtlas(toDir, defaultPalette);
 
         /* Extract UI elements */
         UIElementsImageCollection uiElementsImageCollection = new UIElementsImageCollection();
 
-        uiElementsImageCollection.addSelectedPointImage(getImageFromResourceLocation(gameResourceList, SELECTED_POINT));
-        uiElementsImageCollection.addHoverPoint(getImageFromResourceLocation(gameResourceList, HOVER_POINT));
-        uiElementsImageCollection.addHoverAvailableFlag(getImageFromResourceLocation(gameResourceList, HOVER_AVAILABLE_FLAG));
-        uiElementsImageCollection.addHoverAvailableMine(getImageFromResourceLocation(gameResourceList, HOVER_AVAILABLE_MINE));
-        uiElementsImageCollection.addHoverAvailableBuilding(SMALL, getImageFromResourceLocation(gameResourceList, HOVER_AVAILABLE_SMALL_BUILDING));
-        uiElementsImageCollection.addHoverAvailableBuilding(MEDIUM, getImageFromResourceLocation(gameResourceList, HOVER_AVAILABLE_MEDIUM_BUILDING));
-        uiElementsImageCollection.addHoverAvailableBuilding(LARGE, getImageFromResourceLocation(gameResourceList, HOVER_AVAILABLE_LARGE_BUILDING));
-        uiElementsImageCollection.addHoverAvailableHarbor(getImageFromResourceLocation(gameResourceList, HOVER_AVAILABLE_HARBOR));
-        uiElementsImageCollection.addAvailableFlag(getImageFromResourceLocation(gameResourceList, AVAILABLE_FLAG));
-        uiElementsImageCollection.addAvailableMine(getImageFromResourceLocation(gameResourceList, AVAILABLE_MINE));
-        uiElementsImageCollection.addAvailableBuilding(SMALL, getImageFromResourceLocation(gameResourceList, AVAILABLE_SMALL_BUILDING));
-        uiElementsImageCollection.addAvailableBuilding(MEDIUM, getImageFromResourceLocation(gameResourceList, AVAILABLE_MEDIUM_BUILDING));
-        uiElementsImageCollection.addAvailableBuilding(LARGE, getImageFromResourceLocation(gameResourceList, AVAILABLE_LARGE_BUILDING));
-        uiElementsImageCollection.addAvailableHarbor(getImageFromResourceLocation(gameResourceList, AVAILABLE_HARBOR));
+        uiElementsImageCollection.addSelectedPointImage(getImageFromResourceLocation(mapbobsLst, SELECTED_POINT));
+        uiElementsImageCollection.addHoverPoint(getImageFromResourceLocation(mapbobsLst, HOVER_POINT));
+        uiElementsImageCollection.addHoverAvailableFlag(getImageFromResourceLocation(mapbobsLst, HOVER_AVAILABLE_FLAG));
+        uiElementsImageCollection.addHoverAvailableMine(getImageFromResourceLocation(mapbobsLst, HOVER_AVAILABLE_MINE));
+        uiElementsImageCollection.addHoverAvailableBuilding(SMALL, getImageFromResourceLocation(mapbobsLst, HOVER_AVAILABLE_SMALL_BUILDING));
+        uiElementsImageCollection.addHoverAvailableBuilding(MEDIUM, getImageFromResourceLocation(mapbobsLst, HOVER_AVAILABLE_MEDIUM_BUILDING));
+        uiElementsImageCollection.addHoverAvailableBuilding(LARGE, getImageFromResourceLocation(mapbobsLst, HOVER_AVAILABLE_LARGE_BUILDING));
+        uiElementsImageCollection.addHoverAvailableHarbor(getImageFromResourceLocation(mapbobsLst, HOVER_AVAILABLE_HARBOR));
+        uiElementsImageCollection.addAvailableFlag(getImageFromResourceLocation(mapbobsLst, AVAILABLE_FLAG));
+        uiElementsImageCollection.addAvailableMine(getImageFromResourceLocation(mapbobsLst, AVAILABLE_MINE));
+        uiElementsImageCollection.addAvailableBuilding(SMALL, getImageFromResourceLocation(mapbobsLst, AVAILABLE_SMALL_BUILDING));
+        uiElementsImageCollection.addAvailableBuilding(MEDIUM, getImageFromResourceLocation(mapbobsLst, AVAILABLE_MEDIUM_BUILDING));
+        uiElementsImageCollection.addAvailableBuilding(LARGE, getImageFromResourceLocation(mapbobsLst, AVAILABLE_LARGE_BUILDING));
+        uiElementsImageCollection.addAvailableHarbor(getImageFromResourceLocation(mapbobsLst, AVAILABLE_HARBOR));
 
         uiElementsImageCollection.writeImageAtlas(toDir, defaultPalette);
 
         /*  Extract the crops */
         CropImageCollection cropImageCollection = new CropImageCollection();
 
-        cropImageCollection.addImage(CropType.TYPE_1, CropGrowth.NEWLY_PLANTED, getImageFromResourceLocation(gameResourceList, CROP_TYPE_1_NEWLY_PLANTED));
-        cropImageCollection.addImage(CropType.TYPE_1, CropGrowth.SMALL, getImageFromResourceLocation(gameResourceList, CROP_TYPE_1_LITTLE_GROWTH));
-        cropImageCollection.addImage(CropType.TYPE_1, CropGrowth.LARGER, getImageFromResourceLocation(gameResourceList, CROP_TYPE_1_MORE_GROWTH));
-        cropImageCollection.addImage(CropType.TYPE_1, CropGrowth.FULLY_GROWN, getImageFromResourceLocation(gameResourceList, CROP_TYPE_1_FULLY_GROWN));
-        cropImageCollection.addImage(CropType.TYPE_1, CropGrowth.NEWLY_HARVESTED, getImageFromResourceLocation(gameResourceList, CROP_TYPE_1_JUST_HARVESTED));
+        cropImageCollection.addImage(CropType.TYPE_1, CropGrowth.NEWLY_PLANTED, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_1_NEWLY_PLANTED));
+        cropImageCollection.addImage(CropType.TYPE_1, CropGrowth.SMALL, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_1_LITTLE_GROWTH));
+        cropImageCollection.addImage(CropType.TYPE_1, CropGrowth.LARGER, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_1_MORE_GROWTH));
+        cropImageCollection.addImage(CropType.TYPE_1, CropGrowth.FULLY_GROWN, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_1_FULLY_GROWN));
+        cropImageCollection.addImage(CropType.TYPE_1, CropGrowth.NEWLY_HARVESTED, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_1_JUST_HARVESTED));
 
-        cropImageCollection.addImage(CropType.TYPE_2, CropGrowth.NEWLY_PLANTED, getImageFromResourceLocation(gameResourceList, CROP_TYPE_2_NEWLY_PLANTED));
-        cropImageCollection.addImage(CropType.TYPE_2, CropGrowth.SMALL, getImageFromResourceLocation(gameResourceList, CROP_TYPE_2_LITTLE_GROWTH));
-        cropImageCollection.addImage(CropType.TYPE_2, CropGrowth.LARGER, getImageFromResourceLocation(gameResourceList, CROP_TYPE_2_MORE_GROWTH));
-        cropImageCollection.addImage(CropType.TYPE_2, CropGrowth.FULLY_GROWN, getImageFromResourceLocation(gameResourceList, CROP_TYPE_2_FULLY_GROWN));
-        cropImageCollection.addImage(CropType.TYPE_2, CropGrowth.NEWLY_HARVESTED, getImageFromResourceLocation(gameResourceList, CROP_TYPE_2_JUST_HARVESTED));
+        cropImageCollection.addImage(CropType.TYPE_2, CropGrowth.NEWLY_PLANTED, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_2_NEWLY_PLANTED));
+        cropImageCollection.addImage(CropType.TYPE_2, CropGrowth.SMALL, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_2_LITTLE_GROWTH));
+        cropImageCollection.addImage(CropType.TYPE_2, CropGrowth.LARGER, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_2_MORE_GROWTH));
+        cropImageCollection.addImage(CropType.TYPE_2, CropGrowth.FULLY_GROWN, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_2_FULLY_GROWN));
+        cropImageCollection.addImage(CropType.TYPE_2, CropGrowth.NEWLY_HARVESTED, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_2_JUST_HARVESTED));
 
         cropImageCollection.writeImageAtlas(toDir, defaultPalette);
 
         /* Extract signs */
         SignImageCollection signImageCollection = new SignImageCollection();
 
-        signImageCollection.addImage(SignType.IRON, SMALL, getImageFromResourceLocation(gameResourceList, IRON_SIGN_SMALL_UP_RIGHT));
-        signImageCollection.addImage(SignType.IRON, MEDIUM, getImageFromResourceLocation(gameResourceList, IRON_SIGN_MEDIUM_UP_RIGHT));
-        signImageCollection.addImage(SignType.IRON, LARGE, getImageFromResourceLocation(gameResourceList, IRON_SIGN_LARGE_UP_RIGHT));
+        signImageCollection.addImage(SignType.IRON, SMALL, getImageFromResourceLocation(mapbobsLst, IRON_SIGN_SMALL_UP_RIGHT));
+        signImageCollection.addImage(SignType.IRON, MEDIUM, getImageFromResourceLocation(mapbobsLst, IRON_SIGN_MEDIUM_UP_RIGHT));
+        signImageCollection.addImage(SignType.IRON, LARGE, getImageFromResourceLocation(mapbobsLst, IRON_SIGN_LARGE_UP_RIGHT));
 
-        signImageCollection.addImage(SignType.COAL, SMALL, getImageFromResourceLocation(gameResourceList, COAL_SIGN_SMALL_UP_RIGHT));
-        signImageCollection.addImage(SignType.COAL, MEDIUM, getImageFromResourceLocation(gameResourceList, COAL_SIGN_MEDIUM_UP_RIGHT));
-        signImageCollection.addImage(SignType.COAL, LARGE, getImageFromResourceLocation(gameResourceList, COAL_SIGN_LARGE_UP_RIGHT));
+        signImageCollection.addImage(SignType.COAL, SMALL, getImageFromResourceLocation(mapbobsLst, COAL_SIGN_SMALL_UP_RIGHT));
+        signImageCollection.addImage(SignType.COAL, MEDIUM, getImageFromResourceLocation(mapbobsLst, COAL_SIGN_MEDIUM_UP_RIGHT));
+        signImageCollection.addImage(SignType.COAL, LARGE, getImageFromResourceLocation(mapbobsLst, COAL_SIGN_LARGE_UP_RIGHT));
 
-        signImageCollection.addImage(SignType.STONE, SMALL, getImageFromResourceLocation(gameResourceList, GRANITE_SIGN_SMALL_UP_RIGHT));
-        signImageCollection.addImage(SignType.STONE, MEDIUM, getImageFromResourceLocation(gameResourceList, GRANITE_SIGN_MEDIUM_UP_RIGHT));
-        signImageCollection.addImage(SignType.STONE, LARGE, getImageFromResourceLocation(gameResourceList, GRANITE_SIGN_LARGE_UP_RIGHT));
+        signImageCollection.addImage(SignType.STONE, SMALL, getImageFromResourceLocation(mapbobsLst, GRANITE_SIGN_SMALL_UP_RIGHT));
+        signImageCollection.addImage(SignType.STONE, MEDIUM, getImageFromResourceLocation(mapbobsLst, GRANITE_SIGN_MEDIUM_UP_RIGHT));
+        signImageCollection.addImage(SignType.STONE, LARGE, getImageFromResourceLocation(mapbobsLst, GRANITE_SIGN_LARGE_UP_RIGHT));
 
-        signImageCollection.addImage(SignType.GOLD, SMALL, getImageFromResourceLocation(gameResourceList, GOLD_SIGN_SMALL_UP_RIGHT));
-        signImageCollection.addImage(SignType.GOLD, MEDIUM, getImageFromResourceLocation(gameResourceList, GOLD_SIGN_MEDIUM_UP_RIGHT));
-        signImageCollection.addImage(SignType.GOLD, LARGE, getImageFromResourceLocation(gameResourceList, GOLD_SIGN_LARGE_UP_RIGHT));
+        signImageCollection.addImage(SignType.GOLD, SMALL, getImageFromResourceLocation(mapbobsLst, GOLD_SIGN_SMALL_UP_RIGHT));
+        signImageCollection.addImage(SignType.GOLD, MEDIUM, getImageFromResourceLocation(mapbobsLst, GOLD_SIGN_MEDIUM_UP_RIGHT));
+        signImageCollection.addImage(SignType.GOLD, LARGE, getImageFromResourceLocation(mapbobsLst, GOLD_SIGN_LARGE_UP_RIGHT));
 
-        signImageCollection.addImage(SignType.WATER, LARGE, getImageFromResourceLocation(gameResourceList, WATER_SIGN_LARGE_UP_RIGHT));
+        signImageCollection.addImage(SignType.WATER, LARGE, getImageFromResourceLocation(mapbobsLst, WATER_SIGN_LARGE_UP_RIGHT));
 
-        signImageCollection.addImage(SignType.NOTHING, LARGE, getImageFromResourceLocation(gameResourceList, NOTHING_SIGN_UP_RIGHT));
+        signImageCollection.addImage(SignType.NOTHING, LARGE, getImageFromResourceLocation(mapbobsLst, NOTHING_SIGN_UP_RIGHT));
 
         signImageCollection.writeImageAtlas(toDir, defaultPalette);
 
@@ -764,10 +764,10 @@ public class Extractor {
         /* Extract mini fire animation */
         FireImageCollection fireImageCollection = new FireImageCollection();
 
-        fireImageCollection.addImagesForFire(FireSize.MINI, getImagesFromResourceLocations(gameResourceList, MINI_FIRE_ANIMATION, 8));
-        fireImageCollection.addImagesForFire(FireSize.SMALL, getImagesFromResourceLocations(gameResourceList, SMALL_FIRE_ANIMATION, 8));
-        fireImageCollection.addImagesForFire(FireSize.MEDIUM, getImagesFromResourceLocations(gameResourceList, MEDIUM_FIRE_ANIMATION, 8));
-        fireImageCollection.addImagesForFire(FireSize.LARGE, getImagesFromResourceLocations(gameResourceList, LARGE_FIRE_ANIMATION, 8));
+        fireImageCollection.addImagesForFire(FireSize.MINI, getImagesFromResourceLocations(mapbobsLst, MINI_FIRE_ANIMATION, 8));
+        fireImageCollection.addImagesForFire(FireSize.SMALL, getImagesFromResourceLocations(mapbobsLst, SMALL_FIRE_ANIMATION, 8));
+        fireImageCollection.addImagesForFire(FireSize.MEDIUM, getImagesFromResourceLocations(mapbobsLst, MEDIUM_FIRE_ANIMATION, 8));
+        fireImageCollection.addImagesForFire(FireSize.LARGE, getImagesFromResourceLocations(mapbobsLst, LARGE_FIRE_ANIMATION, 8));
 
         fireImageCollection.writeImageAtlas(toDir, defaultPalette);
 
@@ -775,31 +775,31 @@ public class Extractor {
         TreeImageCollection treeImageCollection = new TreeImageCollection("trees");
 
         /* Extract animation for tree type 1 in wind -- cypress (?) */
-        treeImageCollection.addImagesForTree(Tree.TreeType.CYPRESS, getImagesFromResourceLocations(gameResourceList, TREE_ANIMATION_TYPE_1, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.CYPRESS, getImagesFromResourceLocations(mapbobsLst, TREE_ANIMATION_TYPE_1, 8));
 
         /* Extract animation for tree type 2 in wind -- birch, for sure */
-        treeImageCollection.addImagesForTree(Tree.TreeType.BIRCH, getImagesFromResourceLocations(gameResourceList, TREE_ANIMATION_TYPE_2, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.BIRCH, getImagesFromResourceLocations(mapbobsLst, TREE_ANIMATION_TYPE_2, 8));
 
         /* Extract animation for tree type 3 in wind -- oak */
-        treeImageCollection.addImagesForTree(Tree.TreeType.OAK, getImagesFromResourceLocations(gameResourceList, TREE_ANIMATION_TYPE_3, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.OAK, getImagesFromResourceLocations(mapbobsLst, TREE_ANIMATION_TYPE_3, 8));
 
         /* Extract animation for tree type 4 in wind -- short palm */
-        treeImageCollection.addImagesForTree(Tree.TreeType.PALM_1, getImagesFromResourceLocations(gameResourceList, TREE_ANIMATION_TYPE_4, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.PALM_1, getImagesFromResourceLocations(mapbobsLst, TREE_ANIMATION_TYPE_4, 8));
 
         /* Extract animation for tree type 5 in wind -- tall palm */
-        treeImageCollection.addImagesForTree(Tree.TreeType.PALM_2, getImagesFromResourceLocations(gameResourceList, TREE_ANIMATION_TYPE_5, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.PALM_2, getImagesFromResourceLocations(mapbobsLst, TREE_ANIMATION_TYPE_5, 8));
 
         /* Extract animation for tree type 6 in wind -- fat palm - pine apple*/
-        treeImageCollection.addImagesForTree(Tree.TreeType.PINE_APPLE, getImagesFromResourceLocations(gameResourceList, TREE_ANIMATION_TYPE_6, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.PINE_APPLE, getImagesFromResourceLocations(mapbobsLst, TREE_ANIMATION_TYPE_6, 8));
 
         /* Extract animation for tree type 7 in wind -- pine */
-        treeImageCollection.addImagesForTree(Tree.TreeType.PINE, getImagesFromResourceLocations(gameResourceList, TREE_ANIMATION_TYPE_7, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.PINE, getImagesFromResourceLocations(mapbobsLst, TREE_ANIMATION_TYPE_7, 8));
 
         /* Extract animation for tree type 8 in wind -- cherry */
-        treeImageCollection.addImagesForTree(Tree.TreeType.CHERRY, getImagesFromResourceLocations(gameResourceList, TREE_ANIMATION_TYPE_8, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.CHERRY, getImagesFromResourceLocations(mapbobsLst, TREE_ANIMATION_TYPE_8, 8));
 
         /* Extract animation for tree type 9 in wind -- fir (?) */
-        treeImageCollection.addImagesForTree(Tree.TreeType.FIR, getImagesFromResourceLocations(gameResourceList, TREE_ANIMATION_TYPE_9, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.FIR, getImagesFromResourceLocations(mapbobsLst, TREE_ANIMATION_TYPE_9, 8));
 
         treeImageCollection.writeImageAtlas(natureDir, defaultPalette);
 
@@ -815,13 +815,11 @@ public class Extractor {
 
         for (Direction direction : Direction.values()) {
 
-            String directionString = getDirectionString(direction);
-
             /* Ice bear */
             for (int i = 0; i < WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
                 int index = ICE_BEAR_WALKING_SOUTH + WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
 
-                Bitmap image = getImageFromResourceLocation(gameResourceList, index);
+                Bitmap image = getImageFromResourceLocation(mapbobsLst, index);
                 iceBearImageCollection.addImage(direction, image);
             }
 
@@ -829,7 +827,7 @@ public class Extractor {
             for (int i = 0; i < WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
                 int index = FOX_WALKING_SOUTH + WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
 
-                Bitmap image = getImageFromResourceLocation(gameResourceList, index);
+                Bitmap image = getImageFromResourceLocation(mapbobsLst, index);
                 foxImageCollection.addImage(direction, image);
             }
 
@@ -837,7 +835,7 @@ public class Extractor {
             for (int i = 0; i < WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
                 int index = RABBIT_WALKING_SOUTH + WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
 
-                Bitmap image = getImageFromResourceLocation(gameResourceList, index);
+                Bitmap image = getImageFromResourceLocation(mapbobsLst, index);
                 rabbitImageCollection.addImage(direction, image);
             }
 
@@ -845,7 +843,7 @@ public class Extractor {
             for (int i = 0; i < WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
                 int index = STAG_WALKING_SOUTH + WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
 
-                Bitmap image = getImageFromResourceLocation(gameResourceList, index);
+                Bitmap image = getImageFromResourceLocation(mapbobsLst, index);
                 stagImageCollection.addImage(direction, image);
             }
 
@@ -853,7 +851,7 @@ public class Extractor {
             for (int i = 0; i < WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
                 int index = DEER_WALKING_SOUTH + WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
 
-                Bitmap image = getImageFromResourceLocation(gameResourceList, index);
+                Bitmap image = getImageFromResourceLocation(mapbobsLst, index);
                 deerImageCollection.addImage(direction, image);
             }
 
@@ -861,7 +859,7 @@ public class Extractor {
             for (int i = 0; i < 2; i++) {
                 int index = SHEEP_WALKING_SOUTH + 2 * direction.ordinal() + i;
 
-                Bitmap image = getImageFromResourceLocation(gameResourceList, index);
+                Bitmap image = getImageFromResourceLocation(mapbobsLst, index);
                 sheepImageCollection.addImage(direction, image);
             }
 
@@ -869,20 +867,20 @@ public class Extractor {
             for (int i = 0; i < WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
                 int index = DEER_2_WALKING_SOUTH + WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
 
-                Bitmap image = getImageFromResourceLocation(gameResourceList, index);
+                Bitmap image = getImageFromResourceLocation(mapbobsLst, index);
                 deer2ImageCollection.addImage(direction, image);
             }
         }
 
         /* Extract duck */
-        duckImageCollection.addImage(EAST, getImageFromResourceLocation(gameResourceList, DUCK));
-        duckImageCollection.addImage(SOUTH_EAST, getImageFromResourceLocation(gameResourceList, DUCK + 1));
-        duckImageCollection.addImage(SOUTH_WEST, getImageFromResourceLocation(gameResourceList, DUCK + 2));
-        duckImageCollection.addImage(WEST, getImageFromResourceLocation(gameResourceList, DUCK + 3));
-        duckImageCollection.addImage(NORTH_WEST, getImageFromResourceLocation(gameResourceList, DUCK + 4));
-        duckImageCollection.addImage(NORTH_EAST, getImageFromResourceLocation(gameResourceList, DUCK + 5));
+        duckImageCollection.addImage(EAST, getImageFromResourceLocation(mapbobsLst, DUCK));
+        duckImageCollection.addImage(SOUTH_EAST, getImageFromResourceLocation(mapbobsLst, DUCK + 1));
+        duckImageCollection.addImage(SOUTH_WEST, getImageFromResourceLocation(mapbobsLst, DUCK + 2));
+        duckImageCollection.addImage(WEST, getImageFromResourceLocation(mapbobsLst, DUCK + 3));
+        duckImageCollection.addImage(NORTH_WEST, getImageFromResourceLocation(mapbobsLst, DUCK + 4));
+        duckImageCollection.addImage(NORTH_EAST, getImageFromResourceLocation(mapbobsLst, DUCK + 5));
 
-        writeFilesFromMap(gameResourceList, imagesToFileMap);
+        writeFilesFromMap(mapbobsLst, imagesToFileMap);
 
         iceBearImageCollection.writeImageAtlas(natureDir + "/animals/", defaultPalette);
         foxImageCollection.writeImageAtlas(natureDir + "/animals/", defaultPalette);
@@ -927,21 +925,21 @@ public class Extractor {
          */
         DecorativeImageCollection decorativeImageCollection = new DecorativeImageCollection();
 
-        decorativeImageCollection.addMushroomImage(getImageFromResourceLocation(gameResourceList, DECORATIVE_MUSHROOM));
-        decorativeImageCollection.addMiniStoneImage(getImageFromResourceLocation(gameResourceList, DECORATIVE_MINI_STONE));
-        decorativeImageCollection.addMiniStonesImage(getImageFromResourceLocation(gameResourceList, DECORATIVE_MINI_STONES));
-        decorativeImageCollection.addStoneImage(getImageFromResourceLocation(gameResourceList, DECORATIVE_STONE));
-        decorativeImageCollection.addFallenTreeImage(getImageFromResourceLocation(gameResourceList, DECORATIVE_FALLEN_TREE));
-        decorativeImageCollection.addStandingDeadTreeImage(getImageFromResourceLocation(gameResourceList, DECORATIVE_STANDING_DEAD_TREE));
-        decorativeImageCollection.addSkeletonImage(getImageFromResourceLocation(gameResourceList, DECORATIVE_SKELETON));
-        decorativeImageCollection.addMiniSkeletonImage(getImageFromResourceLocation(gameResourceList, DECORATIVE_MINI_SKELETON));
-        decorativeImageCollection.addFlowersImage(getImageFromResourceLocation(gameResourceList, DECORATIVE_FLOWERS));
-        decorativeImageCollection.addBushImage(getImageFromResourceLocation(gameResourceList, DECORATIVE_BUSH));
-        decorativeImageCollection.addLargerStonesImage(getImageFromResourceLocation(gameResourceList, DECORATIVE_LARGER_STONES));
-        decorativeImageCollection.addCactus1Image(getImageFromResourceLocation(gameResourceList, DECORATIVE_CACTUS_1));
-        decorativeImageCollection.addCactus2Image(getImageFromResourceLocation(gameResourceList, DECORATIVE_CACTUS_2));
-        decorativeImageCollection.addBeachGrassImage(getImageFromResourceLocation(gameResourceList, DECORATIVE_BEACH_GRASS));
-        decorativeImageCollection.addSmallGrassImage(getImageFromResourceLocation(gameResourceList, DECORATIVE_SMALL_GRASS));
+        decorativeImageCollection.addMushroomImage(getImageFromResourceLocation(mapbobsLst, DECORATIVE_MUSHROOM));
+        decorativeImageCollection.addMiniStoneImage(getImageFromResourceLocation(mapbobsLst, DECORATIVE_MINI_STONE));
+        decorativeImageCollection.addMiniStonesImage(getImageFromResourceLocation(mapbobsLst, DECORATIVE_MINI_STONES));
+        decorativeImageCollection.addStoneImage(getImageFromResourceLocation(mapbobsLst, DECORATIVE_STONE));
+        decorativeImageCollection.addFallenTreeImage(getImageFromResourceLocation(mapbobsLst, DECORATIVE_FALLEN_TREE));
+        decorativeImageCollection.addStandingDeadTreeImage(getImageFromResourceLocation(mapbobsLst, DECORATIVE_STANDING_DEAD_TREE));
+        decorativeImageCollection.addSkeletonImage(getImageFromResourceLocation(mapbobsLst, DECORATIVE_SKELETON));
+        decorativeImageCollection.addMiniSkeletonImage(getImageFromResourceLocation(mapbobsLst, DECORATIVE_MINI_SKELETON));
+        decorativeImageCollection.addFlowersImage(getImageFromResourceLocation(mapbobsLst, DECORATIVE_FLOWERS));
+        decorativeImageCollection.addBushImage(getImageFromResourceLocation(mapbobsLst, DECORATIVE_BUSH));
+        decorativeImageCollection.addLargerStonesImage(getImageFromResourceLocation(mapbobsLst, DECORATIVE_LARGER_STONES));
+        decorativeImageCollection.addCactus1Image(getImageFromResourceLocation(mapbobsLst, DECORATIVE_CACTUS_1));
+        decorativeImageCollection.addCactus2Image(getImageFromResourceLocation(mapbobsLst, DECORATIVE_CACTUS_2));
+        decorativeImageCollection.addBeachGrassImage(getImageFromResourceLocation(mapbobsLst, DECORATIVE_BEACH_GRASS));
+        decorativeImageCollection.addSmallGrassImage(getImageFromResourceLocation(mapbobsLst, DECORATIVE_SMALL_GRASS));
 
         decorativeImageCollection.writeImageAtlas(toDir, defaultPalette);
 
