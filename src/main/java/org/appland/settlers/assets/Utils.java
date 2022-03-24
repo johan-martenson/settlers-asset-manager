@@ -5,6 +5,7 @@
  */
 package org.appland.settlers.assets;
 
+import java.awt.*;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
@@ -12,6 +13,7 @@ import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -196,5 +198,70 @@ class Utils {
         }
 
         return result;
+    }
+
+    public static RowLayoutInfo layoutInfoFromImageSeries(Collection<Bitmap> images) {
+
+        RowLayoutInfo layoutInfo = new RowLayoutInfo();
+
+        for (Bitmap bitmap : images) {
+            layoutInfo.maxWidth = Math.max(bitmap.getWidth(), layoutInfo.maxWidth);
+            layoutInfo.maxHeight = Math.max(bitmap.getHeight(), layoutInfo.maxHeight);
+
+            layoutInfo.maxNx = Math.max(layoutInfo.maxNx, bitmap.nx);
+            layoutInfo.maxNy = Math.max(layoutInfo.maxNy, bitmap.ny);
+
+            layoutInfo.minNx = Math.min(layoutInfo.minNx, bitmap.nx);
+            layoutInfo.minNy = Math.min(layoutInfo.minNy, bitmap.ny);
+        }
+
+        layoutInfo.maxImagesPerDirection = images.size();
+
+        return layoutInfo;
+    }
+
+    static class RowLayoutInfo {
+        public int maxWidth;
+        public int maxHeight;
+        public int maxNx;
+        public int maxNy;
+        public int minNx;
+        public int minNy;
+        public int maxImagesPerDirection;
+
+        public void aggregate(RowLayoutInfo layoutInfo) {
+            maxWidth = Math.max(maxWidth, layoutInfo.maxWidth);
+            maxHeight = Math.max(maxHeight, layoutInfo.maxHeight);
+
+            maxNx = Math.max(maxNx, layoutInfo.maxNx);
+            maxNy = Math.max(maxNy, layoutInfo.maxNy);
+
+            minNx = Math.min(minNx, layoutInfo.minNx);
+            minNy = Math.min(minNy, layoutInfo.minNy);
+
+            maxImagesPerDirection = Math.max(maxImagesPerDirection, layoutInfo.maxImagesPerDirection);
+        }
+
+        public int getRowWidth() {
+            return (maxWidth + maxNx - minNx) * maxImagesPerDirection;
+        }
+
+        public int getRowHeight() {
+            return maxHeight + maxNy - minNy;
+        }
+
+        public int getImageHeight() {
+            return maxHeight + maxNy - minNy;
+        }
+
+        public int getImageWidth() {
+            return maxWidth + maxNx - minNx;
+        }
+
+        public Point getTargetPositionForImageInRow(Bitmap image, int rowIndex, int imageIndex) {
+            return new Point(
+                    imageIndex * getImageWidth() + maxNx - image.nx,
+                    rowIndex * getImageHeight() + maxNy - image.ny);
+        }
     }
 }
