@@ -27,29 +27,28 @@ public class TreeImageCollection {
     }
 
     public void writeImageAtlas(String directory, Palette palette) throws IOException {
-        int maxHeight = 0;
-        int maxWidth = 0;
-        int maxImagesPerDirection = 0;
 
         // Find the max width and height, and the max number of images over all tree types
+        Utils.RowLayoutInfo aggregatedLayoutInfo = new Utils.RowLayoutInfo();
+
         for (Tree.TreeType treeType : Tree.TreeType.values()) {
 
             List<Bitmap> images = this.treeMap.get(treeType);
+            Utils.RowLayoutInfo layoutInfo = Utils.layoutInfoFromImageSeries(images);
 
-            for (Bitmap bitmap : images) {
-                maxWidth = Math.max(bitmap.getWidth(), maxWidth);
-                maxHeight = Math.max(bitmap.getHeight(), maxHeight);
-            }
-
-            maxImagesPerDirection = Math.max(maxImagesPerDirection, images.size());
+            aggregatedLayoutInfo.aggregate(layoutInfo);
         }
 
         // Write the image atlas, one row per tree, and collect metadata to write as json
-        Bitmap imageAtlas = new Bitmap(maxWidth * maxImagesPerDirection, maxHeight * Tree.TreeType.values().length, palette, TextureFormat.BGRA);
+        Bitmap imageAtlas = new Bitmap(
+                aggregatedLayoutInfo.getRowWidth(),
+                aggregatedLayoutInfo.getRowHeight() * Tree.TreeType.values().length,
+                palette,
+                TextureFormat.BGRA);
 
         JSONObject jsonImageAtlas = new JSONObject();
 
-        int i = 0;
+        int treeIndex = 0;
         for (Tree.TreeType treeType : Tree.TreeType.values()) {
 
             List<Bitmap> images = this.treeMap.get(treeType);
@@ -59,19 +58,25 @@ public class TreeImageCollection {
             jsonImageAtlas.put(treeType.name().toUpperCase(), jsonTreeInfo);
 
             jsonTreeInfo.put("startX", 0);
-            jsonTreeInfo.put("startY", i * maxHeight);
-            jsonTreeInfo.put("width", maxWidth);
-            jsonTreeInfo.put("height", maxHeight);
+            jsonTreeInfo.put("startY", treeIndex * aggregatedLayoutInfo.getRowHeight());
+            jsonTreeInfo.put("width", aggregatedLayoutInfo.getImageWidth());
+            jsonTreeInfo.put("height", aggregatedLayoutInfo.getImageHeight());
             jsonTreeInfo.put("nrImages", images.size());
+            jsonTreeInfo.put("offsetX", aggregatedLayoutInfo.maxNx);
+            jsonTreeInfo.put("offsetY", aggregatedLayoutInfo.maxNy);
 
-            int j = 0;
+            int imageIndex = 0;
             for (Bitmap image : images) {
-                imageAtlas.copyNonTransparentPixels(image, new Point(j * maxWidth, i * maxHeight), new Point(0, 0), image.getDimension());
+                imageAtlas.copyNonTransparentPixels(
+                        image,
+                        aggregatedLayoutInfo.getTargetPositionForImageInRow(image, treeIndex, imageIndex),
+                        new Point(0, 0),
+                        image.getDimension());
 
-                j = j + 1;
+                imageIndex = imageIndex + 1;
             }
 
-            i = i + 1;
+            treeIndex = treeIndex + 1;
         }
 
         imageAtlas.writeToFile(directory + "/" + "image-atlas-" + name.toLowerCase() + ".png");
