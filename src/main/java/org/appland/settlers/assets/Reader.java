@@ -187,8 +187,8 @@ public class Reader {
                         System.out.println(" + Player bitmap");
                         System.out.println("    - Width: " + playerBitmap.getWidth());
                         System.out.println("    - Height: " + playerBitmap.getHeight());
-                        System.out.println("    - NX: " + playerBitmap.getNX());
-                        System.out.println("    - NY: " + playerBitmap.getNY());
+                        System.out.println("    - NX: " + playerBitmap.getNx());
+                        System.out.println("    - NY: " + playerBitmap.getNy());
                         System.out.println("    - Length: " + playerBitmap.getLength());
 
                         break;

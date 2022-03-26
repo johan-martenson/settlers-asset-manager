@@ -5,6 +5,7 @@ import java.util.List;
 public class LBMFile {
     private final Bitmap bitmap;
     private List<PaletteAnim> paletteAnimList;
+    private long length;
 
     public LBMFile(Bitmap bitmap) {
         this.bitmap = bitmap;
@@ -28,5 +29,9 @@ public class LBMFile {
 
     public List<PaletteAnim> getPaletteAnimList() {
         return paletteAnimList;
+    }
+
+    public void setLength(long length) {
+        this.length = length;
     }
 }

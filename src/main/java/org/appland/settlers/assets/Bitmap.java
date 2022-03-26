@@ -41,19 +41,15 @@ public class Bitmap {
         this.ny = ny;
 
         if (format == TextureFormat.BGRA) {
-
-            if (debug) {
-                System.out.println("    ++++ Set bits per pixel to: " + 4);
-            }
-
             bitsPerPixel = 4;
+        } else if (format == TextureFormat.BGR) {
+            bitsPerPixel = 3;
         } else {
-
-            if (debug) {
-                System.out.println("    ++++ Set bits per pixel to: " + 1);
-            }
-
             bitsPerPixel = 1;
+        }
+
+        if (debug) {
+            System.out.println("    ++++ Set bits per pixel to: " + bitsPerPixel);
         }
 
         imageData = new byte[width * height * bitsPerPixel];
@@ -76,21 +72,26 @@ public class Bitmap {
             /* Handle transparency */
             if (palette.isColorIndexTransparent(colorIndex)) {
 
-                //System.out.println("IS TRANSPARENT!");
-
                 imageData[(y * width + x) * bitsPerPixel + 3] = 0;
 
-            /* Look up the color and assign the individual parts */
+                /* Look up the color and assign the individual parts */
             } else {
                 RGBColor colorRGB = palette.getColorForIndex(colorIndex);
-
-                //System.out.println("         - Color: " + colorRGB);
 
                 imageData[(y * width + x) * bitsPerPixel] = colorRGB.getBlue();
                 imageData[(y * width + x) * bitsPerPixel + 1] = colorRGB.getGreen();
                 imageData[(y * width + x) * bitsPerPixel + 2] = colorRGB.getRed();
-                imageData[(y * width + x) * bitsPerPixel + 3] = (byte)0xFF;
+                imageData[(y * width + x) * bitsPerPixel + 3] = (byte) 0xFF;
             }
+
+        /*  Handle BGR */
+        } else if (format == TextureFormat.BGR) {
+
+            RGBColor colorRGB = palette.getColorForIndex(colorIndex);
+
+            imageData[(y * width + x) * bitsPerPixel] = colorRGB.getBlue();
+            imageData[(y * width + x) * bitsPerPixel + 1] = colorRGB.getGreen();
+            imageData[(y * width + x) * bitsPerPixel + 2] = colorRGB.getRed();
         } else {
             throw new RuntimeException("Cannot set pixel in format " + format);
         }
@@ -123,7 +124,7 @@ public class Bitmap {
         BufferedImage image = new BufferedImage(colorModel, raster, colorModel.isAlphaPremultiplied(), null);
 
         if (debug) {
-            System.out.println("image: " + image); // Should print: image: BufferedImage@<hash>: type = 0 ...
+            System.out.println("image: " + image);
         }
 
         ImageIO.write(image, "PNG", new File(filename));
@@ -428,39 +429,11 @@ public class Bitmap {
         this.ny = ny;
     }
 
-    /*
-    public Bitmap stripExcess() {
-        int startNonTransparentX = width;
-        int startNonTransparentY = height;
-        int endNonTransparentX = 0;
-        int endNonTransparentY = 0;
+    public int getNx() {
+        return nx;
+    }
 
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-
-                if (!isTransparent(x, y)) {
-                    startNonTransparentX = Math.min(startNonTransparentX, x);
-                    startNonTransparentY = Math.min(startNonTransparentY, y);
-
-                    endNonTransparentX = Math.max(endNonTransparentX, x);
-                    endNonTransparentY = Math.max(endNonTransparentY, y);
-                }
-            }
-        }
-
-        int newWidth = endNonTransparentX - startNonTransparentX;
-        int newHeight = endNonTransparentY - startNonTransparentY;
-
-        Bitmap newImage = new Bitmap(newWidth, newHeight, palette, format);
-
-        for (int sourceX = startNonTransparentX; sourceX < endNonTransparentX; sourceX++) {
-            int targetX = sourceX - startNonTransparentX;
-
-            for (int sourceY = startNonTransparentY; sourceY < endNonTransparentY; sourceY++) {
-                int targetY = sourceY - startNonTransparentY;
-
-                newImage.setPixelValue();
-            }
-        }
-    }*/
+    public int getNy() {
+        return ny;
+    }
 }

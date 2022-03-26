@@ -1517,7 +1517,7 @@ public class Extractor {
             buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Harbor", getImageFromResourceLocation(nationResourceList, HARBOR_INDEX + 2));
 
             buildingsImageCollection.addConstructionPlanned(nation, getImageFromResourceLocation(nationResourceList, CONSTRUCTION_PLANNED_INDEX));
-            buildingsImageCollection.addConstructionJustStarted(nation, getImageFromResourceLocation(nationResourceList, CONSTRUCTION_JUST_STARTED_INDEX + 2));
+            buildingsImageCollection.addConstructionJustStarted(nation, getImageFromResourceLocation(nationResourceList, CONSTRUCTION_JUST_STARTED_INDEX));
         }
 
         buildingsImageCollection.writeImageAtlas(toDir + "/", defaultPalette);

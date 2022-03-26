@@ -2,11 +2,9 @@ package org.appland.settlers.assets;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.util.Arrays;
 
 public class BitmapRLE extends Bitmap {
 
-    private final byte[] data;
     private final int height;
     private final int width;
     private final Palette palette;
@@ -18,7 +16,6 @@ public class BitmapRLE extends Bitmap {
 
         this.width = width;
         this.height = height;
-        this.data = data;
         this.palette = palette;
 
         ByteBuffer byteBufferData = ByteBuffer.wrap(data).order(ByteOrder.LITTLE_ENDIAN);
@@ -88,7 +85,6 @@ public class BitmapRLE extends Bitmap {
     @Override
     public String toString() {
         return "BitmapRLE{" +
-                "data=" + Arrays.toString(data) +
                 ", height=" + height +
                 ", width=" + width +
                 ", palette=" + palette +

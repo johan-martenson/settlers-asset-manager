@@ -38,7 +38,7 @@ public class PlayerBitmap extends Bitmap {
         ByteBuffer sourceByteBuffer = ByteBuffer.wrap(sourceData).order(ByteOrder.LITTLE_ENDIAN);
 
         // y: uint 16
-        for (int y = 0; y < height; y++) { // FIXME: verify that ++y can be changed to y++
+        for (int y = 0; y < height; y++) {
             int x = 0;  // uint 16
 
             int position = starts[y]; // uint 32 - change to int 32 for now as input is uint 16
@@ -57,7 +57,6 @@ public class PlayerBitmap extends Bitmap {
             while (x < width) {
 
                 // FIXME: change position++ to position = position + 1
-
                 short shift = Unsigned.getUnsignedByte(sourceByteBuffer, position++);
 
                 // Background is transparent, step to next pixel
@@ -103,30 +102,10 @@ public class PlayerBitmap extends Bitmap {
         return this.texturePixelData;
     }
 
-    public PlayerBitmap setNX(int nx_) {
-        this.nx = nx_;
-
-        return this;
-    }
-
-    public PlayerBitmap setNY(int ny_) {
-        this.ny = ny_;
-
-        return this;
-    }
-
     public PlayerBitmap setLength(long length) {
         this.length = length;
 
         return this;
-    }
-
-    public int getNX() {
-        return nx;
-    }
-
-    public int getNY() {
-        return ny;
     }
 
     public long getLength() {

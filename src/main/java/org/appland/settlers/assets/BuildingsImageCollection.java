@@ -72,6 +72,10 @@ public class BuildingsImageCollection {
                 currentNationHeight = currentNationHeight + Math.max(images.buildingReadyImage.height, images.buildingUnderConstruction.height);
             }
 
+            currentNationHeight = currentNationHeight + Math.max(
+                    specialImagesMap.get(nation).constructionPlannedImage.height,
+                    specialImagesMap.get(nation).constructionJustStartedImage.height);
+
             maxNationHeight = Math.max(maxNationHeight, currentNationHeight);
         }
 
@@ -82,11 +86,23 @@ public class BuildingsImageCollection {
 
         JSONObject jsonImageAtlas = new JSONObject();
 
+        JSONObject jsonRegularBuildings = new JSONObject();
+
+        jsonImageAtlas.put("buildings", jsonRegularBuildings);
+
+        JSONObject jsonConstructionPlannedImages = new JSONObject();
+
+        jsonImageAtlas.put("constructionPlanned", jsonConstructionPlannedImages);
+
+        JSONObject jsonConstructionJustStartedImages = new JSONObject();
+
+        jsonImageAtlas.put("constructionJustStarted", jsonConstructionJustStartedImages);
+
         for (Nation nation : Nation.values()) {
 
             JSONObject jsonBuildings = new JSONObject();
 
-            jsonImageAtlas.put(nation.name().toLowerCase(), jsonBuildings);
+            jsonRegularBuildings.put(nation.name().toLowerCase(), jsonBuildings);
 
             int startNextBuildingAtY = 0;
             int widthCurrentNation = 0;
@@ -145,6 +161,44 @@ public class BuildingsImageCollection {
 
                 startNextBuildingAtY = startNextBuildingAtY + currentBuildingMaxHeight;
             }
+
+            // Fill in construction planned and construction just started
+            Bitmap constructionPlannedImage = specialImagesMap.get(nation).constructionPlannedImage;
+            Bitmap constructionJustStartedImage = specialImagesMap.get(nation).constructionJustStartedImage;
+
+            JSONObject jsonConstructionPlanned = new JSONObject();
+
+            jsonConstructionPlannedImages.put(nation.name().toLowerCase(), jsonConstructionPlanned);
+
+            jsonConstructionPlanned.put("x", startNextNationAtX);
+            jsonConstructionPlanned.put("y", startNextBuildingAtY);
+            jsonConstructionPlanned.put("width", constructionPlannedImage.width);
+            jsonConstructionPlanned.put("height", constructionPlannedImage.height);
+            jsonConstructionPlanned.put("offsetX", constructionPlannedImage.nx);
+            jsonConstructionPlanned.put("offsetY", constructionPlannedImage.ny);
+
+            imageAtlas.copyNonTransparentPixels(
+                    constructionPlannedImage,
+                    new Point(startNextNationAtX, startNextBuildingAtY),
+                    new Point(0, 0),
+                    constructionPlannedImage.getDimension());
+
+            JSONObject jsonConstructionJustStarted = new JSONObject();
+
+            jsonConstructionJustStartedImages.put(nation.name().toLowerCase(), jsonConstructionJustStarted);
+
+            jsonConstructionJustStarted.put("x", startNextNationAtX + constructionPlannedImage.width);
+            jsonConstructionJustStarted.put("y", startNextBuildingAtY);
+            jsonConstructionJustStarted.put("width", constructionPlannedImage.width);
+            jsonConstructionJustStarted.put("height", constructionPlannedImage.height);
+            jsonConstructionJustStarted.put("offsetX", constructionPlannedImage.nx);
+            jsonConstructionJustStarted.put("offsetY", constructionPlannedImage.ny);
+
+            imageAtlas.copyNonTransparentPixels(
+                    constructionJustStartedImage,
+                    new Point(startNextNationAtX + constructionPlannedImage.width, startNextBuildingAtY),
+                    new Point(0, 0),
+                    constructionJustStartedImage.getDimension());
 
             startNextNationAtX = startNextNationAtX + widthCurrentNation;
         }

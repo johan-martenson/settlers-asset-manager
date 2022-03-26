@@ -9,14 +9,6 @@ public class BitmapRaw extends Bitmap {
         this.length = length;
     }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
     public long getLength() {
         return length;
     }

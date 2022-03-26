@@ -1362,8 +1362,8 @@ public class AssetManager {
         StreamReader streamReader = new StreamReader(fileInputStream, ByteOrder.LITTLE_ENDIAN);
 
         /* Read header */
-        int nx_ = streamReader.getInt16();
-        int ny_ = streamReader.getInt16();
+        int nx = streamReader.getInt16();
+        int ny = streamReader.getInt16();
 
         long unknown1 = streamReader.getUint32();
 
@@ -1399,9 +1399,9 @@ public class AssetManager {
 
         PlayerBitmap playerBitmap = new PlayerBitmap(width, height, palette, TextureFormat.BGRA);
 
-        playerBitmap.setNX(nx_)
-                .setNY(ny_)
-                .setLength(length);
+        playerBitmap.setNx(nx);
+        playerBitmap.setNy(ny);
+        playerBitmap.setLength(length);
 
         if (debug) {
             System.out.println(" Loading from image data");
@@ -1872,6 +1872,7 @@ public class AssetManager {
         LBMFile lbmFile = new LBMFile(bitmap);
 
         lbmFile.setAnimPalettes(paletteAnimList);
+        lbmFile.setLength(length);
 
         if (palette != null) {
             lbmFile.setPalette(palette);
