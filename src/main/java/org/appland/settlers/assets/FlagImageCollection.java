@@ -29,32 +29,27 @@ public class FlagImageCollection {
     }
 
     public void writeImageAtlas(String directory, Palette palette) throws IOException {
-        int maxHeight = 0;
-        int maxWidth = 0;
-        int maxImagesPerDirection = 0;
 
         // Find the max width and height, and the max number of images over all flag types
+        Utils.RowLayoutInfo aggregatedLayoutInfo = new Utils.RowLayoutInfo();
+
         for (Nation nation : Nation.values()) {
             for (FlagType flagType : FlagType.values()) {
 
                 List<Bitmap> images = this.flagMap.get(nation).get(flagType);
 
-                for (Bitmap bitmap : images) {
-                    maxWidth = Math.max(bitmap.getWidth(), maxWidth);
-                    maxHeight = Math.max(bitmap.getHeight(), maxHeight);
-                }
+                Utils.RowLayoutInfo layoutInfo = Utils.layoutInfoFromImageSeries(images);
 
-                maxImagesPerDirection = Math.max(maxImagesPerDirection, images.size());
+                aggregatedLayoutInfo.aggregate(layoutInfo);
             }
         }
 
         // Write the image atlas, one row per flag, and collect metadata to write as json
         Bitmap imageAtlas = new Bitmap(
-                maxWidth * maxImagesPerDirection,
-                maxHeight * FlagType.values().length * Nation.values().length,
+                aggregatedLayoutInfo.getRowWidth(),
+                aggregatedLayoutInfo.getRowHeight() * FlagType.values().length * Nation.values().length,
                 palette,
-                TextureFormat.BGRA
-        );
+                TextureFormat.BGRA);
 
         JSONObject jsonImageAtlas = new JSONObject();
 
@@ -74,19 +69,23 @@ public class FlagImageCollection {
 
                 jsonNationInfo.put(flagType.name().toUpperCase(), jsonFlagInfo);
 
+                int y = aggregatedLayoutInfo.getRowHeight() * (flagIndex + FlagType.values().length * nationIndex);
+
                 jsonFlagInfo.put("startX", 0);
-                jsonFlagInfo.put("startY", flagIndex * maxHeight + FlagType.values().length * maxHeight * nationIndex);
-                jsonFlagInfo.put("width", maxWidth);
-                jsonFlagInfo.put("height", maxHeight);
+                jsonFlagInfo.put("startY", y);
+                jsonFlagInfo.put("width", aggregatedLayoutInfo.getImageWidth());
+                jsonFlagInfo.put("height", aggregatedLayoutInfo.getImageHeight());
                 jsonFlagInfo.put("nrImages", images.size());
+                jsonFlagInfo.put("offsetX", aggregatedLayoutInfo.maxNx);
+                jsonFlagInfo.put("offsetY", aggregatedLayoutInfo.maxNy);
 
                 int imageIndex = 0;
                 for (Bitmap image : images) {
+                    int adjustedX = imageIndex * aggregatedLayoutInfo.getImageWidth() + aggregatedLayoutInfo.maxNx - image.nx;
+                    int adjustedY = y + aggregatedLayoutInfo.maxNy - image.ny;
+
                     imageAtlas.copyNonTransparentPixels(image,
-                            new Point(
-                                    imageIndex * maxWidth,
-                                    flagIndex * maxHeight + FlagType.values().length * maxHeight * nationIndex
-                            ),
+                            new Point(adjustedX, adjustedY),
                             new Point(0, 0),
                             image.getDimension());
 

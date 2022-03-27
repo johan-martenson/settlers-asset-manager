@@ -170,6 +170,14 @@ public class Extractor {
     private static final int DONKEY_NORTH_EAST_START = 825;
     private static final int LAND_BORDER_ICON = 0;
     private static final int COAST_BORDER_ICON = 2;
+    private static final int ROAD_BUILDING_START_POINT = 2;
+    private static final int ROAD_BUILDING_SAME_LEVEL_CONNECTION = 18;
+    private static final int ROAD_BUILDING_LITTLE_HIGHER_CONNECTION = 19;
+    private static final int ROAD_BUILDING_MEDIUM_HIGHER_CONNECTION = 20;
+    private static final int ROAD_BUILDING_MUCH_HIGHER_CONNECTION = 21;
+    private static final int ROAD_BUILDING_LITTLE_LOWER_CONNECTION = 22;
+    private static final int ROAD_BUILDING_MEDIUM_LOWER_CONNECTION = 23;
+    private static final int ROAD_BUILDING_MUCH_LOWER_CONNECTION = 24;
 
     @Option(name = "--from-dir", usage = "Asset directory to load from")
     static String fromDir;
@@ -782,6 +790,22 @@ public class Extractor {
         signImageCollection.addImage(SignType.NOTHING, LARGE, getImageFromResourceLocation(mapbobsLst, NOTHING_SIGN_UP_RIGHT));
 
         signImageCollection.writeImageAtlas(toDir, defaultPalette);
+
+        /* Extract road building icons */
+        RoadBuildingImageCollection roadBuildingImageCollection = new RoadBuildingImageCollection();
+
+        roadBuildingImageCollection.addStartPointImage(getImageFromResourceLocation(mapbobsLst, ROAD_BUILDING_START_POINT));
+        roadBuildingImageCollection.addSameLevelConnectionImage(getImageFromResourceLocation(mapbobsLst, ROAD_BUILDING_SAME_LEVEL_CONNECTION));
+
+        roadBuildingImageCollection.addUpwardsConnectionImage(RoadConnectionDifference.LITTLE, getImageFromResourceLocation(mapbobsLst, ROAD_BUILDING_LITTLE_HIGHER_CONNECTION));
+        roadBuildingImageCollection.addUpwardsConnectionImage(RoadConnectionDifference.MEDIUM, getImageFromResourceLocation(mapbobsLst, ROAD_BUILDING_MEDIUM_HIGHER_CONNECTION));
+        roadBuildingImageCollection.addUpwardsConnectionImage(RoadConnectionDifference.HIGH, getImageFromResourceLocation(mapbobsLst, ROAD_BUILDING_MUCH_HIGHER_CONNECTION));
+
+        roadBuildingImageCollection.addDownwardsConnectionImage(RoadConnectionDifference.LITTLE, getImageFromResourceLocation(mapbobsLst, ROAD_BUILDING_LITTLE_LOWER_CONNECTION));
+        roadBuildingImageCollection.addDownwardsConnectionImage(RoadConnectionDifference.MEDIUM, getImageFromResourceLocation(mapbobsLst, ROAD_BUILDING_MEDIUM_LOWER_CONNECTION));
+        roadBuildingImageCollection.addDownwardsConnectionImage(RoadConnectionDifference.HIGH, getImageFromResourceLocation(mapbobsLst, ROAD_BUILDING_MUCH_LOWER_CONNECTION));
+
+        roadBuildingImageCollection.writeImageAtlas(toDir, defaultPalette);
 
         /* Extract nature elements */
         Map<Integer, String> imagesToFileMap = new HashMap<>();
