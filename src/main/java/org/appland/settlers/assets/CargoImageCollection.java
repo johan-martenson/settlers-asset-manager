@@ -42,6 +42,8 @@ public class CargoImageCollection {
             aggregatedLayout.aggregate(Utils.layoutInfoFromImageSeries(nationCargos.get(nation).values()));
         }
 
+        System.out.println(aggregatedLayout.getDrawOffset());
+
         // Create the image atlas
         int totalWidth = aggregatedLayout.getImageWidth() * 2;
         int totalHeight = aggregatedLayout.getRowHeight() * cargos.size();
@@ -79,12 +81,12 @@ public class CargoImageCollection {
 
             JSONObject jsonCargoImage = new JSONObject();
 
-            jsonGeneric.put(material.name().toUpperCase(), jsonCargoImage);
+            jsonGeneric.put(material.name().toLowerCase(), jsonCargoImage);
 
             jsonCargoImage.put("x", x);
             jsonCargoImage.put("y", y);
-            jsonCargoImage.put("width", image.getWidth());
-            jsonCargoImage.put("height", image.getHeight());
+            jsonCargoImage.put("width", aggregatedLayout.getImageWidth());
+            jsonCargoImage.put("height", aggregatedLayout.getImageHeight());
             jsonCargoImage.put("offsetX", center.x);
             jsonCargoImage.put("offsetY", center.y);
 
@@ -121,12 +123,12 @@ public class CargoImageCollection {
 
                 JSONObject jsonCargoImage = new JSONObject();
 
-                jsonNation.put(material.name().toUpperCase(), jsonCargoImage);
+                jsonNation.put(material.name().toLowerCase(), jsonCargoImage);
 
                 jsonCargoImage.put("x", x);
                 jsonCargoImage.put("y", y);
-                jsonCargoImage.put("width", image.getWidth());
-                jsonCargoImage.put("height", image.getHeight());
+                jsonCargoImage.put("width", aggregatedLayout.getImageWidth());
+                jsonCargoImage.put("height", aggregatedLayout.getImageHeight());
                 jsonCargoImage.put("offsetX", center.x);
                 jsonCargoImage.put("offsetY", center.y);
 
