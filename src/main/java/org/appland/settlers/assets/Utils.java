@@ -263,5 +263,13 @@ class Utils {
                     imageIndex * getImageWidth() + maxNx - image.nx,
                     rowIndex * getImageHeight() + maxNy - image.ny);
         }
+
+        public Point getDrawOffset() {
+            return new Point(maxNx, maxNy);
+        }
+
+        public Point getImageAtlasOffsetForImage(Bitmap image) {
+            return new Point(maxNx - image.nx, maxNy - image.ny);
+        }
     }
 }

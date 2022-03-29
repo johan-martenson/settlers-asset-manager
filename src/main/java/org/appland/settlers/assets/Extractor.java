@@ -1,5 +1,6 @@
 package org.appland.settlers.assets;
 
+import org.appland.settlers.model.Material;
 import org.appland.settlers.model.Tree;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
@@ -765,6 +766,48 @@ public class Extractor {
         cropImageCollection.addImage(CropType.TYPE_2, CropGrowth.NEWLY_HARVESTED, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_2_JUST_HARVESTED));
 
         cropImageCollection.writeImageAtlas(toDir, defaultPalette);
+
+        /* Extract the cargo images that workers carry */
+        CargoImageCollection cargoImageCollection = new CargoImageCollection();
+
+        cargoImageCollection.addCargoImage(Material.BEER, getImageFromResourceLocation(mapbobsLst, MapBobsLst.BEER_CARGO));
+        cargoImageCollection.addCargoImage(Material.TONGS, getImageFromResourceLocation(mapbobsLst, MapBobsLst.TONG_CARGO));
+        cargoImageCollection.addCargoImage(Material.AXE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.AXE_CARGO));
+        cargoImageCollection.addCargoImage(Material.SAW, getImageFromResourceLocation(mapbobsLst, MapBobsLst.SAW_CARGO));
+        cargoImageCollection.addCargoImage(Material.PICK_AXE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PICK_AXE_CARGO));
+        cargoImageCollection.addCargoImage(Material.SHOVEL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.SHOVEL_CARGO));
+        cargoImageCollection.addCargoImage(Material.CRUCIBLE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CRUCIBLE_CARGO)); //???
+        cargoImageCollection.addCargoImage(Material.FISHING_ROD, getImageFromResourceLocation(mapbobsLst, MapBobsLst.FISHING_ROD_CARGO));
+        cargoImageCollection.addCargoImage(Material.SCYTHE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.SCYTHE_CARGO));
+        // - empty bucket at 904
+
+        cargoImageCollection.addCargoImage(Material.WATER, getImageFromResourceLocation(mapbobsLst, MapBobsLst.WATER_BUCKET_CARGO));
+        cargoImageCollection.addCargoImage(Material.CLEAVER, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CLEAVER_CARGO));
+        cargoImageCollection.addCargoImage(Material.ROLLING_PIN, getImageFromResourceLocation(mapbobsLst, MapBobsLst.ROLLING_PIN_CARGO));
+        cargoImageCollection.addCargoImage(Material.BOW, getImageFromResourceLocation(mapbobsLst, MapBobsLst.BOW_CARGO));
+        cargoImageCollection.addCargoImage(Material.BOAT, getImageFromResourceLocation(mapbobsLst, MapBobsLst.BOAT_CARGO));
+        cargoImageCollection.addCargoImage(Material.SWORD, getImageFromResourceLocation(mapbobsLst, MapBobsLst.SWORD_CARGO));
+        // - anvil at 911
+
+        cargoImageCollection.addCargoImage(Material.FLOUR, getImageFromResourceLocation(mapbobsLst, MapBobsLst.FLOUR_CARGO));
+        cargoImageCollection.addCargoImage(Material.FISH, getImageFromResourceLocation(mapbobsLst, MapBobsLst.FISH_CARGO));
+        cargoImageCollection.addCargoImage(Material.BREAD, getImageFromResourceLocation(mapbobsLst, MapBobsLst.BREAD_CARGO));
+        cargoImageCollection.addCargoImageForNation(Nation.ROMANS, Material.SHIELD, getImageFromResourceLocation(mapbobsLst, MapBobsLst.ROMAN_SHIELD_CARGO));
+        cargoImageCollection.addCargoImage(Material.WOOD, getImageFromResourceLocation(mapbobsLst, MapBobsLst.WOOD_CARGO));
+        cargoImageCollection.addCargoImage(Material.PLANK, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PLANK_CARGO));
+        cargoImageCollection.addCargoImage(Material.STONE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_CARGO));
+        cargoImageCollection.addCargoImageForNation(Nation.VIKINGS, Material.SHIELD, getImageFromResourceLocation(mapbobsLst, MapBobsLst.VIKING_SHIELD_CARGO));
+        cargoImageCollection.addCargoImageForNation(Nation.AFRICANS, Material.SHIELD, getImageFromResourceLocation(mapbobsLst, MapBobsLst.AFRICAN_SHIELD_CARGO));
+        cargoImageCollection.addCargoImage(Material.WHEAT, getImageFromResourceLocation(mapbobsLst, MapBobsLst.WHEAT_CARGO));
+        cargoImageCollection.addCargoImage(Material.COIN, getImageFromResourceLocation(mapbobsLst, MapBobsLst.COIN_CARGO));
+        cargoImageCollection.addCargoImage(Material.GOLD, getImageFromResourceLocation(mapbobsLst, MapBobsLst.GOLD_CARGO));
+        cargoImageCollection.addCargoImage(Material.IRON, getImageFromResourceLocation(mapbobsLst, MapBobsLst.IRON_CARGO));
+        cargoImageCollection.addCargoImage(Material.COAL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.COAL_CARGO));
+        cargoImageCollection.addCargoImage(Material.MEAT, getImageFromResourceLocation(mapbobsLst, MapBobsLst.MEAT_CARGO));
+        cargoImageCollection.addCargoImage(Material.PIG, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PIG_CARGO));
+        cargoImageCollection.addCargoImageForNation(Nation.JAPANESE, Material.SHIELD, getImageFromResourceLocation(mapbobsLst, MapBobsLst.JAPANESE_SHIELD_CARGO));
+
+        cargoImageCollection.writeImageAtlas(toDir, defaultPalette);
 
         /* Extract signs */
         SignImageCollection signImageCollection = new SignImageCollection();
