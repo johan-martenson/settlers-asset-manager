@@ -42,8 +42,6 @@ public class CargoImageCollection {
             aggregatedLayout.aggregate(Utils.layoutInfoFromImageSeries(nationCargos.get(nation).values()));
         }
 
-        System.out.println(aggregatedLayout.getDrawOffset());
-
         // Create the image atlas
         int totalWidth = aggregatedLayout.getImageWidth() * 2;
         int totalHeight = aggregatedLayout.getRowHeight() * cargos.size();
@@ -101,7 +99,7 @@ public class CargoImageCollection {
 
             JSONObject jsonNation = new JSONObject();
 
-            jsonNationSpecific.put(nation.name().toLowerCase(), jsonNation);
+            jsonNationSpecific.put(nation.name().toUpperCase(), jsonNation);
 
             for (Map.Entry<Material, Bitmap> entry : nationCargos.get(nation).entrySet()) {
 

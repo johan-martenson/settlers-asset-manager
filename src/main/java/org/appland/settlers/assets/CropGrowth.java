@@ -1,9 +1,10 @@
 package org.appland.settlers.assets;
 
+// TODO: extend the other Crop enum and remove this.
 public enum CropGrowth {
-    NEWLY_PLANTED,
+    JUST_PLANTED,
     SMALL,
-    LARGER,
-    FULLY_GROWN,
-    NEWLY_HARVESTED
+    HALFWAY,
+    FULL_GROWN,
+    HARVESTED
 }

@@ -753,17 +753,17 @@ public class Extractor {
         /*  Extract the crops */
         CropImageCollection cropImageCollection = new CropImageCollection();
 
-        cropImageCollection.addImage(CropType.TYPE_1, CropGrowth.NEWLY_PLANTED, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_1_NEWLY_PLANTED));
+        cropImageCollection.addImage(CropType.TYPE_1, CropGrowth.JUST_PLANTED, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_1_NEWLY_PLANTED));
         cropImageCollection.addImage(CropType.TYPE_1, CropGrowth.SMALL, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_1_LITTLE_GROWTH));
-        cropImageCollection.addImage(CropType.TYPE_1, CropGrowth.LARGER, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_1_MORE_GROWTH));
-        cropImageCollection.addImage(CropType.TYPE_1, CropGrowth.FULLY_GROWN, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_1_FULLY_GROWN));
-        cropImageCollection.addImage(CropType.TYPE_1, CropGrowth.NEWLY_HARVESTED, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_1_JUST_HARVESTED));
+        cropImageCollection.addImage(CropType.TYPE_1, CropGrowth.HALFWAY, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_1_MORE_GROWTH));
+        cropImageCollection.addImage(CropType.TYPE_1, CropGrowth.FULL_GROWN, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_1_FULLY_GROWN));
+        cropImageCollection.addImage(CropType.TYPE_1, CropGrowth.HARVESTED, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_1_JUST_HARVESTED));
 
-        cropImageCollection.addImage(CropType.TYPE_2, CropGrowth.NEWLY_PLANTED, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_2_NEWLY_PLANTED));
+        cropImageCollection.addImage(CropType.TYPE_2, CropGrowth.JUST_PLANTED, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_2_NEWLY_PLANTED));
         cropImageCollection.addImage(CropType.TYPE_2, CropGrowth.SMALL, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_2_LITTLE_GROWTH));
-        cropImageCollection.addImage(CropType.TYPE_2, CropGrowth.LARGER, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_2_MORE_GROWTH));
-        cropImageCollection.addImage(CropType.TYPE_2, CropGrowth.FULLY_GROWN, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_2_FULLY_GROWN));
-        cropImageCollection.addImage(CropType.TYPE_2, CropGrowth.NEWLY_HARVESTED, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_2_JUST_HARVESTED));
+        cropImageCollection.addImage(CropType.TYPE_2, CropGrowth.HALFWAY, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_2_MORE_GROWTH));
+        cropImageCollection.addImage(CropType.TYPE_2, CropGrowth.FULL_GROWN, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_2_FULLY_GROWN));
+        cropImageCollection.addImage(CropType.TYPE_2, CropGrowth.HARVESTED, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_2_JUST_HARVESTED));
 
         cropImageCollection.writeImageAtlas(toDir, defaultPalette);
 
@@ -863,6 +863,10 @@ public class Extractor {
         fireImageCollection.addImagesForFire(FireSize.SMALL, getImagesFromResourceLocations(mapbobsLst, SMALL_FIRE_ANIMATION, 8));
         fireImageCollection.addImagesForFire(FireSize.MEDIUM, getImagesFromResourceLocations(mapbobsLst, MEDIUM_FIRE_ANIMATION, 8));
         fireImageCollection.addImagesForFire(FireSize.LARGE, getImagesFromResourceLocations(mapbobsLst, LARGE_FIRE_ANIMATION, 8));
+
+        fireImageCollection.addBurntDownImage(SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.SMALL_BURNT_DOWN));
+        fireImageCollection.addBurntDownImage(MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.MEDIUM_BURNT_DOWN));
+        fireImageCollection.addBurntDownImage(LARGE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.LARGE_BURNT_DOWN));
 
         fireImageCollection.writeImageAtlas(toDir, defaultPalette);
 

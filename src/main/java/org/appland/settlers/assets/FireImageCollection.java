@@ -1,5 +1,6 @@
 package org.appland.settlers.assets;
 
+import org.appland.settlers.model.Size;
 import org.json.simple.JSONObject;
 
 import java.awt.*;
@@ -14,9 +15,11 @@ import java.util.Map;
 
 public class FireImageCollection {
     private final Map<FireSize, List<Bitmap>> fireMap;
+    private final Map<Size, Bitmap> burntDownMap;
 
     public FireImageCollection() {
         fireMap = new HashMap<>();
+        burntDownMap = new HashMap<>();
 
         for (FireSize fireSize : FireSize.values()) {
             fireMap.put(fireSize, new ArrayList<>());
@@ -37,14 +40,26 @@ public class FireImageCollection {
             aggregatedLayoutInfo.aggregate(layoutInfo);
         }
 
+        Utils.RowLayoutInfo burntDownLayout = Utils.layoutInfoFromImageSeries(burntDownMap.values());
+
         // Write the image atlas, one row per tree, and collect metadata to write as json
+        int totalWidth = Math.max(aggregatedLayoutInfo.getRowWidth(), burntDownLayout.getRowWidth());
+        int totalHeight = Math.max(aggregatedLayoutInfo.getRowHeight(), burntDownLayout.getRowHeight()) *
+                (FireSize.values().length + 1);
+
         Bitmap imageAtlas = new Bitmap(
-                aggregatedLayoutInfo.getRowWidth(),
-                aggregatedLayoutInfo.getRowHeight() * FireSize.values().length,
+                totalWidth,
+                totalHeight,
                 palette,
                 TextureFormat.BGRA);
 
         JSONObject jsonImageAtlas = new JSONObject();
+
+        JSONObject jsonFireAnimations = new JSONObject();
+        JSONObject jsonBurntDownImages = new JSONObject();
+
+        jsonImageAtlas.put("fires", jsonFireAnimations);
+        jsonImageAtlas.put("burntDown", jsonBurntDownImages);
 
         int fireSizeIndex = 0;
         for (FireSize fireSize : FireSize.values()) {
@@ -53,7 +68,7 @@ public class FireImageCollection {
 
             JSONObject jsonFireInfo = new JSONObject();
 
-            jsonImageAtlas.put(fireSize.name().toUpperCase(), jsonFireInfo);
+            jsonFireAnimations.put(fireSize.name().toUpperCase(), jsonFireInfo);
 
             jsonFireInfo.put("startX", 0);
             jsonFireInfo.put("startY", fireSizeIndex * aggregatedLayoutInfo.getRowHeight());
@@ -78,6 +93,36 @@ public class FireImageCollection {
             fireSizeIndex = fireSizeIndex + 1;
         }
 
+        int y = FireSize.values().length * aggregatedLayoutInfo.getRowHeight();
+
+        int imageIndex = 0;
+        for (Map.Entry<Size, Bitmap> entry : burntDownMap.entrySet()) {
+            Size size = entry.getKey();
+            Bitmap image = entry.getValue();
+
+            int x = imageIndex * burntDownLayout.getImageWidth();
+
+            imageAtlas.copyNonTransparentPixels(
+                    image,
+                    new Point(x, y),
+                    new Point(0, 0),
+                    image.getDimension()
+            );
+
+            JSONObject jsonBurntDownImage = new JSONObject();
+
+            jsonBurntDownImage.put("x", x);
+            jsonBurntDownImage.put("y", y);
+            jsonBurntDownImage.put("width", image.width);
+            jsonBurntDownImage.put("height", image.height);
+            jsonBurntDownImage.put("offsetX", image.nx);
+            jsonBurntDownImage.put("offsetY", image.ny);
+
+            jsonBurntDownImages.put(size.name().toUpperCase(), jsonBurntDownImage);
+
+            imageIndex = imageIndex + 1;
+        }
+
         imageAtlas.writeToFile(directory + "/" + "image-atlas-fire.png");
 
         // Write a JSON file that specifies where each image is in pixels
@@ -88,5 +133,9 @@ public class FireImageCollection {
 
     public void addImagesForFire(FireSize fireSize, List<Bitmap> imagesFromResourceLocations) {
         this.fireMap.get(fireSize).addAll(imagesFromResourceLocations);
+    }
+
+    public void addBurntDownImage(Size size, Bitmap image) {
+        this.burntDownMap.put(size, image);
     }
 }

@@ -35,4 +35,7 @@ public class MapBobsLst {
     public static final int MEAT_CARGO = 926;
     public static final int PIG_CARGO = 927;
     public static final int JAPANESE_SHIELD_CARGO = 928;
+    public static final int SMALL_BURNT_DOWN = 1055;
+    public static final int MEDIUM_BURNT_DOWN = 1056;
+    public static final int LARGE_BURNT_DOWN = 1057;
 }

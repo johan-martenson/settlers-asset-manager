@@ -189,10 +189,10 @@ public class BuildingsImageCollection {
 
             jsonConstructionJustStarted.put("x", startNextNationAtX + constructionPlannedImage.width);
             jsonConstructionJustStarted.put("y", startNextBuildingAtY);
-            jsonConstructionJustStarted.put("width", constructionPlannedImage.width);
-            jsonConstructionJustStarted.put("height", constructionPlannedImage.height);
-            jsonConstructionJustStarted.put("offsetX", constructionPlannedImage.nx);
-            jsonConstructionJustStarted.put("offsetY", constructionPlannedImage.ny);
+            jsonConstructionJustStarted.put("width", constructionJustStartedImage.width);
+            jsonConstructionJustStarted.put("height", constructionJustStartedImage.height);
+            jsonConstructionJustStarted.put("offsetX", constructionJustStartedImage.nx);
+            jsonConstructionJustStarted.put("offsetY", constructionJustStartedImage.ny);
 
             imageAtlas.copyNonTransparentPixels(
                     constructionJustStartedImage,
