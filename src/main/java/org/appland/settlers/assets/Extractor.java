@@ -104,11 +104,11 @@ public class Extractor {
     private static final int NOTHING_SIGN_UP_RIGHT = 385;
     private static final int DEAD_TREE = 288;
     private static final int FALLEN_DEAD_TREE = 287;
-    private static final int TREE_ANIMATION_TYPE_1 = 26;
-    private static final int TREE_ANIMATION_TYPE_2 = 41;
-    private static final int TREE_ANIMATION_TYPE_3 = 56;
-    private static final int TREE_ANIMATION_TYPE_4 = 71;
-    private static final int TREE_ANIMATION_TYPE_5 = 86;
+    private static final int CYPRESS_TREE_ANIMATION = 26;
+    private static final int BIRCH_TREE_ANIMATION = 41;
+    private static final int OAK_TREE_ANIMATION = 56;
+    private static final int PALM_1_TREE_ANIMATION = 71;
+    private static final int PALM_2_TREE_ANIMATION = 86;
     private static final int TREE_ANIMATION_TYPE_6 = 101;
     private static final int TREE_ANIMATION_TYPE_7 = 109;
     private static final int TREE_ANIMATION_TYPE_8 = 124;
@@ -856,7 +856,7 @@ public class Extractor {
         imagesToFileMap.put(FALLEN_DEAD_TREE, natureDir + "/fallen-dead-tree.png");
         imagesToFileMap.put(DEAD_TREE, natureDir + "/dead-tree.png");
 
-        /* Extract mini fire animation */
+        /* Extract fire animation */
         FireImageCollection fireImageCollection = new FireImageCollection();
 
         fireImageCollection.addImagesForFire(FireSize.MINI, getImagesFromResourceLocations(mapbobsLst, MINI_FIRE_ANIMATION, 8));
@@ -874,31 +874,79 @@ public class Extractor {
         TreeImageCollection treeImageCollection = new TreeImageCollection("trees");
 
         /* Extract animation for tree type 1 in wind -- cypress (?) */
-        treeImageCollection.addImagesForTree(Tree.TreeType.CYPRESS, getImagesFromResourceLocations(mapbobsLst, TREE_ANIMATION_TYPE_1, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.CYPRESS, getImagesFromResourceLocations(mapbobsLst, CYPRESS_TREE_ANIMATION, 8));
+
+        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.CYPRESS, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.CYPRESS_FALLING, 4));
+
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.CYPRESS, TreeSize.SMALLEST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CYPRESS_SMALLEST));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.CYPRESS, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CYPRESS_SMALL));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.CYPRESS, TreeSize.ALMOST_GROWN, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CYPRESS_ALMOST_GROWN));
 
         /* Extract animation for tree type 2 in wind -- birch, for sure */
-        treeImageCollection.addImagesForTree(Tree.TreeType.BIRCH, getImagesFromResourceLocations(mapbobsLst, TREE_ANIMATION_TYPE_2, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.BIRCH, getImagesFromResourceLocations(mapbobsLst, BIRCH_TREE_ANIMATION, 8));
+
+        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.BIRCH, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.BIRCH_FALLING, 4));
+
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.BIRCH, TreeSize.SMALLEST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.BIRCH_SMALLEST));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.BIRCH, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.BIRCH_SMALL));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.BIRCH, TreeSize.ALMOST_GROWN, getImageFromResourceLocation(mapbobsLst, MapBobsLst.BIRCH_ALMOST_GROWN));
 
         /* Extract animation for tree type 3 in wind -- oak */
-        treeImageCollection.addImagesForTree(Tree.TreeType.OAK, getImagesFromResourceLocations(mapbobsLst, TREE_ANIMATION_TYPE_3, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.OAK, getImagesFromResourceLocations(mapbobsLst, OAK_TREE_ANIMATION, 8));
+
+        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.OAK, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.OAK_FALLING, 4));
+
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.OAK, TreeSize.SMALLEST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.OAK_SMALLEST));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.OAK, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.OAK_SMALL));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.OAK, TreeSize.ALMOST_GROWN, getImageFromResourceLocation(mapbobsLst, MapBobsLst.OAK_ALMOST_GROWN));
 
         /* Extract animation for tree type 4 in wind -- short palm */
-        treeImageCollection.addImagesForTree(Tree.TreeType.PALM_1, getImagesFromResourceLocations(mapbobsLst, TREE_ANIMATION_TYPE_4, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.PALM_1, getImagesFromResourceLocations(mapbobsLst, PALM_1_TREE_ANIMATION, 8));
+
+        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.PALM_1, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.PALM_1_FALLING, 4));
+
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.PALM_1, TreeSize.SMALLEST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PALM_1_SMALLEST));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.PALM_1, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PALM_1_SMALL));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.PALM_1, TreeSize.ALMOST_GROWN, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PALM_1_ALMOST_GROWN));
 
         /* Extract animation for tree type 5 in wind -- tall palm */
-        treeImageCollection.addImagesForTree(Tree.TreeType.PALM_2, getImagesFromResourceLocations(mapbobsLst, TREE_ANIMATION_TYPE_5, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.PALM_2, getImagesFromResourceLocations(mapbobsLst, PALM_2_TREE_ANIMATION, 8));
 
-        /* Extract animation for tree type 6 in wind -- fat palm - pine apple*/
+        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.PALM_2, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.PALM_2_FALLING, 4));
+
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.PALM_2, TreeSize.SMALLEST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PALM_2_SMALLEST));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.PALM_2, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PALM_2_SMALL));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.PALM_2, TreeSize.ALMOST_GROWN, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PALM_2_ALMOST_GROWN));
+
+        /* Extract animation for tree type 6 in wind -- fat palm - pine apple */
         treeImageCollection.addImagesForTree(Tree.TreeType.PINE_APPLE, getImagesFromResourceLocations(mapbobsLst, TREE_ANIMATION_TYPE_6, 8));
 
         /* Extract animation for tree type 7 in wind -- pine */
         treeImageCollection.addImagesForTree(Tree.TreeType.PINE, getImagesFromResourceLocations(mapbobsLst, TREE_ANIMATION_TYPE_7, 8));
 
+        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.PINE, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.PINE_FALLING, 4));
+
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.PINE, TreeSize.SMALLEST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PINE_SMALLEST));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.PINE, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PINE_SMALL));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.PINE, TreeSize.ALMOST_GROWN, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PINE_ALMOST_GROWN));
+
         /* Extract animation for tree type 8 in wind -- cherry */
         treeImageCollection.addImagesForTree(Tree.TreeType.CHERRY, getImagesFromResourceLocations(mapbobsLst, TREE_ANIMATION_TYPE_8, 8));
 
+        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.CHERRY, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.CHERRY_FALLING, 4));
+
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.CHERRY, TreeSize.SMALLEST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CHERRY_SMALLEST));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.CHERRY, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CHERRY_SMALL));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.CHERRY, TreeSize.ALMOST_GROWN, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CHERRY_ALMOST_GROWN));
+
         /* Extract animation for tree type 9 in wind -- fir (?) */
         treeImageCollection.addImagesForTree(Tree.TreeType.FIR, getImagesFromResourceLocations(mapbobsLst, TREE_ANIMATION_TYPE_9, 8));
+
+        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.FIR, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.FIR_FALLING, 4));
+
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.FIR, TreeSize.SMALLEST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.FIR_SMALLEST));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.FIR, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.FIR_SMALL));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.FIR, TreeSize.ALMOST_GROWN, getImageFromResourceLocation(mapbobsLst, MapBobsLst.FIR_ALMOST_GROWN));
 
         treeImageCollection.writeImageAtlas(natureDir, defaultPalette);
 
