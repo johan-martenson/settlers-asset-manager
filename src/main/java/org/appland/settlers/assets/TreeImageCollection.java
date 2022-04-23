@@ -116,6 +116,10 @@ public class TreeImageCollection {
 
             if (growingTreeMap.containsKey(treeType)) {
 
+                JSONObject jsonGrowingTreeType = new JSONObject();
+
+                jsonGrowingTrees.put(treeType.name().toUpperCase(), jsonGrowingTreeType);
+
                 imageIndex = 0;
                 for (Map.Entry<TreeSize, Bitmap> entry : growingTreeMap.get(treeType).entrySet()) {
                     TreeSize treeSize = entry.getKey();
@@ -124,16 +128,16 @@ public class TreeImageCollection {
                     int x = grownTreesAggregatedLayoutInfo.getRowWidth() + imageIndex * growingTreesAggregatedLayoutInfo.getImageWidth();
                     int y = maxRowHeight * treeIndex;
 
-                    JSONObject jsonGrowingTree = new JSONObject();
+                    JSONObject jsonGrowingTreeImage = new JSONObject();
 
-                    jsonGrowingTrees.put(treeSize.name().toUpperCase(), jsonGrowingTree);
+                    jsonGrowingTreeType.put(treeSize.name().toUpperCase(), jsonGrowingTreeImage);
 
-                    jsonGrowingTree.put("x", x);
-                    jsonGrowingTree.put("y", y);
-                    jsonGrowingTree.put("width", image.width);
-                    jsonGrowingTree.put("height", image.height);
-                    jsonGrowingTree.put("offsetX", image.nx);
-                    jsonGrowingTree.put("offsetY", image.ny);
+                    jsonGrowingTreeImage.put("x", x);
+                    jsonGrowingTreeImage.put("y", y);
+                    jsonGrowingTreeImage.put("width", image.width);
+                    jsonGrowingTreeImage.put("height", image.height);
+                    jsonGrowingTreeImage.put("offsetX", image.nx);
+                    jsonGrowingTreeImage.put("offsetY", image.ny);
 
                     imageAtlas.copyNonTransparentPixels(
                             image,
@@ -148,9 +152,7 @@ public class TreeImageCollection {
 
             if (treeFalling.containsKey(treeType)) {
 
-                int startX = grownTreesAggregatedLayoutInfo.getRowWidth() +
-                        growingTreesAggregatedLayoutInfo.getRowWidth() +
-                        imageIndex * growingTreesAggregatedLayoutInfo.getImageWidth();
+                int startX = grownTreesAggregatedLayoutInfo.getRowWidth() + growingTreesAggregatedLayoutInfo.getRowWidth();
                 int startY = maxRowHeight * treeIndex;
 
                 JSONObject jsonFallingTreeImages = new JSONObject();
