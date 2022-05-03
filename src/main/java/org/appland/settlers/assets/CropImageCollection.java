@@ -1,5 +1,6 @@
 package org.appland.settlers.assets;
 
+import org.appland.settlers.model.Crop;
 import org.json.simple.JSONObject;
 
 import java.awt.*;
@@ -10,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CropImageCollection {
-    private final Map<CropType, Map<CropGrowth, Bitmap>> cropMap;
+    private final Map<CropType, Map<Crop.GrowthState, Bitmap>> cropMap;
 
     public CropImageCollection() {
         cropMap = new HashMap<>();
@@ -20,7 +21,7 @@ public class CropImageCollection {
         }
     }
 
-    public void addImage(CropType type, CropGrowth growth, Bitmap image) {
+    public void addImage(CropType type, Crop.GrowthState growth, Bitmap image) {
         cropMap.get(type).put(growth, image);
     }
 
@@ -31,7 +32,7 @@ public class CropImageCollection {
         int maxHeight = 0;
 
         for (CropType cropType : CropType.values()) {
-            for (CropGrowth cropGrowth : CropGrowth.values()) {
+            for (Crop.GrowthState cropGrowth : Crop.GrowthState.values()) {
 
                 Bitmap image = cropMap.get(cropType).get(cropGrowth);
 
@@ -42,8 +43,8 @@ public class CropImageCollection {
 
         // Create the image atlas
         Bitmap imageAtlas = new Bitmap(
-                maxWidth * CropGrowth.values().length,
-                maxHeight * CropType.values().length,
+                maxWidth * Crop.GrowthState.values().length,
+                maxHeight * Crop.GrowthState.values().length,
                 palette,
                 TextureFormat.BGRA
         );
@@ -52,14 +53,14 @@ public class CropImageCollection {
 
         // Fill in the image atlas
         int cropTypeIndex = 0;
-        for (Map.Entry<CropType, Map<CropGrowth, Bitmap>> entryForCropType : this.cropMap.entrySet()) {
+        for (Map.Entry<CropType, Map<Crop.GrowthState, Bitmap>> entryForCropType : this.cropMap.entrySet()) {
 
             JSONObject jsonCropType = new JSONObject();
 
             jsonImageAtlas.put(entryForCropType.getKey().name().toUpperCase(), jsonCropType);
 
             int cropGrowthIndex = 0;
-            for (CropGrowth cropGrowth : CropGrowth.values()) {
+            for (Crop.GrowthState cropGrowth : Crop.GrowthState.values()) {
 
                 Bitmap image = entryForCropType.getValue().get(cropGrowth);
 

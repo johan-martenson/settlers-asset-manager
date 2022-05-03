@@ -1,6 +1,7 @@
 package org.appland.settlers.assets;
 
 import org.appland.settlers.model.Tree;
+import org.appland.settlers.model.TreeSize;
 import org.json.simple.JSONObject;
 
 import java.awt.*;
@@ -8,8 +9,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
-import java.util.*;
+import java.util.Map;
 
 public class TreeImageCollection {
     private final String name;
