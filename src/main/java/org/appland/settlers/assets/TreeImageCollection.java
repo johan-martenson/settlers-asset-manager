@@ -61,10 +61,6 @@ public class TreeImageCollection {
             grownTreesAggregatedLayoutInfo.aggregate(grownTreeLayoutInfo);
         }
 
-        int totalWidth = grownTreesAggregatedLayoutInfo.getRowWidth() +
-                growingTreesAggregatedLayoutInfo.getRowWidth() +
-                fallingTreesAggregatedLayoutInfo.getRowWidth();
-
         int maxRowHeight = Math.max(
                 Math.max(
                         grownTreesAggregatedLayoutInfo.getRowHeight(),
@@ -74,11 +70,7 @@ public class TreeImageCollection {
         );
 
         // Write the image atlas, one row per tree, and collect metadata to write as json
-        Bitmap imageAtlas = new Bitmap(
-                totalWidth,
-                maxRowHeight * Tree.TreeType.values().length,
-                palette,
-                TextureFormat.BGRA);
+        ImageBoard imageBoard = new ImageBoard();
 
         JSONObject jsonImageAtlas = new JSONObject();
 
@@ -109,11 +101,10 @@ public class TreeImageCollection {
 
             int imageIndex = 0;
             for (Bitmap image : images) {
-                imageAtlas.copyNonTransparentPixels(
+                imageBoard.placeImage(
                         image,
-                        grownTreesAggregatedLayoutInfo.getTargetPositionForImageInRow(image, treeIndex, imageIndex),
-                        new Point(0, 0),
-                        image.getDimension());
+                        grownTreesAggregatedLayoutInfo.getTargetPositionForImageInRow(image, treeIndex, imageIndex)
+                );
 
                 imageIndex = imageIndex + 1;
             }
@@ -143,12 +134,7 @@ public class TreeImageCollection {
                     jsonGrowingTreeImage.put("offsetX", image.nx);
                     jsonGrowingTreeImage.put("offsetY", image.ny);
 
-                    imageAtlas.copyNonTransparentPixels(
-                            image,
-                            new Point(x, y),
-                            new Point(0, 0),
-                            image.getDimension()
-                    );
+                    imageBoard.placeImage(image, x, y);
 
                     imageIndex = imageIndex + 1;
                 }
@@ -176,12 +162,7 @@ public class TreeImageCollection {
 
                     Point unadjusted = grownTreesAggregatedLayoutInfo.getTargetPositionForImageInRow(image, treeIndex, imageIndex);
 
-                    imageAtlas.copyNonTransparentPixels(
-                            image,
-                            new Point(unadjusted.x + startX, unadjusted.y),
-                            new Point(0, 0),
-                            image.getDimension()
-                    );
+                    imageBoard.placeImage(image, unadjusted.x + startX, unadjusted.y);
 
                     imageIndex = imageIndex + 1;
                 }
@@ -190,7 +171,7 @@ public class TreeImageCollection {
             treeIndex = treeIndex + 1;
         }
 
-        imageAtlas.writeToFile(directory + "/" + "image-atlas-" + name.toLowerCase() + ".png");
+        imageBoard.writeBoardToBitmap(palette).writeToFile(directory + "/image-atlas-" + name.toLowerCase() + ".png");
 
         // Write a JSON file that specifies where each image is in pixels
         Path filePath = Paths.get(directory, "image-atlas-" + name.toLowerCase() + ".json");

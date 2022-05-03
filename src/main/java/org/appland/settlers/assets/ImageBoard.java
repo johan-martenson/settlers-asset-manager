@@ -12,6 +12,10 @@ public class ImageBoard {
         images = new ArrayList<>();
     }
 
+    void placeImage(Bitmap image, Point point) {
+        images.add(new ImageOnBoard(image, point.x, point.y));
+    }
+
     void placeImage(Bitmap image, int x, int y) {
         images.add(new ImageOnBoard(image, x, y));
     }

@@ -2,7 +2,6 @@ package org.appland.settlers.assets;
 
 import org.json.simple.JSONObject;
 
-import java.awt.Point;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -79,7 +78,7 @@ public class BuildingsImageCollection {
             maxNationHeight = Math.max(maxNationHeight, currentNationHeight);
         }
 
-        Bitmap imageAtlas = new Bitmap(maxNationWidth * Nation.values().length, maxNationHeight, palette, TextureFormat.BGRA);
+        ImageBoard imageBoard = new ImageBoard();
 
         // Fill in the image atlas and fill in the meta-data
         int startNextNationAtX = 0;
@@ -123,10 +122,7 @@ public class BuildingsImageCollection {
 
                 // Copy the building ready image
                 if (images.buildingReadyImage != null) {
-                    imageAtlas.copyNonTransparentPixels(images.buildingReadyImage,
-                            new Point(startNextNationAtX, startNextBuildingAtY),
-                            new Point(0, 0),
-                            images.buildingReadyImage.getDimension());
+                    imageBoard.placeImage(images.buildingReadyImage, startNextNationAtX, startNextBuildingAtY);
 
                     jsonBuilding.put("readyAtX", startNextNationAtX);
                     jsonBuilding.put("readyWidth", images.buildingReadyImage.width);
@@ -141,10 +137,7 @@ public class BuildingsImageCollection {
 
                 // Copy the under construction image
                 if (images.buildingUnderConstruction != null) {
-                    imageAtlas.copyNonTransparentPixels(images.buildingUnderConstruction,
-                            new Point(startNextNationAtX + placeNextBuildingAtX, startNextBuildingAtY),
-                            new Point(0, 0),
-                            images.buildingUnderConstruction.getDimension());
+                    imageBoard.placeImage(images.buildingUnderConstruction, startNextNationAtX, startNextBuildingAtY);
 
                     jsonBuilding.put("underConstructionAtX", startNextNationAtX + placeNextBuildingAtX);
                     jsonBuilding.put("underConstructionWidth", images.buildingUnderConstruction.width);
@@ -177,11 +170,7 @@ public class BuildingsImageCollection {
             jsonConstructionPlanned.put("offsetX", constructionPlannedImage.nx);
             jsonConstructionPlanned.put("offsetY", constructionPlannedImage.ny);
 
-            imageAtlas.copyNonTransparentPixels(
-                    constructionPlannedImage,
-                    new Point(startNextNationAtX, startNextBuildingAtY),
-                    new Point(0, 0),
-                    constructionPlannedImage.getDimension());
+            imageBoard.placeImage(constructionPlannedImage, startNextNationAtX, startNextBuildingAtY);
 
             JSONObject jsonConstructionJustStarted = new JSONObject();
 
@@ -194,17 +183,16 @@ public class BuildingsImageCollection {
             jsonConstructionJustStarted.put("offsetX", constructionJustStartedImage.nx);
             jsonConstructionJustStarted.put("offsetY", constructionJustStartedImage.ny);
 
-            imageAtlas.copyNonTransparentPixels(
+            imageBoard.placeImage(
                     constructionJustStartedImage,
-                    new Point(startNextNationAtX + constructionPlannedImage.width, startNextBuildingAtY),
-                    new Point(0, 0),
-                    constructionJustStartedImage.getDimension());
+                    startNextNationAtX + constructionPlannedImage.width,
+                    startNextBuildingAtY);
 
             startNextNationAtX = startNextNationAtX + widthCurrentNation;
         }
 
         // Write the image and the meta-data to files
-        imageAtlas.writeToFile(directory + "/image-atlas-buildings.png");
+        imageBoard.writeBoardToBitmap(palette).writeToFile(directory + "/image-atlas-buildings.png");
         Files.writeString(Paths.get(directory, "image-atlas-buildings.json"), jsonImageAtlas.toJSONString());
     }
 

@@ -3,7 +3,6 @@ package org.appland.settlers.assets;
 import org.appland.settlers.model.Crop;
 import org.json.simple.JSONObject;
 
-import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -29,7 +28,7 @@ public class CropImageCollection {
 
         // Calculate the size of the image atlas
         int maxWidth = 0;
-        int maxHeight = 0;
+        int maxRowHeight = 0;
 
         for (CropType cropType : CropType.values()) {
             for (Crop.GrowthState cropGrowth : Crop.GrowthState.values()) {
@@ -37,17 +36,12 @@ public class CropImageCollection {
                 Bitmap image = cropMap.get(cropType).get(cropGrowth);
 
                 maxWidth = Math.max(maxWidth, image.width);
-                maxHeight = Math.max(maxHeight, image.height);
+                maxRowHeight = Math.max(maxRowHeight, image.height);
             }
         }
 
         // Create the image atlas
-        Bitmap imageAtlas = new Bitmap(
-                maxWidth * Crop.GrowthState.values().length,
-                maxHeight * Crop.GrowthState.values().length,
-                palette,
-                TextureFormat.BGRA
-        );
+        ImageBoard imageBoard = new ImageBoard();
 
         JSONObject jsonImageAtlas = new JSONObject();
 
@@ -65,13 +59,9 @@ public class CropImageCollection {
                 Bitmap image = entryForCropType.getValue().get(cropGrowth);
 
                 int x = maxWidth * cropGrowthIndex;
-                int y = maxHeight * cropTypeIndex;
+                int y = maxRowHeight * cropTypeIndex;
 
-                imageAtlas.copyNonTransparentPixels(
-                        image,
-                        new Point(x, y),
-                        new Point(0, 0),
-                        image.getDimension());
+                imageBoard.placeImage(image, x, y);
 
                 JSONObject jsonCropImage = new JSONObject();
 
@@ -90,7 +80,8 @@ public class CropImageCollection {
             cropTypeIndex = cropTypeIndex + 1;
         }
 
-        imageAtlas.writeToFile(toDir + "/image-atlas-crops.png");
+        // Write the image atlas to file(s)
+        imageBoard.writeBoardToBitmap(palette).writeToFile(toDir + "/image-atlas-crops.png");
 
         Files.writeString(Paths.get(toDir, "image-atlas-crops.json"), jsonImageAtlas.toJSONString());
     }
