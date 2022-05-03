@@ -49,145 +49,10 @@ public class Extractor {
     private static final String WINTER_DIRECTORY = "winter";
 
     private static final int FLAG_INDEX = 4;
-    private static final int HEADQUARTER_INDEX = 60;
-    private static final int BARRACKS_INDEX = 63;
-    private static final int GUARDHOUSE_INDEX = 68;
-    private static final int WATCHTOWER_INDEX = 73;
-    private static final int FORTRESS_INDEX = 78;
-    private static final int GRANITE_MINE_INDEX = 83;
-    private static final int COAL_MINE_INDEX = 87;
-    private static final int IRON_MINE_RESOURCE = 91;
-    private static final int GOLD_MINE_INDEX = 95;
-    private static final int LOOKOUT_TOWER_INDEX = 99;
-    private static final int CATAPULT_INDEX = 104;
-    private static final int WOODCUTTER_INDEX = 108;
-    private static final int FISHERY_INDEX = 113;
-    private static final int QUARRY_INDEX = 118;
-    private static final int FORESTER_HUT_INDEX = 123;
-    private static final int SLAUGHTER_HOUSE_INDEX = 128;
-    private static final int HUNTER_HUT_INDEX = 133;
-    private static final int BREWERY_INDEX = 138;
-    private static final int ARMORY_INDEX = 143;
-    private static final int METALWORKS_INDEX = 148;
-    private static final int IRON_SMELTER_INDEX = 153;
-    private static final int PIG_FARM_INDEX = 158;
-    private static final int STOREHOUSE_INDEX = 163;
-    private static final int MILL_NO_FAN_INDEX = 168;
-    private static final int BAKERY_INDEX = 173;
-    private static final int SAWMILL_INDEX = 178;
-    private static final int MINT_INDEX = 183;
-    private static final int WELL_INDEX = 188;
-    private static final int SHIPYARD_INDEX = 193;
-    private static final int FARM_INDEX = 198;
-    private static final int DONKEY_BREEDER_INDEX = 203;
-    private static final int HARBOR_INDEX = 208;
-    private static final int CONSTRUCTION_PLANNED_INDEX = 212;
-    private static final int CONSTRUCTION_JUST_STARTED_INDEX = 214;
-    private static final int SELECTED_POINT = 1;
-    private static final int HOVER_POINT = 3;
-    private static final int HOVER_AVAILABLE_FLAG = 5;
-    private static final int HOVER_AVAILABLE_MINE = 6;
-    private static final int HOVER_AVAILABLE_SMALL_BUILDING = 7;
-    private static final int HOVER_AVAILABLE_MEDIUM_BUILDING = 8;
-    private static final int HOVER_AVAILABLE_LARGE_BUILDING = 9;
-    private static final int HOVER_AVAILABLE_HARBOR = 10;
-    private static final int AVAILABLE_FLAG = 11;
-    private static final int AVAILABLE_SMALL_BUILDING = 12;
-    private static final int AVAILABLE_MEDIUM_BUILDING = 13;
-    private static final int AVAILABLE_LARGE_BUILDING = 14;
-    private static final int AVAILABLE_MINE = 15;
-    private static final int AVAILABLE_HARBOR = 16;
-    private static final int IRON_SIGN_SMALL_UP_RIGHT = 372;
-    private static final int IRON_SIGN_MEDIUM_UP_RIGHT = 373;
-    private static final int IRON_SIGN_LARGE_UP_RIGHT = 374;
-    private static final int GOLD_SIGN_SMALL_UP_RIGHT = 375;
-    private static final int GOLD_SIGN_MEDIUM_UP_RIGHT = 376;
-    private static final int GOLD_SIGN_LARGE_UP_RIGHT = 377;
-    private static final int COAL_SIGN_SMALL_UP_RIGHT = 378;
-    private static final int COAL_SIGN_MEDIUM_UP_RIGHT = 379;
-    private static final int COAL_SIGN_LARGE_UP_RIGHT = 380;
-    private static final int GRANITE_SIGN_SMALL_UP_RIGHT = 381;
-    private static final int GRANITE_SIGN_MEDIUM_UP_RIGHT = 382;
-    private static final int GRANITE_SIGN_LARGE_UP_RIGHT = 383;
-    private static final int WATER_SIGN_LARGE_UP_RIGHT = 384;
-    private static final int NOTHING_SIGN_UP_RIGHT = 385;
     private static final int DEAD_TREE = 288;
     private static final int FALLEN_DEAD_TREE = 287;
-    private static final int CYPRESS_TREE_ANIMATION = 26;
-    private static final int BIRCH_TREE_ANIMATION = 41;
-    private static final int OAK_TREE_ANIMATION = 56;
-    private static final int PALM_1_TREE_ANIMATION = 71;
-    private static final int PALM_2_TREE_ANIMATION = 86;
-    private static final int TREE_ANIMATION_TYPE_6 = 101;
-    private static final int TREE_ANIMATION_TYPE_7 = 109;
-    private static final int TREE_ANIMATION_TYPE_8 = 124;
-    private static final int TREE_ANIMATION_TYPE_9 = 139;
-    private static final int WILD_ANIMAL_FRAMES_PER_ANIMATION = 8;
-    private static final int FOX_WALKING_SOUTH = 601;
-    private static final int RABBIT_WALKING_SOUTH = 525;
-    private static final int STAG_WALKING_SOUTH = 699;
-    private static final int DEER_WALKING_SOUTH = 644;
-    private static final int SHEEP_WALKING_SOUTH = 818;
-    private static final int ICE_BEAR_WALKING_SOUTH = 475;
-    private static final int DEER_2_WALKING_SOUTH = 761;
-    private static final int DUCK = 754;
-    private static final int MINI_FIRE_ANIMATION = 419;
-    private static final int SMALL_FIRE_ANIMATION = 1031;
-    private static final int MEDIUM_FIRE_ANIMATION = 1039;
-    private static final int LARGE_FIRE_ANIMATION = 1047;
-    private static final int CROP_TYPE_1_NEWLY_PLANTED = 311;
-    private static final int CROP_TYPE_1_LITTLE_GROWTH = 312;
-    private static final int CROP_TYPE_1_MORE_GROWTH = 313;
-    private static final int CROP_TYPE_1_FULLY_GROWN = 314;
-    private static final int CROP_TYPE_1_JUST_HARVESTED = 315;
-    private static final int CROP_TYPE_2_NEWLY_PLANTED = 316;
-    private static final int CROP_TYPE_2_LITTLE_GROWTH = 317;
-    private static final int CROP_TYPE_2_MORE_GROWTH = 318;
-    private static final int CROP_TYPE_2_FULLY_GROWN = 319;
-    private static final int CROP_TYPE_2_JUST_HARVESTED = 320;
-    private static final int STONE_TYPE_1_MINI = 298;
-    private static final int STONE_TYPE_1_LITTLE = 299;
-    private static final int STONE_TYPE_1_LITTLE_MORE = 300;
-    private static final int STONE_TYPE_1_MIDDLE = 301;
-    private static final int STONE_TYPE_1_ALMOST_FULL = 302;
-    private static final int STONE_TYPE_1_FULL = 303;
-    private static final int STONE_TYPE_2_MINI = 304;
-    private static final int STONE_TYPE_2_LITTLE = 305;
-    private static final int STONE_TYPE_2_LITTLE_MORE = 306;
-    private static final int STONE_TYPE_2_MIDDLE = 307;
-    private static final int STONE_TYPE_2_ALMOST_FULL = 308;
-    private static final int STONE_TYPE_2_FULL = 309;
-    private static final int DECORATIVE_MUSHROOM = 283;
-    private static final int DECORATIVE_MINI_STONE = 284;
-    private static final int DECORATIVE_MINI_STONES = 285;
-    private static final int DECORATIVE_STONE = 286;
-    private static final int DECORATIVE_FALLEN_TREE = 287;
-    private static final int DECORATIVE_STANDING_DEAD_TREE = 288;
-    private static final int DECORATIVE_SKELETON = 289;
-    private static final int DECORATIVE_MINI_SKELETON = 290;
-    private static final int DECORATIVE_FLOWERS = 291;
-    private static final int DECORATIVE_BUSH = 292;
-    private static final int DECORATIVE_LARGER_STONES = 293;
-    private static final int DECORATIVE_CACTUS_1 = 294;
-    private static final int DECORATIVE_CACTUS_2 = 295;
-    private static final int DECORATIVE_BEACH_GRASS = 296;
-    private static final int DECORATIVE_SMALL_GRASS = 297;
-    private static final int DONKEY_EAST_START = 785;
-    private static final int DONKEY_SOUTH_EAST_START = 793;
-    private static final int DONKEY_SOUTH_WEST_START = 801;
-    private static final int DONKEY_WEST_START = 809;
-    private static final int DONKEY_NORTH_WEST_START = 817;
-    private static final int DONKEY_NORTH_EAST_START = 825;
     private static final int LAND_BORDER_ICON = 0;
     private static final int COAST_BORDER_ICON = 2;
-    private static final int ROAD_BUILDING_START_POINT = 2;
-    private static final int ROAD_BUILDING_SAME_LEVEL_CONNECTION = 18;
-    private static final int ROAD_BUILDING_LITTLE_HIGHER_CONNECTION = 19;
-    private static final int ROAD_BUILDING_MEDIUM_HIGHER_CONNECTION = 20;
-    private static final int ROAD_BUILDING_MUCH_HIGHER_CONNECTION = 21;
-    private static final int ROAD_BUILDING_LITTLE_LOWER_CONNECTION = 22;
-    private static final int ROAD_BUILDING_MEDIUM_LOWER_CONNECTION = 23;
-    private static final int ROAD_BUILDING_MUCH_LOWER_CONNECTION = 24;
 
     @Option(name = "--from-dir", usage = "Asset directory to load from")
     static String fromDir;
@@ -723,56 +588,56 @@ public class Extractor {
         /* Extract the stones */
         StonesImageCollection stonesImageCollection = new StonesImageCollection();
 
-        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.MINI, getImageFromResourceLocation(mapbobsLst, STONE_TYPE_1_MINI));
-        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.LITTLE, getImageFromResourceLocation(mapbobsLst, STONE_TYPE_1_LITTLE));
-        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.LITTLE_MORE, getImageFromResourceLocation(mapbobsLst, STONE_TYPE_1_LITTLE_MORE));
-        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.MIDDLE, getImageFromResourceLocation(mapbobsLst, STONE_TYPE_1_MIDDLE));
-        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.ALMOST_FULL, getImageFromResourceLocation(mapbobsLst, STONE_TYPE_1_ALMOST_FULL));
-        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.FULL, getImageFromResourceLocation(mapbobsLst, STONE_TYPE_1_FULL));
+        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.MINI, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_1_MINI));
+        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.LITTLE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_1_LITTLE));
+        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.LITTLE_MORE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_1_LITTLE_MORE));
+        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.MIDDLE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_1_MIDDLE));
+        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.ALMOST_FULL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_1_ALMOST_FULL));
+        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.FULL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_1_FULL));
 
-        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.MINI, getImageFromResourceLocation(mapbobsLst, STONE_TYPE_2_MINI));
-        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.LITTLE, getImageFromResourceLocation(mapbobsLst, STONE_TYPE_2_LITTLE));
-        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.LITTLE_MORE, getImageFromResourceLocation(mapbobsLst, STONE_TYPE_2_LITTLE_MORE));
-        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.MIDDLE, getImageFromResourceLocation(mapbobsLst, STONE_TYPE_2_MIDDLE));
-        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.ALMOST_FULL, getImageFromResourceLocation(mapbobsLst, STONE_TYPE_2_ALMOST_FULL));
-        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.FULL, getImageFromResourceLocation(mapbobsLst, STONE_TYPE_2_FULL));
+        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.MINI, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_2_MINI));
+        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.LITTLE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_2_LITTLE));
+        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.LITTLE_MORE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_2_LITTLE_MORE));
+        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.MIDDLE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_2_MIDDLE));
+        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.ALMOST_FULL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_2_ALMOST_FULL));
+        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.FULL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_2_FULL));
 
         stonesImageCollection.writeImageAtlas(toDir, defaultPalette);
 
         /* Extract UI elements */
         UIElementsImageCollection uiElementsImageCollection = new UIElementsImageCollection();
 
-        uiElementsImageCollection.addSelectedPointImage(getImageFromResourceLocation(mapbobsLst, SELECTED_POINT));
-        uiElementsImageCollection.addHoverPoint(getImageFromResourceLocation(mapbobsLst, HOVER_POINT));
-        uiElementsImageCollection.addHoverAvailableFlag(getImageFromResourceLocation(mapbobsLst, HOVER_AVAILABLE_FLAG));
-        uiElementsImageCollection.addHoverAvailableMine(getImageFromResourceLocation(mapbobsLst, HOVER_AVAILABLE_MINE));
-        uiElementsImageCollection.addHoverAvailableBuilding(SMALL, getImageFromResourceLocation(mapbobsLst, HOVER_AVAILABLE_SMALL_BUILDING));
-        uiElementsImageCollection.addHoverAvailableBuilding(MEDIUM, getImageFromResourceLocation(mapbobsLst, HOVER_AVAILABLE_MEDIUM_BUILDING));
-        uiElementsImageCollection.addHoverAvailableBuilding(LARGE, getImageFromResourceLocation(mapbobsLst, HOVER_AVAILABLE_LARGE_BUILDING));
-        uiElementsImageCollection.addHoverAvailableHarbor(getImageFromResourceLocation(mapbobsLst, HOVER_AVAILABLE_HARBOR));
-        uiElementsImageCollection.addAvailableFlag(getImageFromResourceLocation(mapbobsLst, AVAILABLE_FLAG));
-        uiElementsImageCollection.addAvailableMine(getImageFromResourceLocation(mapbobsLst, AVAILABLE_MINE));
-        uiElementsImageCollection.addAvailableBuilding(SMALL, getImageFromResourceLocation(mapbobsLst, AVAILABLE_SMALL_BUILDING));
-        uiElementsImageCollection.addAvailableBuilding(MEDIUM, getImageFromResourceLocation(mapbobsLst, AVAILABLE_MEDIUM_BUILDING));
-        uiElementsImageCollection.addAvailableBuilding(LARGE, getImageFromResourceLocation(mapbobsLst, AVAILABLE_LARGE_BUILDING));
-        uiElementsImageCollection.addAvailableHarbor(getImageFromResourceLocation(mapbobsLst, AVAILABLE_HARBOR));
+        uiElementsImageCollection.addSelectedPointImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.SELECTED_POINT));
+        uiElementsImageCollection.addHoverPoint(getImageFromResourceLocation(mapbobsLst, MapBobsLst.HOVER_POINT));
+        uiElementsImageCollection.addHoverAvailableFlag(getImageFromResourceLocation(mapbobsLst, MapBobsLst.HOVER_AVAILABLE_FLAG));
+        uiElementsImageCollection.addHoverAvailableMine(getImageFromResourceLocation(mapbobsLst, MapBobsLst.HOVER_AVAILABLE_MINE));
+        uiElementsImageCollection.addHoverAvailableBuilding(SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.HOVER_AVAILABLE_SMALL_BUILDING));
+        uiElementsImageCollection.addHoverAvailableBuilding(MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.HOVER_AVAILABLE_MEDIUM_BUILDING));
+        uiElementsImageCollection.addHoverAvailableBuilding(LARGE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.HOVER_AVAILABLE_LARGE_BUILDING));
+        uiElementsImageCollection.addHoverAvailableHarbor(getImageFromResourceLocation(mapbobsLst, MapBobsLst.HOVER_AVAILABLE_HARBOR));
+        uiElementsImageCollection.addAvailableFlag(getImageFromResourceLocation(mapbobsLst, MapBobsLst.AVAILABLE_FLAG));
+        uiElementsImageCollection.addAvailableMine(getImageFromResourceLocation(mapbobsLst, MapBobsLst.AVAILABLE_MINE));
+        uiElementsImageCollection.addAvailableBuilding(SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.AVAILABLE_SMALL_BUILDING));
+        uiElementsImageCollection.addAvailableBuilding(MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.AVAILABLE_MEDIUM_BUILDING));
+        uiElementsImageCollection.addAvailableBuilding(LARGE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.AVAILABLE_LARGE_BUILDING));
+        uiElementsImageCollection.addAvailableHarbor(getImageFromResourceLocation(mapbobsLst, MapBobsLst.AVAILABLE_HARBOR));
 
         uiElementsImageCollection.writeImageAtlas(toDir, defaultPalette);
 
         /*  Extract the crops */
         CropImageCollection cropImageCollection = new CropImageCollection();
 
-        cropImageCollection.addImage(CropType.TYPE_1, Crop.GrowthState.JUST_PLANTED, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_1_NEWLY_PLANTED));
-        cropImageCollection.addImage(CropType.TYPE_1, Crop.GrowthState.SMALL, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_1_LITTLE_GROWTH));
-        cropImageCollection.addImage(CropType.TYPE_1, Crop.GrowthState.ALMOST_GROWN, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_1_MORE_GROWTH));
-        cropImageCollection.addImage(CropType.TYPE_1, Crop.GrowthState.FULL_GROWN, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_1_FULLY_GROWN));
-        cropImageCollection.addImage(CropType.TYPE_1, Crop.GrowthState.HARVESTED, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_1_JUST_HARVESTED));
+        cropImageCollection.addImage(CropType.TYPE_1, Crop.GrowthState.JUST_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_1_NEWLY_PLANTED));
+        cropImageCollection.addImage(CropType.TYPE_1, Crop.GrowthState.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_1_LITTLE_GROWTH));
+        cropImageCollection.addImage(CropType.TYPE_1, Crop.GrowthState.ALMOST_GROWN, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_1_MORE_GROWTH));
+        cropImageCollection.addImage(CropType.TYPE_1, Crop.GrowthState.FULL_GROWN, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_1_FULLY_GROWN));
+        cropImageCollection.addImage(CropType.TYPE_1, Crop.GrowthState.HARVESTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_1_JUST_HARVESTED));
 
-        cropImageCollection.addImage(CropType.TYPE_2, Crop.GrowthState.JUST_PLANTED, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_2_NEWLY_PLANTED));
-        cropImageCollection.addImage(CropType.TYPE_2, Crop.GrowthState.SMALL, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_2_LITTLE_GROWTH));
-        cropImageCollection.addImage(CropType.TYPE_2, Crop.GrowthState.ALMOST_GROWN, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_2_MORE_GROWTH));
-        cropImageCollection.addImage(CropType.TYPE_2, Crop.GrowthState.FULL_GROWN, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_2_FULLY_GROWN));
-        cropImageCollection.addImage(CropType.TYPE_2, Crop.GrowthState.HARVESTED, getImageFromResourceLocation(mapbobsLst, CROP_TYPE_2_JUST_HARVESTED));
+        cropImageCollection.addImage(CropType.TYPE_2, Crop.GrowthState.JUST_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_2_NEWLY_PLANTED));
+        cropImageCollection.addImage(CropType.TYPE_2, Crop.GrowthState.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_2_LITTLE_GROWTH));
+        cropImageCollection.addImage(CropType.TYPE_2, Crop.GrowthState.ALMOST_GROWN, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_2_MORE_GROWTH));
+        cropImageCollection.addImage(CropType.TYPE_2, Crop.GrowthState.FULL_GROWN, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_2_FULLY_GROWN));
+        cropImageCollection.addImage(CropType.TYPE_2, Crop.GrowthState.HARVESTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_2_JUST_HARVESTED));
 
         cropImageCollection.writeImageAtlas(toDir, defaultPalette);
 
@@ -821,41 +686,41 @@ public class Extractor {
         /* Extract signs */
         SignImageCollection signImageCollection = new SignImageCollection();
 
-        signImageCollection.addImage(SignType.IRON, SMALL, getImageFromResourceLocation(mapbobsLst, IRON_SIGN_SMALL_UP_RIGHT));
-        signImageCollection.addImage(SignType.IRON, MEDIUM, getImageFromResourceLocation(mapbobsLst, IRON_SIGN_MEDIUM_UP_RIGHT));
-        signImageCollection.addImage(SignType.IRON, LARGE, getImageFromResourceLocation(mapbobsLst, IRON_SIGN_LARGE_UP_RIGHT));
+        signImageCollection.addImage(SignType.IRON, SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.IRON_SIGN_SMALL_UP_RIGHT));
+        signImageCollection.addImage(SignType.IRON, MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.IRON_SIGN_MEDIUM_UP_RIGHT));
+        signImageCollection.addImage(SignType.IRON, LARGE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.IRON_SIGN_LARGE_UP_RIGHT));
 
-        signImageCollection.addImage(SignType.COAL, SMALL, getImageFromResourceLocation(mapbobsLst, COAL_SIGN_SMALL_UP_RIGHT));
-        signImageCollection.addImage(SignType.COAL, MEDIUM, getImageFromResourceLocation(mapbobsLst, COAL_SIGN_MEDIUM_UP_RIGHT));
-        signImageCollection.addImage(SignType.COAL, LARGE, getImageFromResourceLocation(mapbobsLst, COAL_SIGN_LARGE_UP_RIGHT));
+        signImageCollection.addImage(SignType.COAL, SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.COAL_SIGN_SMALL_UP_RIGHT));
+        signImageCollection.addImage(SignType.COAL, MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.COAL_SIGN_MEDIUM_UP_RIGHT));
+        signImageCollection.addImage(SignType.COAL, LARGE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.COAL_SIGN_LARGE_UP_RIGHT));
 
-        signImageCollection.addImage(SignType.STONE, SMALL, getImageFromResourceLocation(mapbobsLst, GRANITE_SIGN_SMALL_UP_RIGHT));
-        signImageCollection.addImage(SignType.STONE, MEDIUM, getImageFromResourceLocation(mapbobsLst, GRANITE_SIGN_MEDIUM_UP_RIGHT));
-        signImageCollection.addImage(SignType.STONE, LARGE, getImageFromResourceLocation(mapbobsLst, GRANITE_SIGN_LARGE_UP_RIGHT));
+        signImageCollection.addImage(SignType.STONE, SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.GRANITE_SIGN_SMALL_UP_RIGHT));
+        signImageCollection.addImage(SignType.STONE, MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.GRANITE_SIGN_MEDIUM_UP_RIGHT));
+        signImageCollection.addImage(SignType.STONE, LARGE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.GRANITE_SIGN_LARGE_UP_RIGHT));
 
-        signImageCollection.addImage(SignType.GOLD, SMALL, getImageFromResourceLocation(mapbobsLst, GOLD_SIGN_SMALL_UP_RIGHT));
-        signImageCollection.addImage(SignType.GOLD, MEDIUM, getImageFromResourceLocation(mapbobsLst, GOLD_SIGN_MEDIUM_UP_RIGHT));
-        signImageCollection.addImage(SignType.GOLD, LARGE, getImageFromResourceLocation(mapbobsLst, GOLD_SIGN_LARGE_UP_RIGHT));
+        signImageCollection.addImage(SignType.GOLD, SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.GOLD_SIGN_SMALL_UP_RIGHT));
+        signImageCollection.addImage(SignType.GOLD, MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.GOLD_SIGN_MEDIUM_UP_RIGHT));
+        signImageCollection.addImage(SignType.GOLD, LARGE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.GOLD_SIGN_LARGE_UP_RIGHT));
 
-        signImageCollection.addImage(SignType.WATER, LARGE, getImageFromResourceLocation(mapbobsLst, WATER_SIGN_LARGE_UP_RIGHT));
+        signImageCollection.addImage(SignType.WATER, LARGE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.WATER_SIGN_LARGE_UP_RIGHT));
 
-        signImageCollection.addImage(SignType.NOTHING, LARGE, getImageFromResourceLocation(mapbobsLst, NOTHING_SIGN_UP_RIGHT));
+        signImageCollection.addImage(SignType.NOTHING, LARGE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.NOTHING_SIGN_UP_RIGHT));
 
         signImageCollection.writeImageAtlas(toDir, defaultPalette);
 
         /* Extract road building icons */
         RoadBuildingImageCollection roadBuildingImageCollection = new RoadBuildingImageCollection();
 
-        roadBuildingImageCollection.addStartPointImage(getImageFromResourceLocation(mapbobsLst, ROAD_BUILDING_START_POINT));
-        roadBuildingImageCollection.addSameLevelConnectionImage(getImageFromResourceLocation(mapbobsLst, ROAD_BUILDING_SAME_LEVEL_CONNECTION));
+        roadBuildingImageCollection.addStartPointImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.ROAD_BUILDING_START_POINT));
+        roadBuildingImageCollection.addSameLevelConnectionImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.ROAD_BUILDING_SAME_LEVEL_CONNECTION));
 
-        roadBuildingImageCollection.addUpwardsConnectionImage(RoadConnectionDifference.LITTLE, getImageFromResourceLocation(mapbobsLst, ROAD_BUILDING_LITTLE_HIGHER_CONNECTION));
-        roadBuildingImageCollection.addUpwardsConnectionImage(RoadConnectionDifference.MEDIUM, getImageFromResourceLocation(mapbobsLst, ROAD_BUILDING_MEDIUM_HIGHER_CONNECTION));
-        roadBuildingImageCollection.addUpwardsConnectionImage(RoadConnectionDifference.HIGH, getImageFromResourceLocation(mapbobsLst, ROAD_BUILDING_MUCH_HIGHER_CONNECTION));
+        roadBuildingImageCollection.addUpwardsConnectionImage(RoadConnectionDifference.LITTLE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.ROAD_BUILDING_LITTLE_HIGHER_CONNECTION));
+        roadBuildingImageCollection.addUpwardsConnectionImage(RoadConnectionDifference.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.ROAD_BUILDING_MEDIUM_HIGHER_CONNECTION));
+        roadBuildingImageCollection.addUpwardsConnectionImage(RoadConnectionDifference.HIGH, getImageFromResourceLocation(mapbobsLst, MapBobsLst.ROAD_BUILDING_MUCH_HIGHER_CONNECTION));
 
-        roadBuildingImageCollection.addDownwardsConnectionImage(RoadConnectionDifference.LITTLE, getImageFromResourceLocation(mapbobsLst, ROAD_BUILDING_LITTLE_LOWER_CONNECTION));
-        roadBuildingImageCollection.addDownwardsConnectionImage(RoadConnectionDifference.MEDIUM, getImageFromResourceLocation(mapbobsLst, ROAD_BUILDING_MEDIUM_LOWER_CONNECTION));
-        roadBuildingImageCollection.addDownwardsConnectionImage(RoadConnectionDifference.HIGH, getImageFromResourceLocation(mapbobsLst, ROAD_BUILDING_MUCH_LOWER_CONNECTION));
+        roadBuildingImageCollection.addDownwardsConnectionImage(RoadConnectionDifference.LITTLE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.ROAD_BUILDING_LITTLE_LOWER_CONNECTION));
+        roadBuildingImageCollection.addDownwardsConnectionImage(RoadConnectionDifference.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.ROAD_BUILDING_MEDIUM_LOWER_CONNECTION));
+        roadBuildingImageCollection.addDownwardsConnectionImage(RoadConnectionDifference.HIGH, getImageFromResourceLocation(mapbobsLst, MapBobsLst.ROAD_BUILDING_MUCH_LOWER_CONNECTION));
 
         roadBuildingImageCollection.writeImageAtlas(toDir, defaultPalette);
 
@@ -868,10 +733,10 @@ public class Extractor {
         /* Extract fire animation */
         FireImageCollection fireImageCollection = new FireImageCollection();
 
-        fireImageCollection.addImagesForFire(FireSize.MINI, getImagesFromResourceLocations(mapbobsLst, MINI_FIRE_ANIMATION, 8));
-        fireImageCollection.addImagesForFire(FireSize.SMALL, getImagesFromResourceLocations(mapbobsLst, SMALL_FIRE_ANIMATION, 8));
-        fireImageCollection.addImagesForFire(FireSize.MEDIUM, getImagesFromResourceLocations(mapbobsLst, MEDIUM_FIRE_ANIMATION, 8));
-        fireImageCollection.addImagesForFire(FireSize.LARGE, getImagesFromResourceLocations(mapbobsLst, LARGE_FIRE_ANIMATION, 8));
+        fireImageCollection.addImagesForFire(FireSize.MINI, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.MINI_FIRE_ANIMATION, 8));
+        fireImageCollection.addImagesForFire(FireSize.SMALL, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.SMALL_FIRE_ANIMATION, 8));
+        fireImageCollection.addImagesForFire(FireSize.MEDIUM, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.MEDIUM_FIRE_ANIMATION, 8));
+        fireImageCollection.addImagesForFire(FireSize.LARGE, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.LARGE_FIRE_ANIMATION, 8));
 
         fireImageCollection.addBurntDownImage(SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.SMALL_BURNT_DOWN));
         fireImageCollection.addBurntDownImage(MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.MEDIUM_BURNT_DOWN));
@@ -883,7 +748,7 @@ public class Extractor {
         TreeImageCollection treeImageCollection = new TreeImageCollection("trees");
 
         /* Extract animation for tree type 1 in wind -- cypress (?) */
-        treeImageCollection.addImagesForTree(Tree.TreeType.CYPRESS, getImagesFromResourceLocations(mapbobsLst, CYPRESS_TREE_ANIMATION, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.CYPRESS, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.CYPRESS_TREE_ANIMATION, 8));
 
         treeImageCollection.addImagesForTreeFalling(Tree.TreeType.CYPRESS, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.CYPRESS_FALLING, 4));
 
@@ -892,7 +757,7 @@ public class Extractor {
         treeImageCollection.addImageForGrowingTree(Tree.TreeType.CYPRESS, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CYPRESS_ALMOST_GROWN));
 
         /* Extract animation for tree type 2 in wind -- birch, for sure */
-        treeImageCollection.addImagesForTree(Tree.TreeType.BIRCH, getImagesFromResourceLocations(mapbobsLst, BIRCH_TREE_ANIMATION, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.BIRCH, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.BIRCH_TREE_ANIMATION, 8));
 
         treeImageCollection.addImagesForTreeFalling(Tree.TreeType.BIRCH, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.BIRCH_FALLING, 4));
 
@@ -901,7 +766,7 @@ public class Extractor {
         treeImageCollection.addImageForGrowingTree(Tree.TreeType.BIRCH, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.BIRCH_ALMOST_GROWN));
 
         /* Extract animation for tree type 3 in wind -- oak */
-        treeImageCollection.addImagesForTree(Tree.TreeType.OAK, getImagesFromResourceLocations(mapbobsLst, OAK_TREE_ANIMATION, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.OAK, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.OAK_TREE_ANIMATION, 8));
 
         treeImageCollection.addImagesForTreeFalling(Tree.TreeType.OAK, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.OAK_FALLING, 4));
 
@@ -910,7 +775,7 @@ public class Extractor {
         treeImageCollection.addImageForGrowingTree(Tree.TreeType.OAK, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.OAK_ALMOST_GROWN));
 
         /* Extract animation for tree type 4 in wind -- short palm */
-        treeImageCollection.addImagesForTree(Tree.TreeType.PALM_1, getImagesFromResourceLocations(mapbobsLst, PALM_1_TREE_ANIMATION, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.PALM_1, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.PALM_1_TREE_ANIMATION, 8));
 
         treeImageCollection.addImagesForTreeFalling(Tree.TreeType.PALM_1, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.PALM_1_FALLING, 4));
 
@@ -919,7 +784,7 @@ public class Extractor {
         treeImageCollection.addImageForGrowingTree(Tree.TreeType.PALM_1, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PALM_1_ALMOST_GROWN));
 
         /* Extract animation for tree type 5 in wind -- tall palm */
-        treeImageCollection.addImagesForTree(Tree.TreeType.PALM_2, getImagesFromResourceLocations(mapbobsLst, PALM_2_TREE_ANIMATION, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.PALM_2, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.PALM_2_TREE_ANIMATION, 8));
 
         treeImageCollection.addImagesForTreeFalling(Tree.TreeType.PALM_2, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.PALM_2_FALLING, 4));
 
@@ -928,10 +793,10 @@ public class Extractor {
         treeImageCollection.addImageForGrowingTree(Tree.TreeType.PALM_2, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PALM_2_ALMOST_GROWN));
 
         /* Extract animation for tree type 6 in wind -- fat palm - pine apple */
-        treeImageCollection.addImagesForTree(Tree.TreeType.PINE_APPLE, getImagesFromResourceLocations(mapbobsLst, TREE_ANIMATION_TYPE_6, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.PINE_APPLE, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.PINE_APPLE_ANIMATION, 8));
 
         /* Extract animation for tree type 7 in wind -- pine */
-        treeImageCollection.addImagesForTree(Tree.TreeType.PINE, getImagesFromResourceLocations(mapbobsLst, TREE_ANIMATION_TYPE_7, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.PINE, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.PINE_TREE_ANIMATION, 8));
 
         treeImageCollection.addImagesForTreeFalling(Tree.TreeType.PINE, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.PINE_FALLING, 4));
 
@@ -940,7 +805,7 @@ public class Extractor {
         treeImageCollection.addImageForGrowingTree(Tree.TreeType.PINE, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PINE_ALMOST_GROWN));
 
         /* Extract animation for tree type 8 in wind -- cherry */
-        treeImageCollection.addImagesForTree(Tree.TreeType.CHERRY, getImagesFromResourceLocations(mapbobsLst, TREE_ANIMATION_TYPE_8, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.CHERRY, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.CHERRY_TREE_ANIMATION, 8));
 
         treeImageCollection.addImagesForTreeFalling(Tree.TreeType.CHERRY, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.CHERRY_FALLING, 4));
 
@@ -949,7 +814,7 @@ public class Extractor {
         treeImageCollection.addImageForGrowingTree(Tree.TreeType.CHERRY, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CHERRY_ALMOST_GROWN));
 
         /* Extract animation for tree type 9 in wind -- fir (?) */
-        treeImageCollection.addImagesForTree(Tree.TreeType.FIR, getImagesFromResourceLocations(mapbobsLst, TREE_ANIMATION_TYPE_9, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.FIR, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.FIR_TREE_ANIMATION, 8));
 
         treeImageCollection.addImagesForTreeFalling(Tree.TreeType.FIR, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.FIR_FALLING, 4));
 
@@ -972,40 +837,40 @@ public class Extractor {
         for (Direction direction : Direction.values()) {
 
             /* Ice bear */
-            for (int i = 0; i < WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
-                int index = ICE_BEAR_WALKING_SOUTH + WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
+            for (int i = 0; i < MapBobsLst.WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
+                int index = MapBobsLst.ICE_BEAR_WALKING_SOUTH_ANIMATION + MapBobsLst.WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
 
                 Bitmap image = getImageFromResourceLocation(mapbobsLst, index);
                 iceBearImageCollection.addImage(direction, image);
             }
 
             /* Fox */
-            for (int i = 0; i < WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
-                int index = FOX_WALKING_SOUTH + WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
+            for (int i = 0; i < MapBobsLst.WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
+                int index = MapBobsLst.FOX_WALKING_SOUTH_ANIMATION + MapBobsLst.WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
 
                 Bitmap image = getImageFromResourceLocation(mapbobsLst, index);
                 foxImageCollection.addImage(direction, image);
             }
 
             /* Rabbit */
-            for (int i = 0; i < WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
-                int index = RABBIT_WALKING_SOUTH + WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
+            for (int i = 0; i < MapBobsLst.WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
+                int index = MapBobsLst.RABBIT_WALKING_SOUTH_ANIMATION + MapBobsLst.WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
 
                 Bitmap image = getImageFromResourceLocation(mapbobsLst, index);
                 rabbitImageCollection.addImage(direction, image);
             }
 
             /* Stag */
-            for (int i = 0; i < WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
-                int index = STAG_WALKING_SOUTH + WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
+            for (int i = 0; i < MapBobsLst.WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
+                int index = MapBobsLst.STAG_WALKING_SOUTH_ANIMATION + MapBobsLst.WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
 
                 Bitmap image = getImageFromResourceLocation(mapbobsLst, index);
                 stagImageCollection.addImage(direction, image);
             }
 
             /* Deer */
-            for (int i = 0; i < WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
-                int index = DEER_WALKING_SOUTH + WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
+            for (int i = 0; i < MapBobsLst.WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
+                int index = MapBobsLst.DEER_WALKING_SOUTH_ANIMATION + MapBobsLst.WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
 
                 Bitmap image = getImageFromResourceLocation(mapbobsLst, index);
                 deerImageCollection.addImage(direction, image);
@@ -1013,15 +878,15 @@ public class Extractor {
 
             /* Sheep */
             for (int i = 0; i < 2; i++) {
-                int index = SHEEP_WALKING_SOUTH + 2 * direction.ordinal() + i;
+                int index = MapBobsLst.SHEEP_WALKING_SOUTH_ANIMATION + 2 * direction.ordinal() + i;
 
                 Bitmap image = getImageFromResourceLocation(mapbobsLst, index);
                 sheepImageCollection.addImage(direction, image);
             }
 
             /* Deer 2 (horse?) */
-            for (int i = 0; i < WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
-                int index = DEER_2_WALKING_SOUTH + WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
+            for (int i = 0; i < MapBobsLst.WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
+                int index = MapBobsLst.DEER_2_WALKING_SOUTH_ANIMATION + MapBobsLst.WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
 
                 Bitmap image = getImageFromResourceLocation(mapbobsLst, index);
                 deer2ImageCollection.addImage(direction, image);
@@ -1029,12 +894,12 @@ public class Extractor {
         }
 
         /* Extract duck */
-        duckImageCollection.addImage(EAST, getImageFromResourceLocation(mapbobsLst, DUCK));
-        duckImageCollection.addImage(SOUTH_EAST, getImageFromResourceLocation(mapbobsLst, DUCK + 1));
-        duckImageCollection.addImage(SOUTH_WEST, getImageFromResourceLocation(mapbobsLst, DUCK + 2));
-        duckImageCollection.addImage(WEST, getImageFromResourceLocation(mapbobsLst, DUCK + 3));
-        duckImageCollection.addImage(NORTH_WEST, getImageFromResourceLocation(mapbobsLst, DUCK + 4));
-        duckImageCollection.addImage(NORTH_EAST, getImageFromResourceLocation(mapbobsLst, DUCK + 5));
+        duckImageCollection.addImage(EAST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.DUCK));
+        duckImageCollection.addImage(SOUTH_EAST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.DUCK + 1));
+        duckImageCollection.addImage(SOUTH_WEST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.DUCK + 2));
+        duckImageCollection.addImage(WEST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.DUCK + 3));
+        duckImageCollection.addImage(NORTH_WEST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.DUCK + 4));
+        duckImageCollection.addImage(NORTH_EAST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.DUCK + 5));
 
         writeFilesFromMap(mapbobsLst, imagesToFileMap);
 
@@ -1052,12 +917,12 @@ public class Extractor {
 
         AnimalImageCollection donkeyImageCollection = new AnimalImageCollection("donkey");
 
-        donkeyImageCollection.addImages(EAST, getImagesFromResourceLocations(mapbobs0, DONKEY_EAST_START, 8));
-        donkeyImageCollection.addImages(SOUTH_EAST, getImagesFromResourceLocations(mapbobs0, DONKEY_SOUTH_EAST_START, 8));
-        donkeyImageCollection.addImages(SOUTH_WEST, getImagesFromResourceLocations(mapbobs0, DONKEY_SOUTH_WEST_START, 8));
-        donkeyImageCollection.addImages(WEST, getImagesFromResourceLocations(mapbobs0, DONKEY_WEST_START, 8));
-        donkeyImageCollection.addImages(NORTH_WEST, getImagesFromResourceLocations(mapbobs0, DONKEY_NORTH_WEST_START, 8));
-        donkeyImageCollection.addImages(NORTH_EAST, getImagesFromResourceLocations(mapbobs0, DONKEY_NORTH_EAST_START, 8));
+        donkeyImageCollection.addImages(EAST, getImagesFromResourceLocations(mapbobs0, MapBobs0Lst.DONKEY_EAST_ANIMATION, 8));
+        donkeyImageCollection.addImages(SOUTH_EAST, getImagesFromResourceLocations(mapbobs0, MapBobs0Lst.DONKEY_SOUTH_EAST_ANIMATION, 8));
+        donkeyImageCollection.addImages(SOUTH_WEST, getImagesFromResourceLocations(mapbobs0, MapBobs0Lst.DONKEY_SOUTH_WEST_ANIMATION, 8));
+        donkeyImageCollection.addImages(WEST, getImagesFromResourceLocations(mapbobs0, MapBobs0Lst.DONKEY_WEST_ANIMATION, 8));
+        donkeyImageCollection.addImages(NORTH_WEST, getImagesFromResourceLocations(mapbobs0, MapBobs0Lst.DONKEY_NORTH_WEST_ANIMATION, 8));
+        donkeyImageCollection.addImages(NORTH_EAST, getImagesFromResourceLocations(mapbobs0, MapBobs0Lst.DONKEY_NORTH_EAST_ANIMATION, 8));
 
         donkeyImageCollection.writeImageAtlas(natureDir + "/animals/", defaultPalette);
 
@@ -1081,21 +946,21 @@ public class Extractor {
          */
         DecorativeImageCollection decorativeImageCollection = new DecorativeImageCollection();
 
-        decorativeImageCollection.addMushroomImage(getImageFromResourceLocation(mapbobsLst, DECORATIVE_MUSHROOM));
-        decorativeImageCollection.addMiniStoneImage(getImageFromResourceLocation(mapbobsLst, DECORATIVE_MINI_STONE));
-        decorativeImageCollection.addMiniStonesImage(getImageFromResourceLocation(mapbobsLst, DECORATIVE_MINI_STONES));
-        decorativeImageCollection.addStoneImage(getImageFromResourceLocation(mapbobsLst, DECORATIVE_STONE));
-        decorativeImageCollection.addFallenTreeImage(getImageFromResourceLocation(mapbobsLst, DECORATIVE_FALLEN_TREE));
-        decorativeImageCollection.addStandingDeadTreeImage(getImageFromResourceLocation(mapbobsLst, DECORATIVE_STANDING_DEAD_TREE));
-        decorativeImageCollection.addSkeletonImage(getImageFromResourceLocation(mapbobsLst, DECORATIVE_SKELETON));
-        decorativeImageCollection.addMiniSkeletonImage(getImageFromResourceLocation(mapbobsLst, DECORATIVE_MINI_SKELETON));
-        decorativeImageCollection.addFlowersImage(getImageFromResourceLocation(mapbobsLst, DECORATIVE_FLOWERS));
-        decorativeImageCollection.addBushImage(getImageFromResourceLocation(mapbobsLst, DECORATIVE_BUSH));
-        decorativeImageCollection.addLargerStonesImage(getImageFromResourceLocation(mapbobsLst, DECORATIVE_LARGER_STONES));
-        decorativeImageCollection.addCactus1Image(getImageFromResourceLocation(mapbobsLst, DECORATIVE_CACTUS_1));
-        decorativeImageCollection.addCactus2Image(getImageFromResourceLocation(mapbobsLst, DECORATIVE_CACTUS_2));
-        decorativeImageCollection.addBeachGrassImage(getImageFromResourceLocation(mapbobsLst, DECORATIVE_BEACH_GRASS));
-        decorativeImageCollection.addSmallGrassImage(getImageFromResourceLocation(mapbobsLst, DECORATIVE_SMALL_GRASS));
+        decorativeImageCollection.addMushroomImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_MUSHROOM));
+        decorativeImageCollection.addMiniStoneImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_MINI_STONE));
+        decorativeImageCollection.addMiniStonesImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_MINI_STONES));
+        decorativeImageCollection.addStoneImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_STONE));
+        decorativeImageCollection.addFallenTreeImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_FALLEN_TREE));
+        decorativeImageCollection.addStandingDeadTreeImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_STANDING_DEAD_TREE));
+        decorativeImageCollection.addSkeletonImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_SKELETON));
+        decorativeImageCollection.addMiniSkeletonImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_MINI_SKELETON));
+        decorativeImageCollection.addFlowersImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_FLOWERS));
+        decorativeImageCollection.addBushImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_BUSH));
+        decorativeImageCollection.addLargerStonesImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_LARGER_STONES));
+        decorativeImageCollection.addCactus1Image(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_CACTUS_1));
+        decorativeImageCollection.addCactus2Image(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_CACTUS_2));
+        decorativeImageCollection.addBeachGrassImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_BEACH_GRASS));
+        decorativeImageCollection.addSmallGrassImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_SMALL_GRASS));
 
         decorativeImageCollection.writeImageAtlas(toDir, defaultPalette);
 
@@ -1448,7 +1313,7 @@ public class Extractor {
     private void populateRomanBuildings(String fromDir, String toDir) throws InvalidFormatException, UnknownResourceTypeException, InvalidHeaderException, IOException {
 
         /* Load from the roman asset file */
-        List<GameResource> gameResourceList = assetManager.loadLstFile(fromDir + "/" + ROMAN_FILE, defaultPalette);
+        List<GameResource> romYLst = assetManager.loadLstFile(fromDir + "/" + ROMAN_FILE, defaultPalette);
 
         /* Create the roman buildings directory */
         Utils.createDirectory(toDir + "/" + ROMAN_BUILDINGS_DIRECTORY);
@@ -1457,80 +1322,74 @@ public class Extractor {
 
         String BUILDINGS_DIR = toDir + "/" + ROMAN_BUILDINGS_DIRECTORY;
 
-        /* Write the flag to the out directory */
-        GameResource flagResource = gameResourceList.get(FLAG_INDEX); // TODO: make this an animation instead!
-        PlayerBitmapResource flagRLEBitmapResource = (PlayerBitmapResource) flagResource;
-        flagRLEBitmapResource.getBitmap().writeToFile(toDir + "/" + ROMAN_BUILDINGS_DIRECTORY + "/flag.png");
-
         /* Write the buildings to the out directory */
+        imagesToFileMap.put(RomYLst.HEADQUARTER_INDEX, BUILDINGS_DIR+ "/headquarter.png");
+        imagesToFileMap.put(RomYLst.BARRACKS_INDEX, BUILDINGS_DIR + "/barracks.png");
+        imagesToFileMap.put(RomYLst.BARRACKS_INDEX + 2, BUILDINGS_DIR + "/barracks-under-construction.png");
+        imagesToFileMap.put(RomYLst.GUARDHOUSE_INDEX, BUILDINGS_DIR + "/guardhouse.png");
+        imagesToFileMap.put(RomYLst.GUARDHOUSE_INDEX + 2, BUILDINGS_DIR + "/guardhouse-under-construction.png");
+        imagesToFileMap.put(RomYLst.WATCHTOWER_INDEX, BUILDINGS_DIR + "/watchtower.png");
+        imagesToFileMap.put(RomYLst.WATCHTOWER_INDEX + 2, BUILDINGS_DIR + "/watchtower-under-construction.png");
+        imagesToFileMap.put(RomYLst.FORTRESS_INDEX, BUILDINGS_DIR + "/fortress.png");
+        imagesToFileMap.put(RomYLst.FORTRESS_INDEX + 2, BUILDINGS_DIR + "/fortress-under-construction.png");
+        imagesToFileMap.put(RomYLst.GRANITE_MINE_INDEX, BUILDINGS_DIR + "/granite-mine.png");
+        imagesToFileMap.put(RomYLst.GRANITE_MINE_INDEX + 2, BUILDINGS_DIR + "/granite-mine-under-construction.png");
+        imagesToFileMap.put(RomYLst.COAL_MINE_INDEX, BUILDINGS_DIR + "/coal-mine.png");
+        imagesToFileMap.put(RomYLst.COAL_MINE_INDEX + 2, BUILDINGS_DIR + "/coal-mine-under-construction.png");
+        imagesToFileMap.put(RomYLst.IRON_MINE_RESOURCE, BUILDINGS_DIR + "/iron-mine.png");
+        imagesToFileMap.put(RomYLst.IRON_MINE_RESOURCE + 2, BUILDINGS_DIR + "/iron-mine-under-construction.png");
+        imagesToFileMap.put(RomYLst.GOLD_MINE_INDEX, BUILDINGS_DIR + "/gold-mine.png");
+        imagesToFileMap.put(RomYLst.GOLD_MINE_INDEX + 2, BUILDINGS_DIR + "/gold-mine-under-construction.png");
+        imagesToFileMap.put(RomYLst.LOOKOUT_TOWER_INDEX, BUILDINGS_DIR + "/lookout-tower.png");
+        imagesToFileMap.put(RomYLst.LOOKOUT_TOWER_INDEX + 2, BUILDINGS_DIR + "/lookout-tower-under-construction.png");
+        imagesToFileMap.put(RomYLst.CATAPULT_INDEX, BUILDINGS_DIR + "/catapult.png");
+        imagesToFileMap.put(RomYLst.CATAPULT_INDEX + 2, BUILDINGS_DIR + "/catapult-under-construction.png");
+        imagesToFileMap.put(RomYLst.WOODCUTTER_INDEX, BUILDINGS_DIR + "/woodcutter.png");
+        imagesToFileMap.put(RomYLst.WOODCUTTER_INDEX + 2, BUILDINGS_DIR + "/woodcutter-under-construction.png");
+        imagesToFileMap.put(RomYLst.FISHERY_INDEX, BUILDINGS_DIR + "/fishery.png");
+        imagesToFileMap.put(RomYLst.FISHERY_INDEX + 2, BUILDINGS_DIR + "/fishery-under-construction.png");
+        imagesToFileMap.put(RomYLst.QUARRY_INDEX, BUILDINGS_DIR + "/quarry.png");
+        imagesToFileMap.put(RomYLst.QUARRY_INDEX + 2, BUILDINGS_DIR + "/quarry-under-construction.png");
+        imagesToFileMap.put(RomYLst.FORESTER_HUT_INDEX, BUILDINGS_DIR + "/forester-hut.png");
+        imagesToFileMap.put(RomYLst.FORESTER_HUT_INDEX + 2, BUILDINGS_DIR + "/forester-hut-under-construction.png");
+        imagesToFileMap.put(RomYLst.SLAUGHTER_HOUSE_INDEX, BUILDINGS_DIR + "/slaughter-house.png");
+        imagesToFileMap.put(RomYLst.SLAUGHTER_HOUSE_INDEX + 2, BUILDINGS_DIR + "/slaughter-house-under-construction.png");
+        imagesToFileMap.put(RomYLst.HUNTER_HUT_INDEX, BUILDINGS_DIR + "/hunter-hut.png");
+        imagesToFileMap.put(RomYLst.HUNTER_HUT_INDEX + 2, BUILDINGS_DIR + "/hunter-hut-under-construction.png");
+        imagesToFileMap.put(RomYLst.BREWERY_INDEX, BUILDINGS_DIR + "/brewery.png");
+        imagesToFileMap.put(RomYLst.BREWERY_INDEX + 2, BUILDINGS_DIR + "/brewery-under-construction.png");
+        imagesToFileMap.put(RomYLst.ARMORY_INDEX, BUILDINGS_DIR + "/armory.png");
+        imagesToFileMap.put(RomYLst.ARMORY_INDEX + 2, BUILDINGS_DIR + "/armory-under-construction.png");
+        imagesToFileMap.put(RomYLst.METALWORKS_INDEX, BUILDINGS_DIR + "/metalworks.png");
+        imagesToFileMap.put(RomYLst.METALWORKS_INDEX + 2, BUILDINGS_DIR + "/metalworks-under-construction.png");
+        imagesToFileMap.put(RomYLst.IRON_SMELTER_INDEX, BUILDINGS_DIR + "/iron-smelter.png");
+        imagesToFileMap.put(RomYLst.IRON_SMELTER_INDEX + 2, BUILDINGS_DIR + "/iron-smelter-under-construction.png");
+        imagesToFileMap.put(RomYLst.PIG_FARM_INDEX, BUILDINGS_DIR + "/pig-farm.png");
+        imagesToFileMap.put(RomYLst.PIG_FARM_INDEX + 2, BUILDINGS_DIR + "/pig-farm-under-construction.png");
+        imagesToFileMap.put(RomYLst.STOREHOUSE_INDEX, BUILDINGS_DIR + "/storehouse.png");
+        imagesToFileMap.put(RomYLst.STOREHOUSE_INDEX + 2, BUILDINGS_DIR + "/storehouse-under-construction.png");
+        imagesToFileMap.put(RomYLst.MILL_NO_FAN_INDEX, BUILDINGS_DIR + "/mill-no-fan.png");
+        imagesToFileMap.put(RomYLst.MILL_NO_FAN_INDEX + 2, BUILDINGS_DIR + "/mill-no-fan-under-construction.png");
+        imagesToFileMap.put(RomYLst.BAKERY_INDEX, BUILDINGS_DIR + "/bakery.png");
+        imagesToFileMap.put(RomYLst.BAKERY_INDEX + 2, BUILDINGS_DIR + "/bakery-under-construction.png");
+        imagesToFileMap.put(RomYLst.SAWMILL_INDEX, BUILDINGS_DIR + "/sawmill.png");
+        imagesToFileMap.put(RomYLst.SAWMILL_INDEX + 2, BUILDINGS_DIR + "/sawmill-under-construction.png");
+        imagesToFileMap.put(RomYLst.MINT_INDEX, BUILDINGS_DIR + "/mint.png");
+        imagesToFileMap.put(RomYLst.MINT_INDEX + 2, BUILDINGS_DIR + "/mint-under-construction.png");
+        imagesToFileMap.put(RomYLst.WELL_INDEX, BUILDINGS_DIR + "/well.png");
+        imagesToFileMap.put(RomYLst.WELL_INDEX + 2, BUILDINGS_DIR + "/well-under-construction.png");
+        imagesToFileMap.put(RomYLst.SHIPYARD_INDEX, BUILDINGS_DIR + "/shipyard.png");
+        imagesToFileMap.put(RomYLst.SHIPYARD_INDEX + 2, BUILDINGS_DIR + "/shipyard-under-construction.png");
+        imagesToFileMap.put(RomYLst.FARM_INDEX, BUILDINGS_DIR + "/farm.png");
+        imagesToFileMap.put(RomYLst.FARM_INDEX + 2, BUILDINGS_DIR + "/farm-under-construction.png");
+        imagesToFileMap.put(RomYLst.DONKEY_BREEDER_INDEX, BUILDINGS_DIR + "/donkey-breeder.png");
+        imagesToFileMap.put(RomYLst.DONKEY_BREEDER_INDEX + 2, BUILDINGS_DIR + "/donkey-breeder-under-construction.png");
+        imagesToFileMap.put(RomYLst.HARBOR_INDEX, BUILDINGS_DIR + "/harbor.png");
+        imagesToFileMap.put(RomYLst.HARBOR_INDEX + 2, BUILDINGS_DIR + "/harbor-under-construction.png");
+        imagesToFileMap.put(RomYLst.CONSTRUCTION_PLANNED_INDEX, BUILDINGS_DIR + "/construction-planned-sign.png");
+        imagesToFileMap.put(RomYLst.CONSTRUCTION_JUST_STARTED_INDEX, BUILDINGS_DIR + "/construction-started-sign.png");
 
-        imagesToFileMap.put(HEADQUARTER_INDEX, BUILDINGS_DIR+ "/headquarter.png");
-        imagesToFileMap.put(BARRACKS_INDEX, BUILDINGS_DIR + "/barracks.png");
-        imagesToFileMap.put(BARRACKS_INDEX + 2, BUILDINGS_DIR + "/barracks-under-construction.png");
-        imagesToFileMap.put(GUARDHOUSE_INDEX, BUILDINGS_DIR + "/guardhouse.png");
-        imagesToFileMap.put(GUARDHOUSE_INDEX + 2, BUILDINGS_DIR + "/guardhouse-under-construction.png");
-        imagesToFileMap.put(WATCHTOWER_INDEX, BUILDINGS_DIR + "/watchtower.png");
-        imagesToFileMap.put(WATCHTOWER_INDEX + 2, BUILDINGS_DIR + "/watchtower-under-construction.png");
-        imagesToFileMap.put(FORTRESS_INDEX, BUILDINGS_DIR + "/fortress.png");
-        imagesToFileMap.put(FORTRESS_INDEX + 2, BUILDINGS_DIR + "/fortress-under-construction.png");
-        imagesToFileMap.put(GRANITE_MINE_INDEX, BUILDINGS_DIR + "/granite-mine.png");
-        imagesToFileMap.put(GRANITE_MINE_INDEX + 2, BUILDINGS_DIR + "/granite-mine-under-construction.png");
-        imagesToFileMap.put(COAL_MINE_INDEX, BUILDINGS_DIR + "/coal-mine.png");
-        imagesToFileMap.put(COAL_MINE_INDEX + 2, BUILDINGS_DIR + "/coal-mine-under-construction.png");
-        imagesToFileMap.put(IRON_MINE_RESOURCE, BUILDINGS_DIR + "/iron-mine.png");
-        imagesToFileMap.put(IRON_MINE_RESOURCE + 2, BUILDINGS_DIR + "/iron-mine-under-construction.png");
-        imagesToFileMap.put(GOLD_MINE_INDEX, BUILDINGS_DIR + "/gold-mine.png");
-        imagesToFileMap.put(GOLD_MINE_INDEX + 2, BUILDINGS_DIR + "/gold-mine-under-construction.png");
-        imagesToFileMap.put(LOOKOUT_TOWER_INDEX, BUILDINGS_DIR + "/lookout-tower.png");
-        imagesToFileMap.put(LOOKOUT_TOWER_INDEX + 2, BUILDINGS_DIR + "/lookout-tower-under-construction.png");
-        imagesToFileMap.put(CATAPULT_INDEX, BUILDINGS_DIR + "/catapult.png");
-        imagesToFileMap.put(CATAPULT_INDEX + 2, BUILDINGS_DIR + "/catapult-under-construction.png");
-        imagesToFileMap.put(WOODCUTTER_INDEX, BUILDINGS_DIR + "/woodcutter.png");
-        imagesToFileMap.put(WOODCUTTER_INDEX + 2, BUILDINGS_DIR + "/woodcutter-under-construction.png");
-        imagesToFileMap.put(FISHERY_INDEX, BUILDINGS_DIR + "/fishery.png");
-        imagesToFileMap.put(FISHERY_INDEX + 2, BUILDINGS_DIR + "/fishery-under-construction.png");
-        imagesToFileMap.put(QUARRY_INDEX, BUILDINGS_DIR + "/quarry.png");
-        imagesToFileMap.put(QUARRY_INDEX + 2, BUILDINGS_DIR + "/quarry-under-construction.png");
-        imagesToFileMap.put(FORESTER_HUT_INDEX, BUILDINGS_DIR + "/forester-hut.png");
-        imagesToFileMap.put(FORESTER_HUT_INDEX + 2, BUILDINGS_DIR + "/forester-hut-under-construction.png");
-        imagesToFileMap.put(SLAUGHTER_HOUSE_INDEX, BUILDINGS_DIR + "/slaughter-house.png");
-        imagesToFileMap.put(SLAUGHTER_HOUSE_INDEX + 2, BUILDINGS_DIR + "/slaughter-house-under-construction.png");
-        imagesToFileMap.put(HUNTER_HUT_INDEX, BUILDINGS_DIR + "/hunter-hut.png");
-        imagesToFileMap.put(HUNTER_HUT_INDEX + 2, BUILDINGS_DIR + "/hunter-hut-under-construction.png");
-        imagesToFileMap.put(BREWERY_INDEX, BUILDINGS_DIR + "/brewery.png");
-        imagesToFileMap.put(BREWERY_INDEX + 2, BUILDINGS_DIR + "/brewery-under-construction.png");
-        imagesToFileMap.put(ARMORY_INDEX, BUILDINGS_DIR + "/armory.png");
-        imagesToFileMap.put(ARMORY_INDEX + 2, BUILDINGS_DIR + "/armory-under-construction.png");
-        imagesToFileMap.put(METALWORKS_INDEX, BUILDINGS_DIR + "/metalworks.png");
-        imagesToFileMap.put(METALWORKS_INDEX + 2, BUILDINGS_DIR + "/metalworks-under-construction.png");
-        imagesToFileMap.put(IRON_SMELTER_INDEX, BUILDINGS_DIR + "/iron-smelter.png");
-        imagesToFileMap.put(IRON_SMELTER_INDEX + 2, BUILDINGS_DIR + "/iron-smelter-under-construction.png");
-        imagesToFileMap.put(PIG_FARM_INDEX, BUILDINGS_DIR + "/pig-farm.png");
-        imagesToFileMap.put(PIG_FARM_INDEX + 2, BUILDINGS_DIR + "/pig-farm-under-construction.png");
-        imagesToFileMap.put(STOREHOUSE_INDEX, BUILDINGS_DIR + "/storehouse.png");
-        imagesToFileMap.put(STOREHOUSE_INDEX + 2, BUILDINGS_DIR + "/storehouse-under-construction.png");
-        imagesToFileMap.put(MILL_NO_FAN_INDEX, BUILDINGS_DIR + "/mill-no-fan.png");
-        imagesToFileMap.put(MILL_NO_FAN_INDEX + 2, BUILDINGS_DIR + "/mill-no-fan-under-construction.png");
-        imagesToFileMap.put(BAKERY_INDEX, BUILDINGS_DIR + "/bakery.png");
-        imagesToFileMap.put(BAKERY_INDEX + 2, BUILDINGS_DIR + "/bakery-under-construction.png");
-        imagesToFileMap.put(SAWMILL_INDEX, BUILDINGS_DIR + "/sawmill.png");
-        imagesToFileMap.put(SAWMILL_INDEX + 2, BUILDINGS_DIR + "/sawmill-under-construction.png");
-        imagesToFileMap.put(MINT_INDEX, BUILDINGS_DIR + "/mint.png");
-        imagesToFileMap.put(MINT_INDEX + 2, BUILDINGS_DIR + "/mint-under-construction.png");
-        imagesToFileMap.put(WELL_INDEX, BUILDINGS_DIR + "/well.png");
-        imagesToFileMap.put(WELL_INDEX + 2, BUILDINGS_DIR + "/well-under-construction.png");
-        imagesToFileMap.put(SHIPYARD_INDEX, BUILDINGS_DIR + "/shipyard.png");
-        imagesToFileMap.put(SHIPYARD_INDEX + 2, BUILDINGS_DIR + "/shipyard-under-construction.png");
-        imagesToFileMap.put(FARM_INDEX, BUILDINGS_DIR + "/farm.png");
-        imagesToFileMap.put(FARM_INDEX + 2, BUILDINGS_DIR + "/farm-under-construction.png");
-        imagesToFileMap.put(DONKEY_BREEDER_INDEX, BUILDINGS_DIR + "/donkey-breeder.png");
-        imagesToFileMap.put(DONKEY_BREEDER_INDEX + 2, BUILDINGS_DIR + "/donkey-breeder-under-construction.png");
-        imagesToFileMap.put(HARBOR_INDEX, BUILDINGS_DIR + "/harbor.png");
-        imagesToFileMap.put(HARBOR_INDEX + 2, BUILDINGS_DIR + "/harbor-under-construction.png");
-        imagesToFileMap.put(CONSTRUCTION_PLANNED_INDEX, BUILDINGS_DIR + "/construction-planned-sign.png");
-        imagesToFileMap.put(CONSTRUCTION_JUST_STARTED_INDEX, BUILDINGS_DIR + "/construction-started-sign.png");
-
-        writeFilesFromMap(gameResourceList, imagesToFileMap);
+        writeFilesFromMap(romYLst, imagesToFileMap);
 
         // Create the image atlas
         Map<Nation, String> nationsAndBobFiles = new HashMap<>();
@@ -1548,104 +1407,104 @@ public class Extractor {
 
             List<GameResource> nationResourceList = assetManager.loadLstFile(filename, defaultPalette);
 
-            buildingsImageCollection.addBuildingForNation(nation, "Headquarter", getImageFromResourceLocation(nationResourceList, HEADQUARTER_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Headquarter", getImageFromResourceLocation(nationResourceList, HEADQUARTER_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "Headquarter", getImageFromResourceLocation(nationResourceList, RomYLst.HEADQUARTER_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Headquarter", getImageFromResourceLocation(nationResourceList, RomYLst.HEADQUARTER_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Barracks", getImageFromResourceLocation(nationResourceList, BARRACKS_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Barracks", getImageFromResourceLocation(nationResourceList, BARRACKS_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "Barracks", getImageFromResourceLocation(nationResourceList, RomYLst.BARRACKS_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Barracks", getImageFromResourceLocation(nationResourceList, RomYLst.BARRACKS_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "GuardHouse", getImageFromResourceLocation(nationResourceList, GUARDHOUSE_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "GuardHouse", getImageFromResourceLocation(nationResourceList, GUARDHOUSE_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "GuardHouse", getImageFromResourceLocation(nationResourceList, RomYLst.GUARDHOUSE_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "GuardHouse", getImageFromResourceLocation(nationResourceList, RomYLst.GUARDHOUSE_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "WatchTower", getImageFromResourceLocation(nationResourceList, WATCHTOWER_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "WatchTower", getImageFromResourceLocation(nationResourceList, WATCHTOWER_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "WatchTower", getImageFromResourceLocation(nationResourceList, RomYLst.WATCHTOWER_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "WatchTower", getImageFromResourceLocation(nationResourceList, RomYLst.WATCHTOWER_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Fortress", getImageFromResourceLocation(nationResourceList, FORTRESS_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Fortress", getImageFromResourceLocation(nationResourceList, FORTRESS_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "Fortress", getImageFromResourceLocation(nationResourceList, RomYLst.FORTRESS_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Fortress", getImageFromResourceLocation(nationResourceList, RomYLst.FORTRESS_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "GraniteMine", getImageFromResourceLocation(nationResourceList, GRANITE_MINE_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "GraniteMine", getImageFromResourceLocation(nationResourceList, GRANITE_MINE_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "GraniteMine", getImageFromResourceLocation(nationResourceList, RomYLst.GRANITE_MINE_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "GraniteMine", getImageFromResourceLocation(nationResourceList, RomYLst.GRANITE_MINE_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "CoalMine", getImageFromResourceLocation(nationResourceList, COAL_MINE_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "CoalMine", getImageFromResourceLocation(nationResourceList, COAL_MINE_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "CoalMine", getImageFromResourceLocation(nationResourceList, RomYLst.COAL_MINE_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "CoalMine", getImageFromResourceLocation(nationResourceList, RomYLst.COAL_MINE_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "IronMine", getImageFromResourceLocation(nationResourceList, IRON_MINE_RESOURCE));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "IronMine", getImageFromResourceLocation(nationResourceList, IRON_MINE_RESOURCE + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "IronMine", getImageFromResourceLocation(nationResourceList, RomYLst.IRON_MINE_RESOURCE));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "IronMine", getImageFromResourceLocation(nationResourceList, RomYLst.IRON_MINE_RESOURCE + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "GoldMine", getImageFromResourceLocation(nationResourceList, GOLD_MINE_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "GoldMine", getImageFromResourceLocation(nationResourceList, GOLD_MINE_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "GoldMine", getImageFromResourceLocation(nationResourceList, RomYLst.GOLD_MINE_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "GoldMine", getImageFromResourceLocation(nationResourceList, RomYLst.GOLD_MINE_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "LookoutTower", getImageFromResourceLocation(nationResourceList, LOOKOUT_TOWER_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "LookoutTower", getImageFromResourceLocation(nationResourceList, LOOKOUT_TOWER_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "LookoutTower", getImageFromResourceLocation(nationResourceList, RomYLst.LOOKOUT_TOWER_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "LookoutTower", getImageFromResourceLocation(nationResourceList, RomYLst.LOOKOUT_TOWER_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Catapult", getImageFromResourceLocation(nationResourceList, CATAPULT_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Catapult", getImageFromResourceLocation(nationResourceList, CATAPULT_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "Catapult", getImageFromResourceLocation(nationResourceList, RomYLst.CATAPULT_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Catapult", getImageFromResourceLocation(nationResourceList, RomYLst.CATAPULT_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Woodcutter", getImageFromResourceLocation(nationResourceList, WOODCUTTER_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Woodcutter", getImageFromResourceLocation(nationResourceList, WOODCUTTER_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "Woodcutter", getImageFromResourceLocation(nationResourceList, RomYLst.WOODCUTTER_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Woodcutter", getImageFromResourceLocation(nationResourceList, RomYLst.WOODCUTTER_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Fishery", getImageFromResourceLocation(nationResourceList, FISHERY_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Fishery", getImageFromResourceLocation(nationResourceList, FISHERY_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "Fishery", getImageFromResourceLocation(nationResourceList, RomYLst.FISHERY_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Fishery", getImageFromResourceLocation(nationResourceList, RomYLst.FISHERY_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Quarry", getImageFromResourceLocation(nationResourceList, QUARRY_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Quarry", getImageFromResourceLocation(nationResourceList, QUARRY_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "Quarry", getImageFromResourceLocation(nationResourceList, RomYLst.QUARRY_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Quarry", getImageFromResourceLocation(nationResourceList, RomYLst.QUARRY_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "ForesterHut", getImageFromResourceLocation(nationResourceList, FORESTER_HUT_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "ForesterHut", getImageFromResourceLocation(nationResourceList, FORESTER_HUT_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "ForesterHut", getImageFromResourceLocation(nationResourceList, RomYLst.FORESTER_HUT_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "ForesterHut", getImageFromResourceLocation(nationResourceList, RomYLst.FORESTER_HUT_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "SlaughterHouse", getImageFromResourceLocation(nationResourceList, SLAUGHTER_HOUSE_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "SlaughterHouse", getImageFromResourceLocation(nationResourceList, SLAUGHTER_HOUSE_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "SlaughterHouse", getImageFromResourceLocation(nationResourceList, RomYLst.SLAUGHTER_HOUSE_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "SlaughterHouse", getImageFromResourceLocation(nationResourceList, RomYLst.SLAUGHTER_HOUSE_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "HunterHut", getImageFromResourceLocation(nationResourceList, HUNTER_HUT_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "HunterHut", getImageFromResourceLocation(nationResourceList, HUNTER_HUT_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "HunterHut", getImageFromResourceLocation(nationResourceList, RomYLst.HUNTER_HUT_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "HunterHut", getImageFromResourceLocation(nationResourceList, RomYLst.HUNTER_HUT_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Brewery", getImageFromResourceLocation(nationResourceList, BREWERY_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Brewery", getImageFromResourceLocation(nationResourceList, BREWERY_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "Brewery", getImageFromResourceLocation(nationResourceList, RomYLst.BREWERY_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Brewery", getImageFromResourceLocation(nationResourceList, RomYLst.BREWERY_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Armory", getImageFromResourceLocation(nationResourceList, ARMORY_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Armory", getImageFromResourceLocation(nationResourceList, ARMORY_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "Armory", getImageFromResourceLocation(nationResourceList, RomYLst.ARMORY_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Armory", getImageFromResourceLocation(nationResourceList, RomYLst.ARMORY_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Metalworks", getImageFromResourceLocation(nationResourceList, METALWORKS_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Metalworks", getImageFromResourceLocation(nationResourceList, METALWORKS_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "Metalworks", getImageFromResourceLocation(nationResourceList, RomYLst.METALWORKS_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Metalworks", getImageFromResourceLocation(nationResourceList, RomYLst.METALWORKS_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "IronSmelter", getImageFromResourceLocation(nationResourceList, IRON_SMELTER_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "IronSmelter", getImageFromResourceLocation(nationResourceList, IRON_SMELTER_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "IronSmelter", getImageFromResourceLocation(nationResourceList, RomYLst.IRON_SMELTER_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "IronSmelter", getImageFromResourceLocation(nationResourceList, RomYLst.IRON_SMELTER_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "PigFarm", getImageFromResourceLocation(nationResourceList, PIG_FARM_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "PigFarm", getImageFromResourceLocation(nationResourceList, PIG_FARM_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "PigFarm", getImageFromResourceLocation(nationResourceList, RomYLst.PIG_FARM_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "PigFarm", getImageFromResourceLocation(nationResourceList, RomYLst.PIG_FARM_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Storehouse", getImageFromResourceLocation(nationResourceList, STOREHOUSE_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Storehouse", getImageFromResourceLocation(nationResourceList, STOREHOUSE_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "Storehouse", getImageFromResourceLocation(nationResourceList, RomYLst.STOREHOUSE_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Storehouse", getImageFromResourceLocation(nationResourceList, RomYLst.STOREHOUSE_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Mill", getImageFromResourceLocation(nationResourceList, MILL_NO_FAN_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Mill", getImageFromResourceLocation(nationResourceList, MILL_NO_FAN_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "Mill", getImageFromResourceLocation(nationResourceList, RomYLst.MILL_NO_FAN_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Mill", getImageFromResourceLocation(nationResourceList, RomYLst.MILL_NO_FAN_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Bakery", getImageFromResourceLocation(nationResourceList, BAKERY_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Bakery", getImageFromResourceLocation(nationResourceList, BAKERY_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "Bakery", getImageFromResourceLocation(nationResourceList, RomYLst.BAKERY_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Bakery", getImageFromResourceLocation(nationResourceList, RomYLst.BAKERY_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Sawmill", getImageFromResourceLocation(nationResourceList, SAWMILL_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Sawmill", getImageFromResourceLocation(nationResourceList, SAWMILL_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "Sawmill", getImageFromResourceLocation(nationResourceList, RomYLst.SAWMILL_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Sawmill", getImageFromResourceLocation(nationResourceList, RomYLst.SAWMILL_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Mint", getImageFromResourceLocation(nationResourceList, MINT_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Mint", getImageFromResourceLocation(nationResourceList, MINT_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "Mint", getImageFromResourceLocation(nationResourceList, RomYLst.MINT_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Mint", getImageFromResourceLocation(nationResourceList, RomYLst.MINT_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Well", getImageFromResourceLocation(nationResourceList, WELL_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Well", getImageFromResourceLocation(nationResourceList, WELL_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "Well", getImageFromResourceLocation(nationResourceList, RomYLst.WELL_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Well", getImageFromResourceLocation(nationResourceList, RomYLst.WELL_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Shipyard", getImageFromResourceLocation(nationResourceList, SHIPYARD_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Shipyard", getImageFromResourceLocation(nationResourceList, SHIPYARD_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "Shipyard", getImageFromResourceLocation(nationResourceList, RomYLst.SHIPYARD_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Shipyard", getImageFromResourceLocation(nationResourceList, RomYLst.SHIPYARD_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Farm", getImageFromResourceLocation(nationResourceList, FARM_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Farm", getImageFromResourceLocation(nationResourceList, FARM_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "Farm", getImageFromResourceLocation(nationResourceList, RomYLst.FARM_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Farm", getImageFromResourceLocation(nationResourceList, RomYLst.FARM_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "DonkeyBreeder", getImageFromResourceLocation(nationResourceList, DONKEY_BREEDER_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "DonkeyBreeder", getImageFromResourceLocation(nationResourceList, DONKEY_BREEDER_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "DonkeyBreeder", getImageFromResourceLocation(nationResourceList, RomYLst.DONKEY_BREEDER_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "DonkeyBreeder", getImageFromResourceLocation(nationResourceList, RomYLst.DONKEY_BREEDER_INDEX + 2));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Harbor", getImageFromResourceLocation(nationResourceList, HARBOR_INDEX));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Harbor", getImageFromResourceLocation(nationResourceList, HARBOR_INDEX + 2));
+            buildingsImageCollection.addBuildingForNation(nation, "Harbor", getImageFromResourceLocation(nationResourceList, RomYLst.HARBOR_INDEX));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Harbor", getImageFromResourceLocation(nationResourceList, RomYLst.HARBOR_INDEX + 2));
 
-            buildingsImageCollection.addConstructionPlanned(nation, getImageFromResourceLocation(nationResourceList, CONSTRUCTION_PLANNED_INDEX));
-            buildingsImageCollection.addConstructionJustStarted(nation, getImageFromResourceLocation(nationResourceList, CONSTRUCTION_JUST_STARTED_INDEX));
+            buildingsImageCollection.addConstructionPlanned(nation, getImageFromResourceLocation(nationResourceList, RomYLst.CONSTRUCTION_PLANNED_INDEX));
+            buildingsImageCollection.addConstructionJustStarted(nation, getImageFromResourceLocation(nationResourceList, RomYLst.CONSTRUCTION_JUST_STARTED_INDEX));
         }
 
         buildingsImageCollection.writeImageAtlas(toDir + "/", defaultPalette);
