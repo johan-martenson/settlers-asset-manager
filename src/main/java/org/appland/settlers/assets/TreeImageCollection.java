@@ -123,18 +123,11 @@ public class TreeImageCollection {
                     int x = grownTreesAggregatedLayoutInfo.getRowWidth() + imageIndex * growingTreesAggregatedLayoutInfo.getImageWidth();
                     int y = maxRowHeight * treeIndex;
 
-                    JSONObject jsonGrowingTreeImage = new JSONObject();
+                    imageBoard.placeImage(image, x, y);
+
+                    JSONObject jsonGrowingTreeImage = imageBoard.imageLocationToJson(image);
 
                     jsonGrowingTreeType.put(treeSize.name().toUpperCase(), jsonGrowingTreeImage);
-
-                    jsonGrowingTreeImage.put("x", x);
-                    jsonGrowingTreeImage.put("y", y);
-                    jsonGrowingTreeImage.put("width", image.width);
-                    jsonGrowingTreeImage.put("height", image.height);
-                    jsonGrowingTreeImage.put("offsetX", image.nx);
-                    jsonGrowingTreeImage.put("offsetY", image.ny);
-
-                    imageBoard.placeImage(image, x, y);
 
                     imageIndex = imageIndex + 1;
                 }

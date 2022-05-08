@@ -1,23 +1,25 @@
 package org.appland.settlers.assets;
 
-import java.awt.Point;
-import java.util.ArrayList;
-import java.util.List;
+import org.json.simple.JSONObject;
+
+import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ImageBoard {
 
-    private final List<ImageOnBoard> images;
+    private final Map<Bitmap, ImageOnBoard> images;
 
     public ImageBoard() {
-        images = new ArrayList<>();
+        images = new HashMap<>();
     }
 
     void placeImage(Bitmap image, Point point) {
-        images.add(new ImageOnBoard(image, point.x, point.y));
+        images.put(image, new ImageOnBoard(image, point.x, point.y));
     }
 
     void placeImage(Bitmap image, int x, int y) {
-        images.add(new ImageOnBoard(image, x, y));
+        images.put(image, new ImageOnBoard(image, x, y));
     }
 
     Bitmap writeBoardToBitmap(Palette palette) {
@@ -26,7 +28,7 @@ public class ImageBoard {
         int width = 0;
         int height = 0;
 
-        for (ImageOnBoard imageOnBoard : images) {
+        for (ImageOnBoard imageOnBoard : images.values()) {
             width = Math.max(width, imageOnBoard.x + imageOnBoard.image.width);
             height = Math.max(height, imageOnBoard.y + imageOnBoard.image.height);
         }
@@ -35,7 +37,7 @@ public class ImageBoard {
         Bitmap imageBoard = new Bitmap(width, height, palette, TextureFormat.BGRA);
 
         // Copy all images onto the board
-        for (ImageOnBoard imageOnBoard : images) {
+        for (ImageOnBoard imageOnBoard : images.values()) {
             imageBoard.copyNonTransparentPixels(
                     imageOnBoard.image,
                     new Point(imageOnBoard.x, imageOnBoard.y),
@@ -44,6 +46,21 @@ public class ImageBoard {
         }
 
         return imageBoard;
+    }
+
+    JSONObject imageLocationToJson(Bitmap image) {
+        ImageOnBoard imageOnBoard = images.get(image);
+
+        JSONObject jsonImageLocation = new JSONObject();
+
+        jsonImageLocation.put("x", imageOnBoard.x);
+        jsonImageLocation.put("y", imageOnBoard.y);
+        jsonImageLocation.put("width", image.width);
+        jsonImageLocation.put("height", image.height);
+        jsonImageLocation.put("offsetX", image.nx);
+        jsonImageLocation.put("offsetY", image.ny);
+
+        return jsonImageLocation;
     }
 
     private class ImageOnBoard {

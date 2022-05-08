@@ -2,7 +2,6 @@ package org.appland.settlers.assets;
 
 import org.json.simple.JSONObject;
 
-import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -42,7 +41,7 @@ public class BorderImageCollector {
         }
 
         // Create the image atlas
-        Bitmap imageAtlas = new Bitmap(maxWidth, maxHeight * Nation.values().length, palette, TextureFormat.BGRA);
+        ImageBoard imageBoard = new ImageBoard();
 
         JSONObject jsonImageAtlas = new JSONObject();
 
@@ -59,50 +58,26 @@ public class BorderImageCollector {
             int x = 0;
             int y = nationIndex * maxHeight;
 
-            imageAtlas.copyNonTransparentPixels(
-                    borderForNation.landBorder,
-                    new Point(x, y),
-                    new Point(0, 0),
-                    borderForNation.landBorder.getDimension()
-            );
+            imageBoard.placeImage(borderForNation.landBorder, x, y);
 
-            JSONObject jsonLandBorder = new JSONObject();
+            JSONObject jsonLandBorder = imageBoard.imageLocationToJson(borderForNation.landBorder);
 
             jsonNation.put("landBorder", jsonLandBorder);
-
-            jsonLandBorder.put("x", x);
-            jsonLandBorder.put("y", y);
-            jsonLandBorder.put("width", borderForNation.landBorder.width);
-            jsonLandBorder.put("height", borderForNation.landBorder.height);
-            jsonLandBorder.put("offsetX", borderForNation.landBorder.nx);
-            jsonLandBorder.put("offsetY", borderForNation.landBorder.ny);
 
             x = borderForNation.landBorder.width;
             y = nationIndex * maxHeight;
 
-            imageAtlas.copyNonTransparentPixels(
-                    borderForNation.coastBorder,
-                    new Point(x, y),
-                    new Point(0, 0),
-                    borderForNation.coastBorder.getDimension()
-            );
+            imageBoard.placeImage(borderForNation.coastBorder, x, y);
 
-            JSONObject jsonCoastBorder = new JSONObject();
+            JSONObject jsonCoastBorder = imageBoard.imageLocationToJson(borderForNation.coastBorder);
 
             jsonNation.put("coastBorder", jsonCoastBorder);
-
-            jsonCoastBorder.put("x", x);
-            jsonCoastBorder.put("y", y);
-            jsonCoastBorder.put("width", borderForNation.coastBorder.width);
-            jsonCoastBorder.put("height", borderForNation.coastBorder.height);
-            jsonCoastBorder.put("offsetX", borderForNation.coastBorder.nx);
-            jsonCoastBorder.put("offsetY", borderForNation.coastBorder.ny);
 
             nationIndex = nationIndex + 1;
         }
 
         // Write to file
-        imageAtlas.writeToFile(toDir + "/image-atlas-border.png");
+        imageBoard.writeBoardToBitmap(palette).writeToFile(toDir + "/image-atlas-border.png");
 
         Files.writeString(Paths.get(toDir, "image-atlas-border.json"), jsonImageAtlas.toJSONString());
     }
