@@ -137,7 +137,7 @@ public class BuildingsImageCollection {
 
                 // Copy the under construction image
                 if (images.buildingUnderConstruction != null) {
-                    imageBoard.placeImage(images.buildingUnderConstruction, startNextNationAtX, startNextBuildingAtY);
+                    imageBoard.placeImage(images.buildingUnderConstruction, startNextNationAtX + placeNextBuildingAtX, startNextBuildingAtY);
 
                     jsonBuilding.put("underConstructionAtX", startNextNationAtX + placeNextBuildingAtX);
                     jsonBuilding.put("underConstructionWidth", images.buildingUnderConstruction.width);
