@@ -43,10 +43,7 @@ public class CargoImageCollection {
         }
 
         // Create the image atlas
-        int totalWidth = aggregatedLayout.getImageWidth() * 2;
-        int totalHeight = aggregatedLayout.getRowHeight() * cargos.size();
-
-        Bitmap imageAtlas = new Bitmap(totalWidth, totalHeight, palette, TextureFormat.BGRA);
+        ImageBoard imageBoard = new ImageBoard();
 
         JSONObject jsonImageAtlas = new JSONObject();
 
@@ -70,12 +67,7 @@ public class CargoImageCollection {
             int x = 0;
             int y = nextYAt;
 
-            imageAtlas.copyNonTransparentPixels(
-                    image,
-                    new Point(x + offset.x, y + offset.y),
-                    new Point(0, 0),
-                    image.getDimension()
-            );
+            imageBoard.placeImage(image, x + offset.x, y + offset.y);
 
             JSONObject jsonCargoImage = new JSONObject();
 
@@ -112,12 +104,7 @@ public class CargoImageCollection {
                 Point offset = aggregatedLayout.getImageAtlasOffsetForImage(image);
                 Point center = aggregatedLayout.getDrawOffset();
 
-                imageAtlas.copyNonTransparentPixels(
-                        image,
-                        new Point(x + offset.x, y + offset.y),
-                        new Point(0, 0),
-                        image.getDimension()
-                );
+                imageBoard.placeImage(image, x + offset.x, y + offset.y);
 
                 JSONObject jsonCargoImage = new JSONObject();
 
@@ -137,7 +124,7 @@ public class CargoImageCollection {
         }
 
         // Write the image atlas to file
-        imageAtlas.writeToFile(toDir + "/image-atlas-cargos.png");
+        imageBoard.writeBoardToBitmap(palette).writeToFile(toDir + "/image-atlas-cargos.png");
 
         Files.writeString(Paths.get(toDir, "image-atlas-cargos.json"), jsonImageAtlas.toJSONString());
     }

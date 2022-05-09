@@ -159,34 +159,20 @@ public class BuildingsImageCollection {
             Bitmap constructionPlannedImage = specialImagesMap.get(nation).constructionPlannedImage;
             Bitmap constructionJustStartedImage = specialImagesMap.get(nation).constructionJustStartedImage;
 
-            JSONObject jsonConstructionPlanned = new JSONObject();
-
-            jsonConstructionPlannedImages.put(nation.name().toLowerCase(), jsonConstructionPlanned);
-
-            jsonConstructionPlanned.put("x", startNextNationAtX);
-            jsonConstructionPlanned.put("y", startNextBuildingAtY);
-            jsonConstructionPlanned.put("width", constructionPlannedImage.width);
-            jsonConstructionPlanned.put("height", constructionPlannedImage.height);
-            jsonConstructionPlanned.put("offsetX", constructionPlannedImage.nx);
-            jsonConstructionPlanned.put("offsetY", constructionPlannedImage.ny);
-
             imageBoard.placeImage(constructionPlannedImage, startNextNationAtX, startNextBuildingAtY);
 
-            JSONObject jsonConstructionJustStarted = new JSONObject();
+            JSONObject jsonConstructionPlanned = imageBoard.imageLocationToJson(constructionPlannedImage);
 
-            jsonConstructionJustStartedImages.put(nation.name().toLowerCase(), jsonConstructionJustStarted);
-
-            jsonConstructionJustStarted.put("x", startNextNationAtX + constructionPlannedImage.width);
-            jsonConstructionJustStarted.put("y", startNextBuildingAtY);
-            jsonConstructionJustStarted.put("width", constructionJustStartedImage.width);
-            jsonConstructionJustStarted.put("height", constructionJustStartedImage.height);
-            jsonConstructionJustStarted.put("offsetX", constructionJustStartedImage.nx);
-            jsonConstructionJustStarted.put("offsetY", constructionJustStartedImage.ny);
+            jsonConstructionPlannedImages.put(nation.name().toLowerCase(), jsonConstructionPlanned);
 
             imageBoard.placeImage(
                     constructionJustStartedImage,
                     startNextNationAtX + constructionPlannedImage.width,
                     startNextBuildingAtY);
+
+            JSONObject jsonConstructionJustStarted = imageBoard.imageLocationToJson(constructionJustStartedImage);
+
+            jsonConstructionJustStartedImages.put(nation.name().toLowerCase(), jsonConstructionJustStarted);
 
             startNextNationAtX = startNextNationAtX + widthCurrentNation;
         }
