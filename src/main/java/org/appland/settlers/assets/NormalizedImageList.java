@@ -29,12 +29,12 @@ public class NormalizedImageList {
             maxNx = Math.max(maxNx, image.nx);
             maxNy = Math.max(maxNy, image.ny);
 
-            minNx = Math.min(minNx, image.nx);
-            minNy = Math.min(minNy, image.ny);
+            minNx = Math.max(minNx, image.nx);
+            minNy = Math.max(minNy, image.ny);
         }
 
-        this.width = maxWidth;
-        this.height = maxHeight;
+        this.width = maxWidth + maxNx;
+        this.height = maxHeight + maxNy;
         this.nx = maxNx;
         this.ny = maxNy;
 
@@ -46,7 +46,7 @@ public class NormalizedImageList {
 
         for (int i = 0; i < originalImages.size(); i++) {
             Bitmap originalImage = originalImages.get(i);
-            Bitmap normalizedImage = new Bitmap(maxWidth, maxHeight, originalImages.get(0).getPalette(), TextureFormat.BGRA);
+            Bitmap normalizedImage = new Bitmap(width, height, originalImages.get(0).getPalette(), TextureFormat.BGRA);
 
             normalizedImage.copyNonTransparentPixels(
                     originalImage,
@@ -76,5 +76,9 @@ public class NormalizedImageList {
 
     public Point getDrawOffset() {
         return new Point(nx, ny);
+    }
+
+    public int size() {
+        return normalizedImages.size();
     }
 }

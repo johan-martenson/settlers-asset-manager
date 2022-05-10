@@ -4,13 +4,11 @@ import org.appland.settlers.model.Tree;
 import org.appland.settlers.model.TreeSize;
 import org.json.simple.JSONObject;
 
-import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,40 +33,6 @@ public class TreeImageCollection {
 
     public void writeImageAtlas(String directory, Palette palette) throws IOException {
 
-        // Find the max width and height, and the max number of images over all tree types
-        Utils.RowLayoutInfo grownTreesAggregatedLayoutInfo = new Utils.RowLayoutInfo();
-        Utils.RowLayoutInfo growingTreesAggregatedLayoutInfo = new Utils.RowLayoutInfo();
-        Utils.RowLayoutInfo fallingTreesAggregatedLayoutInfo = new Utils.RowLayoutInfo();
-
-        for (Tree.TreeType treeType : Tree.TreeType.values()) {
-
-            List<Bitmap> grownTreeImages = this.grownTreeMap.get(treeType);
-
-            if (growingTreeMap.containsKey(treeType)) {
-                Collection<Bitmap> growingTreeImages = this.growingTreeMap.get(treeType).values();
-                Utils.RowLayoutInfo growingTreeLayoutInfo = Utils.layoutInfoFromImageSeries(growingTreeImages);
-                growingTreesAggregatedLayoutInfo.aggregate(growingTreeLayoutInfo);
-            }
-
-            if (treeFalling.containsKey(treeType)) {
-                List<Bitmap> fallingTreeImages = this.treeFalling.get(treeType);
-                Utils.RowLayoutInfo fallingTreeLayoutInfo = Utils.layoutInfoFromImageSeries(fallingTreeImages);
-                fallingTreesAggregatedLayoutInfo.aggregate(fallingTreeLayoutInfo);
-            }
-
-            Utils.RowLayoutInfo grownTreeLayoutInfo = Utils.layoutInfoFromImageSeries(grownTreeImages);
-
-            grownTreesAggregatedLayoutInfo.aggregate(grownTreeLayoutInfo);
-        }
-
-        int maxRowHeight = Math.max(
-                Math.max(
-                        grownTreesAggregatedLayoutInfo.getRowHeight(),
-                        growingTreesAggregatedLayoutInfo.getRowHeight()
-                ),
-                fallingTreesAggregatedLayoutInfo.getRowHeight()
-        );
-
         // Write the image atlas, one row per tree, and collect metadata to write as json
         ImageBoard imageBoard = new ImageBoard();
 
@@ -82,32 +46,25 @@ public class TreeImageCollection {
         jsonImageAtlas.put("growingTrees", jsonGrowingTrees);
         jsonImageAtlas.put("fallingTrees", jsonFallingTrees);
 
-        int treeIndex = 0;
+        int y = 0;
+        int x;
+        int rowHeight = 0;
         for (Tree.TreeType treeType : Tree.TreeType.values()) {
 
-            List<Bitmap> images = this.grownTreeMap.get(treeType);
+            x = 0;
 
-            JSONObject jsonTreeInfo = new JSONObject();
+            List<Bitmap> images = this.grownTreeMap.get(treeType);
+            NormalizedImageList normalizedImageList = new NormalizedImageList(images);
+            List<Bitmap> normalizedImages = normalizedImageList.getNormalizedImages();
+
+            imageBoard.placeImageSeries(normalizedImages, x, y, ImageBoard.LayoutDirection.ROW);
+
+            JSONObject jsonTreeInfo = imageBoard.imageSeriesLocationToJson(normalizedImages); //new JSONObject();
 
             jsonGrownTrees.put(treeType.name().toUpperCase(), jsonTreeInfo);
 
-            jsonTreeInfo.put("startX", 0);
-            jsonTreeInfo.put("startY", treeIndex * grownTreesAggregatedLayoutInfo.getRowHeight());
-            jsonTreeInfo.put("width", grownTreesAggregatedLayoutInfo.getImageWidth());
-            jsonTreeInfo.put("height", grownTreesAggregatedLayoutInfo.getImageHeight());
-            jsonTreeInfo.put("nrImages", images.size());
-            jsonTreeInfo.put("offsetX", grownTreesAggregatedLayoutInfo.maxNx);
-            jsonTreeInfo.put("offsetY", grownTreesAggregatedLayoutInfo.maxNy);
-
-            int imageIndex = 0;
-            for (Bitmap image : images) {
-                imageBoard.placeImage(
-                        image,
-                        grownTreesAggregatedLayoutInfo.getTargetPositionForImageInRow(image, treeIndex, imageIndex)
-                );
-
-                imageIndex = imageIndex + 1;
-            }
+            x = normalizedImageList.size() * normalizedImageList.getImageWidth();
+            rowHeight = normalizedImageList.getImageHeight();
 
             if (growingTreeMap.containsKey(treeType)) {
 
@@ -115,13 +72,9 @@ public class TreeImageCollection {
 
                 jsonGrowingTrees.put(treeType.name().toUpperCase(), jsonGrowingTreeType);
 
-                imageIndex = 0;
                 for (Map.Entry<TreeSize, Bitmap> entry : growingTreeMap.get(treeType).entrySet()) {
                     TreeSize treeSize = entry.getKey();
                     Bitmap image = entry.getValue();
-
-                    int x = grownTreesAggregatedLayoutInfo.getRowWidth() + imageIndex * growingTreesAggregatedLayoutInfo.getImageWidth();
-                    int y = maxRowHeight * treeIndex;
 
                     imageBoard.placeImage(image, x, y);
 
@@ -129,39 +82,27 @@ public class TreeImageCollection {
 
                     jsonGrowingTreeType.put(treeSize.name().toUpperCase(), jsonGrowingTreeImage);
 
-                    imageIndex = imageIndex + 1;
+                    x = x + image.getWidth();
+                    rowHeight = Math.max(rowHeight, image.getHeight());
                 }
             }
 
             if (treeFalling.containsKey(treeType)) {
 
-                int startX = grownTreesAggregatedLayoutInfo.getRowWidth() + growingTreesAggregatedLayoutInfo.getRowWidth();
-                int startY = maxRowHeight * treeIndex;
+                List<Bitmap> fallingTreeImages = treeFalling.get(treeType);
+                NormalizedImageList normalizedImageList1 = new NormalizedImageList(fallingTreeImages);
+                List<Bitmap> normalizedFallingTreeImages = normalizedImageList1.getNormalizedImages();
 
-                JSONObject jsonFallingTreeImages = new JSONObject();
+                imageBoard.placeImageSeries(normalizedFallingTreeImages, x, y, ImageBoard.LayoutDirection.ROW);
+
+                JSONObject jsonFallingTreeImages = imageBoard.imageSeriesLocationToJson(normalizedFallingTreeImages); //new JSONObject();
 
                 jsonFallingTrees.put(treeType.name().toUpperCase(), jsonFallingTreeImages);
 
-                jsonFallingTreeImages.put("startX", startX);
-                jsonFallingTreeImages.put("startY", startY);
-                jsonFallingTreeImages.put("width", fallingTreesAggregatedLayoutInfo.getImageWidth());
-                jsonFallingTreeImages.put("height", fallingTreesAggregatedLayoutInfo.getImageHeight());
-                jsonFallingTreeImages.put("nrImages", treeFalling.get(treeType).size());
-                jsonFallingTreeImages.put("offsetX", fallingTreesAggregatedLayoutInfo.maxNx);
-                jsonFallingTreeImages.put("offsetY", fallingTreesAggregatedLayoutInfo.maxNy);
-
-                imageIndex = 0;
-                for (Bitmap image : treeFalling.get(treeType)) {
-
-                    Point unadjusted = grownTreesAggregatedLayoutInfo.getTargetPositionForImageInRow(image, treeIndex, imageIndex);
-
-                    imageBoard.placeImage(image, unadjusted.x + startX, unadjusted.y);
-
-                    imageIndex = imageIndex + 1;
-                }
+                rowHeight = Math.max(rowHeight, normalizedImageList1.getImageHeight());
             }
 
-            treeIndex = treeIndex + 1;
+            y = y + rowHeight;
         }
 
         imageBoard.writeBoardToBitmap(palette).writeToFile(directory + "/image-atlas-" + name.toLowerCase() + ".png");
