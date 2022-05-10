@@ -7,14 +7,19 @@ import java.util.List;
 public class NormalizedImageList {
     private final List<Bitmap> originalImages;
     private final List<Bitmap> normalizedImages;
-    public int maxWidth;
-    public int maxHeight;
-    public int maxNx;
-    public int maxNy;
-    public int minNx;
-    public int minNy;
+    public int width;
+    public int height;
+    public int nx;
+    public int ny;
 
     public NormalizedImageList(List<Bitmap> images) {
+
+        int maxWidth = 0;
+        int maxHeight = 0;
+        int maxNx = 0;
+        int maxNy = 0;
+        int minNx = 0;
+        int minNy = 0;
 
         // Calculate the normalized width, height, nx, and ny
         for (Bitmap image : images) {
@@ -27,6 +32,11 @@ public class NormalizedImageList {
             minNx = Math.min(minNx, image.nx);
             minNy = Math.min(minNy, image.ny);
         }
+
+        this.width = maxWidth;
+        this.height = maxHeight;
+        this.nx = maxNx;
+        this.ny = maxNy;
 
         // Store the originals
         this.originalImages = images;
@@ -57,14 +67,14 @@ public class NormalizedImageList {
     }
 
     public int getImageHeight() {
-        return maxHeight;
+        return height;
     }
 
     public int getImageWidth() {
-        return maxWidth;
+        return width;
     }
 
     public Point getDrawOffset() {
-        return new Point(maxNx, maxNy);
+        return new Point(nx, ny);
     }
 }

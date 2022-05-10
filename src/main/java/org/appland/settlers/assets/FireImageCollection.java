@@ -29,21 +29,7 @@ public class FireImageCollection {
 
     public void writeImageAtlas(String directory, Palette palette) throws IOException {
 
-        // Find the max width and height, and the max number of images over all tree types
-        Utils.RowLayoutInfo aggregatedLayoutInfo = new Utils.RowLayoutInfo();
-
-        for (FireSize fireSize : FireSize.values()) {
-
-            List<Bitmap> images = this.fireMap.get(fireSize);
-
-            Utils.RowLayoutInfo layoutInfo = Utils.layoutInfoFromImageSeries(images);
-
-            aggregatedLayoutInfo.aggregate(layoutInfo);
-        }
-
-        Utils.RowLayoutInfo burntDownLayout = Utils.layoutInfoFromImageSeries(burntDownMap.values());
-
-        // Write the image atlas, one row per tree, and collect metadata to write as json
+        // Write the image atlas, one row per fire animation size, and a final row with the burnt down images
         ImageBoard imageBoard = new ImageBoard();
 
         JSONObject jsonImageAtlas = new JSONObject();
@@ -54,30 +40,26 @@ public class FireImageCollection {
         jsonImageAtlas.put("fires", jsonFireAnimations);
         jsonImageAtlas.put("burntDown", jsonBurntDownImages);
 
-        int fireSizeIndex = 0;
+        int y = 0;
         for (FireSize fireSize : FireSize.values()) {
 
             List<Bitmap> images = this.fireMap.get(fireSize);
             NormalizedImageList normalizedImageList = new NormalizedImageList(images);
             List<Bitmap> normalizedImages = normalizedImageList.getNormalizedImages();
 
-            imageBoard.placeImageSeries(normalizedImages, 0, fireSizeIndex * aggregatedLayoutInfo.getRowHeight(), ROW);
+            imageBoard.placeImageSeries(normalizedImages, 0, y, ROW);
 
             JSONObject jsonFireInfo = imageBoard.imageSeriesLocationToJson(normalizedImages);
 
             jsonFireAnimations.put(fireSize.name().toUpperCase(), jsonFireInfo);
 
-            fireSizeIndex = fireSizeIndex + 1;
+            y = y + normalizedImageList.getImageHeight();
         }
 
-        int y = FireSize.values().length * aggregatedLayoutInfo.getRowHeight();
-
-        int imageIndex = 0;
+        int x = 0;
         for (Map.Entry<Size, Bitmap> entry : burntDownMap.entrySet()) {
             Size size = entry.getKey();
             Bitmap image = entry.getValue();
-
-            int x = imageIndex * burntDownLayout.getImageWidth();
 
             imageBoard.placeImage(image, x, y);
 
@@ -85,7 +67,7 @@ public class FireImageCollection {
 
             jsonBurntDownImages.put(size.name().toUpperCase(), jsonBurntDownImage);
 
-            imageIndex = imageIndex + 1;
+            x = x + image.getWidth();
         }
 
         imageBoard.writeBoardToBitmap(palette).writeToFile(directory + "/" + "image-atlas-fire.png");
