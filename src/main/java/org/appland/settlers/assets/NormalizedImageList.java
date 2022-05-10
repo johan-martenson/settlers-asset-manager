@@ -45,6 +45,9 @@ public class NormalizedImageList {
                     originalImage.getDimension()
             );
 
+            normalizedImage.nx = maxNx;
+            normalizedImage.ny = maxNy;
+
             this.normalizedImages.add(normalizedImage);
         }
     }
@@ -54,11 +57,11 @@ public class NormalizedImageList {
     }
 
     public int getImageHeight() {
-        return maxHeight + maxNy - minNy;
+        return maxHeight;
     }
 
     public int getImageWidth() {
-        return maxWidth + maxNx - minNx;
+        return maxWidth;
     }
 
     public Point getDrawOffset() {

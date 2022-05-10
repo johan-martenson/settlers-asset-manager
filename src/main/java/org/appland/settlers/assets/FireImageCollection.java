@@ -3,7 +3,6 @@ package org.appland.settlers.assets;
 import org.appland.settlers.model.Size;
 import org.json.simple.JSONObject;
 
-import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,6 +11,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static org.appland.settlers.assets.ImageBoard.LayoutDirection.ROW;
 
 public class FireImageCollection {
     private final Map<FireSize, List<Bitmap>> fireMap;
@@ -57,27 +58,14 @@ public class FireImageCollection {
         for (FireSize fireSize : FireSize.values()) {
 
             List<Bitmap> images = this.fireMap.get(fireSize);
+            NormalizedImageList normalizedImageList = new NormalizedImageList(images);
+            List<Bitmap> normalizedImages = normalizedImageList.getNormalizedImages();
 
-            JSONObject jsonFireInfo = new JSONObject();
+            imageBoard.placeImageSeries(normalizedImages, 0, fireSizeIndex * aggregatedLayoutInfo.getRowHeight(), ROW);
+
+            JSONObject jsonFireInfo = imageBoard.imageSeriesLocationToJson(normalizedImages);
 
             jsonFireAnimations.put(fireSize.name().toUpperCase(), jsonFireInfo);
-
-            jsonFireInfo.put("startX", 0);
-            jsonFireInfo.put("startY", fireSizeIndex * aggregatedLayoutInfo.getRowHeight());
-            jsonFireInfo.put("width", aggregatedLayoutInfo.getImageWidth());
-            jsonFireInfo.put("height", aggregatedLayoutInfo.getImageHeight());
-            jsonFireInfo.put("nrImages", images.size());
-            jsonFireInfo.put("offsetX", aggregatedLayoutInfo.maxNx);
-            jsonFireInfo.put("offsetY", aggregatedLayoutInfo.maxNy);
-
-            int imageIndex = 0;
-            for (Bitmap image : images) {
-                Point point = aggregatedLayoutInfo.getTargetPositionForImageInRow(image, fireSizeIndex, imageIndex);
-
-                imageBoard.placeImage(image, point);
-
-                imageIndex = imageIndex + 1;
-            }
 
             fireSizeIndex = fireSizeIndex + 1;
         }

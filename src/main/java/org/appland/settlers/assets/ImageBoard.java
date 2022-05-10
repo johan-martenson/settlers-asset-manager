@@ -108,7 +108,7 @@ public class ImageBoard {
         return jsonImageLocation;
     }
 
-    JSONObject imagesToJson(List<Bitmap> images) {
+    JSONObject imageSeriesLocationToJson(List<Bitmap> images) {
         ImageSeries imageSeries = this.imageSeries.get(images);
 
         JSONObject jsonImages = new JSONObject();
