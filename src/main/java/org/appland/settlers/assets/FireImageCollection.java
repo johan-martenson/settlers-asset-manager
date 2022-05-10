@@ -43,15 +43,7 @@ public class FireImageCollection {
         Utils.RowLayoutInfo burntDownLayout = Utils.layoutInfoFromImageSeries(burntDownMap.values());
 
         // Write the image atlas, one row per tree, and collect metadata to write as json
-        int totalWidth = Math.max(aggregatedLayoutInfo.getRowWidth(), burntDownLayout.getRowWidth());
-        int totalHeight = Math.max(aggregatedLayoutInfo.getRowHeight(), burntDownLayout.getRowHeight()) *
-                (FireSize.values().length + 1);
-
-        Bitmap imageAtlas = new Bitmap(
-                totalWidth,
-                totalHeight,
-                palette,
-                TextureFormat.BGRA);
+        ImageBoard imageBoard = new ImageBoard();
 
         JSONObject jsonImageAtlas = new JSONObject();
 
@@ -80,12 +72,9 @@ public class FireImageCollection {
 
             int imageIndex = 0;
             for (Bitmap image : images) {
-                imageAtlas.copyNonTransparentPixels(
-                        image,
-                        aggregatedLayoutInfo.getTargetPositionForImageInRow(image, fireSizeIndex, imageIndex),
-                        new Point(0, 0),
-                        image.getDimension()
-                );
+                Point point = aggregatedLayoutInfo.getTargetPositionForImageInRow(image, fireSizeIndex, imageIndex);
+
+                imageBoard.placeImage(image, point);
 
                 imageIndex = imageIndex + 1;
             }
@@ -102,28 +91,16 @@ public class FireImageCollection {
 
             int x = imageIndex * burntDownLayout.getImageWidth();
 
-            imageAtlas.copyNonTransparentPixels(
-                    image,
-                    new Point(x, y),
-                    new Point(0, 0),
-                    image.getDimension()
-            );
+            imageBoard.placeImage(image, x, y);
 
-            JSONObject jsonBurntDownImage = new JSONObject();
-
-            jsonBurntDownImage.put("x", x);
-            jsonBurntDownImage.put("y", y);
-            jsonBurntDownImage.put("width", image.width);
-            jsonBurntDownImage.put("height", image.height);
-            jsonBurntDownImage.put("offsetX", image.nx);
-            jsonBurntDownImage.put("offsetY", image.ny);
+            JSONObject jsonBurntDownImage = imageBoard.imageLocationToJson(image);
 
             jsonBurntDownImages.put(size.name().toUpperCase(), jsonBurntDownImage);
 
             imageIndex = imageIndex + 1;
         }
 
-        imageAtlas.writeToFile(directory + "/" + "image-atlas-fire.png");
+        imageBoard.writeBoardToBitmap(palette).writeToFile(directory + "/" + "image-atlas-fire.png");
 
         // Write a JSON file that specifies where each image is in pixels
         Path filePath = Paths.get(directory, "image-atlas-fire.json");

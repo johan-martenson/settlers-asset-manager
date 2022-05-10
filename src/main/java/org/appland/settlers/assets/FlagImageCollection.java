@@ -2,7 +2,6 @@ package org.appland.settlers.assets;
 
 import org.json.simple.JSONObject;
 
-import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -45,11 +44,7 @@ public class FlagImageCollection {
         }
 
         // Write the image atlas, one row per flag, and collect metadata to write as json
-        Bitmap imageAtlas = new Bitmap(
-                aggregatedLayoutInfo.getRowWidth(),
-                aggregatedLayoutInfo.getRowHeight() * FlagType.values().length * Nation.values().length,
-                palette,
-                TextureFormat.BGRA);
+        ImageBoard imageBoard = new ImageBoard();
 
         JSONObject jsonImageAtlas = new JSONObject();
 
@@ -84,10 +79,7 @@ public class FlagImageCollection {
                     int adjustedX = imageIndex * aggregatedLayoutInfo.getImageWidth() + aggregatedLayoutInfo.maxNx - image.nx;
                     int adjustedY = y + aggregatedLayoutInfo.maxNy - image.ny;
 
-                    imageAtlas.copyNonTransparentPixels(image,
-                            new Point(adjustedX, adjustedY),
-                            new Point(0, 0),
-                            image.getDimension());
+                    imageBoard.placeImage(image, adjustedX, adjustedY);
 
                     imageIndex = imageIndex + 1;
                 }
@@ -98,7 +90,7 @@ public class FlagImageCollection {
             nationIndex = nationIndex + 1;
         }
 
-        imageAtlas.writeToFile(directory + "/" + "image-atlas-flags.png");
+        imageBoard.writeBoardToBitmap(palette).writeToFile(directory + "/" + "image-atlas-flags.png");
 
         // Write a JSON file that specifies where each image is in pixels
         Path filePath = Paths.get(directory, "image-atlas-flags.json");

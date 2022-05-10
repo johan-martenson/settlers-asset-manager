@@ -3,7 +3,6 @@ package org.appland.settlers.assets;
 import org.appland.settlers.model.Size;
 import org.json.simple.JSONObject;
 
-import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -27,6 +26,7 @@ public class SignImageCollection {
     }
 
     public void writeImageAtlas(String toDir, Palette palette) throws IOException {
+
         // Calculate the dimensions of the image atlas
         int maxWidth = 0;
         int maxHeight = 0;
@@ -41,12 +41,7 @@ public class SignImageCollection {
         }
 
         // Create the image atlas and meta-data
-        Bitmap imageAtlas = new Bitmap(
-                Size.values().length * maxWidth,
-                SIGN_TYPES.size() * maxHeight,
-                palette,
-                TextureFormat.BGRA
-        );
+        ImageBoard imageBoard = new ImageBoard();
 
         JSONObject jsonImageAtlas = new JSONObject();
 
@@ -66,23 +61,11 @@ public class SignImageCollection {
                     continue;
                 }
 
-                imageAtlas.copyNonTransparentPixels(
-                        image,
-                        new Point(sizeIndex * maxWidth, materialIndex * maxHeight),
-                        new Point(0, 0),
-                        image.getDimension()
-                );
+                imageBoard.placeImage(image, sizeIndex * maxWidth, materialIndex * maxHeight);
 
-                JSONObject jsonSign = new JSONObject();
+                JSONObject jsonSign = imageBoard.imageLocationToJson(image);
 
                 jsonMaterial.put(size.name().toUpperCase(), jsonSign);
-
-                jsonSign.put("x", sizeIndex * maxWidth);
-                jsonSign.put("y", materialIndex * maxHeight);
-                jsonSign.put("width", image.width);
-                jsonSign.put("height", image.height);
-                jsonSign.put("offsetX", image.nx);
-                jsonSign.put("offsetY", image.ny);
 
                 sizeIndex = sizeIndex + 1;
             }
@@ -91,9 +74,8 @@ public class SignImageCollection {
         }
 
         // Write the image atlas image to file
-        imageAtlas.writeToFile(toDir + "/image-atlas-signs.png");
+        imageBoard.writeBoardToBitmap(palette).writeToFile(toDir + "/image-atlas-signs.png");
 
-        // Write the meta-data
         Files.writeString(Paths.get(toDir, "image-atlas-signs.json"), jsonImageAtlas.toJSONString());
     }
 }

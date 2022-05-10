@@ -63,14 +63,7 @@ public class CropImageCollection {
 
                 imageBoard.placeImage(image, x, y);
 
-                JSONObject jsonCropImage = new JSONObject();
-
-                jsonCropImage.put("x", x);
-                jsonCropImage.put("y", y);
-                jsonCropImage.put("width", image.width);
-                jsonCropImage.put("height", image.height);
-                jsonCropImage.put("offsetX", image.nx);
-                jsonCropImage.put("offsetY", image.ny);
+                JSONObject jsonCropImage = imageBoard.imageLocationToJson(image);
 
                 jsonCropType.put(cropGrowth.name().toUpperCase(), jsonCropImage);
 

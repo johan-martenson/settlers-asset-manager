@@ -2,7 +2,6 @@ package org.appland.settlers.assets;
 
 import org.json.simple.JSONObject;
 
-import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -52,11 +51,7 @@ public class WorkerImageCollection {
         }
 
         // Write the image atlas, one row per direction, and collect metadata to write as json
-        Bitmap imageAtlas = new Bitmap(
-                aggregatedLayoutInfo.getRowWidth(),
-                aggregatedLayoutInfo.getRowHeight() * Direction.values().length * Nation.values().length,
-                palette,
-                TextureFormat.BGRA);
+        ImageBoard imageBoard = new ImageBoard();
 
         JSONObject jsonImageAtlas = new JSONObject();
 
@@ -85,14 +80,10 @@ public class WorkerImageCollection {
 
                 int imageIndex = 0;
                 for (Bitmap image : directionToImageMap.get(direction)) {
-                    imageAtlas.copyNonTransparentPixels(
-                            image,
-                            new Point(
-                                    imageIndex * aggregatedLayoutInfo.getImageWidth(),
-                                    directionIndex * aggregatedLayoutInfo.getRowHeight() +
-                                            nationIndex * (aggregatedLayoutInfo.getRowHeight() * 6)),
-                            new Point(0, 0),
-                            image.getDimension());
+                    int x = imageIndex * aggregatedLayoutInfo.getImageWidth();
+                    int y = directionIndex * aggregatedLayoutInfo.getRowHeight() + nationIndex * (aggregatedLayoutInfo.getRowHeight() * 6);
+
+                    imageBoard.placeImage(image, x, y);
 
                     imageIndex = imageIndex + 1;
                 }
@@ -103,9 +94,9 @@ public class WorkerImageCollection {
             nationIndex = nationIndex + 1;
         }
 
-        imageAtlas.writeToFile(directory + "/" + "image-atlas-" + name.toLowerCase() + ".png");
+        // Write the image atlas to disk
+        imageBoard.writeBoardToBitmap(palette).writeToFile(directory + "/" + "image-atlas-" + name.toLowerCase() + ".png");
 
-        // Write a JSON file that specifies where each image is in pixels
         Path filePath = Paths.get(directory, "image-atlas-" + name.toLowerCase() + ".json");
 
         Files.writeString(filePath, jsonImageAtlas.toJSONString());

@@ -2,7 +2,6 @@ package org.appland.settlers.assets;
 
 import org.json.simple.JSONObject;
 
-import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -41,12 +40,7 @@ public class StonesImageCollection {
         }
 
         // Create the image atlas
-        Bitmap imageAtlas = new Bitmap(
-                maxWidth * StoneAmount.values().length,
-                maxHeight * StoneType.values().length,
-                palette,
-                TextureFormat.BGRA
-        );
+        ImageBoard imageBoard = new ImageBoard();
 
         JSONObject jsonImageAtlas = new JSONObject();
 
@@ -66,20 +60,9 @@ public class StonesImageCollection {
                 int x = maxWidth * StoneAmountIndex;
                 int y = maxHeight * StoneTypeIndex;
 
-                imageAtlas.copyNonTransparentPixels(
-                        image,
-                        new Point(x, y),
-                        new Point(0, 0),
-                        image.getDimension());
+                imageBoard.placeImage(image, x, y);
 
-                JSONObject jsonCropImage = new JSONObject();
-
-                jsonCropImage.put("x", x);
-                jsonCropImage.put("y", y);
-                jsonCropImage.put("width", image.width);
-                jsonCropImage.put("height", image.height);
-                jsonCropImage.put("offsetX", image.nx);
-                jsonCropImage.put("offsetY", image.ny);
+                JSONObject jsonCropImage = imageBoard.imageLocationToJson(image);
 
                 jsonStoneType.put(StoneAmount.name().toUpperCase(), jsonCropImage);
 
@@ -89,7 +72,8 @@ public class StonesImageCollection {
             StoneTypeIndex = StoneTypeIndex + 1;
         }
 
-        imageAtlas.writeToFile(toDir + "/image-atlas-stones.png");
+        // Write the image atlas to disk
+        imageBoard.writeBoardToBitmap(palette).writeToFile(toDir + "/image-atlas-stones.png");
 
         Files.writeString(Paths.get(toDir, "image-atlas-stones.json"), jsonImageAtlas.toJSONString());
     }

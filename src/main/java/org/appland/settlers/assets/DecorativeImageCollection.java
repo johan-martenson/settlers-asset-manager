@@ -2,7 +2,6 @@ package org.appland.settlers.assets;
 
 import org.json.simple.JSONObject;
 
-import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -134,7 +133,7 @@ public class DecorativeImageCollection {
         }
 
         // Create the image atlas
-        Bitmap imageAtlas = new Bitmap(maxWidth, totalHeight, palette, TextureFormat.BGRA);
+        ImageBoard imageBoard = new ImageBoard();
 
         JSONObject jsonImageAtlas = new JSONObject();
 
@@ -143,16 +142,9 @@ public class DecorativeImageCollection {
 
         for (Bitmap image : imagesInOrder) {
 
-            imageAtlas.copyNonTransparentPixels(image, new Point(0, nextY), new Point(0, 0), image.getDimension());
+            imageBoard.placeImage(image, 0, nextY);
 
-            JSONObject jsonImageInfo = new JSONObject();
-
-            jsonImageInfo.put("x", 0);
-            jsonImageInfo.put("y", nextY);
-            jsonImageInfo.put("width", image.width);
-            jsonImageInfo.put("height", image.height);
-            jsonImageInfo.put("offsetX", image.nx);
-            jsonImageInfo.put("offsetY", image.ny);
+            JSONObject jsonImageInfo = imageBoard.imageLocationToJson(image);
 
             jsonImageAtlas.put(imageToTitle.get(image), jsonImageInfo);
 
@@ -160,7 +152,7 @@ public class DecorativeImageCollection {
         }
 
         // Write to file
-        imageAtlas.writeToFile(dir + "/image-atlas-decorations.png");
+        imageBoard.writeBoardToBitmap(palette).writeToFile(dir + "/image-atlas-decorations.png");
 
         Files.writeString(Paths.get(dir, "image-atlas-decorations.json"), jsonImageAtlas.toJSONString());
     }

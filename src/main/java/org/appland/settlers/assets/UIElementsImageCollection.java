@@ -3,7 +3,6 @@ package org.appland.settlers.assets;
 import org.appland.settlers.model.Size;
 import org.json.simple.JSONObject;
 
-import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -78,31 +77,13 @@ public class UIElementsImageCollection {
          */
 
         // Calculate the dimension of the image atlas
-        int totalWidth = 0;
-        int totalHeight = 0;
-
-        int row2Width = hoverAvailableFlag.width + hoverAvailableMine.width + hoverAvailableHarbor.width +
-                hoverAvailableBuilding.get(Size.LARGE).width + hoverAvailableBuilding.get(Size.MEDIUM).width +
-                hoverAvailableBuilding.get(Size.SMALL).width;
-
-        int row3Width = availableFlag.width + availableMine.width + availableHarbor.width +
-                availableBuilding.get(Size.LARGE).width + availableBuilding.get(Size.MEDIUM).width +
-                availableBuilding.get(Size.SMALL).width;
-
-        totalWidth = Math.max(row2Width, row3Width);
-
         int row1Height = Utils.max(selectedPointImage.height, hoverPointImage.height);
         int row2Height = Utils.max(hoverAvailableFlag.height, hoverAvailableMine.height, hoverAvailableHarbor.height,
                 hoverAvailableBuilding.get(Size.LARGE).height, hoverAvailableBuilding.get(Size.MEDIUM).height,
                 hoverAvailableBuilding.get(Size.SMALL).height);
-        int row3Height = Utils.max(availableFlag.height, availableMine.height, availableHarbor.height,
-                availableBuilding.get(Size.LARGE).height, availableBuilding.get(Size.MEDIUM).height,
-                availableBuilding.get(Size.SMALL).height);
-
-        totalHeight = row1Height + row2Height + row3Height;
 
         // Create the image atlas
-        Bitmap imageAtlas = new Bitmap(totalWidth, totalHeight, palette, TextureFormat.BGRA);
+        ImageBoard imageBoard = new ImageBoard();
 
         JSONObject jsonImageAtlas = new JSONObject();
 
@@ -111,30 +92,19 @@ public class UIElementsImageCollection {
         // Row 1 - selected point and hover point
         int nextStartAtX = 0;
 
-        imageAtlas.copyNonTransparentPixels(selectedPointImage, new Point(nextStartAtX, 0), new Point(0, 0), selectedPointImage.getDimension());
-        JSONObject jsonSelectedPoint = new JSONObject();
+        // Selected point
+        imageBoard.placeImage(selectedPointImage, nextStartAtX, 0);
 
-        jsonSelectedPoint.put("x", nextStartAtX);
-        jsonSelectedPoint.put("y", 0);
-        jsonSelectedPoint.put("width", selectedPointImage.width);
-        jsonSelectedPoint.put("height", selectedPointImage.height);
-        jsonSelectedPoint.put("offsetX", selectedPointImage.nx);
-        jsonSelectedPoint.put("offsetY", selectedPointImage.ny);
+        JSONObject jsonSelectedPoint = imageBoard.imageLocationToJson(selectedPointImage);
 
         jsonImageAtlas.put("selectedPoint", jsonSelectedPoint);
 
         nextStartAtX = nextStartAtX + selectedPointImage.width;
 
-        imageAtlas.copyNonTransparentPixels(hoverPointImage, new Point(nextStartAtX, 0), new Point(0, 0), hoverPointImage.getDimension());
+        // Hover point
+        imageBoard.placeImage(hoverPointImage, nextStartAtX, 0);
 
-        JSONObject jsonHoverPoint = new JSONObject();
-
-        jsonHoverPoint.put("x", nextStartAtX);
-        jsonHoverPoint.put("y", 0);
-        jsonHoverPoint.put("width", hoverPointImage.width);
-        jsonHoverPoint.put("height", hoverPointImage.height);
-        jsonHoverPoint.put("offsetX", hoverPointImage.nx);
-        jsonHoverPoint.put("offsetY", hoverPointImage.ny);
+        JSONObject jsonHoverPoint = imageBoard.imageLocationToJson(hoverPointImage);
 
         jsonImageAtlas.put("hoverPoint", jsonHoverPoint);
 
@@ -145,91 +115,55 @@ public class UIElementsImageCollection {
 
         nextStartAtX = 0;
 
-        imageAtlas.copyNonTransparentPixels(hoverAvailableFlag, new Point(nextStartAtX, row1Height), new Point(0, 0), hoverAvailableFlag.getDimension());
+        // Hover over available flag
+        imageBoard.placeImage(hoverAvailableFlag, nextStartAtX, row1Height);
 
-        JSONObject jsonHoverAvailableFlag = new JSONObject();
-
-        jsonHoverAvailableFlag.put("x", nextStartAtX);
-        jsonHoverAvailableFlag.put("y", row1Height);
-        jsonHoverAvailableFlag.put("width", hoverAvailableFlag.width);
-        jsonHoverAvailableFlag.put("height", hoverAvailableFlag.height);
-        jsonHoverAvailableFlag.put("offsetX", hoverAvailableFlag.nx);
-        jsonHoverAvailableFlag.put("offsetY", hoverAvailableFlag.ny);
+        JSONObject jsonHoverAvailableFlag = imageBoard.imageLocationToJson(hoverAvailableFlag);
 
         jsonImageAtlas.put("hoverAvailableFlag", jsonHoverAvailableFlag);
 
         nextStartAtX = nextStartAtX + hoverAvailableFlag.width;
 
-        imageAtlas.copyNonTransparentPixels(hoverAvailableMine, new Point(nextStartAtX, row1Height), new Point(0, 0), hoverAvailableMine.getDimension());
+        // Hover over available mine
+        imageBoard.placeImage(hoverAvailableMine, nextStartAtX, row1Height);
 
-        JSONObject jsonHoverAvailableMine = new JSONObject();
-
-        jsonHoverAvailableMine.put("x", nextStartAtX);
-        jsonHoverAvailableMine.put("y", row1Height);
-        jsonHoverAvailableMine.put("width", hoverAvailableMine.width);
-        jsonHoverAvailableMine.put("height", hoverAvailableMine.height);
-        jsonHoverAvailableMine.put("offsetX", hoverAvailableMine.nx);
-        jsonHoverAvailableMine.put("offsetY", hoverAvailableMine.ny);
+        JSONObject jsonHoverAvailableMine = imageBoard.imageLocationToJson(hoverAvailableMine);
 
         jsonImageAtlas.put("hoverAvailableMine", jsonHoverAvailableMine);
 
         nextStartAtX = nextStartAtX + hoverAvailableMine.width;
 
-        imageAtlas.copyNonTransparentPixels(hoverAvailableHarbor, new Point(nextStartAtX, row1Height), new Point(0, 0), hoverAvailableHarbor.getDimension());
+        // Hover over available harbor
+        imageBoard.placeImage(hoverAvailableHarbor, nextStartAtX, row1Height);
 
-        JSONObject jsonHoverAvailableHarbor = new JSONObject();
-
-        jsonHoverAvailableHarbor.put("x", nextStartAtX);
-        jsonHoverAvailableHarbor.put("y", row1Height);
-        jsonHoverAvailableHarbor.put("width", hoverAvailableHarbor.width);
-        jsonHoverAvailableHarbor.put("height", hoverAvailableHarbor.height);
-        jsonHoverAvailableHarbor.put("offsetX", hoverAvailableHarbor.nx);
-        jsonHoverAvailableHarbor.put("offsetY", hoverAvailableHarbor.ny);
+        JSONObject jsonHoverAvailableHarbor = imageBoard.imageLocationToJson(hoverAvailableHarbor);
 
         jsonImageAtlas.put("hoverAvailableHarbor", jsonHoverAvailableHarbor);
 
         nextStartAtX = nextStartAtX + hoverAvailableHarbor.width;
 
-        imageAtlas.copyNonTransparentPixels(hoverAvailableBuildingLarge, new Point(nextStartAtX, row1Height), new Point(0, 0), hoverAvailableBuildingLarge.getDimension());
+        // Hover over available large building
+        imageBoard.placeImage(hoverAvailableBuildingLarge, nextStartAtX, row1Height);
 
-        JSONObject jsonHoverAvailableBuildingLarge = new JSONObject();
-
-        jsonHoverAvailableBuildingLarge.put("x", nextStartAtX);
-        jsonHoverAvailableBuildingLarge.put("y", row1Height);
-        jsonHoverAvailableBuildingLarge.put("width", hoverAvailableBuildingLarge.width);
-        jsonHoverAvailableBuildingLarge.put("height", hoverAvailableBuildingLarge.height);
-        jsonHoverAvailableBuildingLarge.put("offsetX", hoverAvailableBuildingLarge.nx);
-        jsonHoverAvailableBuildingLarge.put("offsetY", hoverAvailableBuildingLarge.ny);
+        JSONObject jsonHoverAvailableBuildingLarge = imageBoard.imageLocationToJson(hoverAvailableBuildingLarge);
 
         jsonImageAtlas.put("hoverAvailableBuildingLarge", jsonHoverAvailableBuildingLarge);
 
         nextStartAtX = nextStartAtX + hoverAvailableBuildingLarge.width;
 
-        imageAtlas.copyNonTransparentPixels(hoverAvailableBuildingMedium, new Point(nextStartAtX, row1Height), new Point(0, 0), hoverAvailableBuildingMedium.getDimension());
+        // Hover over available medium building
+        imageBoard.placeImage(hoverAvailableBuildingMedium, nextStartAtX, row1Height);
 
-        JSONObject jsonHoverAvailableBuildingMedium = new JSONObject();
-
-        jsonHoverAvailableBuildingMedium.put("x", nextStartAtX);
-        jsonHoverAvailableBuildingMedium.put("y", row1Height);
-        jsonHoverAvailableBuildingMedium.put("width", hoverAvailableBuildingMedium.width);
-        jsonHoverAvailableBuildingMedium.put("height", hoverAvailableBuildingMedium.height);
-        jsonHoverAvailableBuildingMedium.put("offsetX", hoverAvailableBuildingMedium.nx);
-        jsonHoverAvailableBuildingMedium.put("offsetY", hoverAvailableBuildingMedium.ny);
+        JSONObject jsonHoverAvailableBuildingMedium = imageBoard.imageLocationToJson(hoverAvailableBuildingMedium);
 
         jsonImageAtlas.put("hoverAvailableBuildingMedium", jsonHoverAvailableBuildingMedium);
 
         nextStartAtX = nextStartAtX + hoverAvailableBuildingMedium.width;
 
-        imageAtlas.copyNonTransparentPixels(hoverAvailableBuildingSmall, new Point(nextStartAtX, row1Height), new Point(0, 0), hoverAvailableBuildingSmall.getDimension());
+        // Hover over available small building
+        imageBoard.placeImage(hoverAvailableBuildingSmall, nextStartAtX, row1Height);
 
-        JSONObject jsonHoverAvailableBuildingSmall = new JSONObject();
-
-        jsonHoverAvailableBuildingSmall.put("x", nextStartAtX);
-        jsonHoverAvailableBuildingSmall.put("y", row1Height);
-        jsonHoverAvailableBuildingSmall.put("width", hoverAvailableBuildingSmall.width);
-        jsonHoverAvailableBuildingSmall.put("height", hoverAvailableBuildingSmall.height);
-        jsonHoverAvailableBuildingSmall.put("offsetX", hoverAvailableBuildingSmall.nx);
-        jsonHoverAvailableBuildingSmall.put("offsetY", hoverAvailableBuildingSmall.ny);
+        JSONObject jsonHoverAvailableBuildingSmall = imageBoard.imageLocationToJson(hoverAvailableBuildingSmall);
 
         jsonImageAtlas.put("hoverAvailableBuildingSmall", jsonHoverAvailableBuildingSmall);
 
@@ -241,97 +175,60 @@ public class UIElementsImageCollection {
         nextStartAtX = 0;
         int nextStartAtY = row1Height + row2Height;
 
-        imageAtlas.copyNonTransparentPixels(availableFlag, new Point(nextStartAtX, nextStartAtY), new Point(0, 0), availableFlag.getDimension());
+        // Available flag
+        imageBoard.placeImage(availableFlag, nextStartAtX, nextStartAtY);
 
-        JSONObject jsonAvailableFlag = new JSONObject();
-
-        jsonAvailableFlag.put("x", nextStartAtX);
-        jsonAvailableFlag.put("y", nextStartAtY);
-        jsonAvailableFlag.put("width", availableFlag.width);
-        jsonAvailableFlag.put("height", availableFlag.height);
-        jsonAvailableFlag.put("offsetX", availableFlag.nx);
-        jsonAvailableFlag.put("offsetY", availableFlag.ny);
+        JSONObject jsonAvailableFlag = imageBoard.imageLocationToJson(availableFlag);
 
         jsonImageAtlas.put("availableFlag", jsonAvailableFlag);
 
         nextStartAtX = nextStartAtX + availableFlag.width;
 
-        imageAtlas.copyNonTransparentPixels(availableMine, new Point(nextStartAtX, nextStartAtY), new Point(0, 0), availableMine.getDimension());
+        // Available mine
+        imageBoard.placeImage(availableMine, nextStartAtX, nextStartAtY);
 
-        JSONObject jsonAvailableMine = new JSONObject();
-
-        jsonAvailableMine.put("x", nextStartAtX);
-        jsonAvailableMine.put("y", nextStartAtY);
-        jsonAvailableMine.put("width", availableMine.width);
-        jsonAvailableMine.put("height", availableMine.height);
-        jsonAvailableMine.put("offsetX", availableMine.nx);
-        jsonAvailableMine.put("offsetY", availableMine.ny);
+        JSONObject jsonAvailableMine = imageBoard.imageLocationToJson(availableMine);
 
         jsonImageAtlas.put("availableMine", jsonAvailableMine);
 
         nextStartAtX = nextStartAtX + availableMine.width;
 
-        imageAtlas.copyNonTransparentPixels(availableHarbor, new Point(nextStartAtX, nextStartAtY), new Point(0, 0), availableHarbor.getDimension());
+        // Available harbor
+        imageBoard.placeImage(availableHarbor, nextStartAtX, nextStartAtY);
 
-        JSONObject jsonAvailableHarbor = new JSONObject();
-
-        jsonAvailableHarbor.put("x", nextStartAtX);
-        jsonAvailableHarbor.put("y", nextStartAtY);
-        jsonAvailableHarbor.put("width", availableHarbor.width);
-        jsonAvailableHarbor.put("height", availableHarbor.height);
-        jsonAvailableHarbor.put("offsetX", availableHarbor.nx);
-        jsonAvailableHarbor.put("offsetY", availableHarbor.ny);
+        JSONObject jsonAvailableHarbor = imageBoard.imageLocationToJson(availableHarbor);
 
         jsonImageAtlas.put("availableHarbor", jsonAvailableHarbor);
 
         nextStartAtX = nextStartAtX + availableHarbor.width;
 
-        imageAtlas.copyNonTransparentPixels(availableBuildingLarge, new Point(nextStartAtX, nextStartAtY), new Point(0, 0), availableBuildingLarge.getDimension());
+        // Large available building
+        imageBoard.placeImage(availableBuildingLarge, nextStartAtX, nextStartAtY);
 
-        JSONObject jsonAvailableBuildingLarge = new JSONObject();
-
-        jsonAvailableBuildingLarge.put("x", nextStartAtX);
-        jsonAvailableBuildingLarge.put("y", nextStartAtY);
-        jsonAvailableBuildingLarge.put("width", availableBuildingLarge.width);
-        jsonAvailableBuildingLarge.put("height", availableBuildingLarge.height);
-        jsonAvailableBuildingLarge.put("offsetX", availableBuildingLarge.nx);
-        jsonAvailableBuildingLarge.put("offsetY", availableBuildingLarge.ny);
+        JSONObject jsonAvailableBuildingLarge = imageBoard.imageLocationToJson(availableBuildingLarge);
 
         jsonImageAtlas.put("availableBuildingLarge", jsonAvailableBuildingLarge);
 
         nextStartAtX = nextStartAtX + availableBuildingLarge.width;
 
-        imageAtlas.copyNonTransparentPixels(availableBuildingMedium, new Point(nextStartAtX, nextStartAtY), new Point(0, 0), availableBuildingMedium.getDimension());
+        // Medium available building
+        imageBoard.placeImage(availableBuildingMedium, nextStartAtX, nextStartAtY);
 
-        JSONObject jsonAvailableBuildingMedium = new JSONObject();
-
-        jsonAvailableBuildingMedium.put("x", nextStartAtX);
-        jsonAvailableBuildingMedium.put("y", nextStartAtY);
-        jsonAvailableBuildingMedium.put("width", availableBuildingMedium.width);
-        jsonAvailableBuildingMedium.put("height", availableBuildingMedium.height);
-        jsonAvailableBuildingMedium.put("offsetX", availableBuildingMedium.nx);
-        jsonAvailableBuildingMedium.put("offsetY", availableBuildingMedium.ny);
+        JSONObject jsonAvailableBuildingMedium = imageBoard.imageLocationToJson(availableBuildingMedium);
 
         jsonImageAtlas.put("availableBuildingMedium", jsonAvailableBuildingMedium);
 
         nextStartAtX = nextStartAtX + availableBuildingMedium.width;
 
-        imageAtlas.copyNonTransparentPixels(availableBuildingSmall, new Point(nextStartAtX, nextStartAtY), new Point(0, 0), availableBuildingSmall.getDimension());
+        // Small available building
+        imageBoard.placeImage(availableBuildingSmall, nextStartAtX, nextStartAtY);
 
-        JSONObject jsonAvailableBuildingSmall = new JSONObject();
-
-        jsonAvailableBuildingSmall.put("x", nextStartAtX);
-        jsonAvailableBuildingSmall.put("y", nextStartAtY);
-        jsonAvailableBuildingSmall.put("width", availableBuildingSmall.width);
-        jsonAvailableBuildingSmall.put("height", availableBuildingSmall.height);
-        jsonAvailableBuildingSmall.put("offsetX", availableBuildingSmall.nx);
-        jsonAvailableBuildingSmall.put("offsetY", availableBuildingSmall.ny);
+        JSONObject jsonAvailableBuildingSmall = imageBoard.imageLocationToJson(availableBuildingSmall);
 
         jsonImageAtlas.put("availableBuildingSmall", jsonAvailableBuildingSmall);
 
-
         // Write the image atlas to file
-        imageAtlas.writeToFile(toDir + "/image-atlas-ui-elements.png");
+        imageBoard.writeBoardToBitmap(palette).writeToFile(toDir + "/image-atlas-ui-elements.png");
 
         Files.writeString(Paths.get(toDir, "image-atlas-ui-elements.json"), jsonImageAtlas.toJSONString());
     }
