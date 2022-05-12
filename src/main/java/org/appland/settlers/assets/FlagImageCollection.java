@@ -2,6 +2,7 @@ package org.appland.settlers.assets;
 
 import org.json.simple.JSONObject;
 
+import java.awt.Point;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,16 +14,20 @@ import java.util.Map;
 
 public class FlagImageCollection {
     private final Map<Nation, Map<FlagType, List<Bitmap>>> flagMap;
+    private final Map<Nation, Map<FlagType, List<Bitmap>>> flagShadowMap;
 
     public FlagImageCollection() {
         flagMap = new HashMap<>();
+        flagShadowMap = new HashMap<>();
 
         for (Nation nation : Nation.values()) {
 
             flagMap.put(nation, new HashMap<>());
+            flagShadowMap.put(nation, new HashMap<>());
 
             for (FlagType flagType : FlagType.values()) {
                 flagMap.get(nation).put(flagType, new ArrayList<>());
+                flagShadowMap.get(nation).put(flagType, new ArrayList<>());
             }
         }
     }
@@ -48,46 +53,50 @@ public class FlagImageCollection {
 
         JSONObject jsonImageAtlas = new JSONObject();
 
-        int nationIndex = 0;
+        Point cursor = new Point(0, 0);
         for (Nation nation : Nation.values()) {
 
             JSONObject jsonNationInfo = new JSONObject();
 
             jsonImageAtlas.put(nation.name().toLowerCase(), jsonNationInfo);
 
-            int flagIndex = 0;
+            cursor.x = 0;
+
+            // Add each flag type for the nation
             for (FlagType flagType : FlagType.values()) {
 
+                JSONObject jsonFlagType = new JSONObject();
+
+                jsonNationInfo.put(flagType.name().toUpperCase(), jsonFlagType);
+
+                // Flag image
                 List<Bitmap> images = this.flagMap.get(nation).get(flagType);
+                NormalizedImageList normalizedFlagImageList = new NormalizedImageList(images);
+                List<Bitmap> normalizedFlagImages = normalizedFlagImageList.getNormalizedImages();
 
-                JSONObject jsonFlagInfo = new JSONObject();
+                imageBoard.placeImageSeries(normalizedFlagImages, cursor, ImageBoard.LayoutDirection.ROW);
 
-                jsonNationInfo.put(flagType.name().toUpperCase(), jsonFlagInfo);
 
-                int y = aggregatedLayoutInfo.getRowHeight() * (flagIndex + FlagType.values().length * nationIndex);
+                JSONObject jsonFlagInfo = imageBoard.imageSeriesLocationToJson(normalizedFlagImages);
 
-                jsonFlagInfo.put("startX", 0);
-                jsonFlagInfo.put("startY", y);
-                jsonFlagInfo.put("width", aggregatedLayoutInfo.getImageWidth());
-                jsonFlagInfo.put("height", aggregatedLayoutInfo.getImageHeight());
-                jsonFlagInfo.put("nrImages", images.size());
-                jsonFlagInfo.put("offsetX", aggregatedLayoutInfo.maxNx);
-                jsonFlagInfo.put("offsetY", aggregatedLayoutInfo.maxNy);
+                jsonFlagType.put("images", jsonFlagInfo);
 
-                int imageIndex = 0;
-                for (Bitmap image : images) {
-                    int adjustedX = imageIndex * aggregatedLayoutInfo.getImageWidth() + aggregatedLayoutInfo.maxNx - image.nx;
-                    int adjustedY = y + aggregatedLayoutInfo.maxNy - image.ny;
+                cursor.x = cursor.x + normalizedFlagImageList.size() * normalizedFlagImageList.getImageWidth();
 
-                    imageBoard.placeImage(image, adjustedX, adjustedY);
+                // Flag shadow image
+                List<Bitmap> normalFlagShadowImages = this.flagShadowMap.get(nation).get(flagType);
+                NormalizedImageList normalizedFlagShadowImageList = new NormalizedImageList(normalFlagShadowImages);
+                List<Bitmap> normalizedFlagShadowImages = normalizedFlagShadowImageList.getNormalizedImages();
 
-                    imageIndex = imageIndex + 1;
-                }
+                imageBoard.placeImageSeries(normalizedFlagShadowImages, cursor, ImageBoard.LayoutDirection.ROW);
 
-                flagIndex = flagIndex + 1;
+                JSONObject jsonFlagShadowInfo = imageBoard.imageSeriesLocationToJson(normalizedFlagShadowImages);
+
+                jsonFlagType.put("shadows", jsonFlagShadowInfo);
+
+                cursor.x = 0;
+                cursor.y = cursor.y + Math.max(normalizedFlagImageList.getImageHeight(), normalizedFlagShadowImageList.getImageHeight());
             }
-
-            nationIndex = nationIndex + 1;
         }
 
         imageBoard.writeBoardToBitmap(palette).writeToFile(directory + "/" + "image-atlas-flags.png");
@@ -98,7 +107,11 @@ public class FlagImageCollection {
         Files.writeString(filePath, jsonImageAtlas.toJSONString());
     }
 
-    public void addImageForFlag(Nation nation, FlagType flagType, Bitmap image) {
-        this.flagMap.get(nation).get(flagType).add(image);
+    public void addImagesForFlag(Nation nation, FlagType flagType, List<Bitmap> images) {
+        this.flagMap.get(nation).get(flagType).addAll(images);
+    }
+
+    public void addImagesForFlagShadow(Nation nation, FlagType flagType, List<Bitmap> images) {
+        this.flagShadowMap.get(nation).get(flagType).addAll(images);
     }
 }

@@ -25,6 +25,10 @@ public class ImageBoard {
         images.put(image, new ImageOnBoard(image, x, y));
     }
 
+    void placeImageSeries(List<Bitmap> images, Point position, LayoutDirection layoutDirection) {
+        placeImageSeries(images, position.x, position.y, layoutDirection);
+    }
+
     void placeImageSeries(List<Bitmap> images, int x, int y, LayoutDirection layoutDirection) {
         imageSeries.put(images, new ImageSeries(images, x, y, layoutDirection));
     }

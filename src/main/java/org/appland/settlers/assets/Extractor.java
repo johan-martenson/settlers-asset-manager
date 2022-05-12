@@ -28,11 +28,6 @@ import static org.appland.settlers.model.Size.SMALL;
 
 public class Extractor {
 
-    private static final String AFRICAN_GRAPHICS_Z = "DATA/MBOB/AFR_Z.LST";
-    private static final String JAPANESE_GRAPHICS_Z = "DATA/MBOB/JAP_Z.LST";
-    private static final String ROMAN_GRAPHICS_Z = "DATA/MBOB/ROM_Z.LST";
-    private static final String VIKING_GRAPHICS_Z = "DATA/MBOB/VIK_Z.LST";
-
     private static final String ROMAN_FILE = "DATA/MBOB/ROM_Y.LST";
     private static final String MAP_FILE = "DATA/MAPBOBS.LST";
     private static final String GREENLAND_TEXTURE_FILE = "GFX/TEXTURES/TEX5.LBM";
@@ -118,43 +113,55 @@ public class Extractor {
     }
 
     private void populateFlags(String fromDir, String toDir) throws InvalidFormatException, UnknownResourceTypeException, InvalidHeaderException, IOException {
-        Map<Nation, List<GameResource>> nationGraphics = new HashMap<>();
 
-        nationGraphics.put(Nation.AFRICANS, assetManager.loadLstFile(fromDir + "/" + AFRICAN_GRAPHICS_Z, defaultPalette));
-        nationGraphics.put(Nation.JAPANESE, assetManager.loadLstFile(fromDir + "/" + JAPANESE_GRAPHICS_Z, defaultPalette));
-        nationGraphics.put(Nation.ROMANS, assetManager.loadLstFile(fromDir + "/" + ROMAN_GRAPHICS_Z, defaultPalette));
-        nationGraphics.put(Nation.VIKINGS, assetManager.loadLstFile(fromDir + "/" + VIKING_GRAPHICS_Z, defaultPalette));
+        List<GameResource> afrZLst = assetManager.loadLstFile(fromDir + "/" + AfrZLst.FILENAME, defaultPalette);
+        List<GameResource> japZLst = assetManager.loadLstFile(fromDir + "/" + JapZLst.FILENAME, defaultPalette);
+        List<GameResource> romZLst = assetManager.loadLstFile(fromDir + "/" + RomZLst.FILENAME, defaultPalette);
+        List<GameResource> vikZLst = assetManager.loadLstFile(fromDir + "/" + VikZLst.FILENAME, defaultPalette);
 
         FlagImageCollection flagImageCollection = new FlagImageCollection();
 
-        for (Nation nation : Nation.values()) {
-            List<GameResource> nationResources = nationGraphics.get(nation);
+        // Africans
+        flagImageCollection.addImagesForFlag(Nation.AFRICANS, FlagType.NORMAL, getImagesFromResourceLocations(afrZLst, AfrZLst.NORMAL_FLAG_ANIMATION, 8));
+        flagImageCollection.addImagesForFlagShadow(Nation.AFRICANS, FlagType.NORMAL, getImagesFromResourceLocations(afrZLst, AfrZLst.NORMAL_FLAG_SHADOW_ANIMATION, 8));
 
-            for (FlagType flagType : FlagType.values()) {
-                for (int animationStep = 0; animationStep < 8; animationStep++) {
-                    int nr = animationStep + 4 + 16 * flagType.ordinal();
+        flagImageCollection.addImagesForFlag(Nation.AFRICANS, FlagType.MAIN, getImagesFromResourceLocations(afrZLst, AfrZLst.MAIN_FLAG_ANIMATION, 8));
+        flagImageCollection.addImagesForFlagShadow(Nation.AFRICANS, FlagType.MAIN, getImagesFromResourceLocations(afrZLst, AfrZLst.MAIN_FLAG_SHADOW_ANIMATION, 8));
 
-                    GameResource flagGameResource = nationResources.get(nr);
-                    GameResource shadowGameResource = nationResources.get(nr + 8);
+        flagImageCollection.addImagesForFlag(Nation.AFRICANS, FlagType.MARINE, getImagesFromResourceLocations(afrZLst, AfrZLst.MARINE_FLAG_ANIMATION, 8));
+        flagImageCollection.addImagesForFlagShadow(Nation.AFRICANS, FlagType.MARINE, getImagesFromResourceLocations(afrZLst, AfrZLst.MARINE_FLAG_SHADOW_ANIMATION, 8));
 
-                    Bitmap flagImage = Utils.getBitmapFromGameResource(flagGameResource);
-                    Bitmap shadowImage = Utils.getBitmapFromGameResource(shadowGameResource);
+        // Japanese
+        flagImageCollection.addImagesForFlag(Nation.JAPANESE, FlagType.NORMAL, getImagesFromResourceLocations(japZLst, JapZLst.NORMAL_FLAG_ANIMATION, 8));
+        flagImageCollection.addImagesForFlagShadow(Nation.JAPANESE, FlagType.NORMAL, getImagesFromResourceLocations(japZLst, JapZLst.NORMAL_FLAG_SHADOW_ANIMATION, 8));
 
-                    // TODO: combine the flag image with the shadow image
+        flagImageCollection.addImagesForFlag(Nation.JAPANESE, FlagType.MAIN, getImagesFromResourceLocations(japZLst, JapZLst.MAIN_FLAG_ANIMATION, 8));
+        flagImageCollection.addImagesForFlagShadow(Nation.JAPANESE, FlagType.MAIN, getImagesFromResourceLocations(japZLst, JapZLst.MAIN_FLAG_SHADOW_ANIMATION, 8));
 
-                    if (flagImage == null) {
-                        System.out.println("Failed to load flag for: " + nation + ", " + flagType + ", " + animationStep);
+        flagImageCollection.addImagesForFlag(Nation.JAPANESE, FlagType.MARINE, getImagesFromResourceLocations(japZLst, JapZLst.MARINE_FLAG_ANIMATION, 8));
+        flagImageCollection.addImagesForFlagShadow(Nation.JAPANESE, FlagType.MARINE, getImagesFromResourceLocations(japZLst, JapZLst.MARINE_FLAG_SHADOW_ANIMATION, 8));
 
-                        continue;
-                    }
+        // Romans
+        flagImageCollection.addImagesForFlag(Nation.ROMANS, FlagType.NORMAL, getImagesFromResourceLocations(romZLst, RomZLst.NORMAL_FLAG_ANIMATION, 8));
+        flagImageCollection.addImagesForFlagShadow(Nation.ROMANS, FlagType.NORMAL, getImagesFromResourceLocations(romZLst, RomZLst.NORMAL_FLAG_SHADOW_ANIMATION, 8));
 
-                    // Collect the flag images into an image atlas
-                    flagImageCollection.addImageForFlag(nation, flagType, flagImage);
-                }
-            }
-        }
+        flagImageCollection.addImagesForFlag(Nation.ROMANS, FlagType.MAIN, getImagesFromResourceLocations(romZLst, RomZLst.MAIN_FLAG_ANIMATION, 8));
+        flagImageCollection.addImagesForFlagShadow(Nation.ROMANS, FlagType.MAIN, getImagesFromResourceLocations(romZLst, RomZLst.MAIN_FLAG_SHADOW_ANIMATION, 8));
 
-        // Write the image atlas to file - one image file and one json file with meta data
+        flagImageCollection.addImagesForFlag(Nation.ROMANS, FlagType.MARINE, getImagesFromResourceLocations(romZLst, RomZLst.MARINE_FLAG_ANIMATION, 8));
+        flagImageCollection.addImagesForFlagShadow(Nation.ROMANS, FlagType.MARINE, getImagesFromResourceLocations(romZLst, RomZLst.MARINE_FLAG_SHADOW_ANIMATION, 8));
+
+        // Vikings
+        flagImageCollection.addImagesForFlag(Nation.VIKINGS, FlagType.NORMAL, getImagesFromResourceLocations(vikZLst, VikZLst.NORMAL_FLAG_ANIMATION, 8));
+        flagImageCollection.addImagesForFlagShadow(Nation.VIKINGS, FlagType.NORMAL, getImagesFromResourceLocations(vikZLst, VikZLst.NORMAL_FLAG_SHADOW_ANIMATION, 8));
+
+        flagImageCollection.addImagesForFlag(Nation.VIKINGS, FlagType.MAIN, getImagesFromResourceLocations(vikZLst, VikZLst.MAIN_FLAG_ANIMATION, 8));
+        flagImageCollection.addImagesForFlagShadow(Nation.VIKINGS, FlagType.MAIN, getImagesFromResourceLocations(vikZLst, VikZLst.MAIN_FLAG_SHADOW_ANIMATION, 8));
+
+        flagImageCollection.addImagesForFlag(Nation.VIKINGS, FlagType.MARINE, getImagesFromResourceLocations(vikZLst, VikZLst.MARINE_FLAG_ANIMATION, 8));
+        flagImageCollection.addImagesForFlagShadow(Nation.VIKINGS, FlagType.MARINE, getImagesFromResourceLocations(vikZLst, VikZLst.MARINE_FLAG_SHADOW_ANIMATION, 8));
+
+        // Write the image atlas to file
         flagImageCollection.writeImageAtlas(toDir + "/", defaultPalette);
     }
 
