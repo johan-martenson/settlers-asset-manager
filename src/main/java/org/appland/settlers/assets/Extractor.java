@@ -1,5 +1,12 @@
 package org.appland.settlers.assets;
 
+import org.appland.settlers.assets.gamefiles.AfrZLst;
+import org.appland.settlers.assets.gamefiles.JapZLst;
+import org.appland.settlers.assets.gamefiles.MapBobs0Lst;
+import org.appland.settlers.assets.gamefiles.MapBobsLst;
+import org.appland.settlers.assets.gamefiles.RomYLst;
+import org.appland.settlers.assets.gamefiles.RomZLst;
+import org.appland.settlers.assets.gamefiles.VikZLst;
 import org.appland.settlers.model.Crop;
 import org.appland.settlers.model.Material;
 import org.appland.settlers.model.Tree;
