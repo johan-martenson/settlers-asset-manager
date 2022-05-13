@@ -643,6 +643,18 @@ public class Extractor {
         cropImageCollection.addImage(CropType.TYPE_2, Crop.GrowthState.FULL_GROWN, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_2_FULLY_GROWN));
         cropImageCollection.addImage(CropType.TYPE_2, Crop.GrowthState.HARVESTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_2_JUST_HARVESTED));
 
+        cropImageCollection.addShadowImage(CropType.TYPE_1, Crop.GrowthState.JUST_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_1_NEWLY_PLANTED_SHADOW));
+        cropImageCollection.addShadowImage(CropType.TYPE_1, Crop.GrowthState.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_1_LITTLE_GROWTH_SHADOW));
+        cropImageCollection.addShadowImage(CropType.TYPE_1, Crop.GrowthState.ALMOST_GROWN, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_1_MORE_GROWTH_SHADOW));
+        cropImageCollection.addShadowImage(CropType.TYPE_1, Crop.GrowthState.FULL_GROWN, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_1_FULLY_GROWN_SHADOW));
+        cropImageCollection.addShadowImage(CropType.TYPE_1, Crop.GrowthState.HARVESTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_1_JUST_HARVESTED_SHADOW));
+
+        cropImageCollection.addShadowImage(CropType.TYPE_2, Crop.GrowthState.JUST_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_2_NEWLY_PLANTED_SHADOW));
+        cropImageCollection.addShadowImage(CropType.TYPE_2, Crop.GrowthState.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_2_LITTLE_GROWTH_SHADOW));
+        cropImageCollection.addShadowImage(CropType.TYPE_2, Crop.GrowthState.ALMOST_GROWN, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_2_MORE_GROWTH_SHADOW));
+        cropImageCollection.addShadowImage(CropType.TYPE_2, Crop.GrowthState.FULL_GROWN, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_2_FULLY_GROWN_SHADOW));
+        cropImageCollection.addShadowImage(CropType.TYPE_2, Crop.GrowthState.HARVESTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_2_JUST_HARVESTED_SHADOW));
+
         cropImageCollection.writeImageAtlas(toDir, defaultPalette);
 
         /* Extract the cargo images that workers carry */

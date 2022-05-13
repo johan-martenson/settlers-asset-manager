@@ -148,6 +148,16 @@ public class MapBobsLst {
     public static final int DEER_2_WALKING_WEST_ANIMATION = 785;
     public static final int DEER_2_WALKING_NORTH_WEST_ANIMATION = 793;
     public static final int DEER_2_WALKING_NORTH_EAST_ANIMATION = 801;
+    public static final int CROP_TYPE_1_NEWLY_PLANTED_SHADOW = 357;
+    public static final int CROP_TYPE_1_LITTLE_GROWTH_SHADOW = 358;
+    public static final int CROP_TYPE_1_MORE_GROWTH_SHADOW = 359;
+    public static final int CROP_TYPE_1_FULLY_GROWN_SHADOW = 360;
+    public static final int CROP_TYPE_1_JUST_HARVESTED_SHADOW = 361;
+    public static final int CROP_TYPE_2_NEWLY_PLANTED_SHADOW = 362;
+    public static final int CROP_TYPE_2_LITTLE_GROWTH_SHADOW = 363;
+    public static final int CROP_TYPE_2_MORE_GROWTH_SHADOW = 364;
+    public static final int CROP_TYPE_2_FULLY_GROWN_SHADOW = 365;
+    public static final int CROP_TYPE_2_JUST_HARVESTED_SHADOW = 366;
 
     static final int STONE_TYPE_1_MINI = 298;
     static final int STONE_TYPE_1_LITTLE = 299;

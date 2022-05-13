@@ -3,6 +3,7 @@ package org.appland.settlers.assets;
 import org.appland.settlers.model.Crop;
 import org.json.simple.JSONObject;
 
+import java.awt.Point;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -11,12 +12,15 @@ import java.util.Map;
 
 public class CropImageCollection {
     private final Map<CropType, Map<Crop.GrowthState, Bitmap>> cropMap;
+    private final Map<CropType, Map<Crop.GrowthState, Bitmap>> cropShadowMap;
 
     public CropImageCollection() {
         cropMap = new HashMap<>();
+        cropShadowMap = new HashMap<>();
 
         for (CropType type : CropType.values()) {
             cropMap.put(type, new HashMap<>());
+            cropShadowMap.put(type, new HashMap<>());
         }
     }
 
@@ -26,56 +30,68 @@ public class CropImageCollection {
 
     public void writeImageAtlas(String toDir, Palette palette) throws IOException {
 
-        // Calculate the size of the image atlas
-        int maxWidth = 0;
-        int maxRowHeight = 0;
-
-        for (CropType cropType : CropType.values()) {
-            for (Crop.GrowthState cropGrowth : Crop.GrowthState.values()) {
-
-                Bitmap image = cropMap.get(cropType).get(cropGrowth);
-
-                maxWidth = Math.max(maxWidth, image.width);
-                maxRowHeight = Math.max(maxRowHeight, image.height);
-            }
-        }
-
         // Create the image atlas
         ImageBoard imageBoard = new ImageBoard();
 
         JSONObject jsonImageAtlas = new JSONObject();
 
         // Fill in the image atlas
-        int cropTypeIndex = 0;
+        Point cursor = new Point(0, 0);
+        int maxHeightRow = 0;
+
+        // Make two rows, one for each crop type
         for (Map.Entry<CropType, Map<Crop.GrowthState, Bitmap>> entryForCropType : this.cropMap.entrySet()) {
 
             JSONObject jsonCropType = new JSONObject();
 
             jsonImageAtlas.put(entryForCropType.getKey().name().toUpperCase(), jsonCropType);
 
-            int cropGrowthIndex = 0;
+            cursor.x = 0;
+
+            // Add the crop images
             for (Crop.GrowthState cropGrowth : Crop.GrowthState.values()) {
 
                 Bitmap image = entryForCropType.getValue().get(cropGrowth);
 
-                int x = maxWidth * cropGrowthIndex;
-                int y = maxRowHeight * cropTypeIndex;
+                imageBoard.placeImage(image, cursor);
 
-                imageBoard.placeImage(image, x, y);
-
+                JSONObject jsonCropGrowthState = new JSONObject();
                 JSONObject jsonCropImage = imageBoard.imageLocationToJson(image);
 
-                jsonCropType.put(cropGrowth.name().toUpperCase(), jsonCropImage);
+                jsonCropType.put(cropGrowth.name().toUpperCase(), jsonCropGrowthState);
+                jsonCropGrowthState.put("image", jsonCropImage);
 
-                cropGrowthIndex = cropGrowthIndex + 1;
+                maxHeightRow = Math.max(maxHeightRow, image.height);
+
+                cursor.x = cursor.x + image.width;
             }
 
-            cropTypeIndex = cropTypeIndex + 1;
+            // Add the crop shadow images
+            for (Crop.GrowthState cropGrowth : Crop.GrowthState.values()) {
+
+                Bitmap image = this.cropShadowMap.get(entryForCropType.getKey()).get(cropGrowth);
+
+                imageBoard.placeImage(image, cursor);
+
+                JSONObject jsonCropShadowImage = imageBoard.imageLocationToJson(image);
+
+                ((JSONObject) jsonCropType.get(cropGrowth.name().toUpperCase())).put("shadowImage", jsonCropShadowImage);
+
+                maxHeightRow = Math.max(maxHeightRow, image.height);
+
+                cursor.x = cursor.x + image.width;
+            }
+
+            cursor.y = cursor.y + maxHeightRow;
         }
 
         // Write the image atlas to file(s)
         imageBoard.writeBoardToBitmap(palette).writeToFile(toDir + "/image-atlas-crops.png");
 
         Files.writeString(Paths.get(toDir, "image-atlas-crops.json"), jsonImageAtlas.toJSONString());
+    }
+
+    public void addShadowImage(CropType cropType, Crop.GrowthState growthState, Bitmap image) {
+        cropShadowMap.get(cropType).put(growthState, image);
     }
 }
