@@ -887,72 +887,69 @@ public class Extractor {
         AnimalImageCollection deer2ImageCollection = new AnimalImageCollection("deer2");
         AnimalImageCollection duckImageCollection = new AnimalImageCollection("duck");
 
-        for (Direction direction : Direction.values()) {
+        /* Ice bear */
+        iceBearImageCollection.addImages(NORTH_EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.ICE_BEAR_WALKING_NORTH_EAST_ANIMATION, 6));
+        iceBearImageCollection.addImages(EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.ICE_BEAR_WALKING_EAST_ANIMATION, 6));
+        iceBearImageCollection.addImages(SOUTH_EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.ICE_BEAR_WALKING_SOUTH_EAST_ANIMATION, 6));
+        iceBearImageCollection.addImages(SOUTH_WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.ICE_BEAR_WALKING_SOUTH_WEST_ANIMATION, 6));
+        iceBearImageCollection.addImages(WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.ICE_BEAR_WALKING_WEST_ANIMATION, 6));
+        iceBearImageCollection.addImages(NORTH_WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.ICE_BEAR_WALKING_NORTH_WEST_ANIMATION, 6));
 
-            /* Ice bear */
-            for (int i = 0; i < MapBobsLst.WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
-                int index = MapBobsLst.ICE_BEAR_WALKING_SOUTH_ANIMATION + MapBobsLst.WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
+        /* Fox */
+        foxImageCollection.addImages(NORTH_EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.FOX_WALKING_NORTH_EAST_ANIMATION, 6));
+        foxImageCollection.addImages(EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.FOX_WALKING_EAST_ANIMATION, 6));
+        foxImageCollection.addImages(SOUTH_EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.FOX_WALKING_SOUTH_EAST_ANIMATION, 6));
+        foxImageCollection.addImages(SOUTH_WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.FOX_WALKING_SOUTH_WEST_ANIMATION, 6));
+        foxImageCollection.addImages(WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.FOX_WALKING_WEST_ANIMATION, 6));
+        foxImageCollection.addImages(NORTH_WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.FOX_WALKING_NORTH_WEST_ANIMATION, 6));
 
-                Bitmap image = getImageFromResourceLocation(mapbobsLst, index);
-                iceBearImageCollection.addImage(direction, image);
-            }
+        /* Rabbit */
+        rabbitImageCollection.addImages(NORTH_EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.RABBIT_WALKING_NORTH_EAST_ANIMATION, 6));
+        rabbitImageCollection.addImages(EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.RABBIT_WALKING_EAST_ANIMATION, 6));
+        rabbitImageCollection.addImages(SOUTH_EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.RABBIT_WALKING_SOUTH_EAST_ANIMATION, 6));
+        rabbitImageCollection.addImages(SOUTH_WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.RABBIT_WALKING_SOUTH_WEST_ANIMATION, 6));
+        rabbitImageCollection.addImages(WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.RABBIT_WALKING_WEST_ANIMATION, 6));
+        rabbitImageCollection.addImages(NORTH_WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.RABBIT_WALKING_NORTH_WEST_ANIMATION, 6));
 
-            /* Fox */
-            for (int i = 0; i < MapBobsLst.WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
-                int index = MapBobsLst.FOX_WALKING_SOUTH_ANIMATION + MapBobsLst.WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
+        /* Stag */
+        stagImageCollection.addImages(NORTH_EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.STAG_WALKING_NORTH_EAST_ANIMATION, 8));
+        stagImageCollection.addImages(EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.STAG_WALKING_EAST_ANIMATION, 8));
+        stagImageCollection.addImages(SOUTH_EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.STAG_WALKING_SOUTH_EAST_ANIMATION, 8));
+        stagImageCollection.addImages(SOUTH_WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.STAG_WALKING_SOUTH_WEST_ANIMATION, 8));
+        stagImageCollection.addImages(WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.STAG_WALKING_WEST_ANIMATION, 8));
+        stagImageCollection.addImages(NORTH_WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.STAG_WALKING_NORTH_WEST_ANIMATION, 8));
 
-                Bitmap image = getImageFromResourceLocation(mapbobsLst, index);
-                foxImageCollection.addImage(direction, image);
-            }
+        /* Deer */
+        deerImageCollection.addImages(NORTH_EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.DEER_WALKING_NORTH_EAST_ANIMATION, 8));
+        deerImageCollection.addImages(EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.DEER_WALKING_EAST_ANIMATION, 8));
+        deerImageCollection.addImages(SOUTH_EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.DEER_WALKING_SOUTH_EAST_ANIMATION, 8));
+        deerImageCollection.addImages(SOUTH_WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.DEER_WALKING_SOUTH_WEST_ANIMATION, 8));
+        deerImageCollection.addImages(WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.DEER_WALKING_WEST_ANIMATION, 8));
+        deerImageCollection.addImages(NORTH_WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.DEER_WALKING_NORTH_WEST_ANIMATION, 8));
 
-            /* Rabbit */
-            for (int i = 0; i < MapBobsLst.WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
-                int index = MapBobsLst.RABBIT_WALKING_SOUTH_ANIMATION + MapBobsLst.WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
+        /* Sheep */
+        sheepImageCollection.addImages(NORTH_EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.SHEEP_WALKING_NORTH_EAST_ANIMATION, 2));
+        sheepImageCollection.addImages(EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.SHEEP_WALKING_EAST_ANIMATION, 2));
+        sheepImageCollection.addImages(SOUTH_EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.SHEEP_WALKING_SOUTH_EAST_ANIMATION, 2));
+        sheepImageCollection.addImages(SOUTH_WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.SHEEP_WALKING_SOUTH_WEST_ANIMATION, 2));
+        sheepImageCollection.addImages(WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.SHEEP_WALKING_WEST_ANIMATION, 2));
+        sheepImageCollection.addImages(NORTH_WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.SHEEP_WALKING_NORTH_WEST_ANIMATION, 2));
 
-                Bitmap image = getImageFromResourceLocation(mapbobsLst, index);
-                rabbitImageCollection.addImage(direction, image);
-            }
-
-            /* Stag */
-            for (int i = 0; i < MapBobsLst.WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
-                int index = MapBobsLst.STAG_WALKING_SOUTH_ANIMATION + MapBobsLst.WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
-
-                Bitmap image = getImageFromResourceLocation(mapbobsLst, index);
-                stagImageCollection.addImage(direction, image);
-            }
-
-            /* Deer */
-            for (int i = 0; i < MapBobsLst.WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
-                int index = MapBobsLst.DEER_WALKING_SOUTH_ANIMATION + MapBobsLst.WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
-
-                Bitmap image = getImageFromResourceLocation(mapbobsLst, index);
-                deerImageCollection.addImage(direction, image);
-            }
-
-            /* Sheep */
-            for (int i = 0; i < 2; i++) {
-                int index = MapBobsLst.SHEEP_WALKING_SOUTH_ANIMATION + 2 * direction.ordinal() + i;
-
-                Bitmap image = getImageFromResourceLocation(mapbobsLst, index);
-                sheepImageCollection.addImage(direction, image);
-            }
-
-            /* Deer 2 (horse?) */
-            for (int i = 0; i < MapBobsLst.WILD_ANIMAL_FRAMES_PER_ANIMATION; i++) {
-                int index = MapBobsLst.DEER_2_WALKING_SOUTH_ANIMATION + MapBobsLst.WILD_ANIMAL_FRAMES_PER_ANIMATION * direction.ordinal() + i;
-
-                Bitmap image = getImageFromResourceLocation(mapbobsLst, index);
-                deer2ImageCollection.addImage(direction, image);
-            }
-        }
+        /* Deer 2 (horse?) */
+        deer2ImageCollection.addImages(NORTH_EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.DEER_2_WALKING_NORTH_EAST_ANIMATION, 8));
+        deer2ImageCollection.addImages(EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.DEER_2_WALKING_EAST_ANIMATION, 8));
+        deer2ImageCollection.addImages(SOUTH_EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.DEER_2_WALKING_SOUTH_EAST_ANIMATION, 8));
+        deer2ImageCollection.addImages(SOUTH_WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.DEER_2_WALKING_SOUTH_WEST_ANIMATION, 8));
+        deer2ImageCollection.addImages(WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.DEER_2_WALKING_WEST_ANIMATION, 8));
+        deer2ImageCollection.addImages(NORTH_WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.DEER_2_WALKING_NORTH_WEST_ANIMATION, 8));
 
         /* Extract duck */
-        duckImageCollection.addImage(EAST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.DUCK));
-        duckImageCollection.addImage(SOUTH_EAST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.DUCK + 1));
-        duckImageCollection.addImage(SOUTH_WEST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.DUCK + 2));
-        duckImageCollection.addImage(WEST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.DUCK + 3));
-        duckImageCollection.addImage(NORTH_WEST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.DUCK + 4));
-        duckImageCollection.addImage(NORTH_EAST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.DUCK + 5));
+        duckImageCollection.addImage(EAST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.DUCK_EAST));
+        duckImageCollection.addImage(SOUTH_EAST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.DUCK_EAST + 1));
+        duckImageCollection.addImage(SOUTH_WEST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.DUCK_EAST + 2));
+        duckImageCollection.addImage(WEST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.DUCK_EAST + 3));
+        duckImageCollection.addImage(NORTH_WEST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.DUCK_EAST + 4));
+        duckImageCollection.addImage(NORTH_EAST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.DUCK_EAST + 5));
 
         writeFilesFromMap(mapbobsLst, imagesToFileMap);
 
