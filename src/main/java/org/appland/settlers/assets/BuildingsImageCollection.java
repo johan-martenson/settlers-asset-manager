@@ -2,6 +2,7 @@ package org.appland.settlers.assets;
 
 import org.json.simple.JSONObject;
 
+import java.awt.Point;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -58,30 +59,12 @@ public class BuildingsImageCollection {
     public void writeImageAtlas(String directory, Palette palette) throws IOException {
 
         // Calculate the size of the image atlas and create it
-        int maxNationWidth = 0;
-        int maxNationHeight = 0;
-
-        for (Nation nation: Nation.values()) {
-
-            int currentNationHeight = 0;
-            for (Map.Entry<String, BuildingImages> entry : this.buildingMap.get(nation).entrySet()) {
-                BuildingImages images = entry.getValue();
-
-                maxNationWidth = Math.max(maxNationWidth, images.buildingReadyImage.width + images.buildingUnderConstruction.width);
-                currentNationHeight = currentNationHeight + Math.max(images.buildingReadyImage.height, images.buildingUnderConstruction.height);
-            }
-
-            currentNationHeight = currentNationHeight + Math.max(
-                    specialImagesMap.get(nation).constructionPlannedImage.height,
-                    specialImagesMap.get(nation).constructionJustStartedImage.height);
-
-            maxNationHeight = Math.max(maxNationHeight, currentNationHeight);
-        }
-
         ImageBoard imageBoard = new ImageBoard();
 
         // Fill in the image atlas and fill in the meta-data
         int startNextNationAtX = 0;
+        int currentNationStartedAtX = 0;
+        Point cursor = new Point(0, 0);
 
         JSONObject jsonImageAtlas = new JSONObject();
 
@@ -101,10 +84,12 @@ public class BuildingsImageCollection {
 
             JSONObject jsonBuildings = new JSONObject();
 
-            jsonRegularBuildings.put(nation.name().toLowerCase(), jsonBuildings);
+            jsonRegularBuildings.put(nation.name().toUpperCase(), jsonBuildings);
 
-            int startNextBuildingAtY = 0;
-            int widthCurrentNation = 0;
+            currentNationStartedAtX = cursor.x;
+
+            cursor.x = startNextNationAtX;
+            cursor.y = 0;
 
             for (Map.Entry<String, BuildingImages> entry : this.buildingMap.get(nation).entrySet()) {
                 String building = entry.getKey();
@@ -114,67 +99,124 @@ public class BuildingsImageCollection {
 
                 jsonBuildings.put(building, jsonBuilding);
 
-                jsonBuilding.put("y", startNextBuildingAtY);
+                int currentRowHeight = 0;
 
-                int currentBuildingMaxHeight = 0;
-                int currentBuildingWidth = 0;
-                int placeNextBuildingAtX = 0;
-
-                // Copy the building ready image
+                // Building ready image
                 if (images.buildingReadyImage != null) {
-                    imageBoard.placeImage(images.buildingReadyImage, startNextNationAtX, startNextBuildingAtY);
+                    imageBoard.placeImage(images.buildingReadyImage, cursor);
 
-                    jsonBuilding.put("readyAtX", startNextNationAtX);
-                    jsonBuilding.put("readyWidth", images.buildingReadyImage.width);
-                    jsonBuilding.put("readyHeight", images.buildingReadyImage.height);
-                    jsonBuilding.put("readyOffsetX", images.buildingReadyImage.nx);
-                    jsonBuilding.put("readyOffsetY", images.buildingReadyImage.ny);
+                    JSONObject jsonBuildingReadyImage = imageBoard.imageLocationToJson(images.buildingReadyImage);
 
-                    currentBuildingMaxHeight = Math.max(currentBuildingMaxHeight, images.buildingReadyImage.height);
-                    currentBuildingWidth = currentBuildingWidth + images.buildingReadyImage.width;
-                    placeNextBuildingAtX = placeNextBuildingAtX + images.buildingReadyImage.width;
+                    jsonBuilding.put("ready", jsonBuildingReadyImage);
+
+                    startNextNationAtX = Math.max(startNextNationAtX, cursor.x + images.buildingReadyImage.width);
+
+                    currentRowHeight = Math.max(currentRowHeight, images.buildingReadyImage.height);
+
+                    cursor.x = cursor.x + images.buildingReadyImage.width;
                 }
 
-                // Copy the under construction image
+                // Building ready shadow image
+                if (images.buildingReadyShadowImage != null) {
+                    imageBoard.placeImage(images.buildingReadyShadowImage, cursor);
+
+                    JSONObject jsonBuildingReadyShadowImage = imageBoard.imageLocationToJson(images.buildingReadyShadowImage);
+
+                    jsonBuilding.put("readyShadow", jsonBuildingReadyShadowImage);
+
+                    startNextNationAtX = Math.max(startNextNationAtX, cursor.x + images.buildingReadyShadowImage.width);
+
+                    currentRowHeight = Math.max(currentRowHeight, images.buildingReadyShadowImage.height);
+
+                    cursor.x = cursor.x + images.buildingReadyShadowImage.width;
+                }
+
+                // Under construction image
                 if (images.buildingUnderConstruction != null) {
-                    imageBoard.placeImage(images.buildingUnderConstruction, startNextNationAtX + placeNextBuildingAtX, startNextBuildingAtY);
+                    imageBoard.placeImage(images.buildingUnderConstruction, cursor);
 
-                    jsonBuilding.put("underConstructionAtX", startNextNationAtX + placeNextBuildingAtX);
-                    jsonBuilding.put("underConstructionWidth", images.buildingUnderConstruction.width);
-                    jsonBuilding.put("underConstructionHeight", images.buildingUnderConstruction.height);
-                    jsonBuilding.put("underConstructionOffsetX", images.buildingUnderConstruction.nx);
-                    jsonBuilding.put("underConstructionOffsetY", images.buildingUnderConstruction.ny);
+                    JSONObject jsonBuildingUnderConstructionImage = imageBoard.imageLocationToJson(images.buildingUnderConstruction);
 
-                    currentBuildingMaxHeight = Math.max(currentBuildingMaxHeight, images.buildingUnderConstruction.height);
-                    currentBuildingWidth = currentBuildingWidth + images.buildingUnderConstruction.width;
+                    jsonBuilding.put("underConstruction", jsonBuildingUnderConstructionImage);
+
+                    startNextNationAtX = Math.max(startNextNationAtX, cursor.x + images.buildingUnderConstruction.width);
+
+                    currentRowHeight = Math.max(currentRowHeight, images.buildingUnderConstruction.height);
+
+                    cursor.x = cursor.x + images.buildingUnderConstruction.width;
                 }
 
-                // Keep track of the max width of the current nation
-                widthCurrentNation = Math.max(widthCurrentNation, currentBuildingWidth);
+                // Under construction shadow image
+                if (images.buildingUnderConstructionShadowImage != null) {
+                    imageBoard.placeImage(images.buildingUnderConstructionShadowImage, cursor);
 
-                startNextBuildingAtY = startNextBuildingAtY + currentBuildingMaxHeight;
+                    JSONObject jsonBuildingUnderConstructionShadowImage = imageBoard.imageLocationToJson(images.buildingUnderConstruction);
+
+                    jsonBuilding.put("underConstructionShadow", jsonBuildingUnderConstructionShadowImage);
+
+                    startNextNationAtX = Math.max(startNextNationAtX, cursor.x + images.buildingUnderConstructionShadowImage.width);
+
+                    currentRowHeight = Math.max(currentRowHeight, images.buildingUnderConstructionShadowImage.height);
+
+                    cursor.x = cursor.x + images.buildingUnderConstructionShadowImage.width;
+                }
+
+                cursor.y = cursor.y + currentRowHeight;
+                cursor.x = currentNationStartedAtX;
             }
 
+            cursor.x = currentNationStartedAtX;
+
             // Fill in construction planned and construction just started
-            Bitmap constructionPlannedImage = specialImagesMap.get(nation).constructionPlannedImage;
-            Bitmap constructionJustStartedImage = specialImagesMap.get(nation).constructionJustStartedImage;
+            SpecialImages specialImages = specialImagesMap.get(nation);
 
-            imageBoard.placeImage(constructionPlannedImage, startNextNationAtX, startNextBuildingAtY);
+            Bitmap constructionPlannedImage = specialImages.constructionPlannedImage;
+            Bitmap constructionPlannedShadowImage = specialImages.constructionPlannedShadowImage;
+            Bitmap constructionJustStartedImage = specialImages.constructionJustStartedImage;
+            Bitmap constructionJustStartedShadowImage = specialImages.constructionJustStartedShadowImage;
 
-            JSONObject jsonConstructionPlanned = imageBoard.imageLocationToJson(constructionPlannedImage);
+            JSONObject jsonConstructionPlanned = new JSONObject();
+            JSONObject jsonUnderConstruction = new JSONObject();
 
-            jsonConstructionPlannedImages.put(nation.name().toLowerCase(), jsonConstructionPlanned);
+            jsonConstructionPlannedImages.put(nation.name().toUpperCase(), jsonConstructionPlanned);
+            jsonConstructionJustStartedImages.put(nation.name().toUpperCase(), jsonUnderConstruction);
 
-            imageBoard.placeImage(
-                    constructionJustStartedImage,
-                    startNextNationAtX + constructionPlannedImage.width,
-                    startNextBuildingAtY);
+            // Construction planned image
+            imageBoard.placeImage(constructionPlannedImage, cursor);
 
-            JSONObject jsonConstructionJustStarted = imageBoard.imageLocationToJson(constructionJustStartedImage);
+            JSONObject jsonConstructionPlannedImage = imageBoard.imageLocationToJson(constructionPlannedImage);
 
-            jsonConstructionJustStartedImages.put(nation.name().toLowerCase(), jsonConstructionJustStarted);
+            jsonConstructionPlanned.put("image", jsonConstructionPlannedImage);
 
-            startNextNationAtX = startNextNationAtX + widthCurrentNation;
+            cursor.x = cursor.x + constructionPlannedImage.width;
+
+            // Construction planned shadow image
+            imageBoard.placeImage(constructionPlannedShadowImage, cursor);
+
+            JSONObject jsonConstructionPlannedShadowImage = imageBoard.imageLocationToJson(constructionPlannedShadowImage);
+
+            jsonConstructionPlanned.put("shadowImage", jsonConstructionPlannedShadowImage);
+
+            cursor.x = cursor.x + constructionPlannedShadowImage.width;
+
+            // Under construction image
+            imageBoard.placeImage(constructionJustStartedImage, cursor);
+
+            JSONObject jsonConstructionJustStartedImage = imageBoard.imageLocationToJson(constructionJustStartedImage);
+
+            jsonUnderConstruction.put("image", jsonConstructionJustStartedImage);
+
+            cursor.x = cursor.x + constructionJustStartedImage.width;
+
+            // Under construction shadow image
+            imageBoard.placeImage(constructionJustStartedShadowImage, cursor);
+
+            JSONObject jsonConstructionJustStartedShadowImage = imageBoard.imageLocationToJson(constructionJustStartedShadowImage);
+
+            jsonUnderConstruction.put("shadowImage", jsonConstructionJustStartedShadowImage);
+
+            // Start at the right place for the next column
+            cursor.x = startNextNationAtX;
         }
 
         // Write the image and the meta-data to files
@@ -182,9 +224,43 @@ public class BuildingsImageCollection {
         Files.writeString(Paths.get(directory, "image-atlas-buildings.json"), jsonImageAtlas.toJSONString());
     }
 
+    public void addBuildingShadowForNation(Nation nation, String building, Bitmap image) {
+        Map<String, BuildingImages> buildingsForNation = this.buildingMap.get(nation);
+
+        if (!buildingsForNation.containsKey(building)) {
+            buildingsForNation.put(building, new BuildingImages());
+        }
+
+        BuildingImages buildingImages = buildingsForNation.get(building);
+
+        buildingImages.addReadyBuildingShadowImage(image);
+    }
+
+    public void addBuildingUnderConstructionShadowForNation(Nation nation, String building, Bitmap image) {
+        Map<String, BuildingImages> buildingsForNation = this.buildingMap.get(nation);
+
+        if (!buildingsForNation.containsKey(building)) {
+            buildingsForNation.put(building, new BuildingImages());
+        }
+
+        BuildingImages buildingImages = buildingsForNation.get(building);
+
+        buildingImages.addUnderConstructionBuildingShadowImage(image);
+    }
+
+    public void addConstructionPlannedShadow(Nation nation, Bitmap image) {
+        this.specialImagesMap.get(nation).addConstructionPlannedShadowImage(image);
+    }
+
+    public void addConstructionJustStartedShadow(Nation nation, Bitmap image) {
+        this.specialImagesMap.get(nation).addConstructionJustStartedShadowImage(image);
+    }
+
     private class BuildingImages {
         private Bitmap buildingReadyImage;
         private Bitmap buildingUnderConstruction;
+        private Bitmap buildingReadyShadowImage;
+        private Bitmap buildingUnderConstructionShadowImage;
 
         BuildingImages() {
             this.buildingReadyImage = null;
@@ -198,11 +274,21 @@ public class BuildingsImageCollection {
         public void addUnderConstructionBuildingImage(Bitmap image) {
             this.buildingUnderConstruction = image;
         }
+
+        public void addReadyBuildingShadowImage(Bitmap image) {
+            buildingReadyShadowImage = image;
+        }
+
+        public void addUnderConstructionBuildingShadowImage(Bitmap image) {
+            buildingUnderConstructionShadowImage = image;
+        }
     }
 
     private class SpecialImages {
         private Bitmap constructionPlannedImage;
         private Bitmap constructionJustStartedImage;
+        private Bitmap constructionPlannedShadowImage;
+        private Bitmap constructionJustStartedShadowImage;
 
         public void addConstructionPlannedImage(Bitmap image) {
             this.constructionPlannedImage = image;
@@ -210,6 +296,14 @@ public class BuildingsImageCollection {
 
         public void addConstructionJustStartedImage(Bitmap image) {
             this.constructionJustStartedImage = image;
+        }
+
+        public void addConstructionPlannedShadowImage(Bitmap image) {
+            this.constructionPlannedShadowImage = image;
+        }
+
+        public void addConstructionJustStartedShadowImage(Bitmap image) {
+            this.constructionJustStartedShadowImage = image;
         }
     }
 }
