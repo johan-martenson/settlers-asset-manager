@@ -1376,70 +1376,70 @@ public class Extractor {
         String BUILDINGS_DIR = toDir + "/" + ROMAN_BUILDINGS_DIRECTORY;
 
         /* Write the buildings to the out directory */
-        imagesToFileMap.put(RomYLst.HEADQUARTER_INDEX, BUILDINGS_DIR+ "/headquarter.png");
-        imagesToFileMap.put(RomYLst.BARRACKS_INDEX, BUILDINGS_DIR + "/barracks.png");
-        imagesToFileMap.put(RomYLst.BARRACKS_INDEX + 2, BUILDINGS_DIR + "/barracks-under-construction.png");
-        imagesToFileMap.put(RomYLst.GUARDHOUSE_INDEX, BUILDINGS_DIR + "/guardhouse.png");
-        imagesToFileMap.put(RomYLst.GUARDHOUSE_INDEX + 2, BUILDINGS_DIR + "/guardhouse-under-construction.png");
-        imagesToFileMap.put(RomYLst.WATCHTOWER_INDEX, BUILDINGS_DIR + "/watchtower.png");
-        imagesToFileMap.put(RomYLst.WATCHTOWER_INDEX + 2, BUILDINGS_DIR + "/watchtower-under-construction.png");
-        imagesToFileMap.put(RomYLst.FORTRESS_INDEX, BUILDINGS_DIR + "/fortress.png");
-        imagesToFileMap.put(RomYLst.FORTRESS_INDEX + 2, BUILDINGS_DIR + "/fortress-under-construction.png");
-        imagesToFileMap.put(RomYLst.GRANITE_MINE_INDEX, BUILDINGS_DIR + "/granite-mine.png");
-        imagesToFileMap.put(RomYLst.GRANITE_MINE_INDEX + 2, BUILDINGS_DIR + "/granite-mine-under-construction.png");
-        imagesToFileMap.put(RomYLst.COAL_MINE_INDEX, BUILDINGS_DIR + "/coal-mine.png");
-        imagesToFileMap.put(RomYLst.COAL_MINE_INDEX + 2, BUILDINGS_DIR + "/coal-mine-under-construction.png");
+        imagesToFileMap.put(RomYLst.HEADQUARTER, BUILDINGS_DIR + "/headquarter.png");
+        imagesToFileMap.put(RomYLst.BARRACKS, BUILDINGS_DIR + "/barracks.png");
+        imagesToFileMap.put(RomYLst.BARRACKS + 2, BUILDINGS_DIR + "/barracks-under-construction.png");
+        imagesToFileMap.put(RomYLst.GUARDHOUSE, BUILDINGS_DIR + "/guardhouse.png");
+        imagesToFileMap.put(RomYLst.GUARDHOUSE + 2, BUILDINGS_DIR + "/guardhouse-under-construction.png");
+        imagesToFileMap.put(RomYLst.WATCHTOWER, BUILDINGS_DIR + "/watchtower.png");
+        imagesToFileMap.put(RomYLst.WATCHTOWER + 2, BUILDINGS_DIR + "/watchtower-under-construction.png");
+        imagesToFileMap.put(RomYLst.FORTRESS, BUILDINGS_DIR + "/fortress.png");
+        imagesToFileMap.put(RomYLst.FORTRESS + 2, BUILDINGS_DIR + "/fortress-under-construction.png");
+        imagesToFileMap.put(RomYLst.GRANITE_MINE, BUILDINGS_DIR + "/granite-mine.png");
+        imagesToFileMap.put(RomYLst.GRANITE_MINE + 2, BUILDINGS_DIR + "/granite-mine-under-construction.png");
+        imagesToFileMap.put(RomYLst.COAL_MINE, BUILDINGS_DIR + "/coal-mine.png");
+        imagesToFileMap.put(RomYLst.COAL_MINE + 2, BUILDINGS_DIR + "/coal-mine-under-construction.png");
         imagesToFileMap.put(RomYLst.IRON_MINE_RESOURCE, BUILDINGS_DIR + "/iron-mine.png");
         imagesToFileMap.put(RomYLst.IRON_MINE_RESOURCE + 2, BUILDINGS_DIR + "/iron-mine-under-construction.png");
-        imagesToFileMap.put(RomYLst.GOLD_MINE_INDEX, BUILDINGS_DIR + "/gold-mine.png");
-        imagesToFileMap.put(RomYLst.GOLD_MINE_INDEX + 2, BUILDINGS_DIR + "/gold-mine-under-construction.png");
-        imagesToFileMap.put(RomYLst.LOOKOUT_TOWER_INDEX, BUILDINGS_DIR + "/lookout-tower.png");
-        imagesToFileMap.put(RomYLst.LOOKOUT_TOWER_INDEX + 2, BUILDINGS_DIR + "/lookout-tower-under-construction.png");
-        imagesToFileMap.put(RomYLst.CATAPULT_INDEX, BUILDINGS_DIR + "/catapult.png");
-        imagesToFileMap.put(RomYLst.CATAPULT_INDEX + 2, BUILDINGS_DIR + "/catapult-under-construction.png");
-        imagesToFileMap.put(RomYLst.WOODCUTTER_INDEX, BUILDINGS_DIR + "/woodcutter.png");
-        imagesToFileMap.put(RomYLst.WOODCUTTER_INDEX + 2, BUILDINGS_DIR + "/woodcutter-under-construction.png");
-        imagesToFileMap.put(RomYLst.FISHERY_INDEX, BUILDINGS_DIR + "/fishery.png");
-        imagesToFileMap.put(RomYLst.FISHERY_INDEX + 2, BUILDINGS_DIR + "/fishery-under-construction.png");
-        imagesToFileMap.put(RomYLst.QUARRY_INDEX, BUILDINGS_DIR + "/quarry.png");
-        imagesToFileMap.put(RomYLst.QUARRY_INDEX + 2, BUILDINGS_DIR + "/quarry-under-construction.png");
-        imagesToFileMap.put(RomYLst.FORESTER_HUT_INDEX, BUILDINGS_DIR + "/forester-hut.png");
-        imagesToFileMap.put(RomYLst.FORESTER_HUT_INDEX + 2, BUILDINGS_DIR + "/forester-hut-under-construction.png");
-        imagesToFileMap.put(RomYLst.SLAUGHTER_HOUSE_INDEX, BUILDINGS_DIR + "/slaughter-house.png");
-        imagesToFileMap.put(RomYLst.SLAUGHTER_HOUSE_INDEX + 2, BUILDINGS_DIR + "/slaughter-house-under-construction.png");
-        imagesToFileMap.put(RomYLst.HUNTER_HUT_INDEX, BUILDINGS_DIR + "/hunter-hut.png");
-        imagesToFileMap.put(RomYLst.HUNTER_HUT_INDEX + 2, BUILDINGS_DIR + "/hunter-hut-under-construction.png");
-        imagesToFileMap.put(RomYLst.BREWERY_INDEX, BUILDINGS_DIR + "/brewery.png");
-        imagesToFileMap.put(RomYLst.BREWERY_INDEX + 2, BUILDINGS_DIR + "/brewery-under-construction.png");
-        imagesToFileMap.put(RomYLst.ARMORY_INDEX, BUILDINGS_DIR + "/armory.png");
-        imagesToFileMap.put(RomYLst.ARMORY_INDEX + 2, BUILDINGS_DIR + "/armory-under-construction.png");
-        imagesToFileMap.put(RomYLst.METALWORKS_INDEX, BUILDINGS_DIR + "/metalworks.png");
-        imagesToFileMap.put(RomYLst.METALWORKS_INDEX + 2, BUILDINGS_DIR + "/metalworks-under-construction.png");
-        imagesToFileMap.put(RomYLst.IRON_SMELTER_INDEX, BUILDINGS_DIR + "/iron-smelter.png");
-        imagesToFileMap.put(RomYLst.IRON_SMELTER_INDEX + 2, BUILDINGS_DIR + "/iron-smelter-under-construction.png");
-        imagesToFileMap.put(RomYLst.PIG_FARM_INDEX, BUILDINGS_DIR + "/pig-farm.png");
-        imagesToFileMap.put(RomYLst.PIG_FARM_INDEX + 2, BUILDINGS_DIR + "/pig-farm-under-construction.png");
-        imagesToFileMap.put(RomYLst.STOREHOUSE_INDEX, BUILDINGS_DIR + "/storehouse.png");
-        imagesToFileMap.put(RomYLst.STOREHOUSE_INDEX + 2, BUILDINGS_DIR + "/storehouse-under-construction.png");
-        imagesToFileMap.put(RomYLst.MILL_NO_FAN_INDEX, BUILDINGS_DIR + "/mill-no-fan.png");
-        imagesToFileMap.put(RomYLst.MILL_NO_FAN_INDEX + 2, BUILDINGS_DIR + "/mill-no-fan-under-construction.png");
-        imagesToFileMap.put(RomYLst.BAKERY_INDEX, BUILDINGS_DIR + "/bakery.png");
-        imagesToFileMap.put(RomYLst.BAKERY_INDEX + 2, BUILDINGS_DIR + "/bakery-under-construction.png");
-        imagesToFileMap.put(RomYLst.SAWMILL_INDEX, BUILDINGS_DIR + "/sawmill.png");
-        imagesToFileMap.put(RomYLst.SAWMILL_INDEX + 2, BUILDINGS_DIR + "/sawmill-under-construction.png");
-        imagesToFileMap.put(RomYLst.MINT_INDEX, BUILDINGS_DIR + "/mint.png");
-        imagesToFileMap.put(RomYLst.MINT_INDEX + 2, BUILDINGS_DIR + "/mint-under-construction.png");
-        imagesToFileMap.put(RomYLst.WELL_INDEX, BUILDINGS_DIR + "/well.png");
-        imagesToFileMap.put(RomYLst.WELL_INDEX + 2, BUILDINGS_DIR + "/well-under-construction.png");
-        imagesToFileMap.put(RomYLst.SHIPYARD_INDEX, BUILDINGS_DIR + "/shipyard.png");
-        imagesToFileMap.put(RomYLst.SHIPYARD_INDEX + 2, BUILDINGS_DIR + "/shipyard-under-construction.png");
-        imagesToFileMap.put(RomYLst.FARM_INDEX, BUILDINGS_DIR + "/farm.png");
-        imagesToFileMap.put(RomYLst.FARM_INDEX + 2, BUILDINGS_DIR + "/farm-under-construction.png");
-        imagesToFileMap.put(RomYLst.DONKEY_BREEDER_INDEX, BUILDINGS_DIR + "/donkey-breeder.png");
-        imagesToFileMap.put(RomYLst.DONKEY_BREEDER_INDEX + 2, BUILDINGS_DIR + "/donkey-breeder-under-construction.png");
-        imagesToFileMap.put(RomYLst.HARBOR_INDEX, BUILDINGS_DIR + "/harbor.png");
-        imagesToFileMap.put(RomYLst.HARBOR_INDEX + 2, BUILDINGS_DIR + "/harbor-under-construction.png");
-        imagesToFileMap.put(RomYLst.CONSTRUCTION_PLANNED_INDEX, BUILDINGS_DIR + "/construction-planned-sign.png");
+        imagesToFileMap.put(RomYLst.GOLD_MINE, BUILDINGS_DIR + "/gold-mine.png");
+        imagesToFileMap.put(RomYLst.GOLD_MINE + 2, BUILDINGS_DIR + "/gold-mine-under-construction.png");
+        imagesToFileMap.put(RomYLst.LOOKOUT_TOWER, BUILDINGS_DIR + "/lookout-tower.png");
+        imagesToFileMap.put(RomYLst.LOOKOUT_TOWER + 2, BUILDINGS_DIR + "/lookout-tower-under-construction.png");
+        imagesToFileMap.put(RomYLst.CATAPULT, BUILDINGS_DIR + "/catapult.png");
+        imagesToFileMap.put(RomYLst.CATAPULT + 2, BUILDINGS_DIR + "/catapult-under-construction.png");
+        imagesToFileMap.put(RomYLst.WOODCUTTER, BUILDINGS_DIR + "/woodcutter.png");
+        imagesToFileMap.put(RomYLst.WOODCUTTER + 2, BUILDINGS_DIR + "/woodcutter-under-construction.png");
+        imagesToFileMap.put(RomYLst.FISHERY, BUILDINGS_DIR + "/fishery.png");
+        imagesToFileMap.put(RomYLst.FISHERY + 2, BUILDINGS_DIR + "/fishery-under-construction.png");
+        imagesToFileMap.put(RomYLst.QUARRY, BUILDINGS_DIR + "/quarry.png");
+        imagesToFileMap.put(RomYLst.QUARRY + 2, BUILDINGS_DIR + "/quarry-under-construction.png");
+        imagesToFileMap.put(RomYLst.FORESTER_HUT, BUILDINGS_DIR + "/forester-hut.png");
+        imagesToFileMap.put(RomYLst.FORESTER_HUT + 2, BUILDINGS_DIR + "/forester-hut-under-construction.png");
+        imagesToFileMap.put(RomYLst.SLAUGHTER_HOUSE, BUILDINGS_DIR + "/slaughter-house.png");
+        imagesToFileMap.put(RomYLst.SLAUGHTER_HOUSE + 2, BUILDINGS_DIR + "/slaughter-house-under-construction.png");
+        imagesToFileMap.put(RomYLst.HUNTER_HUT, BUILDINGS_DIR + "/hunter-hut.png");
+        imagesToFileMap.put(RomYLst.HUNTER_HUT + 2, BUILDINGS_DIR + "/hunter-hut-under-construction.png");
+        imagesToFileMap.put(RomYLst.BREWERY, BUILDINGS_DIR + "/brewery.png");
+        imagesToFileMap.put(RomYLst.BREWERY + 2, BUILDINGS_DIR + "/brewery-under-construction.png");
+        imagesToFileMap.put(RomYLst.ARMORY, BUILDINGS_DIR + "/armory.png");
+        imagesToFileMap.put(RomYLst.ARMORY + 2, BUILDINGS_DIR + "/armory-under-construction.png");
+        imagesToFileMap.put(RomYLst.METALWORKS, BUILDINGS_DIR + "/metalworks.png");
+        imagesToFileMap.put(RomYLst.METALWORKS + 2, BUILDINGS_DIR + "/metalworks-under-construction.png");
+        imagesToFileMap.put(RomYLst.IRON_SMELTER, BUILDINGS_DIR + "/iron-smelter.png");
+        imagesToFileMap.put(RomYLst.IRON_SMELTER + 2, BUILDINGS_DIR + "/iron-smelter-under-construction.png");
+        imagesToFileMap.put(RomYLst.PIG_FARM, BUILDINGS_DIR + "/pig-farm.png");
+        imagesToFileMap.put(RomYLst.PIG_FARM + 2, BUILDINGS_DIR + "/pig-farm-under-construction.png");
+        imagesToFileMap.put(RomYLst.STOREHOUSE, BUILDINGS_DIR + "/storehouse.png");
+        imagesToFileMap.put(RomYLst.STOREHOUSE + 2, BUILDINGS_DIR + "/storehouse-under-construction.png");
+        imagesToFileMap.put(RomYLst.MILL_NO, BUILDINGS_DIR + "/mill-no-fan.png");
+        imagesToFileMap.put(RomYLst.MILL_NO + 2, BUILDINGS_DIR + "/mill-no-fan-under-construction.png");
+        imagesToFileMap.put(RomYLst.BAKERY, BUILDINGS_DIR + "/bakery.png");
+        imagesToFileMap.put(RomYLst.BAKERY + 2, BUILDINGS_DIR + "/bakery-under-construction.png");
+        imagesToFileMap.put(RomYLst.SAWMILL, BUILDINGS_DIR + "/sawmill.png");
+        imagesToFileMap.put(RomYLst.SAWMILL + 2, BUILDINGS_DIR + "/sawmill-under-construction.png");
+        imagesToFileMap.put(RomYLst.MINT, BUILDINGS_DIR + "/mint.png");
+        imagesToFileMap.put(RomYLst.MINT + 2, BUILDINGS_DIR + "/mint-under-construction.png");
+        imagesToFileMap.put(RomYLst.WELL, BUILDINGS_DIR + "/well.png");
+        imagesToFileMap.put(RomYLst.WELL + 2, BUILDINGS_DIR + "/well-under-construction.png");
+        imagesToFileMap.put(RomYLst.SHIPYARD, BUILDINGS_DIR + "/shipyard.png");
+        imagesToFileMap.put(RomYLst.SHIPYARD + 2, BUILDINGS_DIR + "/shipyard-under-construction.png");
+        imagesToFileMap.put(RomYLst.FARM, BUILDINGS_DIR + "/farm.png");
+        imagesToFileMap.put(RomYLst.FARM + 2, BUILDINGS_DIR + "/farm-under-construction.png");
+        imagesToFileMap.put(RomYLst.DONKEY_BREEDER, BUILDINGS_DIR + "/donkey-breeder.png");
+        imagesToFileMap.put(RomYLst.DONKEY_BREEDER + 2, BUILDINGS_DIR + "/donkey-breeder-under-construction.png");
+        imagesToFileMap.put(RomYLst.HARBOR, BUILDINGS_DIR + "/harbor.png");
+        imagesToFileMap.put(RomYLst.HARBOR + 2, BUILDINGS_DIR + "/harbor-under-construction.png");
+        imagesToFileMap.put(RomYLst.CONSTRUCTION_PLANNED, BUILDINGS_DIR + "/construction-planned-sign.png");
         imagesToFileMap.put(RomYLst.CONSTRUCTION_JUST_STARTED_INDEX, BUILDINGS_DIR + "/construction-started-sign.png");
 
         writeFilesFromMap(romYLst, imagesToFileMap);
@@ -1460,37 +1460,37 @@ public class Extractor {
 
             List<GameResource> nationResourceList = assetManager.loadLstFile(filename, defaultPalette);
 
-            buildingsImageCollection.addBuildingForNation(nation, "Headquarter", getImageFromResourceLocation(nationResourceList, RomYLst.HEADQUARTER_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "Headquarter", getImageFromResourceLocation(nationResourceList, RomYLst.HEADQUARTER));
             buildingsImageCollection.addBuildingShadowForNation(nation, "Headquarter", getImageFromResourceLocation(nationResourceList, RomYLst.HEADQUARTER_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Barracks", getImageFromResourceLocation(nationResourceList, RomYLst.BARRACKS_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "Barracks", getImageFromResourceLocation(nationResourceList, RomYLst.BARRACKS));
             buildingsImageCollection.addBuildingShadowForNation(nation, "Barracks", getImageFromResourceLocation(nationResourceList, RomYLst.BARRACKS_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Barracks", getImageFromResourceLocation(nationResourceList, RomYLst.BARRACKS_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Barracks", getImageFromResourceLocation(nationResourceList, RomYLst.BARRACKS + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "Barracks", getImageFromResourceLocation(nationResourceList, RomYLst.BARRACKS_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "GuardHouse", getImageFromResourceLocation(nationResourceList, RomYLst.GUARDHOUSE_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "GuardHouse", getImageFromResourceLocation(nationResourceList, RomYLst.GUARDHOUSE));
             buildingsImageCollection.addBuildingShadowForNation(nation, "GuardHouse", getImageFromResourceLocation(nationResourceList, RomYLst.GUARDHOUSE_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "GuardHouse", getImageFromResourceLocation(nationResourceList, RomYLst.GUARDHOUSE_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "GuardHouse", getImageFromResourceLocation(nationResourceList, RomYLst.GUARDHOUSE + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "GuardHouse", getImageFromResourceLocation(nationResourceList, RomYLst.GUARDHOUSE_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "WatchTower", getImageFromResourceLocation(nationResourceList, RomYLst.WATCHTOWER_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "WatchTower", getImageFromResourceLocation(nationResourceList, RomYLst.WATCHTOWER));
             buildingsImageCollection.addBuildingShadowForNation(nation, "WatchTower", getImageFromResourceLocation(nationResourceList, RomYLst.WATCHTOWER_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "WatchTower", getImageFromResourceLocation(nationResourceList, RomYLst.WATCHTOWER_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "WatchTower", getImageFromResourceLocation(nationResourceList, RomYLst.WATCHTOWER + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "WatchTower", getImageFromResourceLocation(nationResourceList, RomYLst.WATCHTOWER_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Fortress", getImageFromResourceLocation(nationResourceList, RomYLst.FORTRESS_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "Fortress", getImageFromResourceLocation(nationResourceList, RomYLst.FORTRESS));
             buildingsImageCollection.addBuildingShadowForNation(nation, "Fortress", getImageFromResourceLocation(nationResourceList, RomYLst.FORTRESS_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Fortress", getImageFromResourceLocation(nationResourceList, RomYLst.FORTRESS_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Fortress", getImageFromResourceLocation(nationResourceList, RomYLst.FORTRESS + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "Fortress", getImageFromResourceLocation(nationResourceList, RomYLst.FORTRESS_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "GraniteMine", getImageFromResourceLocation(nationResourceList, RomYLst.GRANITE_MINE_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "GraniteMine", getImageFromResourceLocation(nationResourceList, RomYLst.GRANITE_MINE));
             buildingsImageCollection.addBuildingShadowForNation(nation, "GraniteMine", getImageFromResourceLocation(nationResourceList, RomYLst.GRANITE_MINE_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "GraniteMine", getImageFromResourceLocation(nationResourceList, RomYLst.GRANITE_MINE_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "GraniteMine", getImageFromResourceLocation(nationResourceList, RomYLst.GRANITE_MINE + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "GraniteMine", getImageFromResourceLocation(nationResourceList, RomYLst.GRANITE_MINE_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "CoalMine", getImageFromResourceLocation(nationResourceList, RomYLst.COAL_MINE_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "CoalMine", getImageFromResourceLocation(nationResourceList, RomYLst.COAL_MINE));
             buildingsImageCollection.addBuildingShadowForNation(nation, "CoalMine", getImageFromResourceLocation(nationResourceList, RomYLst.COAL_MINE_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "CoalMine", getImageFromResourceLocation(nationResourceList, RomYLst.COAL_MINE_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "CoalMine", getImageFromResourceLocation(nationResourceList, RomYLst.COAL_MINE + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "CoalMine", getImageFromResourceLocation(nationResourceList, RomYLst.COAL_MINE_UNDER_CONSTRUCTION_SHADOW));
 
             buildingsImageCollection.addBuildingForNation(nation, "IronMine", getImageFromResourceLocation(nationResourceList, RomYLst.IRON_MINE_RESOURCE));
@@ -1498,127 +1498,127 @@ public class Extractor {
             buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "IronMine", getImageFromResourceLocation(nationResourceList, RomYLst.IRON_MINE_RESOURCE + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "IronMine", getImageFromResourceLocation(nationResourceList, RomYLst.IRON_MINE_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "GoldMine", getImageFromResourceLocation(nationResourceList, RomYLst.GOLD_MINE_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "GoldMine", getImageFromResourceLocation(nationResourceList, RomYLst.GOLD_MINE));
             buildingsImageCollection.addBuildingShadowForNation(nation, "GoldMine", getImageFromResourceLocation(nationResourceList, RomYLst.GOLD_MINE_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "GoldMine", getImageFromResourceLocation(nationResourceList, RomYLst.GOLD_MINE_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "GoldMine", getImageFromResourceLocation(nationResourceList, RomYLst.GOLD_MINE + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "GoldMine", getImageFromResourceLocation(nationResourceList, RomYLst.GOLD_MINE_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "LookoutTower", getImageFromResourceLocation(nationResourceList, RomYLst.LOOKOUT_TOWER_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "LookoutTower", getImageFromResourceLocation(nationResourceList, RomYLst.LOOKOUT_TOWER));
             buildingsImageCollection.addBuildingShadowForNation(nation, "LookoutTower", getImageFromResourceLocation(nationResourceList, RomYLst.LOOKOUT_TOWER_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "LookoutTower", getImageFromResourceLocation(nationResourceList, RomYLst.LOOKOUT_TOWER_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "LookoutTower", getImageFromResourceLocation(nationResourceList, RomYLst.LOOKOUT_TOWER + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "LookoutTower", getImageFromResourceLocation(nationResourceList, RomYLst.LOOKOUT_TOWER_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Catapult", getImageFromResourceLocation(nationResourceList, RomYLst.CATAPULT_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "Catapult", getImageFromResourceLocation(nationResourceList, RomYLst.CATAPULT));
             buildingsImageCollection.addBuildingShadowForNation(nation, "Catapult", getImageFromResourceLocation(nationResourceList, RomYLst.CATAPULT_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Catapult", getImageFromResourceLocation(nationResourceList, RomYLst.CATAPULT_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Catapult", getImageFromResourceLocation(nationResourceList, RomYLst.CATAPULT + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "Catapult", getImageFromResourceLocation(nationResourceList, RomYLst.CATAPULT_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Woodcutter", getImageFromResourceLocation(nationResourceList, RomYLst.WOODCUTTER_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "Woodcutter", getImageFromResourceLocation(nationResourceList, RomYLst.WOODCUTTER));
             buildingsImageCollection.addBuildingShadowForNation(nation, "Woodcutter", getImageFromResourceLocation(nationResourceList, RomYLst.WOODCUTTER_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Woodcutter", getImageFromResourceLocation(nationResourceList, RomYLst.WOODCUTTER_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Woodcutter", getImageFromResourceLocation(nationResourceList, RomYLst.WOODCUTTER + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "Woodcutter", getImageFromResourceLocation(nationResourceList, RomYLst.WOODCUTTER_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Fishery", getImageFromResourceLocation(nationResourceList, RomYLst.FISHERY_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "Fishery", getImageFromResourceLocation(nationResourceList, RomYLst.FISHERY));
             buildingsImageCollection.addBuildingShadowForNation(nation, "Fishery", getImageFromResourceLocation(nationResourceList, RomYLst.FISHERY_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Fishery", getImageFromResourceLocation(nationResourceList, RomYLst.FISHERY_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Fishery", getImageFromResourceLocation(nationResourceList, RomYLst.FISHERY + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "Fishery", getImageFromResourceLocation(nationResourceList, RomYLst.FISHERY_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Quarry", getImageFromResourceLocation(nationResourceList, RomYLst.QUARRY_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "Quarry", getImageFromResourceLocation(nationResourceList, RomYLst.QUARRY));
             buildingsImageCollection.addBuildingShadowForNation(nation, "Quarry", getImageFromResourceLocation(nationResourceList, RomYLst.QUARRY_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Quarry", getImageFromResourceLocation(nationResourceList, RomYLst.QUARRY_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Quarry", getImageFromResourceLocation(nationResourceList, RomYLst.QUARRY + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "Quarry", getImageFromResourceLocation(nationResourceList, RomYLst.QUARRY_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "ForesterHut", getImageFromResourceLocation(nationResourceList, RomYLst.FORESTER_HUT_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "ForesterHut", getImageFromResourceLocation(nationResourceList, RomYLst.FORESTER_HUT));
             buildingsImageCollection.addBuildingShadowForNation(nation, "ForesterHut", getImageFromResourceLocation(nationResourceList, RomYLst.FORESTER_HUT_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "ForesterHut", getImageFromResourceLocation(nationResourceList, RomYLst.FORESTER_HUT_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "ForesterHut", getImageFromResourceLocation(nationResourceList, RomYLst.FORESTER_HUT + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "ForesterHut", getImageFromResourceLocation(nationResourceList, RomYLst.FORESTER_HUT_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "SlaughterHouse", getImageFromResourceLocation(nationResourceList, RomYLst.SLAUGHTER_HOUSE_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "SlaughterHouse", getImageFromResourceLocation(nationResourceList, RomYLst.SLAUGHTER_HOUSE));
             buildingsImageCollection.addBuildingShadowForNation(nation, "SlaughterHouse", getImageFromResourceLocation(nationResourceList, RomYLst.SLAUGHTER_HOUSE_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "SlaughterHouse", getImageFromResourceLocation(nationResourceList, RomYLst.SLAUGHTER_HOUSE_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "SlaughterHouse", getImageFromResourceLocation(nationResourceList, RomYLst.SLAUGHTER_HOUSE + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "SlaughterHouse", getImageFromResourceLocation(nationResourceList, RomYLst.SLAUGHTER_HOUSE_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "HunterHut", getImageFromResourceLocation(nationResourceList, RomYLst.HUNTER_HUT_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "HunterHut", getImageFromResourceLocation(nationResourceList, RomYLst.HUNTER_HUT));
             buildingsImageCollection.addBuildingShadowForNation(nation, "HunterHut", getImageFromResourceLocation(nationResourceList, RomYLst.HUNTER_HUT_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "HunterHut", getImageFromResourceLocation(nationResourceList, RomYLst.HUNTER_HUT_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "HunterHut", getImageFromResourceLocation(nationResourceList, RomYLst.HUNTER_HUT + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "HunterHut", getImageFromResourceLocation(nationResourceList, RomYLst.HUNTER_HUT_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Brewery", getImageFromResourceLocation(nationResourceList, RomYLst.BREWERY_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "Brewery", getImageFromResourceLocation(nationResourceList, RomYLst.BREWERY));
             buildingsImageCollection.addBuildingShadowForNation(nation, "Brewery", getImageFromResourceLocation(nationResourceList, RomYLst.BREWERY_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Brewery", getImageFromResourceLocation(nationResourceList, RomYLst.BREWERY_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Brewery", getImageFromResourceLocation(nationResourceList, RomYLst.BREWERY + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "Brewery", getImageFromResourceLocation(nationResourceList, RomYLst.BREWERY_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Armory", getImageFromResourceLocation(nationResourceList, RomYLst.ARMORY_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "Armory", getImageFromResourceLocation(nationResourceList, RomYLst.ARMORY));
             buildingsImageCollection.addBuildingShadowForNation(nation, "Armory", getImageFromResourceLocation(nationResourceList, RomYLst.ARMORY_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Armory", getImageFromResourceLocation(nationResourceList, RomYLst.ARMORY_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Armory", getImageFromResourceLocation(nationResourceList, RomYLst.ARMORY + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "Armory", getImageFromResourceLocation(nationResourceList, RomYLst.ARMORY_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Metalworks", getImageFromResourceLocation(nationResourceList, RomYLst.METALWORKS_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "Metalworks", getImageFromResourceLocation(nationResourceList, RomYLst.METALWORKS));
             buildingsImageCollection.addBuildingShadowForNation(nation, "Metalworks", getImageFromResourceLocation(nationResourceList, RomYLst.METALWORKS_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Metalworks", getImageFromResourceLocation(nationResourceList, RomYLst.METALWORKS_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Metalworks", getImageFromResourceLocation(nationResourceList, RomYLst.METALWORKS + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "Metalworks", getImageFromResourceLocation(nationResourceList, RomYLst.METALWORKS_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "IronSmelter", getImageFromResourceLocation(nationResourceList, RomYLst.IRON_SMELTER_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "IronSmelter", getImageFromResourceLocation(nationResourceList, RomYLst.IRON_SMELTER));
             buildingsImageCollection.addBuildingShadowForNation(nation, "IronSmelter", getImageFromResourceLocation(nationResourceList, RomYLst.IRON_SMELTER_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "IronSmelter", getImageFromResourceLocation(nationResourceList, RomYLst.IRON_SMELTER_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "IronSmelter", getImageFromResourceLocation(nationResourceList, RomYLst.IRON_SMELTER + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "IronSmelter", getImageFromResourceLocation(nationResourceList, RomYLst.IRON_SMELTER_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "PigFarm", getImageFromResourceLocation(nationResourceList, RomYLst.PIG_FARM_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "PigFarm", getImageFromResourceLocation(nationResourceList, RomYLst.PIG_FARM));
             buildingsImageCollection.addBuildingShadowForNation(nation, "PigFarm", getImageFromResourceLocation(nationResourceList, RomYLst.PIG_FARM_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "PigFarm", getImageFromResourceLocation(nationResourceList, RomYLst.PIG_FARM_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "PigFarm", getImageFromResourceLocation(nationResourceList, RomYLst.PIG_FARM + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "PigFarm", getImageFromResourceLocation(nationResourceList, RomYLst.PIG_FARM_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Storehouse", getImageFromResourceLocation(nationResourceList, RomYLst.STOREHOUSE_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "Storehouse", getImageFromResourceLocation(nationResourceList, RomYLst.STOREHOUSE));
             buildingsImageCollection.addBuildingShadowForNation(nation, "Storehouse", getImageFromResourceLocation(nationResourceList, RomYLst.STOREHOUSE_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Storehouse", getImageFromResourceLocation(nationResourceList, RomYLst.STOREHOUSE_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Storehouse", getImageFromResourceLocation(nationResourceList, RomYLst.STOREHOUSE + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "Storehouse", getImageFromResourceLocation(nationResourceList, RomYLst.STOREHOUSE_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Mill", getImageFromResourceLocation(nationResourceList, RomYLst.MILL_NO_FAN_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "Mill", getImageFromResourceLocation(nationResourceList, RomYLst.MILL_NO));
             buildingsImageCollection.addBuildingShadowForNation(nation, "Mill", getImageFromResourceLocation(nationResourceList, RomYLst.MILL_NO_FAN_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Mill", getImageFromResourceLocation(nationResourceList, RomYLst.MILL_NO_FAN_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Mill", getImageFromResourceLocation(nationResourceList, RomYLst.MILL_NO + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "Mill", getImageFromResourceLocation(nationResourceList, RomYLst.MILL_NO_FAN_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Bakery", getImageFromResourceLocation(nationResourceList, RomYLst.BAKERY_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "Bakery", getImageFromResourceLocation(nationResourceList, RomYLst.BAKERY));
             buildingsImageCollection.addBuildingShadowForNation(nation, "Bakery", getImageFromResourceLocation(nationResourceList, RomYLst.BAKERY_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Bakery", getImageFromResourceLocation(nationResourceList, RomYLst.BAKERY_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Bakery", getImageFromResourceLocation(nationResourceList, RomYLst.BAKERY + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "Bakery", getImageFromResourceLocation(nationResourceList, RomYLst.BAKERY_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Sawmill", getImageFromResourceLocation(nationResourceList, RomYLst.SAWMILL_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "Sawmill", getImageFromResourceLocation(nationResourceList, RomYLst.SAWMILL));
             buildingsImageCollection.addBuildingShadowForNation(nation, "Sawmill", getImageFromResourceLocation(nationResourceList, RomYLst.SAWMILL_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Sawmill", getImageFromResourceLocation(nationResourceList, RomYLst.SAWMILL_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Sawmill", getImageFromResourceLocation(nationResourceList, RomYLst.SAWMILL + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "Sawmill", getImageFromResourceLocation(nationResourceList, RomYLst.SAWMILL_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Mint", getImageFromResourceLocation(nationResourceList, RomYLst.MINT_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "Mint", getImageFromResourceLocation(nationResourceList, RomYLst.MINT));
             buildingsImageCollection.addBuildingShadowForNation(nation, "Mint", getImageFromResourceLocation(nationResourceList, RomYLst.MINT_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Mint", getImageFromResourceLocation(nationResourceList, RomYLst.MINT_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Mint", getImageFromResourceLocation(nationResourceList, RomYLst.MINT + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "Mint", getImageFromResourceLocation(nationResourceList, RomYLst.MINT_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Well", getImageFromResourceLocation(nationResourceList, RomYLst.WELL_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "Well", getImageFromResourceLocation(nationResourceList, RomYLst.WELL));
             buildingsImageCollection.addBuildingShadowForNation(nation, "Well", getImageFromResourceLocation(nationResourceList, RomYLst.WELL_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Well", getImageFromResourceLocation(nationResourceList, RomYLst.WELL_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Well", getImageFromResourceLocation(nationResourceList, RomYLst.WELL + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "Well", getImageFromResourceLocation(nationResourceList, RomYLst.WELL_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Shipyard", getImageFromResourceLocation(nationResourceList, RomYLst.SHIPYARD_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "Shipyard", getImageFromResourceLocation(nationResourceList, RomYLst.SHIPYARD));
             buildingsImageCollection.addBuildingShadowForNation(nation, "Shipyard", getImageFromResourceLocation(nationResourceList, RomYLst.SHIPYARD_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Shipyard", getImageFromResourceLocation(nationResourceList, RomYLst.SHIPYARD_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Shipyard", getImageFromResourceLocation(nationResourceList, RomYLst.SHIPYARD + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "Shipyard", getImageFromResourceLocation(nationResourceList, RomYLst.SHIPYARD_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Farm", getImageFromResourceLocation(nationResourceList, RomYLst.FARM_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "Farm", getImageFromResourceLocation(nationResourceList, RomYLst.FARM));
             buildingsImageCollection.addBuildingShadowForNation(nation, "Farm", getImageFromResourceLocation(nationResourceList, RomYLst.FARM_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Farm", getImageFromResourceLocation(nationResourceList, RomYLst.FARM_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Farm", getImageFromResourceLocation(nationResourceList, RomYLst.FARM + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "Farm", getImageFromResourceLocation(nationResourceList, RomYLst.FARM_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "DonkeyBreeder", getImageFromResourceLocation(nationResourceList, RomYLst.DONKEY_BREEDER_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "DonkeyBreeder", getImageFromResourceLocation(nationResourceList, RomYLst.DONKEY_BREEDER));
             buildingsImageCollection.addBuildingShadowForNation(nation, "DonkeyBreeder", getImageFromResourceLocation(nationResourceList, RomYLst.DONKEY_BREEDER_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "DonkeyBreeder", getImageFromResourceLocation(nationResourceList, RomYLst.DONKEY_BREEDER_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "DonkeyBreeder", getImageFromResourceLocation(nationResourceList, RomYLst.DONKEY_BREEDER + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "DonkeyBreeder", getImageFromResourceLocation(nationResourceList, RomYLst.DONKEY_BREEDER_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addBuildingForNation(nation, "Harbor", getImageFromResourceLocation(nationResourceList, RomYLst.HARBOR_INDEX));
+            buildingsImageCollection.addBuildingForNation(nation, "Harbor", getImageFromResourceLocation(nationResourceList, RomYLst.HARBOR));
             buildingsImageCollection.addBuildingShadowForNation(nation, "Harbor", getImageFromResourceLocation(nationResourceList, RomYLst.HARBOR_SHADOW));
-            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Harbor", getImageFromResourceLocation(nationResourceList, RomYLst.HARBOR_INDEX + 2));
+            buildingsImageCollection.addBuildingUnderConstructionForNation(nation, "Harbor", getImageFromResourceLocation(nationResourceList, RomYLst.HARBOR + 2));
             buildingsImageCollection.addBuildingUnderConstructionShadowForNation(nation, "Harbor", getImageFromResourceLocation(nationResourceList, RomYLst.HARBOR_UNDER_CONSTRUCTION_SHADOW));
 
-            buildingsImageCollection.addConstructionPlanned(nation, getImageFromResourceLocation(nationResourceList, RomYLst.CONSTRUCTION_PLANNED_INDEX));
+            buildingsImageCollection.addConstructionPlanned(nation, getImageFromResourceLocation(nationResourceList, RomYLst.CONSTRUCTION_PLANNED));
             buildingsImageCollection.addConstructionPlannedShadow(nation, getImageFromResourceLocation(nationResourceList, RomYLst.CONSTRUCTION_PLANNED_SHADOW));
             buildingsImageCollection.addConstructionJustStarted(nation, getImageFromResourceLocation(nationResourceList, RomYLst.CONSTRUCTION_JUST_STARTED_INDEX));
             buildingsImageCollection.addConstructionJustStartedShadow(nation, getImageFromResourceLocation(nationResourceList, RomYLst.CONSTRUCTION_JUST_STARTED_SHADOW));
