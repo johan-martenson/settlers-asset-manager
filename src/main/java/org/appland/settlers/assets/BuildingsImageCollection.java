@@ -58,15 +58,15 @@ public class BuildingsImageCollection {
 
     public void writeImageAtlas(String directory, Palette palette) throws IOException {
 
-        // Calculate the size of the image atlas and create it
+        // Create the image atlas
         ImageBoard imageBoard = new ImageBoard();
+
+        JSONObject jsonImageAtlas = new JSONObject();
 
         // Fill in the image atlas and fill in the meta-data
         int startNextNationAtX = 0;
         int currentNationStartedAtX = 0;
         Point cursor = new Point(0, 0);
-
-        JSONObject jsonImageAtlas = new JSONObject();
 
         JSONObject jsonRegularBuildings = new JSONObject();
 

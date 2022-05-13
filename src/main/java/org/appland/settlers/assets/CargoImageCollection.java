@@ -13,6 +13,7 @@ import java.util.Map;
 public class CargoImageCollection {
     private final Map<Material, Bitmap> cargos;
     private final Map<Nation, Map<Material, Bitmap>> nationCargos;
+    private final Map<Bitmap, Material> imageToMaterial;
 
     public CargoImageCollection() {
         nationCargos = new HashMap<>();
@@ -21,10 +22,12 @@ public class CargoImageCollection {
         for (Nation nation : Nation.values()) {
             nationCargos.put(nation, new HashMap<>());
         }
+        imageToMaterial = new HashMap<>();
     }
 
     public void addCargoImage(Material material, Bitmap image) {
         cargos.put(material, image);
+        imageToMaterial.put(image, material);
     }
 
     public void addCargoImageForNation(Nation nation, Material material, Bitmap image) {
@@ -32,15 +35,6 @@ public class CargoImageCollection {
     }
 
     public void writeImageAtlas(String toDir, Palette palette) throws IOException {
-
-        // Calculate the dimensions for the image atlas
-        Utils.RowLayoutInfo aggregatedLayout = new Utils.RowLayoutInfo();
-
-        aggregatedLayout.aggregate(Utils.layoutInfoFromImageSeries(cargos.values()));
-
-        for (Nation nation : Nation.values()) {
-            aggregatedLayout.aggregate(Utils.layoutInfoFromImageSeries(nationCargos.get(nation).values()));
-        }
 
         // Create the image atlas
         ImageBoard imageBoard = new ImageBoard();
@@ -54,38 +48,28 @@ public class CargoImageCollection {
         jsonImageAtlas.put("generic", jsonGeneric);
         jsonImageAtlas.put("nationSpecific", jsonNationSpecific);
 
-        int imageIndex = 0;
-        int nextYAt = 0;
+        Point cursor = new Point(0, 0);
+        int maxGenericCargoWidth = 0;
+
+        // Generic (non-nation specific) cargo images
         for (Map.Entry<Material, Bitmap> entry : cargos.entrySet()) {
 
             Material material = entry.getKey();
             Bitmap image = entry.getValue();
 
-            Point offset = aggregatedLayout.getImageAtlasOffsetForImage(image);
-            Point center = aggregatedLayout.getDrawOffset();
+            imageBoard.placeImage(image, cursor);
 
-            int x = 0;
-            int y = nextYAt;
-
-            imageBoard.placeImage(image, x + offset.x, y + offset.y);
-
-            JSONObject jsonCargoImage = new JSONObject();
+            JSONObject jsonCargoImage = imageBoard.imageLocationToJson(image);
 
             jsonGeneric.put(material.name().toLowerCase(), jsonCargoImage);
 
-            jsonCargoImage.put("x", x);
-            jsonCargoImage.put("y", y);
-            jsonCargoImage.put("width", aggregatedLayout.getImageWidth());
-            jsonCargoImage.put("height", aggregatedLayout.getImageHeight());
-            jsonCargoImage.put("offsetX", center.x);
-            jsonCargoImage.put("offsetY", center.y);
+            maxGenericCargoWidth = Math.max(maxGenericCargoWidth, image.width);
 
-            nextYAt = nextYAt + aggregatedLayout.getRowHeight();
-
-            imageIndex = imageIndex + 1;
+            cursor.y = cursor.y + image.height;
         }
 
-        nextYAt = 0;
+        cursor.y = 0;
+        cursor.x = maxGenericCargoWidth;
 
         for (Nation nation : Nation.values()) {
 
@@ -98,28 +82,13 @@ public class CargoImageCollection {
                 Material material = entry.getKey();
                 Bitmap image = entry.getValue();
 
-                int x = aggregatedLayout.getImageWidth();
-                int y = nextYAt;
+                imageBoard.placeImage(image, cursor);
 
-                Point offset = aggregatedLayout.getImageAtlasOffsetForImage(image);
-                Point center = aggregatedLayout.getDrawOffset();
-
-                imageBoard.placeImage(image, x + offset.x, y + offset.y);
-
-                JSONObject jsonCargoImage = new JSONObject();
+                JSONObject jsonCargoImage = imageBoard.imageLocationToJson(image);
 
                 jsonNation.put(material.name().toLowerCase(), jsonCargoImage);
 
-                jsonCargoImage.put("x", x);
-                jsonCargoImage.put("y", y);
-                jsonCargoImage.put("width", aggregatedLayout.getImageWidth());
-                jsonCargoImage.put("height", aggregatedLayout.getImageHeight());
-                jsonCargoImage.put("offsetX", center.x);
-                jsonCargoImage.put("offsetY", center.y);
-
-                nextYAt = nextYAt + aggregatedLayout.getRowHeight();
-
-                imageIndex = imageIndex + 1;
+                cursor.y = cursor.y + image.height;
             }
         }
 
