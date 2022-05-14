@@ -757,9 +757,21 @@ public class Extractor {
         FireImageCollection fireImageCollection = new FireImageCollection();
 
         fireImageCollection.addImagesForFire(FireSize.MINI, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.MINI_FIRE_ANIMATION, 8));
-        fireImageCollection.addImagesForFire(FireSize.SMALL, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.SMALL_FIRE_ANIMATION, 8));
-        fireImageCollection.addImagesForFire(FireSize.MEDIUM, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.MEDIUM_FIRE_ANIMATION, 8));
-        fireImageCollection.addImagesForFire(FireSize.LARGE, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.LARGE_FIRE_ANIMATION, 8));
+        fireImageCollection.addImagesForFireWithShadow(
+                FireSize.SMALL,
+                getImagesFromResourceLocations(mapbobsLst, MapBobsLst.SMALL_FIRE_ANIMATION, 8),
+                getImagesFromResourceLocations(mapbobsLst, MapBobsLst.SMALL_FIRE_SHADOW_ANIMATION, 8)
+        );
+        fireImageCollection.addImagesForFireWithShadow(
+                FireSize.MEDIUM,
+                getImagesFromResourceLocations(mapbobsLst, MapBobsLst.MEDIUM_FIRE_ANIMATION, 8),
+                getImagesFromResourceLocations(mapbobsLst, MapBobsLst.MEDIUM_FIRE_SHADOW_ANIMATION, 8)
+        );
+        fireImageCollection.addImagesForFireWithShadow(
+                FireSize.LARGE,
+                getImagesFromResourceLocations(mapbobsLst, MapBobsLst.LARGE_FIRE_ANIMATION, 8),
+                getImagesFromResourceLocations(mapbobsLst, MapBobsLst.LARGE_FIRE_SHADOW_ANIMATION, 8)
+        );
 
         fireImageCollection.addBurntDownImage(SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.SMALL_BURNT_DOWN));
         fireImageCollection.addBurntDownImage(MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.MEDIUM_BURNT_DOWN));
