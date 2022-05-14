@@ -1015,24 +1015,82 @@ public class Extractor {
          */
         DecorativeImageCollection decorativeImageCollection = new DecorativeImageCollection();
 
-        decorativeImageCollection.addMushroomImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_MUSHROOM));
-        decorativeImageCollection.addMiniStoneImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_MINI_STONE));
-        decorativeImageCollection.addMiniStonesImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_MINI_STONES));
-        decorativeImageCollection.addStoneImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_STONE));
-        decorativeImageCollection.addFallenTreeImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_FALLEN_TREE));
-        decorativeImageCollection.addStandingDeadTreeImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_STANDING_DEAD_TREE));
-        decorativeImageCollection.addSkeletonImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_SKELETON));
-        decorativeImageCollection.addMiniSkeletonImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_MINI_SKELETON));
-        decorativeImageCollection.addFlowersImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_FLOWERS));
-        decorativeImageCollection.addBushImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_BUSH));
-        decorativeImageCollection.addLargerStonesImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_LARGER_STONES));
-        decorativeImageCollection.addCactus1Image(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_CACTUS_1));
-        decorativeImageCollection.addCactus2Image(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_CACTUS_2));
-        decorativeImageCollection.addBeachGrassImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_BEACH_GRASS));
-        decorativeImageCollection.addSmallGrassImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_SMALL_GRASS));
+        decorativeImageCollection.addDecorationImageWithShadow(
+                Decoration.MUSHROOM,
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_MUSHROOM),
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_MUSHROOM_SHADOW)
+        );
+        decorativeImageCollection.addDecorationImageWithShadow(
+                Decoration.MINI_STONE,
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_MINI_STONE),
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_MINI_STONE_SHADOW)
+        );
+        decorativeImageCollection.addDecorationImageWithShadow(
+                Decoration.MINI_STONES,
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_MINI_STONES),
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_MINI_STONES_SHADOW)
+        );
+        decorativeImageCollection.addDecorationImageWithShadow(
+                Decoration.STONE,
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_STONE),
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_STONE_SHADOW)
+        );
+        decorativeImageCollection.addDecorationImageWithShadow(
+                Decoration.FALLEN_TREE,
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_FALLEN_TREE),
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_FALLEN_TREE_SHADOW));
+        decorativeImageCollection.addDecorationImageWithShadow(
+                Decoration.STANDING_DEAD_TREE,
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_STANDING_DEAD_TREE),
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_STANDING_DEAD_TREE_SHADOW)
+                );
+        decorativeImageCollection.addDecorationImageWithShadow(
+                Decoration.SKELETON,
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_SKELETON),
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_SKELETON_SHADOW)
+        );
+        decorativeImageCollection.addDecorationImageWithShadow(
+                Decoration.MINI_SKELETON,
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_MINI_SKELETON),
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_MINI_SKELETON_SHADOW)
+        );
+        decorativeImageCollection.addDecorationImageWithShadow(
+                Decoration.FLOWERS,
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_FLOWERS),
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_FLOWERS_SHADOW)
+        );
+        decorativeImageCollection.addDecorationImageWithShadow(
+                Decoration.BUSH,
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_BUSH),
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_BUSH_SHADOW)
+        );
+        decorativeImageCollection.addDecorationImageWithShadow(
+                Decoration.LARGER_STONES,
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_LARGER_STONES),
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_LARGER_STONES_SHADOW)
+        );
+        decorativeImageCollection.addDecorationImageWithShadow(
+                Decoration.CACTUS_1,
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_CACTUS_1),
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_CACTUS_1_SHADOW)
+        );
+        decorativeImageCollection.addDecorationImageWithShadow(
+                Decoration.CACTUS_2,
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_CACTUS_2),
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_CACTUS_2_SHADOW)
+        );
+        decorativeImageCollection.addDecorationImageWithShadow(
+                Decoration.BEACH_GRASS,
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_BEACH_GRASS),
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_BEACH_GRASS_SHADOW)
+        );
+        decorativeImageCollection.addDecorationImageWithShadow(
+                Decoration.SMALL_GRASS,
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_SMALL_GRASS),
+                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_SMALL_GRASS_SHADOW)
+        );
 
         decorativeImageCollection.writeImageAtlas(toDir, defaultPalette);
-
     }
 
     private void extractWinterTerrain(String winterDir, Bitmap winterTextureBitmap) throws IOException {
