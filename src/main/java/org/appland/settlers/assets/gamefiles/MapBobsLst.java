@@ -269,4 +269,5 @@ public class MapBobsLst {
     public static final int SMALL_FIRE_SHADOW_ANIMATION = 1058;
     public static final int MEDIUM_FIRE_SHADOW_ANIMATION = 1066;
     public static final int LARGE_FIRE_SHADOW_ANIMATION = 1074;
+    public static final int SIGN_SHADOW = 386;
 }

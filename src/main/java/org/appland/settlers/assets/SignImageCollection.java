@@ -3,6 +3,7 @@ package org.appland.settlers.assets;
 import org.appland.settlers.model.Size;
 import org.json.simple.JSONObject;
 
+import java.awt.Point;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -14,6 +15,7 @@ import java.util.Map;
 public class SignImageCollection {
     private final Map<SignType, Map<Size, Bitmap>> signTypeToImageMap;
     private final List<SignType> SIGN_TYPES = Arrays.asList(SignType.values());
+    private Bitmap shadowImage;
 
     public SignImageCollection() {
         signTypeToImageMap = new HashMap<>();
@@ -27,33 +29,26 @@ public class SignImageCollection {
 
     public void writeImageAtlas(String toDir, Palette palette) throws IOException {
 
-        // Calculate the dimensions of the image atlas
-        int maxWidth = 0;
-        int maxHeight = 0;
-
-        for (SignType signType : SIGN_TYPES) {
-            for (Size size : signTypeToImageMap.get(signType).keySet()) {
-                Bitmap image = signTypeToImageMap.get(signType).get(size);
-
-                maxWidth = Math.max(maxWidth, image.width);
-                maxHeight = Math.max(maxHeight, image.height);
-            }
-        }
-
         // Create the image atlas and meta-data
         ImageBoard imageBoard = new ImageBoard();
 
         JSONObject jsonImageAtlas = new JSONObject();
+        JSONObject jsonImages = new JSONObject();
+
+        jsonImageAtlas.put("images", jsonImages);
 
         // Fill in the image atlas
-        int materialIndex = 0;
+        Point cursor = new Point(0, 0);
+        int rowHeight = 0;
+
         for (SignType signType : SIGN_TYPES) {
+
+            cursor.x = 0;
 
             JSONObject jsonMaterial = new JSONObject();
 
-            jsonImageAtlas.put(signType.name().toLowerCase(), jsonMaterial);
+            jsonImages.put(signType.name().toLowerCase(), jsonMaterial);
 
-            int sizeIndex = 0;
             for (Size size : signTypeToImageMap.get(signType).keySet()) {
                 Bitmap image = signTypeToImageMap.get(signType).get(size);
 
@@ -61,21 +56,34 @@ public class SignImageCollection {
                     continue;
                 }
 
-                imageBoard.placeImage(image, sizeIndex * maxWidth, materialIndex * maxHeight);
+                imageBoard.placeImage(image, cursor);
 
                 JSONObject jsonSign = imageBoard.imageLocationToJson(image);
 
                 jsonMaterial.put(size.name().toUpperCase(), jsonSign);
 
-                sizeIndex = sizeIndex + 1;
+                rowHeight = Math.max(rowHeight, image.getHeight());
+
+                cursor.x = cursor.x + image.getWidth();
             }
 
-            materialIndex = materialIndex + 1;
+            cursor.y = cursor.y + rowHeight;
         }
+
+        // Write the shadow image
+        cursor.x = 0;
+
+        imageBoard.placeImage(shadowImage, cursor);
+
+        jsonImageAtlas.put("shadowImage", imageBoard.imageLocationToJson(shadowImage));
 
         // Write the image atlas image to file
         imageBoard.writeBoardToBitmap(palette).writeToFile(toDir + "/image-atlas-signs.png");
 
         Files.writeString(Paths.get(toDir, "image-atlas-signs.json"), jsonImageAtlas.toJSONString());
+    }
+
+    public void addShadowImage(Bitmap shadowImage) {
+        this.shadowImage = shadowImage;
     }
 }

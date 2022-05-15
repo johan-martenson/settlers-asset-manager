@@ -729,6 +729,8 @@ public class Extractor {
 
         signImageCollection.addImage(SignType.NOTHING, LARGE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.NOTHING_SIGN_UP_RIGHT));
 
+        signImageCollection.addShadowImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.SIGN_SHADOW));
+
         signImageCollection.writeImageAtlas(toDir, defaultPalette);
 
         /* Extract road building icons */
