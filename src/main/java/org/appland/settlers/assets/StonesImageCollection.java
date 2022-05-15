@@ -2,6 +2,7 @@ package org.appland.settlers.assets;
 
 import org.json.simple.JSONObject;
 
+import java.awt.Point;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -10,34 +11,27 @@ import java.util.Map;
 
 public class StonesImageCollection {
     private final Map<StoneType, Map<StoneAmount, Bitmap>> stoneMap;
+    private final Map<StoneType, Map<StoneAmount, Bitmap>> stoneShadowMap;
 
     public StonesImageCollection() {
         stoneMap = new HashMap<>();
+        stoneShadowMap = new HashMap<>();
 
         for (StoneType type : StoneType.values()) {
             stoneMap.put(type, new HashMap<>());
+            stoneShadowMap.put(type, new HashMap<>());
         }
     }
 
-    public void addImage(StoneType type, StoneAmount growth, Bitmap image) {
-        stoneMap.get(type).put(growth, image);
+    public void addImage(StoneType type, StoneAmount amount, Bitmap image) {
+        stoneMap.get(type).put(amount, image);
+    }
+
+    public void addShadowImage(StoneType type, StoneAmount amount, Bitmap image) {
+        stoneShadowMap.get(type).put(amount, image);
     }
 
     public void writeImageAtlas(String toDir, Palette palette) throws IOException {
-
-        // Calculate the size of the image atlas
-        int maxWidth = 0;
-        int maxHeight = 0;
-
-        for (StoneType StoneType : StoneType.values()) {
-            for (StoneAmount StoneAmount : StoneAmount.values()) {
-
-                Bitmap image = stoneMap.get(StoneType).get(StoneAmount);
-
-                maxWidth = Math.max(maxWidth, image.width);
-                maxHeight = Math.max(maxHeight, image.height);
-            }
-        }
 
         // Create the image atlas
         ImageBoard imageBoard = new ImageBoard();
@@ -45,31 +39,53 @@ public class StonesImageCollection {
         JSONObject jsonImageAtlas = new JSONObject();
 
         // Fill in the image atlas
-        int StoneTypeIndex = 0;
-        for (Map.Entry<StoneType, Map<StoneAmount, Bitmap>> entryForStoneType : this.stoneMap.entrySet()) {
+        Point cursor = new Point(0, 0);
+
+        for (StoneType stoneType : StoneType.values()) {
+
+            int rowHeight = 0;
+
+            cursor.x = 0;
 
             JSONObject jsonStoneType = new JSONObject();
 
-            jsonImageAtlas.put(entryForStoneType.getKey().name().toUpperCase(), jsonStoneType);
+            jsonImageAtlas.put(stoneType.name().toUpperCase(), jsonStoneType);
 
-            int StoneAmountIndex = 0;
+            // Stone images for the stone type
             for (StoneAmount StoneAmount : StoneAmount.values()) {
 
-                Bitmap image = entryForStoneType.getValue().get(StoneAmount);
+                Bitmap image = this.stoneMap.get(stoneType).get(StoneAmount);
 
-                int x = maxWidth * StoneAmountIndex;
-                int y = maxHeight * StoneTypeIndex;
+                imageBoard.placeImage(image, cursor);
 
-                imageBoard.placeImage(image, x, y);
+                JSONObject jsonStoneAmount = new JSONObject();
+                JSONObject jsonStoneImage = imageBoard.imageLocationToJson(image);
 
-                JSONObject jsonCropImage = imageBoard.imageLocationToJson(image);
+                jsonStoneAmount.put("image", jsonStoneImage);
+                jsonStoneType.put(StoneAmount.name().toUpperCase(), jsonStoneAmount);
 
-                jsonStoneType.put(StoneAmount.name().toUpperCase(), jsonCropImage);
+                rowHeight = Math.max(rowHeight, image.getHeight());
 
-                StoneAmountIndex = StoneAmountIndex + 1;
+                cursor.x = cursor.x + image.getWidth();
             }
 
-            StoneTypeIndex = StoneTypeIndex + 1;
+            // Stone shadow images for the stone type
+            for (StoneAmount StoneAmount : StoneAmount.values()) {
+
+                Bitmap shadowImage = this.stoneShadowMap.get(stoneType).get(StoneAmount);
+
+                imageBoard.placeImage(shadowImage, cursor);
+
+                JSONObject jsonShadowImage = imageBoard.imageLocationToJson(shadowImage);
+
+                ((JSONObject) jsonStoneType.get(StoneAmount.name().toUpperCase())).put("shadowImage", jsonShadowImage);
+
+                rowHeight = Math.max(rowHeight, shadowImage.getHeight());
+
+                cursor.x = cursor.x + shadowImage.getWidth();
+            }
+
+            cursor.y = cursor.y + rowHeight;
         }
 
         // Write the image atlas to disk

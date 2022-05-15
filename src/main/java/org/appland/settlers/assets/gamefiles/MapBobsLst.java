@@ -270,4 +270,16 @@ public class MapBobsLst {
     public static final int MEDIUM_FIRE_SHADOW_ANIMATION = 1066;
     public static final int LARGE_FIRE_SHADOW_ANIMATION = 1074;
     public static final int SIGN_SHADOW = 386;
+    public static final int STONE_TYPE_1_MINI_SHADOW = 344;
+    public static final int STONE_TYPE_1_LITTLE_SHADOW = 345;
+    public static final int STONE_TYPE_1_LITTLE_MORE_SHADOW = 346;
+    public static final int STONE_TYPE_1_MIDDLE_SHADOW = 347;
+    public static final int STONE_TYPE_1_ALMOST_FULL_SHADOW = 348;
+    public static final int STONE_TYPE_1_FULL_SHADOW = 349;
+    public static final int STONE_TYPE_2_MINI_SHADOW = 350;
+    public static final int STONE_TYPE_2_LITTLE_SHADOW = 351;
+    public static final int STONE_TYPE_2_LITTLE_MORE_SHADOW = 352;
+    public static final int STONE_TYPE_2_MIDDLE_SHADOW = 353;
+    public static final int STONE_TYPE_2_ALMOST_FULL_SHADOW = 354;
+    public static final int STONE_TYPE_2_FULL_SHADOW = 355;
 }
