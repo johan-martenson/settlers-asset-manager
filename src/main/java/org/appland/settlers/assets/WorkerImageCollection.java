@@ -2,6 +2,7 @@ package org.appland.settlers.assets;
 
 import org.json.simple.JSONObject;
 
+import java.awt.Point;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -35,63 +36,36 @@ public class WorkerImageCollection {
 
     public void writeImageAtlas(String directory, Palette palette) throws IOException {
 
-        // Find the max width and height, and the max number of images over all directions
-        Utils.RowLayoutInfo aggregatedLayoutInfo = new Utils.RowLayoutInfo();
-
-        for (Nation nation : Nation.values()) {
-            Map<Direction, List<Bitmap>> directionToImageMap = nationToDirectionToImageMap.get(nation);
-
-            for (Direction direction : Direction.values()) {
-                List<Bitmap> images = directionToImageMap.get(direction);
-
-                Utils.RowLayoutInfo layoutInfo = Utils.layoutInfoFromImageSeries(images);
-
-                aggregatedLayoutInfo.aggregate(layoutInfo);
-            }
-        }
-
         // Write the image atlas, one row per direction, and collect metadata to write as json
         ImageBoard imageBoard = new ImageBoard();
 
         JSONObject jsonImageAtlas = new JSONObject();
 
-        int nationIndex = 0;
+        Point cursor = new Point(0, 0);
+
         for (Nation nation : Nation.values()) {
+
+            cursor.x = 0;
+
             Map<Direction, List<Bitmap>> directionToImageMap = nationToDirectionToImageMap.get(nation);
 
             JSONObject jsonNationInfo = new JSONObject();
 
             jsonImageAtlas.put(nation.name().toLowerCase(), jsonNationInfo);
 
-            int directionIndex = 0;
+
             for (Direction direction : Direction.values()) {
 
-                JSONObject jsonDirectionInfo = new JSONObject();
+                List<Bitmap> workerImages = directionToImageMap.get(direction);
+                NormalizedImageList normalizedWorkerList = new NormalizedImageList(workerImages);
+                List<Bitmap> normalizedWorkerImages = normalizedWorkerList.getNormalizedImages();
 
-                jsonNationInfo.put(direction.name().toUpperCase(), jsonDirectionInfo);
+                imageBoard.placeImageSeries(normalizedWorkerImages, cursor, ImageBoard.LayoutDirection.ROW);
 
-                jsonDirectionInfo.put("startX", 0);
-                jsonDirectionInfo.put("startY", aggregatedLayoutInfo.getImageHeight() * (directionIndex + nationIndex * 6));
-                jsonDirectionInfo.put("width", aggregatedLayoutInfo.getImageWidth());
-                jsonDirectionInfo.put("height", aggregatedLayoutInfo.getImageHeight());
-                jsonDirectionInfo.put("nrImages", directionToImageMap.get(direction).size());
-                jsonDirectionInfo.put("offsetX", aggregatedLayoutInfo.maxNx);
-                jsonDirectionInfo.put("offsetY", aggregatedLayoutInfo.maxNy);
+                jsonNationInfo.put(direction.name().toUpperCase(), imageBoard.imageSeriesLocationToJson(normalizedWorkerImages));
 
-                int imageIndex = 0;
-                for (Bitmap image : directionToImageMap.get(direction)) {
-                    int x = imageIndex * aggregatedLayoutInfo.getImageWidth();
-                    int y = directionIndex * aggregatedLayoutInfo.getRowHeight() + nationIndex * (aggregatedLayoutInfo.getRowHeight() * 6);
-
-                    imageBoard.placeImage(image, x, y);
-
-                    imageIndex = imageIndex + 1;
-                }
-
-                directionIndex = directionIndex + 1;
+                cursor.y = cursor.y + normalizedWorkerList.getImageHeight();
             }
-
-            nationIndex = nationIndex + 1;
         }
 
         // Write the image atlas to disk
