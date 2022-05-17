@@ -1,5 +1,19 @@
 package org.appland.settlers.assets;
 
+import org.appland.settlers.assets.collectors.AnimalImageCollection;
+import org.appland.settlers.assets.collectors.BorderImageCollector;
+import org.appland.settlers.assets.collectors.BuildingsImageCollection;
+import org.appland.settlers.assets.collectors.CargoImageCollection;
+import org.appland.settlers.assets.collectors.CropImageCollection;
+import org.appland.settlers.assets.collectors.DecorativeImageCollection;
+import org.appland.settlers.assets.collectors.FireImageCollection;
+import org.appland.settlers.assets.collectors.FlagImageCollection;
+import org.appland.settlers.assets.collectors.RoadBuildingImageCollection;
+import org.appland.settlers.assets.collectors.SignImageCollection;
+import org.appland.settlers.assets.collectors.StonesImageCollection;
+import org.appland.settlers.assets.collectors.TreeImageCollection;
+import org.appland.settlers.assets.collectors.UIElementsImageCollection;
+import org.appland.settlers.assets.collectors.WorkerImageCollection;
 import org.appland.settlers.assets.gamefiles.AfrZLst;
 import org.appland.settlers.assets.gamefiles.JapZLst;
 import org.appland.settlers.assets.gamefiles.MapBobs0Lst;

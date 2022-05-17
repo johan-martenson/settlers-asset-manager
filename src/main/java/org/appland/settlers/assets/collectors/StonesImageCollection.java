@@ -1,5 +1,10 @@
-package org.appland.settlers.assets;
+package org.appland.settlers.assets.collectors;
 
+import org.appland.settlers.assets.Bitmap;
+import org.appland.settlers.assets.ImageBoard;
+import org.appland.settlers.assets.Palette;
+import org.appland.settlers.assets.StoneAmount;
+import org.appland.settlers.assets.StoneType;
 import org.json.simple.JSONObject;
 
 import java.awt.Point;

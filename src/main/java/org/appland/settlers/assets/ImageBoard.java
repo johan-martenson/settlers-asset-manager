@@ -17,7 +17,7 @@ public class ImageBoard {
         imageSeries = new HashMap<>();
     }
 
-    void placeImage(Bitmap image, Point point) {
+    public void placeImage(Bitmap image, Point point) {
         images.put(image, new ImageOnBoard(image, point.x, point.y));
     }
 
@@ -33,7 +33,7 @@ public class ImageBoard {
         imageSeries.put(images, new ImageSeries(images, x, y, layoutDirection));
     }
 
-    Bitmap writeBoardToBitmap(Palette palette) {
+    public Bitmap writeBoardToBitmap(Palette palette) {
 
         // Calculate the needed size of the bitmap
         int width = 0;
@@ -97,7 +97,7 @@ public class ImageBoard {
         return imageBoard;
     }
 
-    JSONObject imageLocationToJson(Bitmap image) {
+    public JSONObject imageLocationToJson(Bitmap image) {
         ImageOnBoard imageOnBoard = images.get(image);
 
         JSONObject jsonImageLocation = new JSONObject();

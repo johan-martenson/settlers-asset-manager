@@ -1,5 +1,10 @@
-package org.appland.settlers.assets;
+package org.appland.settlers.assets.collectors;
 
+import org.appland.settlers.assets.Bitmap;
+import org.appland.settlers.assets.Direction;
+import org.appland.settlers.assets.ImageBoard;
+import org.appland.settlers.assets.NormalizedImageList;
+import org.appland.settlers.assets.Palette;
 import org.json.simple.JSONObject;
 
 import java.awt.*;

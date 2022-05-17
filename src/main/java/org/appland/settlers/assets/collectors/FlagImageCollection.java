@@ -1,5 +1,12 @@
-package org.appland.settlers.assets;
+package org.appland.settlers.assets.collectors;
 
+import org.appland.settlers.assets.Bitmap;
+import org.appland.settlers.assets.FlagType;
+import org.appland.settlers.assets.ImageBoard;
+import org.appland.settlers.assets.Nation;
+import org.appland.settlers.assets.NormalizedImageList;
+import org.appland.settlers.assets.Palette;
+import org.appland.settlers.assets.Utils;
 import org.json.simple.JSONObject;
 
 import java.awt.Point;
