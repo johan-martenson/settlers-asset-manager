@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 public class Reader {
 
     private static final String DEFAULT_PALETTE = "/home/johan/projects/settlers-image-manager/src/test/resources/pal5.act";
+    private static final int NUMBER_LINKS_PER_OVERLAY = 8 * 2 * 6;
 
     @Option(name = "--dir", usage = "Asset directory to load")
     static String assetDir = "";
@@ -365,13 +366,27 @@ public class Reader {
 
                         int j = 0;
 
-                        for (PlayerBitmap playerBitmap1 : bob.getBodyBitmaps()) {
+                        for (PlayerBitmap playerBitmap1 : bob.getAllBitmaps()) {
                             String outFile2 = dirToWrite + "/" + j + "-" + filenameWithoutPath + "-" + i + ".png";
 
                             playerBitmap1.writeToFile(outFile2);
 
                             j = j + 1;
                         }
+
+                        StringBuffer linksAsStr = new StringBuffer();
+
+                        int[] links = bob.getLinks();
+
+                        for (int linkIndex = 0; linkIndex < links.length; linkIndex++) {
+                            if (linkIndex % NUMBER_LINKS_PER_OVERLAY == 0) {
+                                linksAsStr.append("# Job ID " + (linkIndex / NUMBER_LINKS_PER_OVERLAY) + "\n");
+                            }
+
+                            linksAsStr.append(linkIndex + ", " + links[linkIndex] + "\n");
+                        }
+
+                        Files.writeString(Paths.get(dirToWrite, "links.txt"), linksAsStr.toString());
 
                         break;
 

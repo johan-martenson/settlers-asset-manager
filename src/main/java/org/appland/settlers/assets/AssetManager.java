@@ -664,16 +664,6 @@ public class AssetManager {
             int[] starts = streamReader.getUint16ArrayAsInts(bodyImageHeight);
             short ny = streamReader.getUint8();
 
-            /*
-             * X_OFFSET
-             * ny
-             *
-             * SPRITE_WIDTH
-             * pixels (raw_base)
-             * starts
-             * true
-             * palette
-             */
             PlayerBitmap playerBitmap = PlayerBitmap.loadFrom(BOB_X_OFFSET, ny, BOB_SPRITE_WIDTH, colorBlock, starts, true, palette, TextureFormat.BGRA);
 
             playerBitmaps[(int)i] = playerBitmap;
@@ -712,8 +702,8 @@ public class AssetManager {
         int[] links = new int[numberLinks];
         boolean[] loaded = new boolean[numberOverlayImages];
 
-        for (boolean isLoaded : loaded) {
-            isLoaded = false;
+        for (int i = 0; i < loaded.length; i++) {
+            loaded[i] = false;
         }
 
         for (long i = 0; i < numberLinks; i++) {

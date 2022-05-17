@@ -59,11 +59,11 @@ public class PlayerBitmap extends Bitmap {
                 // FIXME: change position++ to position = position + 1
                 short shift = Unsigned.getUnsignedByte(sourceByteBuffer, position++);
 
-                // Background is transparent, step to next pixel
+                // Handle transparent pixel
                 if (shift < 0x40) {
                     x = x + shift;
 
-                // Set pixel to "farbige"
+                // Handle colored pixel
                 } else if (shift < 0x80) {
                     shift = (short)(shift - 0x40); // uint 8 = uint 8 - 0x40
 
@@ -71,13 +71,13 @@ public class PlayerBitmap extends Bitmap {
                         setPixelByColorIndex(x, y, Unsigned.getUnsignedByte(sourceByteBuffer, position++));
                     }
 
-                // Set pixel to player color
+                // Handle pixel with player color
                 } else if (shift < 0xC0) {
                     shift = (short)(shift - 0x80);
 
                     // Set pixel to player color
                     for (int i = 0; i < shift; i++, x++) {
-                        texturePixelData.set(x, y, sourceData[position]);
+                        texturePixelData.set(x, y, sourceData[position]); // TODO: verify that this is correct
 
                         setPixelByColorIndex(x, y, (short)(Unsigned.getUnsignedByte(sourceByteBuffer, position) + 128));
                     }

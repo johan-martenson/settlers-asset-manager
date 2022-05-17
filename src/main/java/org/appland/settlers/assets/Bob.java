@@ -55,17 +55,21 @@ public class Bob {
         return playerBitmaps[(int)bodyIndex];
     }
 
-    public PlayerBitmap getOverlay(int id, boolean fat, int directionIndex, int animationStep) {
-        int overlayIndex = getOverlayIndex(id, fat, directionIndex, animationStep);
+    public PlayerBitmap getOverlay(int overlayId, boolean fat, int directionIndex, int animationStep) {
+        int overlayIndex = getOverlayIndex(overlayId, fat, directionIndex, animationStep);
 
         return playerBitmaps[overlayIndex];
     }
 
-    private int getOverlayIndex(int id, boolean fat, int directionIndex, int animationStep) {
+    private int getOverlayIndex(int overlayIndex, boolean fat, int directionIndex, int animationStep) {
         if (fat) {
-            return links[((id * 8 + animationStep) * 2 + 1) * 6 + directionIndex];
+            return links[((overlayIndex * 8 + animationStep) * 2 + 1) * 6 + directionIndex];
         } else {
-            return links[(id * 8 + animationStep) * 2 * 6 + directionIndex];
+            return links[(overlayIndex * 8 + animationStep) * 2 * 6 + directionIndex];
         }
+    }
+
+    public int[] getLinks() {
+        return links;
     }
 }
