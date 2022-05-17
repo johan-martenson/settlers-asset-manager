@@ -113,7 +113,7 @@ public class Reader {
 
                 case "LBM":
                     try {
-                        GameResource gameResource = assetManager.loadGameResourcesFromLBMFile(filename, palette);
+                        GameResource gameResource = assetManager.loadLBMFile(filename, palette);
 
                         List<GameResource> gameResourcesLbmList = new ArrayList<>();
 
@@ -522,6 +522,12 @@ public class Reader {
         if (fileSuffix.equals("LST") || fileSuffix.equals("BOB")) {
 
             return assetManager.loadLstFile(assetFilename, palette);
+        } else if (fileSuffix.equals("LBM")) {
+            List<GameResource> result = new ArrayList<>();
+
+            result.add(assetManager.loadLBMFile(assetFilename, palette));
+
+            return result;
         }
 
         return null;

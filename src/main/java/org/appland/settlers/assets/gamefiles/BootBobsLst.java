@@ -2,6 +2,7 @@ package org.appland.settlers.assets.gamefiles;
 
 public class BootBobsLst {
     public static final String FILENAME = "DATA/BOOTBOBS.LST";
+
     public static final int SHIP_EAST = 0;
     public static final int SHIP_EAST_SHADOW = 1;
     public static final int SHIP_SOUTH_EAST = 2;

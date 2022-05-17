@@ -1702,7 +1702,7 @@ public class AssetManager {
         wantedTextureFormat = format;
     }
 
-    public GameResource loadGameResourcesFromLBMFile(String filename, Palette defaultPalette) throws IOException, InvalidFormatException {
+    public GameResource loadLBMFile(String filename, Palette defaultPalette) throws IOException, InvalidFormatException {
         StreamReader streamReader = new StreamReader(new FileInputStream(filename), ByteOrder.BIG_ENDIAN);
 
         String header = streamReader.getUint8ArrayAsString(4);

@@ -374,26 +374,6 @@ public class Extractor {
         }
     }
 
-    private String getDirectionString(Direction direction) {
-        String directionString = "unknown";
-
-        switch (direction) {
-            case EAST: directionString = "east";
-                break;
-            case SOUTH_EAST: directionString = "south-east";
-                break;
-            case SOUTH_WEST: directionString = "south-west";
-                break;
-            case WEST: directionString = "west";
-                break;
-            case NORTH_WEST: directionString = "north-west";
-                break;
-            case NORTH_EAST: directionString = "north-east";
-                break;
-        }
-        return directionString;
-    }
-
     /**
      * TEX5.LBM -- contains vegetation textures
      *
@@ -634,8 +614,8 @@ public class Extractor {
         Utils.createDirectory(winterDir);
 
         /* Extract the terrains */
-        LBMGameResource greenlandGameResource = (LBMGameResource) assetManager.loadGameResourcesFromLBMFile(fromDir + "/" + GREENLAND_TEXTURE_FILE, defaultPalette);
-        LBMGameResource winterGameResource = (LBMGameResource) assetManager.loadGameResourcesFromLBMFile(fromDir + "/" + WINTER_TEXTURE_FILE, defaultPalette);
+        LBMGameResource greenlandGameResource = (LBMGameResource) assetManager.loadLBMFile(fromDir + "/" + GREENLAND_TEXTURE_FILE, defaultPalette);
+        LBMGameResource winterGameResource = (LBMGameResource) assetManager.loadLBMFile(fromDir + "/" + WINTER_TEXTURE_FILE, defaultPalette);
 
         Bitmap greenlandTextureBitmap = greenlandGameResource.getLbmFile().getBitmap();
         Bitmap winterTextureBitmap = winterGameResource.getLbmFile().getBitmap();

@@ -2,8 +2,6 @@ package org.appland.settlers.assets;
 
 public class WorkerDetails {
     public final static int NUMBER_NATION_SPECIFIC_JOBS = 6;
-    public final static int FIRST_NATION_SPECIFIC_JOB_BOB_ID = 30;
-    public final static int LAST_S2_JOB_BOB_ID = 92;
 
     private final int id;
     private final boolean fat;
