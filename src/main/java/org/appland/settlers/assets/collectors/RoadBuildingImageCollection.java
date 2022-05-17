@@ -62,7 +62,7 @@ public class RoadBuildingImageCollection {
 
         jsonImageAtlas.put("startPoint", jsonStartPoint);
 
-        cursor.x = cursor.x + startPointImage.width;
+        cursor.x = cursor.x + startPointImage.getWidth();
 
         // Connection on same level
         imageBoard.placeImage(sameLevelConnectionImage, cursor);
@@ -94,7 +94,7 @@ public class RoadBuildingImageCollection {
 
             rowHeight = Math.max(rowHeight, image.getHeight());
 
-            cursor.x = cursor.x + image.width;
+            cursor.x = cursor.x + image.getWidth();
         }
 
         // Downwards connections
@@ -116,7 +116,7 @@ public class RoadBuildingImageCollection {
 
             jsonDownwardsConnections.put(difference.name().toUpperCase(), jsonDownwardsConnection);
 
-            cursor.x = cursor.x + image.width;
+            cursor.x = cursor.x + image.getWidth();
         }
 
         // Write the image atlas to file

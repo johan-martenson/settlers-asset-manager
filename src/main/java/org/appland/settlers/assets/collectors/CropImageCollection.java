@@ -65,9 +65,9 @@ public class CropImageCollection {
                 jsonCropType.put(cropGrowth.name().toUpperCase(), jsonCropGrowthState);
                 jsonCropGrowthState.put("image", jsonCropImage);
 
-                maxHeightRow = Math.max(maxHeightRow, image.height);
+                maxHeightRow = Math.max(maxHeightRow, image.getHeight());
 
-                cursor.x = cursor.x + image.width;
+                cursor.x = cursor.x + image.getWidth();
             }
 
             // Add the crop shadow images
@@ -81,9 +81,9 @@ public class CropImageCollection {
 
                 ((JSONObject) jsonCropType.get(cropGrowth.name().toUpperCase())).put("shadowImage", jsonCropShadowImage);
 
-                maxHeightRow = Math.max(maxHeightRow, image.height);
+                maxHeightRow = Math.max(maxHeightRow, image.getHeight());
 
-                cursor.x = cursor.x + image.width;
+                cursor.x = cursor.x + image.getWidth();
             }
 
             cursor.y = cursor.y + maxHeightRow;

@@ -53,9 +53,9 @@ public class DecorativeImageCollection {
 
             jsonDecoration.put("image", imageBoard.imageLocationToJson(image));
 
-            rowHeight = image.height;
+            rowHeight = image.getHeight();
 
-            cursor.x = cursor.x + image.width;
+            cursor.x = cursor.x + image.getWidth();
 
             // Decoration shadow image
             if (shadowImage != null) {
@@ -63,7 +63,7 @@ public class DecorativeImageCollection {
 
                 jsonDecoration.put("shadowImage", imageBoard.imageLocationToJson(shadowImage));
 
-                rowHeight = Math.max(rowHeight, shadowImage.height);
+                rowHeight = Math.max(rowHeight, shadowImage.getHeight());
             }
 
             cursor.y = cursor.y + rowHeight;

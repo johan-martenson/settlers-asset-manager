@@ -7,7 +7,7 @@ import org.appland.settlers.assets.Palette;
 import org.appland.settlers.model.Material;
 import org.json.simple.JSONObject;
 
-import java.awt.*;
+import java.awt.Point;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -67,9 +67,9 @@ public class CargoImageCollection {
 
             jsonGeneric.put(material.name().toLowerCase(), jsonCargoImage);
 
-            maxGenericCargoWidth = Math.max(maxGenericCargoWidth, image.width);
+            maxGenericCargoWidth = Math.max(maxGenericCargoWidth, image.getWidth());
 
-            cursor.y = cursor.y + image.height;
+            cursor.y = cursor.y + image.getHeight();
         }
 
         cursor.y = 0;
@@ -92,7 +92,7 @@ public class CargoImageCollection {
 
                 jsonNation.put(material.name().toLowerCase(), jsonCargoImage);
 
-                cursor.y = cursor.y + image.height;
+                cursor.y = cursor.y + image.getHeight();
             }
         }
 

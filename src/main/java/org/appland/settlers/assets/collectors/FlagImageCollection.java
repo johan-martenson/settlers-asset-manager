@@ -6,10 +6,9 @@ import org.appland.settlers.assets.ImageBoard;
 import org.appland.settlers.assets.Nation;
 import org.appland.settlers.assets.NormalizedImageList;
 import org.appland.settlers.assets.Palette;
-import org.appland.settlers.assets.Utils;
 import org.json.simple.JSONObject;
 
-import java.awt.Point;
+import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -40,20 +39,6 @@ public class FlagImageCollection {
     }
 
     public void writeImageAtlas(String directory, Palette palette) throws IOException {
-
-        // Find the max width and height, and the max number of images over all flag types
-        Utils.RowLayoutInfo aggregatedLayoutInfo = new Utils.RowLayoutInfo();
-
-        for (Nation nation : Nation.values()) {
-            for (FlagType flagType : FlagType.values()) {
-
-                List<Bitmap> images = this.flagMap.get(nation).get(flagType);
-
-                Utils.RowLayoutInfo layoutInfo = Utils.layoutInfoFromImageSeries(images);
-
-                aggregatedLayoutInfo.aggregate(layoutInfo);
-            }
-        }
 
         // Write the image atlas, one row per flag, and collect metadata to write as json
         ImageBoard imageBoard = new ImageBoard();

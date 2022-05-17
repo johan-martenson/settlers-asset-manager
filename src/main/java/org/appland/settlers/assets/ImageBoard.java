@@ -21,15 +21,15 @@ public class ImageBoard {
         images.put(image, new ImageOnBoard(image, point.x, point.y));
     }
 
-    void placeImage(Bitmap image, int x, int y) {
+    public void placeImage(Bitmap image, int x, int y) {
         images.put(image, new ImageOnBoard(image, x, y));
     }
 
-    void placeImageSeries(List<Bitmap> images, Point position, LayoutDirection layoutDirection) {
+    public void placeImageSeries(List<Bitmap> images, Point position, LayoutDirection layoutDirection) {
         placeImageSeries(images, position.x, position.y, layoutDirection);
     }
 
-    void placeImageSeries(List<Bitmap> images, int x, int y, LayoutDirection layoutDirection) {
+    public void placeImageSeries(List<Bitmap> images, int x, int y, LayoutDirection layoutDirection) {
         imageSeries.put(images, new ImageSeries(images, x, y, layoutDirection));
     }
 
@@ -112,7 +112,7 @@ public class ImageBoard {
         return jsonImageLocation;
     }
 
-    JSONObject imageSeriesLocationToJson(List<Bitmap> images) {
+    public JSONObject imageSeriesLocationToJson(List<Bitmap> images) {
         ImageSeries imageSeries = this.imageSeries.get(images);
 
         JSONObject jsonImages = new JSONObject();
@@ -170,7 +170,7 @@ public class ImageBoard {
         }
     }
 
-    enum LayoutDirection {
+    public enum LayoutDirection {
         ROW,
         COLUMN
     }

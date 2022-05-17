@@ -113,11 +113,11 @@ public class BuildingsImageCollection {
 
                     jsonBuilding.put("ready", jsonBuildingReadyImage);
 
-                    startNextNationAtX = Math.max(startNextNationAtX, cursor.x + images.buildingReadyImage.width);
+                    startNextNationAtX = Math.max(startNextNationAtX, cursor.x + images.buildingReadyImage.getWidth());
 
-                    currentRowHeight = Math.max(currentRowHeight, images.buildingReadyImage.height);
+                    currentRowHeight = Math.max(currentRowHeight, images.buildingReadyImage.getHeight());
 
-                    cursor.x = cursor.x + images.buildingReadyImage.width;
+                    cursor.x = cursor.x + images.buildingReadyImage.getWidth();
                 }
 
                 // Building ready shadow image
@@ -128,11 +128,11 @@ public class BuildingsImageCollection {
 
                     jsonBuilding.put("readyShadow", jsonBuildingReadyShadowImage);
 
-                    startNextNationAtX = Math.max(startNextNationAtX, cursor.x + images.buildingReadyShadowImage.width);
+                    startNextNationAtX = Math.max(startNextNationAtX, cursor.x + images.buildingReadyShadowImage.getWidth());
 
-                    currentRowHeight = Math.max(currentRowHeight, images.buildingReadyShadowImage.height);
+                    currentRowHeight = Math.max(currentRowHeight, images.buildingReadyShadowImage.getHeight());
 
-                    cursor.x = cursor.x + images.buildingReadyShadowImage.width;
+                    cursor.x = cursor.x + images.buildingReadyShadowImage.getWidth();
                 }
 
                 // Under construction image
@@ -143,11 +143,11 @@ public class BuildingsImageCollection {
 
                     jsonBuilding.put("underConstruction", jsonBuildingUnderConstructionImage);
 
-                    startNextNationAtX = Math.max(startNextNationAtX, cursor.x + images.buildingUnderConstruction.width);
+                    startNextNationAtX = Math.max(startNextNationAtX, cursor.x + images.buildingUnderConstruction.getWidth());
 
-                    currentRowHeight = Math.max(currentRowHeight, images.buildingUnderConstruction.height);
+                    currentRowHeight = Math.max(currentRowHeight, images.buildingUnderConstruction.getHeight());
 
-                    cursor.x = cursor.x + images.buildingUnderConstruction.width;
+                    cursor.x = cursor.x + images.buildingUnderConstruction.getWidth();
                 }
 
                 // Under construction shadow image
@@ -158,11 +158,11 @@ public class BuildingsImageCollection {
 
                     jsonBuilding.put("underConstructionShadow", jsonBuildingUnderConstructionShadowImage);
 
-                    startNextNationAtX = Math.max(startNextNationAtX, cursor.x + images.buildingUnderConstructionShadowImage.width);
+                    startNextNationAtX = Math.max(startNextNationAtX, cursor.x + images.buildingUnderConstructionShadowImage.getWidth());
 
-                    currentRowHeight = Math.max(currentRowHeight, images.buildingUnderConstructionShadowImage.height);
+                    currentRowHeight = Math.max(currentRowHeight, images.buildingUnderConstructionShadowImage.getHeight());
 
-                    cursor.x = cursor.x + images.buildingUnderConstructionShadowImage.width;
+                    cursor.x = cursor.x + images.buildingUnderConstructionShadowImage.getWidth();
                 }
 
                 cursor.y = cursor.y + currentRowHeight;
@@ -192,7 +192,7 @@ public class BuildingsImageCollection {
 
             jsonConstructionPlanned.put("image", jsonConstructionPlannedImage);
 
-            cursor.x = cursor.x + constructionPlannedImage.width;
+            cursor.x = cursor.x + constructionPlannedImage.getWidth();
 
             // Construction planned shadow image
             imageBoard.placeImage(constructionPlannedShadowImage, cursor);
@@ -201,7 +201,7 @@ public class BuildingsImageCollection {
 
             jsonConstructionPlanned.put("shadowImage", jsonConstructionPlannedShadowImage);
 
-            cursor.x = cursor.x + constructionPlannedShadowImage.width;
+            cursor.x = cursor.x + constructionPlannedShadowImage.getWidth();
 
             // Under construction image
             imageBoard.placeImage(constructionJustStartedImage, cursor);
@@ -210,7 +210,7 @@ public class BuildingsImageCollection {
 
             jsonUnderConstruction.put("image", jsonConstructionJustStartedImage);
 
-            cursor.x = cursor.x + constructionJustStartedImage.width;
+            cursor.x = cursor.x + constructionJustStartedImage.getWidth();
 
             // Under construction shadow image
             imageBoard.placeImage(constructionJustStartedShadowImage, cursor);

@@ -81,10 +81,10 @@ public class UIElementsImageCollection {
          */
 
         // Calculate the dimension of the image atlas
-        int row1Height = Utils.max(selectedPointImage.height, hoverPointImage.height);
-        int row2Height = Utils.max(hoverAvailableFlag.height, hoverAvailableMine.height, hoverAvailableHarbor.height,
-                hoverAvailableBuilding.get(Size.LARGE).height, hoverAvailableBuilding.get(Size.MEDIUM).height,
-                hoverAvailableBuilding.get(Size.SMALL).height);
+        int row1Height = Utils.max(selectedPointImage.getHeight(), hoverPointImage.getHeight());
+        int row2Height = Utils.max(hoverAvailableFlag.getHeight(), hoverAvailableMine.getHeight(), hoverAvailableHarbor.getHeight(),
+                hoverAvailableBuilding.get(Size.LARGE).getHeight(), hoverAvailableBuilding.get(Size.MEDIUM).getHeight(),
+                hoverAvailableBuilding.get(Size.SMALL).getHeight());
 
         // Create the image atlas
         ImageBoard imageBoard = new ImageBoard();
@@ -103,7 +103,7 @@ public class UIElementsImageCollection {
 
         jsonImageAtlas.put("selectedPoint", jsonSelectedPoint);
 
-        nextStartAtX = nextStartAtX + selectedPointImage.width;
+        nextStartAtX = nextStartAtX + selectedPointImage.getWidth();
 
         // Hover point
         imageBoard.placeImage(hoverPointImage, nextStartAtX, 0);
@@ -126,7 +126,7 @@ public class UIElementsImageCollection {
 
         jsonImageAtlas.put("hoverAvailableFlag", jsonHoverAvailableFlag);
 
-        nextStartAtX = nextStartAtX + hoverAvailableFlag.width;
+        nextStartAtX = nextStartAtX + hoverAvailableFlag.getWidth();
 
         // Hover over available mine
         imageBoard.placeImage(hoverAvailableMine, nextStartAtX, row1Height);
@@ -135,7 +135,7 @@ public class UIElementsImageCollection {
 
         jsonImageAtlas.put("hoverAvailableMine", jsonHoverAvailableMine);
 
-        nextStartAtX = nextStartAtX + hoverAvailableMine.width;
+        nextStartAtX = nextStartAtX + hoverAvailableMine.getWidth();
 
         // Hover over available harbor
         imageBoard.placeImage(hoverAvailableHarbor, nextStartAtX, row1Height);
@@ -144,7 +144,7 @@ public class UIElementsImageCollection {
 
         jsonImageAtlas.put("hoverAvailableHarbor", jsonHoverAvailableHarbor);
 
-        nextStartAtX = nextStartAtX + hoverAvailableHarbor.width;
+        nextStartAtX = nextStartAtX + hoverAvailableHarbor.getWidth();
 
         // Hover over available large building
         imageBoard.placeImage(hoverAvailableBuildingLarge, nextStartAtX, row1Height);
@@ -153,7 +153,7 @@ public class UIElementsImageCollection {
 
         jsonImageAtlas.put("hoverAvailableBuildingLarge", jsonHoverAvailableBuildingLarge);
 
-        nextStartAtX = nextStartAtX + hoverAvailableBuildingLarge.width;
+        nextStartAtX = nextStartAtX + hoverAvailableBuildingLarge.getWidth();
 
         // Hover over available medium building
         imageBoard.placeImage(hoverAvailableBuildingMedium, nextStartAtX, row1Height);
@@ -162,7 +162,7 @@ public class UIElementsImageCollection {
 
         jsonImageAtlas.put("hoverAvailableBuildingMedium", jsonHoverAvailableBuildingMedium);
 
-        nextStartAtX = nextStartAtX + hoverAvailableBuildingMedium.width;
+        nextStartAtX = nextStartAtX + hoverAvailableBuildingMedium.getWidth();
 
         // Hover over available small building
         imageBoard.placeImage(hoverAvailableBuildingSmall, nextStartAtX, row1Height);
@@ -186,7 +186,7 @@ public class UIElementsImageCollection {
 
         jsonImageAtlas.put("availableFlag", jsonAvailableFlag);
 
-        nextStartAtX = nextStartAtX + availableFlag.width;
+        nextStartAtX = nextStartAtX + availableFlag.getWidth();
 
         // Available mine
         imageBoard.placeImage(availableMine, nextStartAtX, nextStartAtY);
@@ -195,7 +195,7 @@ public class UIElementsImageCollection {
 
         jsonImageAtlas.put("availableMine", jsonAvailableMine);
 
-        nextStartAtX = nextStartAtX + availableMine.width;
+        nextStartAtX = nextStartAtX + availableMine.getWidth();
 
         // Available harbor
         imageBoard.placeImage(availableHarbor, nextStartAtX, nextStartAtY);
@@ -204,7 +204,7 @@ public class UIElementsImageCollection {
 
         jsonImageAtlas.put("availableHarbor", jsonAvailableHarbor);
 
-        nextStartAtX = nextStartAtX + availableHarbor.width;
+        nextStartAtX = nextStartAtX + availableHarbor.getWidth();
 
         // Large available building
         imageBoard.placeImage(availableBuildingLarge, nextStartAtX, nextStartAtY);
@@ -213,7 +213,7 @@ public class UIElementsImageCollection {
 
         jsonImageAtlas.put("availableBuildingLarge", jsonAvailableBuildingLarge);
 
-        nextStartAtX = nextStartAtX + availableBuildingLarge.width;
+        nextStartAtX = nextStartAtX + availableBuildingLarge.getWidth();
 
         // Medium available building
         imageBoard.placeImage(availableBuildingMedium, nextStartAtX, nextStartAtY);
@@ -222,7 +222,7 @@ public class UIElementsImageCollection {
 
         jsonImageAtlas.put("availableBuildingMedium", jsonAvailableBuildingMedium);
 
-        nextStartAtX = nextStartAtX + availableBuildingMedium.width;
+        nextStartAtX = nextStartAtX + availableBuildingMedium.getWidth();
 
         // Small available building
         imageBoard.placeImage(availableBuildingSmall, nextStartAtX, nextStartAtY);

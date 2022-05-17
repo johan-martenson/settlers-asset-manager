@@ -7,7 +7,7 @@ import org.appland.settlers.assets.NormalizedImageList;
 import org.appland.settlers.assets.Palette;
 import org.json.simple.JSONObject;
 
-import java.awt.*;
+import java.awt.Point;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

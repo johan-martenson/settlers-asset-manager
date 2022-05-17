@@ -9,12 +9,14 @@ import org.appland.settlers.assets.collectors.DecorativeImageCollection;
 import org.appland.settlers.assets.collectors.FireImageCollection;
 import org.appland.settlers.assets.collectors.FlagImageCollection;
 import org.appland.settlers.assets.collectors.RoadBuildingImageCollection;
+import org.appland.settlers.assets.collectors.ShipImageCollection;
 import org.appland.settlers.assets.collectors.SignImageCollection;
 import org.appland.settlers.assets.collectors.StonesImageCollection;
 import org.appland.settlers.assets.collectors.TreeImageCollection;
 import org.appland.settlers.assets.collectors.UIElementsImageCollection;
 import org.appland.settlers.assets.collectors.WorkerImageCollection;
 import org.appland.settlers.assets.gamefiles.AfrZLst;
+import org.appland.settlers.assets.gamefiles.BootBobsLst;
 import org.appland.settlers.assets.gamefiles.JapZLst;
 import org.appland.settlers.assets.gamefiles.MapBobs0Lst;
 import org.appland.settlers.assets.gamefiles.MapBobsLst;
@@ -94,20 +96,57 @@ public class Extractor {
         /* Get the default palette */
         extractor.loadDefaultPalette();
 
-        /* Populate roman buildings */
+        /* Extract assets */
         extractor.populateRomanBuildings(fromDir, toDir);
 
-        /* Populate nature and gui elements */
         extractor.populateNatureAndUIElements(fromDir, toDir);
 
-        /* Create animations for all workers */
         extractor.populateWorkers(fromDir, toDir);
 
-        /* Extract flag animation */
         extractor.populateFlags(fromDir, toDir);
 
-        /*  Populate borders */
         extractor.populateBorders(fromDir, toDir);
+
+        extractor.populateShips(fromDir, toDir);
+    }
+
+    private void populateShips(String fromDir, String toDir) throws UnknownResourceTypeException, IOException, InvalidHeaderException, InvalidFormatException {
+        List<GameResource> bootBobsLst = assetManager.loadLstFile(fromDir + "/" + BootBobsLst.FILENAME, defaultPalette);
+
+        ShipImageCollection shipImageCollection = new ShipImageCollection();
+
+        shipImageCollection.addShipImageWithShadow(
+                EAST,
+                getImageFromResourceLocation(bootBobsLst, BootBobsLst.SHIP_EAST),
+                getImageFromResourceLocation(bootBobsLst, BootBobsLst.SHIP_EAST_SHADOW)
+        );
+        shipImageCollection.addShipImageWithShadow(
+                SOUTH_EAST,
+                getImageFromResourceLocation(bootBobsLst, BootBobsLst.SHIP_SOUTH_EAST),
+                getImageFromResourceLocation(bootBobsLst, BootBobsLst.SHIP_SOUTH_EAST_SHADOW)
+        );
+        shipImageCollection.addShipImageWithShadow(
+                SOUTH_WEST,
+                getImageFromResourceLocation(bootBobsLst, BootBobsLst.SHIP_SOUTH_WEST),
+                getImageFromResourceLocation(bootBobsLst, BootBobsLst.SHIP_SOUTH_WEST_SHADOW)
+        );
+        shipImageCollection.addShipImageWithShadow(
+                WEST,
+                getImageFromResourceLocation(bootBobsLst, BootBobsLst.SHIP_WEST),
+                getImageFromResourceLocation(bootBobsLst, BootBobsLst.SHIP_WEST_SHADOW)
+        );
+        shipImageCollection.addShipImageWithShadow(
+                NORTH_WEST,
+                getImageFromResourceLocation(bootBobsLst, BootBobsLst.SHIP_NORTH_WEST),
+                getImageFromResourceLocation(bootBobsLst, BootBobsLst.SHIP_NORTH_WEST_SHADOW)
+        );
+        shipImageCollection.addShipImageWithShadow(
+                NORTH_EAST,
+                getImageFromResourceLocation(bootBobsLst, BootBobsLst.SHIP_NORTH_EAST),
+                getImageFromResourceLocation(bootBobsLst, BootBobsLst.SHIP_NORTH_EAST_SHADOW)
+        );
+
+        shipImageCollection.writeImageAtlas(toDir, defaultPalette);
     }
 
     private void populateBorders(String fromDir, String toDir) throws UnknownResourceTypeException, IOException, InvalidHeaderException, InvalidFormatException {

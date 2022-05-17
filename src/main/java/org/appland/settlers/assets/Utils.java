@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  *
  * @author johan
  */
-class Utils {
+public class Utils {
 
     public static short getUint8FromByteArray(byte[] arr, int i) {
         ByteBuffer bb = ByteBuffer.wrap(arr);

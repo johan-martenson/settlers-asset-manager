@@ -58,7 +58,7 @@ public class BorderImageCollector {
 
             jsonNation.put("landBorder", jsonLandBorder);
 
-            cursor.x = cursor.x + borderForNation.landBorder.width;
+            cursor.x = cursor.x + borderForNation.landBorder.getWidth();
 
             // Coast border
             imageBoard.placeImage(borderForNation.coastBorder, cursor);
@@ -67,7 +67,7 @@ public class BorderImageCollector {
 
             jsonNation.put("coastBorder", jsonCoastBorder);
 
-            cursor.y = cursor.y + Math.max(borderForNation.landBorder.height, borderForNation.coastBorder.height);
+            cursor.y = cursor.y + Math.max(borderForNation.landBorder.getHeight(), borderForNation.coastBorder.getHeight());
         }
 
         // Write to file

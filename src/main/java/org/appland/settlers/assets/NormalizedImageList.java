@@ -62,7 +62,7 @@ public class NormalizedImageList {
         }
     }
 
-    List<Bitmap> getNormalizedImages() {
+    public List<Bitmap> getNormalizedImages() {
         return this.normalizedImages;
     }
 
