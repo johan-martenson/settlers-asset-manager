@@ -49,8 +49,10 @@ public class WorkerImageCollection {
         ImageBoard imageBoard = new ImageBoard();
 
         JSONObject jsonImageAtlas = new JSONObject();
+        JSONObject jsonImages = new JSONObject();
         JSONObject jsonShadowImages = new JSONObject();
 
+        jsonImageAtlas.put("images", jsonImages);
         jsonImageAtlas.put("shadowImages", jsonShadowImages);
 
         Point cursor = new Point(0, 0);
@@ -64,7 +66,7 @@ public class WorkerImageCollection {
 
             JSONObject jsonNationInfo = new JSONObject();
 
-            jsonImageAtlas.put(nation.name().toLowerCase(), jsonNationInfo);
+            jsonImages.put(nation.name().toUpperCase(), jsonNationInfo);
 
 
             for (Direction direction : Direction.values()) {
