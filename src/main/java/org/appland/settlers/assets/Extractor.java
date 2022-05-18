@@ -18,6 +18,8 @@ import org.appland.settlers.assets.collectors.WorkerImageCollection;
 import org.appland.settlers.assets.gamefiles.AfrZLst;
 import org.appland.settlers.assets.gamefiles.BootBobsLst;
 import org.appland.settlers.assets.gamefiles.JapZLst;
+import org.appland.settlers.assets.gamefiles.JobsBob;
+import org.appland.settlers.assets.gamefiles.Map0ZLst;
 import org.appland.settlers.assets.gamefiles.MapBobs0Lst;
 import org.appland.settlers.assets.gamefiles.MapBobsLst;
 import org.appland.settlers.assets.gamefiles.RomYLst;
@@ -228,19 +230,18 @@ public class Extractor {
     private void populateWorkers(String fromDir, String toDir) throws InvalidFormatException, UnknownResourceTypeException, InvalidHeaderException, IOException {
 
         /* Load worker image parts */
-        String jobsFilename = fromDir + "DATA/BOBS/JOBS.BOB";
+        List<GameResource> jobsBob = assetManager.loadLstFile(fromDir + "/" + JobsBob.FILENAME, defaultPalette);
+        List<GameResource> map0ZLst = assetManager.loadLstFile(fromDir + "/" + Map0ZLst.FILENAME, defaultPalette);
 
-        List<GameResource> workerGameResources = assetManager.loadLstFile(jobsFilename, defaultPalette);
-
-        if (workerGameResources.size() != 1) {
-            throw new RuntimeException("Wrong size of game resources in bob file. Must be 1, but was: " + workerGameResources.size());
+        if (jobsBob.size() != 1) {
+            throw new RuntimeException("Wrong size of game resources in bob file. Must be 1, but was: " + jobsBob.size());
         }
 
-        if (! (workerGameResources.get(0) instanceof BobGameResource)) {
-            throw new RuntimeException("Element must be Bob game resource. Was: " + workerGameResources.get(0).getClass().getName());
+        if (! (jobsBob.get(0) instanceof BobGameResource)) {
+            throw new RuntimeException("Element must be Bob game resource. Was: " + jobsBob.get(0).getClass().getName());
         }
 
-        BobGameResource bobGameResource = (BobGameResource) workerGameResources.get(0);
+        BobGameResource bobGameResource = (BobGameResource) jobsBob.get(0);
 
         /* Construct the worker details map */
         Map<JobType, WorkerDetails> workerDetailsMap = new HashMap<>();
@@ -368,6 +369,13 @@ public class Extractor {
                     }
                 }
             }
+
+            workerImageCollection.addShadowImages(EAST, getImagesFromResourceLocations(map0ZLst, Map0ZLst.WALKING_EAST_SHADOW_ANIMATION, 8));
+            workerImageCollection.addShadowImages(SOUTH_EAST, getImagesFromResourceLocations(map0ZLst, Map0ZLst.WALKING_SOUTH_EAST_SHADOW_ANIMATION, 8));
+            workerImageCollection.addShadowImages(SOUTH_WEST, getImagesFromResourceLocations(map0ZLst, Map0ZLst.WALKING_SOUTH_WEST_SHADOW_ANIMATION, 8));
+            workerImageCollection.addShadowImages(WEST, getImagesFromResourceLocations(map0ZLst, Map0ZLst.WALKING_WEST_SHADOW_ANIMATION, 8));
+            workerImageCollection.addShadowImages(NORTH_WEST, getImagesFromResourceLocations(map0ZLst, Map0ZLst.WALKING_NORTH_WEST_SHADOW_ANIMATION, 8));
+            workerImageCollection.addShadowImages(NORTH_EAST, getImagesFromResourceLocations(map0ZLst, Map0ZLst.WALKING_NORTH_EAST_SHADOW_ANIMATION, 8));
 
             /* Write the worker's image atlas */
             workerImageCollection.writeImageAtlas(toDir + "/", defaultPalette);

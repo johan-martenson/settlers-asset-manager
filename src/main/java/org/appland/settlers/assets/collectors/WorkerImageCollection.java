@@ -21,6 +21,7 @@ import java.util.Map;
 public class WorkerImageCollection {
     private final String name;
     private final Map<Nation, Map<Direction, List<Bitmap>>> nationToDirectionToImageMap;
+    private final Map<Direction, List<Bitmap>> shadowImages;
 
     public WorkerImageCollection(String name) {
         this.name = name;
@@ -34,6 +35,8 @@ public class WorkerImageCollection {
                 this.nationToDirectionToImageMap.get(nation).put(direction, new ArrayList<>());
             }
         }
+
+        shadowImages = new HashMap<>();
     }
 
     public void addImage(Nation nation, Direction direction, Bitmap workerImage) {
@@ -46,9 +49,13 @@ public class WorkerImageCollection {
         ImageBoard imageBoard = new ImageBoard();
 
         JSONObject jsonImageAtlas = new JSONObject();
+        JSONObject jsonShadowImages = new JSONObject();
+
+        jsonImageAtlas.put("shadowImages", jsonShadowImages);
 
         Point cursor = new Point(0, 0);
 
+        // Write walking animations, per nation and direction
         for (Nation nation : Nation.values()) {
 
             cursor.x = 0;
@@ -74,11 +81,30 @@ public class WorkerImageCollection {
             }
         }
 
+        // Write shadows, per direction (seems to be the same regardless of nation)
+        for (Direction direction : shadowImages.keySet()) {
+            cursor.x = 0;
+
+            List<Bitmap> shadowImagesForDirection = shadowImages.get(direction);
+            NormalizedImageList normalizedShadowListForDirection = new NormalizedImageList(shadowImagesForDirection);
+            List<Bitmap> normalizedShadowImagesForDirection = normalizedShadowListForDirection.getNormalizedImages();
+
+            imageBoard.placeImageSeries(normalizedShadowImagesForDirection, cursor, ImageBoard.LayoutDirection.ROW);
+
+            jsonShadowImages.put(direction.name().toUpperCase(), imageBoard.imageSeriesLocationToJson(normalizedShadowImagesForDirection));
+
+            cursor.y = cursor.y + normalizedShadowListForDirection.getImageHeight();
+        }
+
         // Write the image atlas to disk
         imageBoard.writeBoardToBitmap(palette).writeToFile(directory + "/" + "image-atlas-" + name.toLowerCase() + ".png");
 
         Path filePath = Paths.get(directory, "image-atlas-" + name.toLowerCase() + ".json");
 
         Files.writeString(filePath, jsonImageAtlas.toJSONString());
+    }
+
+    public void addShadowImages(Direction direction, List<Bitmap> images) {
+        shadowImages.put(direction, images);
     }
 }
