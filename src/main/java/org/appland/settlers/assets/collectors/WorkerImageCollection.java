@@ -22,6 +22,7 @@ public class WorkerImageCollection {
     private final String name;
     private final Map<Nation, Map<Direction, List<Bitmap>>> nationToDirectionToImageMap;
     private final Map<Direction, List<Bitmap>> shadowImages;
+    private final Map<Direction, Bitmap> cargoImages;
 
     public WorkerImageCollection(String name) {
         this.name = name;
@@ -37,6 +38,7 @@ public class WorkerImageCollection {
         }
 
         shadowImages = new HashMap<>();
+        cargoImages = new HashMap<>();
     }
 
     public void addImage(Nation nation, Direction direction, Bitmap workerImage) {
@@ -68,9 +70,9 @@ public class WorkerImageCollection {
 
             jsonImages.put(nation.name().toUpperCase(), jsonNationInfo);
 
-
             for (Direction direction : Direction.values()) {
 
+                // Handle each image per nation x direction
                 List<Bitmap> workerImages = directionToImageMap.get(direction);
                 NormalizedImageList normalizedWorkerList = new NormalizedImageList(workerImages);
                 List<Bitmap> normalizedWorkerImages = normalizedWorkerList.getNormalizedImages();
@@ -98,6 +100,24 @@ public class WorkerImageCollection {
             cursor.y = cursor.y + normalizedShadowListForDirection.getImageHeight();
         }
 
+        // Write cargos (if any)
+        if (!cargoImages.keySet().isEmpty()) {
+
+            JSONObject jsonCargoImages = new JSONObject();
+
+            jsonImageAtlas.put("cargoImages", jsonCargoImages);
+
+            for (Direction direction : cargoImages.keySet()) {
+                Bitmap cargoImageForDirection = cargoImages.get(direction);
+
+                imageBoard.placeImage(cargoImageForDirection, cursor);
+
+                jsonCargoImages.put(direction.name().toUpperCase(), imageBoard.imageLocationToJson(cargoImageForDirection));
+
+                cursor.x = cursor.x + cargoImageForDirection.getWidth();
+            }
+        }
+
         // Write the image atlas to disk
         imageBoard.writeBoardToBitmap(palette).writeToFile(directory + "/" + "image-atlas-" + name.toLowerCase() + ".png");
 
@@ -108,5 +128,9 @@ public class WorkerImageCollection {
 
     public void addShadowImages(Direction direction, List<Bitmap> images) {
         shadowImages.put(direction, images);
+    }
+
+    public void addCargoImage(Direction direction, Bitmap images) {
+        cargoImages.put(direction, images);
     }
 }

@@ -184,44 +184,44 @@ public class Extractor {
         FlagImageCollection flagImageCollection = new FlagImageCollection();
 
         // Africans
-        flagImageCollection.addImagesForFlag(Nation.AFRICANS, FlagType.NORMAL, getImagesFromResourceLocations(afrZLst, AfrZLst.NORMAL_FLAG_ANIMATION, 8));
-        flagImageCollection.addImagesForFlagShadow(Nation.AFRICANS, FlagType.NORMAL, getImagesFromResourceLocations(afrZLst, AfrZLst.NORMAL_FLAG_SHADOW_ANIMATION, 8));
+        flagImageCollection.addImagesForFlag(Nation.AFRICANS, FlagType.NORMAL, getImagesFromGameResource(afrZLst, AfrZLst.NORMAL_FLAG_ANIMATION, 8));
+        flagImageCollection.addImagesForFlagShadow(Nation.AFRICANS, FlagType.NORMAL, getImagesFromGameResource(afrZLst, AfrZLst.NORMAL_FLAG_SHADOW_ANIMATION, 8));
 
-        flagImageCollection.addImagesForFlag(Nation.AFRICANS, FlagType.MAIN, getImagesFromResourceLocations(afrZLst, AfrZLst.MAIN_FLAG_ANIMATION, 8));
-        flagImageCollection.addImagesForFlagShadow(Nation.AFRICANS, FlagType.MAIN, getImagesFromResourceLocations(afrZLst, AfrZLst.MAIN_FLAG_SHADOW_ANIMATION, 8));
+        flagImageCollection.addImagesForFlag(Nation.AFRICANS, FlagType.MAIN, getImagesFromGameResource(afrZLst, AfrZLst.MAIN_FLAG_ANIMATION, 8));
+        flagImageCollection.addImagesForFlagShadow(Nation.AFRICANS, FlagType.MAIN, getImagesFromGameResource(afrZLst, AfrZLst.MAIN_FLAG_SHADOW_ANIMATION, 8));
 
-        flagImageCollection.addImagesForFlag(Nation.AFRICANS, FlagType.MARINE, getImagesFromResourceLocations(afrZLst, AfrZLst.MARINE_FLAG_ANIMATION, 8));
-        flagImageCollection.addImagesForFlagShadow(Nation.AFRICANS, FlagType.MARINE, getImagesFromResourceLocations(afrZLst, AfrZLst.MARINE_FLAG_SHADOW_ANIMATION, 8));
+        flagImageCollection.addImagesForFlag(Nation.AFRICANS, FlagType.MARINE, getImagesFromGameResource(afrZLst, AfrZLst.MARINE_FLAG_ANIMATION, 8));
+        flagImageCollection.addImagesForFlagShadow(Nation.AFRICANS, FlagType.MARINE, getImagesFromGameResource(afrZLst, AfrZLst.MARINE_FLAG_SHADOW_ANIMATION, 8));
 
         // Japanese
-        flagImageCollection.addImagesForFlag(Nation.JAPANESE, FlagType.NORMAL, getImagesFromResourceLocations(japZLst, JapZLst.NORMAL_FLAG_ANIMATION, 8));
-        flagImageCollection.addImagesForFlagShadow(Nation.JAPANESE, FlagType.NORMAL, getImagesFromResourceLocations(japZLst, JapZLst.NORMAL_FLAG_SHADOW_ANIMATION, 8));
+        flagImageCollection.addImagesForFlag(Nation.JAPANESE, FlagType.NORMAL, getImagesFromGameResource(japZLst, JapZLst.NORMAL_FLAG_ANIMATION, 8));
+        flagImageCollection.addImagesForFlagShadow(Nation.JAPANESE, FlagType.NORMAL, getImagesFromGameResource(japZLst, JapZLst.NORMAL_FLAG_SHADOW_ANIMATION, 8));
 
-        flagImageCollection.addImagesForFlag(Nation.JAPANESE, FlagType.MAIN, getImagesFromResourceLocations(japZLst, JapZLst.MAIN_FLAG_ANIMATION, 8));
-        flagImageCollection.addImagesForFlagShadow(Nation.JAPANESE, FlagType.MAIN, getImagesFromResourceLocations(japZLst, JapZLst.MAIN_FLAG_SHADOW_ANIMATION, 8));
+        flagImageCollection.addImagesForFlag(Nation.JAPANESE, FlagType.MAIN, getImagesFromGameResource(japZLst, JapZLst.MAIN_FLAG_ANIMATION, 8));
+        flagImageCollection.addImagesForFlagShadow(Nation.JAPANESE, FlagType.MAIN, getImagesFromGameResource(japZLst, JapZLst.MAIN_FLAG_SHADOW_ANIMATION, 8));
 
-        flagImageCollection.addImagesForFlag(Nation.JAPANESE, FlagType.MARINE, getImagesFromResourceLocations(japZLst, JapZLst.MARINE_FLAG_ANIMATION, 8));
-        flagImageCollection.addImagesForFlagShadow(Nation.JAPANESE, FlagType.MARINE, getImagesFromResourceLocations(japZLst, JapZLst.MARINE_FLAG_SHADOW_ANIMATION, 8));
+        flagImageCollection.addImagesForFlag(Nation.JAPANESE, FlagType.MARINE, getImagesFromGameResource(japZLst, JapZLst.MARINE_FLAG_ANIMATION, 8));
+        flagImageCollection.addImagesForFlagShadow(Nation.JAPANESE, FlagType.MARINE, getImagesFromGameResource(japZLst, JapZLst.MARINE_FLAG_SHADOW_ANIMATION, 8));
 
         // Romans
-        flagImageCollection.addImagesForFlag(Nation.ROMANS, FlagType.NORMAL, getImagesFromResourceLocations(romZLst, RomZLst.NORMAL_FLAG_ANIMATION, 8));
-        flagImageCollection.addImagesForFlagShadow(Nation.ROMANS, FlagType.NORMAL, getImagesFromResourceLocations(romZLst, RomZLst.NORMAL_FLAG_SHADOW_ANIMATION, 8));
+        flagImageCollection.addImagesForFlag(Nation.ROMANS, FlagType.NORMAL, getImagesFromGameResource(romZLst, RomZLst.NORMAL_FLAG_ANIMATION, 8));
+        flagImageCollection.addImagesForFlagShadow(Nation.ROMANS, FlagType.NORMAL, getImagesFromGameResource(romZLst, RomZLst.NORMAL_FLAG_SHADOW_ANIMATION, 8));
 
-        flagImageCollection.addImagesForFlag(Nation.ROMANS, FlagType.MAIN, getImagesFromResourceLocations(romZLst, RomZLst.MAIN_FLAG_ANIMATION, 8));
-        flagImageCollection.addImagesForFlagShadow(Nation.ROMANS, FlagType.MAIN, getImagesFromResourceLocations(romZLst, RomZLst.MAIN_FLAG_SHADOW_ANIMATION, 8));
+        flagImageCollection.addImagesForFlag(Nation.ROMANS, FlagType.MAIN, getImagesFromGameResource(romZLst, RomZLst.MAIN_FLAG_ANIMATION, 8));
+        flagImageCollection.addImagesForFlagShadow(Nation.ROMANS, FlagType.MAIN, getImagesFromGameResource(romZLst, RomZLst.MAIN_FLAG_SHADOW_ANIMATION, 8));
 
-        flagImageCollection.addImagesForFlag(Nation.ROMANS, FlagType.MARINE, getImagesFromResourceLocations(romZLst, RomZLst.MARINE_FLAG_ANIMATION, 8));
-        flagImageCollection.addImagesForFlagShadow(Nation.ROMANS, FlagType.MARINE, getImagesFromResourceLocations(romZLst, RomZLst.MARINE_FLAG_SHADOW_ANIMATION, 8));
+        flagImageCollection.addImagesForFlag(Nation.ROMANS, FlagType.MARINE, getImagesFromGameResource(romZLst, RomZLst.MARINE_FLAG_ANIMATION, 8));
+        flagImageCollection.addImagesForFlagShadow(Nation.ROMANS, FlagType.MARINE, getImagesFromGameResource(romZLst, RomZLst.MARINE_FLAG_SHADOW_ANIMATION, 8));
 
         // Vikings
-        flagImageCollection.addImagesForFlag(Nation.VIKINGS, FlagType.NORMAL, getImagesFromResourceLocations(vikZLst, VikZLst.NORMAL_FLAG_ANIMATION, 8));
-        flagImageCollection.addImagesForFlagShadow(Nation.VIKINGS, FlagType.NORMAL, getImagesFromResourceLocations(vikZLst, VikZLst.NORMAL_FLAG_SHADOW_ANIMATION, 8));
+        flagImageCollection.addImagesForFlag(Nation.VIKINGS, FlagType.NORMAL, getImagesFromGameResource(vikZLst, VikZLst.NORMAL_FLAG_ANIMATION, 8));
+        flagImageCollection.addImagesForFlagShadow(Nation.VIKINGS, FlagType.NORMAL, getImagesFromGameResource(vikZLst, VikZLst.NORMAL_FLAG_SHADOW_ANIMATION, 8));
 
-        flagImageCollection.addImagesForFlag(Nation.VIKINGS, FlagType.MAIN, getImagesFromResourceLocations(vikZLst, VikZLst.MAIN_FLAG_ANIMATION, 8));
-        flagImageCollection.addImagesForFlagShadow(Nation.VIKINGS, FlagType.MAIN, getImagesFromResourceLocations(vikZLst, VikZLst.MAIN_FLAG_SHADOW_ANIMATION, 8));
+        flagImageCollection.addImagesForFlag(Nation.VIKINGS, FlagType.MAIN, getImagesFromGameResource(vikZLst, VikZLst.MAIN_FLAG_ANIMATION, 8));
+        flagImageCollection.addImagesForFlagShadow(Nation.VIKINGS, FlagType.MAIN, getImagesFromGameResource(vikZLst, VikZLst.MAIN_FLAG_SHADOW_ANIMATION, 8));
 
-        flagImageCollection.addImagesForFlag(Nation.VIKINGS, FlagType.MARINE, getImagesFromResourceLocations(vikZLst, VikZLst.MARINE_FLAG_ANIMATION, 8));
-        flagImageCollection.addImagesForFlagShadow(Nation.VIKINGS, FlagType.MARINE, getImagesFromResourceLocations(vikZLst, VikZLst.MARINE_FLAG_SHADOW_ANIMATION, 8));
+        flagImageCollection.addImagesForFlag(Nation.VIKINGS, FlagType.MARINE, getImagesFromGameResource(vikZLst, VikZLst.MARINE_FLAG_ANIMATION, 8));
+        flagImageCollection.addImagesForFlagShadow(Nation.VIKINGS, FlagType.MARINE, getImagesFromGameResource(vikZLst, VikZLst.MARINE_FLAG_SHADOW_ANIMATION, 8));
 
         // Write the image atlas to file
         flagImageCollection.writeImageAtlas(toDir + "/", defaultPalette);
@@ -256,41 +256,42 @@ public class Extractor {
         *  - 3 (Vikings)  -> 1
         * */
 
-        workerDetailsMap.put(JobType.HELPER, new WorkerDetails(false, 0));
-        workerDetailsMap.put(JobType.WOODCUTTER, new WorkerDetails(false, 5));
-        workerDetailsMap.put(JobType.FISHER, new WorkerDetails(false, 12));
-        workerDetailsMap.put(JobType.FORESTER, new WorkerDetails(false, 8));
-        workerDetailsMap.put(JobType.CARPENTER, new WorkerDetails(false, 6));
-        workerDetailsMap.put(JobType.STONEMASON, new WorkerDetails(false, 7));
-        workerDetailsMap.put(JobType.HUNTER, new WorkerDetails(false, 20));
-        workerDetailsMap.put(JobType.FARMER, new WorkerDetails(false, 13));
-        workerDetailsMap.put(JobType.MILLER, new WorkerDetails(true, 16));
-        workerDetailsMap.put(JobType.BAKER, new WorkerDetails(true, 17));
-        workerDetailsMap.put(JobType.BUTCHER, new WorkerDetails(false, 15));
-        workerDetailsMap.put(JobType.MINER, new WorkerDetails(false, 10));
-        workerDetailsMap.put(JobType.BREWER, new WorkerDetails(true, 3));
-        workerDetailsMap.put(JobType.PIG_BREEDER, new WorkerDetails(false, 14));
-        workerDetailsMap.put(JobType.DONKEY_BREEDER, new WorkerDetails(false, 24));
-        workerDetailsMap.put(JobType.IRON_FOUNDER, new WorkerDetails(false, 11));
-        workerDetailsMap.put(JobType.MINTER, new WorkerDetails(false, 9));
-        workerDetailsMap.put(JobType.METALWORKER, new WorkerDetails(false, 18));
-        workerDetailsMap.put(JobType.ARMORER, new WorkerDetails(true, 4));
-        workerDetailsMap.put(JobType.BUILDER, new WorkerDetails(false, 23));
-        workerDetailsMap.put(JobType.PLANER, new WorkerDetails(false, 22));
-        workerDetailsMap.put(JobType.PRIVATE, new WorkerDetails(false, -30));
-        workerDetailsMap.put(JobType.PRIVATE_FIRST_CLASS, new WorkerDetails(false, -31));
-        workerDetailsMap.put(JobType.SERGEANT, new WorkerDetails(false, -32));
-        workerDetailsMap.put(JobType.OFFICER, new WorkerDetails(false, -33));
-        workerDetailsMap.put(JobType.GENERAL, new WorkerDetails(false, -34));
-        workerDetailsMap.put(JobType.GEOLOGIST, new WorkerDetails(false, 26));
-        workerDetailsMap.put(JobType.SHIP_WRIGHT, new WorkerDetails(false, 25));
-        workerDetailsMap.put(JobType.SCOUT, new WorkerDetails(false, -35));
-        workerDetailsMap.put(JobType.PACK_DONKEY, new WorkerDetails(false, 37));
-        workerDetailsMap.put(JobType.BOAT_CARRIER, new WorkerDetails(false, 37));
-        workerDetailsMap.put(JobType.CHAR_BURNER, new WorkerDetails(false, 37));
+        workerDetailsMap.put(JobType.HELPER, new WorkerDetails(false, JobsBob.HELPER_BOB_ID));
+        workerDetailsMap.put(JobType.WOODCUTTER, new WorkerDetails(false, JobsBob.WOODCUTTER_BOB_ID));
+        workerDetailsMap.put(JobType.FISHER, new WorkerDetails(false, JobsBob.FISHERMAN_BOB_ID));
+        workerDetailsMap.put(JobType.FORESTER, new WorkerDetails(false, JobsBob.FORESTER_BOB_ID));
+        workerDetailsMap.put(JobType.CARPENTER, new WorkerDetails(false, JobsBob.CARPENTER_BOB_ID));
+        workerDetailsMap.put(JobType.STONEMASON, new WorkerDetails(false, JobsBob.STONEMASON_BOB_ID));
+        workerDetailsMap.put(JobType.HUNTER, new WorkerDetails(false, JobsBob.HUNTER_BOB_ID));
+        workerDetailsMap.put(JobType.FARMER, new WorkerDetails(false, JobsBob.FARMER_BOB_ID));
+        workerDetailsMap.put(JobType.MILLER, new WorkerDetails(true, JobsBob.MILLER_BOB_ID));
+        workerDetailsMap.put(JobType.BAKER, new WorkerDetails(true, JobsBob.BAKER_BOB_ID));
+        workerDetailsMap.put(JobType.BUTCHER, new WorkerDetails(false, JobsBob.BUTCHER_BOB_ID));
+        workerDetailsMap.put(JobType.MINER, new WorkerDetails(false, JobsBob.MINER_BOB_ID));
+        workerDetailsMap.put(JobType.BREWER, new WorkerDetails(true, JobsBob.BREWER_BOB_ID));
+        workerDetailsMap.put(JobType.PIG_BREEDER, new WorkerDetails(false, JobsBob.PIG_BREEDER_BOB_ID));
+        workerDetailsMap.put(JobType.DONKEY_BREEDER, new WorkerDetails(false, JobsBob.DONKEY_BREEDER_BOB_ID));
+        workerDetailsMap.put(JobType.IRON_FOUNDER, new WorkerDetails(false, JobsBob.IRON_FOUNDER_BOB_ID));
+        workerDetailsMap.put(JobType.MINTER, new WorkerDetails(false, JobsBob.MINTER_BOB_ID));
+        workerDetailsMap.put(JobType.METALWORKER, new WorkerDetails(false, JobsBob.METALWORKER_BOB_ID));
+        workerDetailsMap.put(JobType.ARMORER, new WorkerDetails(true, JobsBob.ARMORER_BOB_ID));
+        workerDetailsMap.put(JobType.BUILDER, new WorkerDetails(false, JobsBob.BUILDER_BOB_ID));
+        workerDetailsMap.put(JobType.PLANER, new WorkerDetails(false, JobsBob.PLANER_BOB_ID));
+        workerDetailsMap.put(JobType.PRIVATE, new WorkerDetails(false, JobsBob.PRIVATE_BOB_ID));
+        workerDetailsMap.put(JobType.PRIVATE_FIRST_CLASS, new WorkerDetails(false, JobsBob.PRIVATE_FIRST_CLASS_BOB_ID));
+        workerDetailsMap.put(JobType.SERGEANT, new WorkerDetails(false, JobsBob.SERGEANT_BOB_ID));
+        workerDetailsMap.put(JobType.OFFICER, new WorkerDetails(false, JobsBob.OFFICER_BOB_ID));
+        workerDetailsMap.put(JobType.GENERAL, new WorkerDetails(false, JobsBob.GENERAL_BOB_ID));
+        workerDetailsMap.put(JobType.GEOLOGIST, new WorkerDetails(false, JobsBob.GEOLOGIST_BOB_ID));
+        workerDetailsMap.put(JobType.SHIP_WRIGHT, new WorkerDetails(false, JobsBob.SHIP_WRIGHT_BOB_ID));
+        workerDetailsMap.put(JobType.SCOUT, new WorkerDetails(false, JobsBob.SCOUT_BOB_ID));
+        workerDetailsMap.put(JobType.PACK_DONKEY, new WorkerDetails(false, JobsBob.PACK_DONKEY_BOB_ID));
+        workerDetailsMap.put(JobType.BOAT_CARRIER, new WorkerDetails(false, JobsBob.BOAT_CARRIER_BOB_ID));
+        workerDetailsMap.put(JobType.CHAR_BURNER, new WorkerDetails(false, JobsBob.CHAR_BURNER_BOB_ID));
 
         /* Composite the worker images and animations */
         Map<JobType, RenderedWorker> renderedWorkers = assetManager.renderWorkerImages(bobGameResource.getBob(), workerDetailsMap);
+        Map<JobType, WorkerImageCollection> workerImageCollectors = new HashMap<>();
 
         for (JobType jobType : JobType.values()) {
             RenderedWorker renderedWorker = renderedWorkers.get(jobType);
@@ -370,16 +371,48 @@ public class Extractor {
                 }
             }
 
-            workerImageCollection.addShadowImages(EAST, getImagesFromResourceLocations(map0ZLst, Map0ZLst.WALKING_EAST_SHADOW_ANIMATION, 8));
-            workerImageCollection.addShadowImages(SOUTH_EAST, getImagesFromResourceLocations(map0ZLst, Map0ZLst.WALKING_SOUTH_EAST_SHADOW_ANIMATION, 8));
-            workerImageCollection.addShadowImages(SOUTH_WEST, getImagesFromResourceLocations(map0ZLst, Map0ZLst.WALKING_SOUTH_WEST_SHADOW_ANIMATION, 8));
-            workerImageCollection.addShadowImages(WEST, getImagesFromResourceLocations(map0ZLst, Map0ZLst.WALKING_WEST_SHADOW_ANIMATION, 8));
-            workerImageCollection.addShadowImages(NORTH_WEST, getImagesFromResourceLocations(map0ZLst, Map0ZLst.WALKING_NORTH_WEST_SHADOW_ANIMATION, 8));
-            workerImageCollection.addShadowImages(NORTH_EAST, getImagesFromResourceLocations(map0ZLst, Map0ZLst.WALKING_NORTH_EAST_SHADOW_ANIMATION, 8));
+            workerImageCollection.addShadowImages(EAST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_EAST_SHADOW_ANIMATION, 8));
+            workerImageCollection.addShadowImages(SOUTH_EAST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_SOUTH_EAST_SHADOW_ANIMATION, 8));
+            workerImageCollection.addShadowImages(SOUTH_WEST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_SOUTH_WEST_SHADOW_ANIMATION, 8));
+            workerImageCollection.addShadowImages(WEST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_WEST_SHADOW_ANIMATION, 8));
+            workerImageCollection.addShadowImages(NORTH_WEST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_NORTH_WEST_SHADOW_ANIMATION, 8));
+            workerImageCollection.addShadowImages(NORTH_EAST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_NORTH_EAST_SHADOW_ANIMATION, 8));
 
-            /* Write the worker's image atlas */
-            workerImageCollection.writeImageAtlas(toDir + "/", defaultPalette);
+            // Store the worker image collector
+            workerImageCollectors.put(jobType, workerImageCollection);
         }
+
+        // Add cargo carrying images
+        WorkerImageCollection woodcutterImageCollector = workerImageCollectors.get(JobType.WOODCUTTER);
+        WorkerImageCollection fishermanImageCollector = workerImageCollectors.get(JobType.FISHER);
+
+        List<PlayerBitmap> bobBitmaps = bobGameResource.getBob().getAllBitmaps();
+
+        woodcutterImageCollector.addCargoImage(EAST, bobBitmaps.get(JobsBob.WOODCUTTER_CARGO_EAST));
+        woodcutterImageCollector.addCargoImage(SOUTH_EAST, bobBitmaps.get(JobsBob.WOODCUTTER_CARGO_SOUTH_EAST));
+        woodcutterImageCollector.addCargoImage(SOUTH_WEST, bobBitmaps.get(JobsBob.WOODCUTTER_CARGO_SOUTH_WEST));
+        woodcutterImageCollector.addCargoImage(WEST, bobBitmaps.get(JobsBob.WOODCUTTER_CARGO_WEST));
+        woodcutterImageCollector.addCargoImage(NORTH_WEST, bobBitmaps.get(JobsBob.WOODCUTTER_CARGO_NORTH_WEST));
+        woodcutterImageCollector.addCargoImage(NORTH_EAST, bobBitmaps.get(JobsBob.WOODCUTTER_CARGO_NORTH_EAST));
+
+        fishermanImageCollector.addCargoImage(EAST, bobBitmaps.get(JobsBob.FISHERMAN_CARGO_EAST));
+        fishermanImageCollector.addCargoImage(SOUTH_EAST, bobBitmaps.get(JobsBob.FISHERMAN_CARGO_SOUTH_EAST));
+        fishermanImageCollector.addCargoImage(SOUTH_WEST, bobBitmaps.get(JobsBob.FISHERMAN_CARGO_SOUTH_WEST));
+        fishermanImageCollector.addCargoImage(WEST, bobBitmaps.get(JobsBob.FISHERMAN_CARGO_WEST));
+        fishermanImageCollector.addCargoImage(NORTH_WEST, bobBitmaps.get(JobsBob.FISHERMAN_CARGO_NORTH_WEST));
+        fishermanImageCollector.addCargoImage(NORTH_EAST, bobBitmaps.get(JobsBob.FISHERMAN_CARGO_NORTH_EAST));
+
+        // Write each worker image collection to file
+        workerImageCollectors.values().forEach(
+                (WorkerImageCollection workerImageCollection) -> {
+                    try {
+                        workerImageCollection.writeImageAtlas(toDir + "/", defaultPalette);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+        );
+
     }
 
     /**
@@ -811,21 +844,21 @@ public class Extractor {
         /* Extract fire animation */
         FireImageCollection fireImageCollection = new FireImageCollection();
 
-        fireImageCollection.addImagesForFire(FireSize.MINI, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.MINI_FIRE_ANIMATION, 8));
+        fireImageCollection.addImagesForFire(FireSize.MINI, getImagesFromGameResource(mapbobsLst, MapBobsLst.MINI_FIRE_ANIMATION, 8));
         fireImageCollection.addImagesForFireWithShadow(
                 FireSize.SMALL,
-                getImagesFromResourceLocations(mapbobsLst, MapBobsLst.SMALL_FIRE_ANIMATION, 8),
-                getImagesFromResourceLocations(mapbobsLst, MapBobsLst.SMALL_FIRE_SHADOW_ANIMATION, 8)
+                getImagesFromGameResource(mapbobsLst, MapBobsLst.SMALL_FIRE_ANIMATION, 8),
+                getImagesFromGameResource(mapbobsLst, MapBobsLst.SMALL_FIRE_SHADOW_ANIMATION, 8)
         );
         fireImageCollection.addImagesForFireWithShadow(
                 FireSize.MEDIUM,
-                getImagesFromResourceLocations(mapbobsLst, MapBobsLst.MEDIUM_FIRE_ANIMATION, 8),
-                getImagesFromResourceLocations(mapbobsLst, MapBobsLst.MEDIUM_FIRE_SHADOW_ANIMATION, 8)
+                getImagesFromGameResource(mapbobsLst, MapBobsLst.MEDIUM_FIRE_ANIMATION, 8),
+                getImagesFromGameResource(mapbobsLst, MapBobsLst.MEDIUM_FIRE_SHADOW_ANIMATION, 8)
         );
         fireImageCollection.addImagesForFireWithShadow(
                 FireSize.LARGE,
-                getImagesFromResourceLocations(mapbobsLst, MapBobsLst.LARGE_FIRE_ANIMATION, 8),
-                getImagesFromResourceLocations(mapbobsLst, MapBobsLst.LARGE_FIRE_SHADOW_ANIMATION, 8)
+                getImagesFromGameResource(mapbobsLst, MapBobsLst.LARGE_FIRE_ANIMATION, 8),
+                getImagesFromGameResource(mapbobsLst, MapBobsLst.LARGE_FIRE_SHADOW_ANIMATION, 8)
         );
 
         fireImageCollection.addBurntDownImage(SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.SMALL_BURNT_DOWN));
@@ -838,11 +871,11 @@ public class Extractor {
         TreeImageCollection treeImageCollection = new TreeImageCollection("trees");
 
         /* Extract animation for tree type 1 in wind -- cypress (?) */
-        treeImageCollection.addImagesForTree(Tree.TreeType.CYPRESS, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.CYPRESS_TREE_ANIMATION, 8));
-        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.CYPRESS, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.CYPRESS_TREE_SHADOW_ANIMATION, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.CYPRESS, getImagesFromGameResource(mapbobsLst, MapBobsLst.CYPRESS_TREE_ANIMATION, 8));
+        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.CYPRESS, getImagesFromGameResource(mapbobsLst, MapBobsLst.CYPRESS_TREE_SHADOW_ANIMATION, 8));
 
-        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.CYPRESS, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.CYPRESS_FALLING, 4));
-        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.CYPRESS, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.CYPRESS_FALLING_SHADOW, 4));
+        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.CYPRESS, getImagesFromGameResource(mapbobsLst, MapBobsLst.CYPRESS_FALLING, 4));
+        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.CYPRESS, getImagesFromGameResource(mapbobsLst, MapBobsLst.CYPRESS_FALLING_SHADOW, 4));
 
         treeImageCollection.addImageForGrowingTree(Tree.TreeType.CYPRESS, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CYPRESS_SMALLEST));
         treeImageCollection.addImageForGrowingTree(Tree.TreeType.CYPRESS, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CYPRESS_SMALL));
@@ -853,11 +886,11 @@ public class Extractor {
         treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.CYPRESS, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CYPRESS_SHADOW_MEDIUM));
 
         /* Extract animation for tree type 2 in wind -- birch, for sure */
-        treeImageCollection.addImagesForTree(Tree.TreeType.BIRCH, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.BIRCH_TREE_ANIMATION, 8));
-        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.BIRCH, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.BIRCH_TREE_SHADOW_ANIMATION, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.BIRCH, getImagesFromGameResource(mapbobsLst, MapBobsLst.BIRCH_TREE_ANIMATION, 8));
+        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.BIRCH, getImagesFromGameResource(mapbobsLst, MapBobsLst.BIRCH_TREE_SHADOW_ANIMATION, 8));
 
-        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.BIRCH, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.BIRCH_FALLING, 4));
-        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.BIRCH, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.BIRCH_FALLING_SHADOW, 4));
+        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.BIRCH, getImagesFromGameResource(mapbobsLst, MapBobsLst.BIRCH_FALLING, 4));
+        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.BIRCH, getImagesFromGameResource(mapbobsLst, MapBobsLst.BIRCH_FALLING_SHADOW, 4));
 
         treeImageCollection.addImageForGrowingTree(Tree.TreeType.BIRCH, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.BIRCH_SMALLEST));
         treeImageCollection.addImageForGrowingTree(Tree.TreeType.BIRCH, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.BIRCH_SMALL));
@@ -868,11 +901,11 @@ public class Extractor {
         treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.BIRCH, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.BIRCH_SHADOW_MEDIUM));
 
         /* Extract animation for tree type 3 in wind -- oak */
-        treeImageCollection.addImagesForTree(Tree.TreeType.OAK, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.OAK_TREE_ANIMATION, 8));
-        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.OAK, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.OAK_TREE_SHADOW_ANIMATION, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.OAK, getImagesFromGameResource(mapbobsLst, MapBobsLst.OAK_TREE_ANIMATION, 8));
+        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.OAK, getImagesFromGameResource(mapbobsLst, MapBobsLst.OAK_TREE_SHADOW_ANIMATION, 8));
 
-        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.OAK, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.OAK_FALLING, 4));
-        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.OAK, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.OAK_FALLING_SHADOW, 4));
+        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.OAK, getImagesFromGameResource(mapbobsLst, MapBobsLst.OAK_FALLING, 4));
+        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.OAK, getImagesFromGameResource(mapbobsLst, MapBobsLst.OAK_FALLING_SHADOW, 4));
 
         treeImageCollection.addImageForGrowingTree(Tree.TreeType.OAK, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.OAK_SMALLEST));
         treeImageCollection.addImageForGrowingTree(Tree.TreeType.OAK, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.OAK_SMALL));
@@ -883,11 +916,11 @@ public class Extractor {
         treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.OAK, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.OAK_SHADOW_MEDIUM));
 
         /* Extract animation for tree type 4 in wind -- short palm */
-        treeImageCollection.addImagesForTree(Tree.TreeType.PALM_1, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.PALM_1_TREE_ANIMATION, 8));
-        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.PALM_1, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.PALM_1_TREE_SHADOW_ANIMATION, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.PALM_1, getImagesFromGameResource(mapbobsLst, MapBobsLst.PALM_1_TREE_ANIMATION, 8));
+        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.PALM_1, getImagesFromGameResource(mapbobsLst, MapBobsLst.PALM_1_TREE_SHADOW_ANIMATION, 8));
 
-        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.PALM_1, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.PALM_1_FALLING, 4));
-        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.PALM_1, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.PALM_1_FALLING_SHADOW, 4));
+        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.PALM_1, getImagesFromGameResource(mapbobsLst, MapBobsLst.PALM_1_FALLING, 4));
+        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.PALM_1, getImagesFromGameResource(mapbobsLst, MapBobsLst.PALM_1_FALLING_SHADOW, 4));
 
         treeImageCollection.addImageForGrowingTree(Tree.TreeType.PALM_1, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PALM_1_SMALLEST));
         treeImageCollection.addImageForGrowingTree(Tree.TreeType.PALM_1, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PALM_1_SMALL));
@@ -898,11 +931,11 @@ public class Extractor {
         treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.PALM_1, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PALM_1_SHADOW_ALMOST_GROWN));
 
         /* Extract animation for tree type 5 in wind -- tall palm */
-        treeImageCollection.addImagesForTree(Tree.TreeType.PALM_2, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.PALM_2_TREE_ANIMATION, 8));
-        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.PALM_2, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.PALM_2_TREE_SHADOW_ANIMATION, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.PALM_2, getImagesFromGameResource(mapbobsLst, MapBobsLst.PALM_2_TREE_ANIMATION, 8));
+        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.PALM_2, getImagesFromGameResource(mapbobsLst, MapBobsLst.PALM_2_TREE_SHADOW_ANIMATION, 8));
 
-        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.PALM_2, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.PALM_2_FALLING, 4));
-        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.PALM_2, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.PALM_2_FALLING_SHADOW, 4));
+        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.PALM_2, getImagesFromGameResource(mapbobsLst, MapBobsLst.PALM_2_FALLING, 4));
+        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.PALM_2, getImagesFromGameResource(mapbobsLst, MapBobsLst.PALM_2_FALLING_SHADOW, 4));
 
         treeImageCollection.addImageForGrowingTree(Tree.TreeType.PALM_2, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PALM_2_SMALLEST));
         treeImageCollection.addImageForGrowingTree(Tree.TreeType.PALM_2, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PALM_2_SMALL));
@@ -913,15 +946,15 @@ public class Extractor {
         treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.PALM_2, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PALM_2_SHADOW_ALMOST_GROWN));
 
         /* Extract animation for tree type 6 in wind -- fat palm - pine apple */
-        treeImageCollection.addImagesForTree(Tree.TreeType.PINE_APPLE, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.PINE_APPLE_ANIMATION, 8));
-        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.PINE_APPLE, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.PINE_APPLE_SHADOW_ANIMATION, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.PINE_APPLE, getImagesFromGameResource(mapbobsLst, MapBobsLst.PINE_APPLE_ANIMATION, 8));
+        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.PINE_APPLE, getImagesFromGameResource(mapbobsLst, MapBobsLst.PINE_APPLE_SHADOW_ANIMATION, 8));
 
         /* Extract animation for tree type 7 in wind -- pine */
-        treeImageCollection.addImagesForTree(Tree.TreeType.PINE, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.PINE_TREE_ANIMATION, 8));
-        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.PINE, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.PINE_TREE_SHADOW_ANIMATION, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.PINE, getImagesFromGameResource(mapbobsLst, MapBobsLst.PINE_TREE_ANIMATION, 8));
+        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.PINE, getImagesFromGameResource(mapbobsLst, MapBobsLst.PINE_TREE_SHADOW_ANIMATION, 8));
 
-        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.PINE, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.PINE_FALLING, 4));
-        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.PINE, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.PINE_FALLING_SHADOW, 4));
+        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.PINE, getImagesFromGameResource(mapbobsLst, MapBobsLst.PINE_FALLING, 4));
+        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.PINE, getImagesFromGameResource(mapbobsLst, MapBobsLst.PINE_FALLING_SHADOW, 4));
 
         treeImageCollection.addImageForGrowingTree(Tree.TreeType.PINE, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PINE_SMALLEST));
         treeImageCollection.addImageForGrowingTree(Tree.TreeType.PINE, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PINE_SMALL));
@@ -932,11 +965,11 @@ public class Extractor {
         treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.PINE, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PINE_ALMOST_GROWN_SHADOW));
 
         /* Extract animation for tree type 8 in wind -- cherry */
-        treeImageCollection.addImagesForTree(Tree.TreeType.CHERRY, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.CHERRY_TREE_ANIMATION, 8));
-        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.CHERRY, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.CHERRY_TREE_SHADOW_ANIMATION, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.CHERRY, getImagesFromGameResource(mapbobsLst, MapBobsLst.CHERRY_TREE_ANIMATION, 8));
+        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.CHERRY, getImagesFromGameResource(mapbobsLst, MapBobsLst.CHERRY_TREE_SHADOW_ANIMATION, 8));
 
-        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.CHERRY, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.CHERRY_FALLING, 4));
-        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.CHERRY, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.CHERRY_FALLING_SHADOW, 4));
+        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.CHERRY, getImagesFromGameResource(mapbobsLst, MapBobsLst.CHERRY_FALLING, 4));
+        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.CHERRY, getImagesFromGameResource(mapbobsLst, MapBobsLst.CHERRY_FALLING_SHADOW, 4));
 
         treeImageCollection.addImageForGrowingTree(Tree.TreeType.CHERRY, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CHERRY_SMALLEST));
         treeImageCollection.addImageForGrowingTree(Tree.TreeType.CHERRY, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CHERRY_SMALL));
@@ -947,11 +980,11 @@ public class Extractor {
         treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.CHERRY, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CHERRY_ALMOST_GROWN_SHADOW));
 
         /* Extract animation for tree type 9 in wind -- fir (?) */
-        treeImageCollection.addImagesForTree(Tree.TreeType.FIR, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.FIR_TREE_ANIMATION, 8));
-        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.FIR, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.FIR_TREE_SHADOW_ANIMATION, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.FIR, getImagesFromGameResource(mapbobsLst, MapBobsLst.FIR_TREE_ANIMATION, 8));
+        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.FIR, getImagesFromGameResource(mapbobsLst, MapBobsLst.FIR_TREE_SHADOW_ANIMATION, 8));
 
-        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.FIR, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.FIR_FALLING, 4));
-        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.FIR, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.FIR_FALLING_SHADOW, 4));
+        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.FIR, getImagesFromGameResource(mapbobsLst, MapBobsLst.FIR_FALLING, 4));
+        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.FIR, getImagesFromGameResource(mapbobsLst, MapBobsLst.FIR_FALLING_SHADOW, 4));
 
         treeImageCollection.addImageForGrowingTree(Tree.TreeType.FIR, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.FIR_SMALLEST));
         treeImageCollection.addImageForGrowingTree(Tree.TreeType.FIR, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.FIR_SMALL));
@@ -974,60 +1007,60 @@ public class Extractor {
         AnimalImageCollection duckImageCollection = new AnimalImageCollection("duck");
 
         /* Ice bear */
-        iceBearImageCollection.addImages(NORTH_EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.ICE_BEAR_WALKING_NORTH_EAST_ANIMATION, 6));
-        iceBearImageCollection.addImages(EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.ICE_BEAR_WALKING_EAST_ANIMATION, 6));
-        iceBearImageCollection.addImages(SOUTH_EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.ICE_BEAR_WALKING_SOUTH_EAST_ANIMATION, 6));
-        iceBearImageCollection.addImages(SOUTH_WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.ICE_BEAR_WALKING_SOUTH_WEST_ANIMATION, 6));
-        iceBearImageCollection.addImages(WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.ICE_BEAR_WALKING_WEST_ANIMATION, 6));
-        iceBearImageCollection.addImages(NORTH_WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.ICE_BEAR_WALKING_NORTH_WEST_ANIMATION, 6));
+        iceBearImageCollection.addImages(NORTH_EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.ICE_BEAR_WALKING_NORTH_EAST_ANIMATION, 6));
+        iceBearImageCollection.addImages(EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.ICE_BEAR_WALKING_EAST_ANIMATION, 6));
+        iceBearImageCollection.addImages(SOUTH_EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.ICE_BEAR_WALKING_SOUTH_EAST_ANIMATION, 6));
+        iceBearImageCollection.addImages(SOUTH_WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.ICE_BEAR_WALKING_SOUTH_WEST_ANIMATION, 6));
+        iceBearImageCollection.addImages(WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.ICE_BEAR_WALKING_WEST_ANIMATION, 6));
+        iceBearImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.ICE_BEAR_WALKING_NORTH_WEST_ANIMATION, 6));
 
         /* Fox */
-        foxImageCollection.addImages(NORTH_EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.FOX_WALKING_NORTH_EAST_ANIMATION, 6));
-        foxImageCollection.addImages(EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.FOX_WALKING_EAST_ANIMATION, 6));
-        foxImageCollection.addImages(SOUTH_EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.FOX_WALKING_SOUTH_EAST_ANIMATION, 6));
-        foxImageCollection.addImages(SOUTH_WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.FOX_WALKING_SOUTH_WEST_ANIMATION, 6));
-        foxImageCollection.addImages(WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.FOX_WALKING_WEST_ANIMATION, 6));
-        foxImageCollection.addImages(NORTH_WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.FOX_WALKING_NORTH_WEST_ANIMATION, 6));
+        foxImageCollection.addImages(NORTH_EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.FOX_WALKING_NORTH_EAST_ANIMATION, 6));
+        foxImageCollection.addImages(EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.FOX_WALKING_EAST_ANIMATION, 6));
+        foxImageCollection.addImages(SOUTH_EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.FOX_WALKING_SOUTH_EAST_ANIMATION, 6));
+        foxImageCollection.addImages(SOUTH_WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.FOX_WALKING_SOUTH_WEST_ANIMATION, 6));
+        foxImageCollection.addImages(WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.FOX_WALKING_WEST_ANIMATION, 6));
+        foxImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.FOX_WALKING_NORTH_WEST_ANIMATION, 6));
 
         /* Rabbit */
-        rabbitImageCollection.addImages(NORTH_EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.RABBIT_WALKING_NORTH_EAST_ANIMATION, 6));
-        rabbitImageCollection.addImages(EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.RABBIT_WALKING_EAST_ANIMATION, 6));
-        rabbitImageCollection.addImages(SOUTH_EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.RABBIT_WALKING_SOUTH_EAST_ANIMATION, 6));
-        rabbitImageCollection.addImages(SOUTH_WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.RABBIT_WALKING_SOUTH_WEST_ANIMATION, 6));
-        rabbitImageCollection.addImages(WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.RABBIT_WALKING_WEST_ANIMATION, 6));
-        rabbitImageCollection.addImages(NORTH_WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.RABBIT_WALKING_NORTH_WEST_ANIMATION, 6));
+        rabbitImageCollection.addImages(NORTH_EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.RABBIT_WALKING_NORTH_EAST_ANIMATION, 6));
+        rabbitImageCollection.addImages(EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.RABBIT_WALKING_EAST_ANIMATION, 6));
+        rabbitImageCollection.addImages(SOUTH_EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.RABBIT_WALKING_SOUTH_EAST_ANIMATION, 6));
+        rabbitImageCollection.addImages(SOUTH_WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.RABBIT_WALKING_SOUTH_WEST_ANIMATION, 6));
+        rabbitImageCollection.addImages(WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.RABBIT_WALKING_WEST_ANIMATION, 6));
+        rabbitImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.RABBIT_WALKING_NORTH_WEST_ANIMATION, 6));
 
         /* Stag */
-        stagImageCollection.addImages(NORTH_EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.STAG_WALKING_NORTH_EAST_ANIMATION, 8));
-        stagImageCollection.addImages(EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.STAG_WALKING_EAST_ANIMATION, 8));
-        stagImageCollection.addImages(SOUTH_EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.STAG_WALKING_SOUTH_EAST_ANIMATION, 8));
-        stagImageCollection.addImages(SOUTH_WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.STAG_WALKING_SOUTH_WEST_ANIMATION, 8));
-        stagImageCollection.addImages(WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.STAG_WALKING_WEST_ANIMATION, 8));
-        stagImageCollection.addImages(NORTH_WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.STAG_WALKING_NORTH_WEST_ANIMATION, 8));
+        stagImageCollection.addImages(NORTH_EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.STAG_WALKING_NORTH_EAST_ANIMATION, 8));
+        stagImageCollection.addImages(EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.STAG_WALKING_EAST_ANIMATION, 8));
+        stagImageCollection.addImages(SOUTH_EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.STAG_WALKING_SOUTH_EAST_ANIMATION, 8));
+        stagImageCollection.addImages(SOUTH_WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.STAG_WALKING_SOUTH_WEST_ANIMATION, 8));
+        stagImageCollection.addImages(WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.STAG_WALKING_WEST_ANIMATION, 8));
+        stagImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.STAG_WALKING_NORTH_WEST_ANIMATION, 8));
 
         /* Deer */
-        deerImageCollection.addImages(NORTH_EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.DEER_WALKING_NORTH_EAST_ANIMATION, 8));
-        deerImageCollection.addImages(EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.DEER_WALKING_EAST_ANIMATION, 8));
-        deerImageCollection.addImages(SOUTH_EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.DEER_WALKING_SOUTH_EAST_ANIMATION, 8));
-        deerImageCollection.addImages(SOUTH_WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.DEER_WALKING_SOUTH_WEST_ANIMATION, 8));
-        deerImageCollection.addImages(WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.DEER_WALKING_WEST_ANIMATION, 8));
-        deerImageCollection.addImages(NORTH_WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.DEER_WALKING_NORTH_WEST_ANIMATION, 8));
+        deerImageCollection.addImages(NORTH_EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.DEER_WALKING_NORTH_EAST_ANIMATION, 8));
+        deerImageCollection.addImages(EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.DEER_WALKING_EAST_ANIMATION, 8));
+        deerImageCollection.addImages(SOUTH_EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.DEER_WALKING_SOUTH_EAST_ANIMATION, 8));
+        deerImageCollection.addImages(SOUTH_WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.DEER_WALKING_SOUTH_WEST_ANIMATION, 8));
+        deerImageCollection.addImages(WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.DEER_WALKING_WEST_ANIMATION, 8));
+        deerImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.DEER_WALKING_NORTH_WEST_ANIMATION, 8));
 
         /* Sheep */
-        sheepImageCollection.addImages(NORTH_EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.SHEEP_WALKING_NORTH_EAST_ANIMATION, 2));
-        sheepImageCollection.addImages(EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.SHEEP_WALKING_EAST_ANIMATION, 2));
-        sheepImageCollection.addImages(SOUTH_EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.SHEEP_WALKING_SOUTH_EAST_ANIMATION, 2));
-        sheepImageCollection.addImages(SOUTH_WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.SHEEP_WALKING_SOUTH_WEST_ANIMATION, 2));
-        sheepImageCollection.addImages(WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.SHEEP_WALKING_WEST_ANIMATION, 2));
-        sheepImageCollection.addImages(NORTH_WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.SHEEP_WALKING_NORTH_WEST_ANIMATION, 2));
+        sheepImageCollection.addImages(NORTH_EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.SHEEP_WALKING_NORTH_EAST_ANIMATION, 2));
+        sheepImageCollection.addImages(EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.SHEEP_WALKING_EAST_ANIMATION, 2));
+        sheepImageCollection.addImages(SOUTH_EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.SHEEP_WALKING_SOUTH_EAST_ANIMATION, 2));
+        sheepImageCollection.addImages(SOUTH_WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.SHEEP_WALKING_SOUTH_WEST_ANIMATION, 2));
+        sheepImageCollection.addImages(WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.SHEEP_WALKING_WEST_ANIMATION, 2));
+        sheepImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.SHEEP_WALKING_NORTH_WEST_ANIMATION, 2));
 
         /* Deer 2 (horse?) */
-        deer2ImageCollection.addImages(NORTH_EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.DEER_2_WALKING_NORTH_EAST_ANIMATION, 8));
-        deer2ImageCollection.addImages(EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.DEER_2_WALKING_EAST_ANIMATION, 8));
-        deer2ImageCollection.addImages(SOUTH_EAST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.DEER_2_WALKING_SOUTH_EAST_ANIMATION, 8));
-        deer2ImageCollection.addImages(SOUTH_WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.DEER_2_WALKING_SOUTH_WEST_ANIMATION, 8));
-        deer2ImageCollection.addImages(WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.DEER_2_WALKING_WEST_ANIMATION, 8));
-        deer2ImageCollection.addImages(NORTH_WEST, getImagesFromResourceLocations(mapbobsLst, MapBobsLst.DEER_2_WALKING_NORTH_WEST_ANIMATION, 8));
+        deer2ImageCollection.addImages(NORTH_EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.DEER_2_WALKING_NORTH_EAST_ANIMATION, 8));
+        deer2ImageCollection.addImages(EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.DEER_2_WALKING_EAST_ANIMATION, 8));
+        deer2ImageCollection.addImages(SOUTH_EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.DEER_2_WALKING_SOUTH_EAST_ANIMATION, 8));
+        deer2ImageCollection.addImages(SOUTH_WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.DEER_2_WALKING_SOUTH_WEST_ANIMATION, 8));
+        deer2ImageCollection.addImages(WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.DEER_2_WALKING_WEST_ANIMATION, 8));
+        deer2ImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.DEER_2_WALKING_NORTH_WEST_ANIMATION, 8));
 
         /* Extract duck */
         duckImageCollection.addImage(EAST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.DUCK_EAST));
@@ -1053,12 +1086,12 @@ public class Extractor {
 
         AnimalImageCollection donkeyImageCollection = new AnimalImageCollection("donkey");
 
-        donkeyImageCollection.addImages(EAST, getImagesFromResourceLocations(mapbobs0, MapBobs0Lst.DONKEY_EAST_ANIMATION, 8));
-        donkeyImageCollection.addImages(SOUTH_EAST, getImagesFromResourceLocations(mapbobs0, MapBobs0Lst.DONKEY_SOUTH_EAST_ANIMATION, 8));
-        donkeyImageCollection.addImages(SOUTH_WEST, getImagesFromResourceLocations(mapbobs0, MapBobs0Lst.DONKEY_SOUTH_WEST_ANIMATION, 8));
-        donkeyImageCollection.addImages(WEST, getImagesFromResourceLocations(mapbobs0, MapBobs0Lst.DONKEY_WEST_ANIMATION, 8));
-        donkeyImageCollection.addImages(NORTH_WEST, getImagesFromResourceLocations(mapbobs0, MapBobs0Lst.DONKEY_NORTH_WEST_ANIMATION, 8));
-        donkeyImageCollection.addImages(NORTH_EAST, getImagesFromResourceLocations(mapbobs0, MapBobs0Lst.DONKEY_NORTH_EAST_ANIMATION, 8));
+        donkeyImageCollection.addImages(EAST, getImagesFromGameResource(mapbobs0, MapBobs0Lst.DONKEY_EAST_ANIMATION, 8));
+        donkeyImageCollection.addImages(SOUTH_EAST, getImagesFromGameResource(mapbobs0, MapBobs0Lst.DONKEY_SOUTH_EAST_ANIMATION, 8));
+        donkeyImageCollection.addImages(SOUTH_WEST, getImagesFromGameResource(mapbobs0, MapBobs0Lst.DONKEY_SOUTH_WEST_ANIMATION, 8));
+        donkeyImageCollection.addImages(WEST, getImagesFromGameResource(mapbobs0, MapBobs0Lst.DONKEY_WEST_ANIMATION, 8));
+        donkeyImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapbobs0, MapBobs0Lst.DONKEY_NORTH_WEST_ANIMATION, 8));
+        donkeyImageCollection.addImages(NORTH_EAST, getImagesFromGameResource(mapbobs0, MapBobs0Lst.DONKEY_NORTH_EAST_ANIMATION, 8));
 
         donkeyImageCollection.writeImageAtlas(natureDir + "/animals/", defaultPalette);
 
@@ -1768,7 +1801,7 @@ public class Extractor {
         buildingsImageCollection.writeImageAtlas(toDir + "/", defaultPalette);
     }
 
-    private List<Bitmap> getImagesFromResourceLocations(List<GameResource> gameResourceList, int startLocation, int amount) {
+    private List<Bitmap> getImagesFromGameResource(List<GameResource> gameResourceList, int startLocation, int amount) {
         List<Bitmap> images = new ArrayList<>();
 
         for (int i = 0; i < amount; i++) {
