@@ -384,7 +384,14 @@ public class Extractor {
 
         // Add cargo carrying images
         WorkerImageCollection woodcutterImageCollector = workerImageCollectors.get(JobType.WOODCUTTER);
+        WorkerImageCollection carpenterImageCollector = workerImageCollectors.get(JobType.CARPENTER);
         WorkerImageCollection fishermanImageCollector = workerImageCollectors.get(JobType.FISHER);
+        WorkerImageCollection stonemasonImageCollector = workerImageCollectors.get(JobType.STONEMASON);
+        WorkerImageCollection minterImageCollector = workerImageCollectors.get(JobType.MINTER);
+        WorkerImageCollection farmerImageCollector = workerImageCollectors.get(JobType.FARMER);
+        WorkerImageCollection pigBreederImageCollector = workerImageCollectors.get(JobType.PIG_BREEDER);
+        WorkerImageCollection millerImageCollector = workerImageCollectors.get(JobType.MILLER);
+        WorkerImageCollection bakerImageCollector = workerImageCollectors.get(JobType.BAKER);
 
         List<PlayerBitmap> bobBitmaps = bobGameResource.getBob().getAllBitmaps();
 
@@ -395,12 +402,112 @@ public class Extractor {
         woodcutterImageCollector.addCargoImage(NORTH_WEST, bobBitmaps.get(JobsBob.WOODCUTTER_CARGO_NORTH_WEST));
         woodcutterImageCollector.addCargoImage(NORTH_EAST, bobBitmaps.get(JobsBob.WOODCUTTER_CARGO_NORTH_EAST));
 
+        carpenterImageCollector.addCargoImage(SOUTH_EAST, bobBitmaps.get(JobsBob.CARPENTER_CARGO_SOUTH_EAST));
+        carpenterImageCollector.addCargoImage(NORTH_WEST, bobBitmaps.get(JobsBob.CARPENTER_CARGO_NORTH_WEST));
+
+        stonemasonImageCollector.addCargoImage(EAST, bobBitmaps.get(JobsBob.STONEMASON_CARGO_EAST));
+        stonemasonImageCollector.addCargoImage(SOUTH_EAST, bobBitmaps.get(JobsBob.STONEMASON_CARGO_SOUTH_EAST));
+        stonemasonImageCollector.addCargoImage(SOUTH_WEST, bobBitmaps.get(JobsBob.STONEMASON_CARGO_SOUTH_WEST));
+        stonemasonImageCollector.addCargoImage(WEST, bobBitmaps.get(JobsBob.STONEMASON_CARGO_WEST));
+        stonemasonImageCollector.addCargoImage(NORTH_WEST, bobBitmaps.get(JobsBob.STONEMASON_CARGO_NORTH_WEST));
+        stonemasonImageCollector.addCargoImage(NORTH_EAST, bobBitmaps.get(JobsBob.STONEMASON_CARGO_NORTH_EAST));
+
+        minterImageCollector.addCargoImage(SOUTH_EAST, bobBitmaps.get(JobsBob.MINTER_CARGO_SOUTH_EAST));
+        minterImageCollector.addCargoImage(NORTH_WEST, bobBitmaps.get(JobsBob.MINTER_CARGO_NORTH_WEST));
+
+        // TODO: add miner with each type of ore
+
         fishermanImageCollector.addCargoImage(EAST, bobBitmaps.get(JobsBob.FISHERMAN_CARGO_EAST));
         fishermanImageCollector.addCargoImage(SOUTH_EAST, bobBitmaps.get(JobsBob.FISHERMAN_CARGO_SOUTH_EAST));
         fishermanImageCollector.addCargoImage(SOUTH_WEST, bobBitmaps.get(JobsBob.FISHERMAN_CARGO_SOUTH_WEST));
         fishermanImageCollector.addCargoImage(WEST, bobBitmaps.get(JobsBob.FISHERMAN_CARGO_WEST));
         fishermanImageCollector.addCargoImage(NORTH_WEST, bobBitmaps.get(JobsBob.FISHERMAN_CARGO_NORTH_WEST));
         fishermanImageCollector.addCargoImage(NORTH_EAST, bobBitmaps.get(JobsBob.FISHERMAN_CARGO_NORTH_EAST));
+
+        farmerImageCollector.addCargoImage(EAST, bobBitmaps.get(JobsBob.FARMER_CARGO_EAST));
+        farmerImageCollector.addCargoImage(SOUTH_EAST, bobBitmaps.get(JobsBob.FARMER_CARGO_SOUTH_EAST));
+        farmerImageCollector.addCargoImage(SOUTH_WEST, bobBitmaps.get(JobsBob.FARMER_CARGO_SOUTH_WEST));
+        farmerImageCollector.addCargoImage(WEST, bobBitmaps.get(JobsBob.FARMER_CARGO_WEST));
+        farmerImageCollector.addCargoImage(NORTH_WEST, bobBitmaps.get(JobsBob.FARMER_CARGO_NORTH_WEST));
+        farmerImageCollector.addCargoImage(NORTH_EAST, bobBitmaps.get(JobsBob.FARMER_CARGO_NORTH_EAST));
+
+        // TODO: it's suspicious that the amount of images are different per direction and that they are in a strange order in the file. Double check!
+        pigBreederImageCollector.addCargoImages(SOUTH_EAST,
+                bobBitmaps.get(JobsBob.PIG_BREEDER_CARGO_SOUTH_EAST_ANIMATION_0),
+                bobBitmaps.get(JobsBob.PIG_BREEDER_CARGO_SOUTH_EAST_ANIMATION_1),
+                bobBitmaps.get(JobsBob.PIG_BREEDER_CARGO_SOUTH_EAST_ANIMATION_2),
+                bobBitmaps.get(JobsBob.PIG_BREEDER_CARGO_SOUTH_EAST_ANIMATION_3),
+                bobBitmaps.get(JobsBob.PIG_BREEDER_CARGO_SOUTH_EAST_ANIMATION_4)
+                );
+        pigBreederImageCollector.addCargoImages(NORTH_WEST,
+                bobBitmaps.get(JobsBob.PIG_BREEDER_CARGO_NORTH_WEST_ANIMATION_0),
+                bobBitmaps.get(JobsBob.PIG_BREEDER_CARGO_NORTH_WEST_ANIMATION_1),
+                bobBitmaps.get(JobsBob.PIG_BREEDER_CARGO_NORTH_WEST_ANIMATION_2),
+                bobBitmaps.get(JobsBob.PIG_BREEDER_CARGO_NORTH_WEST_ANIMATION_3),
+                bobBitmaps.get(JobsBob.PIG_BREEDER_CARGO_NORTH_WEST_ANIMATION_4),
+                bobBitmaps.get(JobsBob.PIG_BREEDER_CARGO_NORTH_WEST_ANIMATION_5),
+                bobBitmaps.get(JobsBob.PIG_BREEDER_CARGO_NORTH_WEST_ANIMATION_6),
+                bobBitmaps.get(JobsBob.PIG_BREEDER_CARGO_NORTH_WEST_ANIMATION_7)
+                );
+
+        // TODO: miller is also suspicious. Different number of images
+        millerImageCollector.addCargoImages(SOUTH_EAST,
+                bobBitmaps.get(JobsBob.MILLER_CARGO_SOUTH_EAST_ANIMATION_0),
+                bobBitmaps.get(JobsBob.MILLER_CARGO_SOUTH_EAST_ANIMATION_1),
+                bobBitmaps.get(JobsBob.MILLER_CARGO_SOUTH_EAST_ANIMATION_2),
+                bobBitmaps.get(JobsBob.MILLER_CARGO_SOUTH_EAST_ANIMATION_3),
+                bobBitmaps.get(JobsBob.MILLER_CARGO_SOUTH_EAST_ANIMATION_4),
+                bobBitmaps.get(JobsBob.MILLER_CARGO_SOUTH_EAST_ANIMATION_5),
+                bobBitmaps.get(JobsBob.MILLER_CARGO_SOUTH_EAST_ANIMATION_6),
+                bobBitmaps.get(JobsBob.MILLER_CARGO_SOUTH_EAST_ANIMATION_7)
+        );
+        millerImageCollector.addCargoImages(NORTH_WEST,
+                bobBitmaps.get(JobsBob.MILLER_CARGO_NORTH_WEST_ANIMATION_0),
+                bobBitmaps.get(JobsBob.MILLER_CARGO_NORTH_WEST_ANIMATION_1),
+                bobBitmaps.get(JobsBob.MILLER_CARGO_NORTH_WEST_ANIMATION_2),
+                bobBitmaps.get(JobsBob.MILLER_CARGO_NORTH_WEST_ANIMATION_3),
+                bobBitmaps.get(JobsBob.MILLER_CARGO_NORTH_WEST_ANIMATION_4),
+                bobBitmaps.get(JobsBob.MILLER_CARGO_NORTH_WEST_ANIMATION_5),
+                bobBitmaps.get(JobsBob.MILLER_CARGO_NORTH_WEST_ANIMATION_6)
+        );
+
+        bakerImageCollector.addCargoImages(EAST,
+                bobBitmaps.get(JobsBob.BAKER_CARGO_EAST_ANIMATION_0),
+                bobBitmaps.get(JobsBob.BAKER_CARGO_EAST_ANIMATION_1),
+                bobBitmaps.get(JobsBob.BAKER_CARGO_EAST_ANIMATION_2),
+                bobBitmaps.get(JobsBob.BAKER_CARGO_EAST_ANIMATION_3),
+                bobBitmaps.get(JobsBob.BAKER_CARGO_EAST_ANIMATION_4)
+        );
+        bakerImageCollector.addCargoImages(SOUTH_EAST,
+                bobBitmaps.get(JobsBob.BAKER_CARGO_SOUTH_EAST_ANIMATION_0),
+                bobBitmaps.get(JobsBob.BAKER_CARGO_SOUTH_EAST_ANIMATION_1),
+                bobBitmaps.get(JobsBob.BAKER_CARGO_SOUTH_EAST_ANIMATION_2),
+                bobBitmaps.get(JobsBob.BAKER_CARGO_SOUTH_EAST_ANIMATION_3),
+                bobBitmaps.get(JobsBob.BAKER_CARGO_SOUTH_EAST_ANIMATION_4),
+                bobBitmaps.get(JobsBob.BAKER_CARGO_SOUTH_EAST_ANIMATION_5),
+                bobBitmaps.get(JobsBob.BAKER_CARGO_SOUTH_EAST_ANIMATION_6),
+                bobBitmaps.get(JobsBob.BAKER_CARGO_SOUTH_EAST_ANIMATION_7)
+        );
+        bakerImageCollector.addCargoImages(WEST,
+                bobBitmaps.get(JobsBob.BAKER_CARGO_WEST_ANIMATION_0),
+                bobBitmaps.get(JobsBob.BAKER_CARGO_WEST_ANIMATION_1),
+                bobBitmaps.get(JobsBob.BAKER_CARGO_WEST_ANIMATION_2),
+                bobBitmaps.get(JobsBob.BAKER_CARGO_WEST_ANIMATION_3),
+                bobBitmaps.get(JobsBob.BAKER_CARGO_WEST_ANIMATION_4),
+                bobBitmaps.get(JobsBob.BAKER_CARGO_WEST_ANIMATION_5),
+                bobBitmaps.get(JobsBob.BAKER_CARGO_WEST_ANIMATION_6),
+                bobBitmaps.get(JobsBob.BAKER_CARGO_WEST_ANIMATION_7)
+        );
+        bakerImageCollector.addCargoImages(NORTH_WEST,
+                bobBitmaps.get(JobsBob.BAKER_CARGO_NORTH_WEST_ANIMATION_0),
+                bobBitmaps.get(JobsBob.BAKER_CARGO_NORTH_WEST_ANIMATION_1),
+                bobBitmaps.get(JobsBob.BAKER_CARGO_NORTH_WEST_ANIMATION_2),
+                bobBitmaps.get(JobsBob.BAKER_CARGO_NORTH_WEST_ANIMATION_3),
+                bobBitmaps.get(JobsBob.BAKER_CARGO_NORTH_WEST_ANIMATION_4),
+                bobBitmaps.get(JobsBob.BAKER_CARGO_NORTH_WEST_ANIMATION_5),
+                bobBitmaps.get(JobsBob.BAKER_CARGO_NORTH_WEST_ANIMATION_6),
+                bobBitmaps.get(JobsBob.BAKER_CARGO_NORTH_WEST_ANIMATION_7)
+        );
 
         // Write each worker image collection to file
         workerImageCollectors.values().forEach(
