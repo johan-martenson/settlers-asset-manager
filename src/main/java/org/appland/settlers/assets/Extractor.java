@@ -317,15 +317,15 @@ public class Extractor {
                         PlayerBitmap head = frame.getBitmaps().get(1);
 
                         /* Calculate the dimension */
-                        Point origin = new Point(0, 0);
+                        Point maxOrigin = new Point(0, 0);
                         Dimension size = new Dimension(0, 0);
 
                         if (!frame.getBitmaps().isEmpty()) {
 
-                            origin.x = Integer.MIN_VALUE;
-                            origin.y = Integer.MIN_VALUE;
+                            maxOrigin.x = Integer.MIN_VALUE;
+                            maxOrigin.y = Integer.MIN_VALUE;
 
-                            Point maxPosition = origin;
+                            Point maxPosition = maxOrigin;
 
                             boolean hasPlayer = false;
 
@@ -338,20 +338,23 @@ public class Extractor {
                                 Area bitmapVisibleArea = bitmap.getVisibleArea();
                                 Point bitmapOrigin = bitmap.getOrigin();
 
-                                origin.x = Math.max(origin.x, bitmapOrigin.x);
-                                origin.y = Math.max(origin.y, bitmapOrigin.y);
+                                maxOrigin.x = Math.max(maxOrigin.x, bitmapOrigin.x);
+                                maxOrigin.y = Math.max(maxOrigin.y, bitmapOrigin.y);
 
                                 maxPosition.x = Math.max(maxPosition.x, bitmapVisibleArea.width - bitmapOrigin.x);
                                 maxPosition.y = Math.max(maxPosition.y, bitmapVisibleArea.height - bitmapOrigin.y);
                             }
 
                             /* Create a bitmap to merge both body and head into */
-                            Bitmap merged = new Bitmap(origin.x + maxPosition.x, origin.y + maxPosition.y, defaultPalette, TextureFormat.BGRA);
+                            Bitmap merged = new Bitmap(maxOrigin.x + maxPosition.x, maxOrigin.y + maxPosition.y, defaultPalette, TextureFormat.BGRA);
+
+                            merged.setNx(maxOrigin.x);
+                            merged.setNy(maxOrigin.y);
 
                             /* Draw the body */
                             Area bodyVisibleArea = body.getVisibleArea();
 
-                            Point bodyToUpperleft = new Point(origin.x - body.getOrigin().x, origin.y - body.getOrigin().y);
+                            Point bodyToUpperleft = new Point(maxOrigin.x - body.getOrigin().x, maxOrigin.y - body.getOrigin().y);
                             Point bodyFromUpperLeft = bodyVisibleArea.getUpperLeftCoordinate();
 
                             merged.copyNonTransparentPixels(body, bodyToUpperleft, bodyFromUpperLeft, bodyVisibleArea.getDimension());
@@ -359,7 +362,7 @@ public class Extractor {
                             /* Draw the head */
                             Area headVisibleArea = head.getVisibleArea();
 
-                            Point headToUpperLeft = new Point(origin.x - head.getOrigin().x, origin.y - head.getOrigin().y);
+                            Point headToUpperLeft = new Point(maxOrigin.x - head.getOrigin().x, maxOrigin.y - head.getOrigin().y);
                             Point headFromUpperLeft = headVisibleArea.getUpperLeftCoordinate();
 
                             merged.copyNonTransparentPixels(head, headToUpperLeft, headFromUpperLeft, headVisibleArea.getDimension());
