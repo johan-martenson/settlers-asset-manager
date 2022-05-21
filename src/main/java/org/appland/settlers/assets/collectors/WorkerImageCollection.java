@@ -6,6 +6,7 @@ import org.appland.settlers.assets.ImageBoard;
 import org.appland.settlers.assets.Nation;
 import org.appland.settlers.assets.NormalizedImageList;
 import org.appland.settlers.assets.Palette;
+import org.appland.settlers.model.Material;
 import org.json.simple.JSONObject;
 
 import java.awt.Point;
@@ -23,8 +24,8 @@ public class WorkerImageCollection {
     private final String name;
     private final Map<Nation, Map<Direction, List<Bitmap>>> nationToDirectionToImageMap;
     private final Map<Direction, List<Bitmap>> shadowImages;
-    private final Map<Direction, Bitmap> singleCargoImages;
-    private final Map<Direction, List<Bitmap>> multipleCargoImages;
+    private final Map<Material, Map<Direction, Bitmap>> singleCargoImages;
+    private final Map<Material, Map<Direction, List<Bitmap>>> multipleCargoImages;
 
     public WorkerImageCollection(String name) {
         this.name = name;
@@ -106,27 +107,35 @@ public class WorkerImageCollection {
         // Write single cargo images (if any)
         if (!singleCargoImages.keySet().isEmpty()) {
 
-            int rowHeight = 0;
+            JSONObject jsonSingleCargoImages = new JSONObject();
 
-            cursor.x = 0;
+            jsonImageAtlas.put("singleCargoImages", jsonSingleCargoImages);
 
-            JSONObject jsonCargoImages = new JSONObject();
+            for (Material material : singleCargoImages.keySet()) {
 
-            jsonImageAtlas.put("singleCargoImages", jsonCargoImages);
+                JSONObject jsonMaterialImage = new JSONObject();
 
-            for (Direction direction : singleCargoImages.keySet()) {
-                Bitmap cargoImageForDirection = singleCargoImages.get(direction);
+                jsonSingleCargoImages.put(material.name().toUpperCase(), jsonMaterialImage);
 
-                imageBoard.placeImage(cargoImageForDirection, cursor);
+                int rowHeight = 0;
 
-                jsonCargoImages.put(direction.name().toUpperCase(), imageBoard.imageLocationToJson(cargoImageForDirection));
+                cursor.x = 0;
 
-                rowHeight = Math.max(rowHeight, cargoImageForDirection.getHeight());
+                for (Direction direction : singleCargoImages.get(material).keySet()) {
+                    Bitmap cargoImageForDirection = singleCargoImages.get(material).get(direction);
 
-                cursor.x = cursor.x + cargoImageForDirection.getWidth();
+                    imageBoard.placeImage(cargoImageForDirection, cursor);
+
+                    jsonMaterialImage.put(direction.name().toUpperCase(), imageBoard.imageLocationToJson(cargoImageForDirection));
+
+                    rowHeight = Math.max(rowHeight, cargoImageForDirection.getHeight());
+
+                    cursor.x = cursor.x + cargoImageForDirection.getWidth();
+                }
+
+                cursor.y = cursor.y + rowHeight;
             }
 
-            cursor.y = cursor.y + rowHeight;
         }
 
         // Write lists of cargo images (if any)
@@ -136,19 +145,32 @@ public class WorkerImageCollection {
 
             jsonImageAtlas.put("multipleCargoImages", jsonMultipleCargoImages);
 
-            for (Direction direction : multipleCargoImages.keySet()) {
+            for (Material material : multipleCargoImages.keySet()) {
+
+                JSONObject jsonMaterialImages = new JSONObject();
+
+                jsonMultipleCargoImages.put(material.name().toUpperCase(), jsonMaterialImages);
 
                 cursor.x = 0;
 
-                List<Bitmap> cargoImagesForDirection = multipleCargoImages.get(direction);
-                NormalizedImageList normalizedCargoListForDirection = new NormalizedImageList(cargoImagesForDirection);
-                List<Bitmap> normalizedCargoImagesForDirection = normalizedCargoListForDirection.getNormalizedImages();
+                int rowHeight = 0;
 
-                imageBoard.placeImageSeries(normalizedCargoImagesForDirection, cursor, ImageBoard.LayoutDirection.ROW);
+                for (Direction direction : multipleCargoImages.get(material).keySet()) {
 
-                jsonMultipleCargoImages.put(direction.name().toUpperCase(), imageBoard.imageSeriesLocationToJson(normalizedCargoImagesForDirection));
+                    List<Bitmap> cargoImagesForDirection = multipleCargoImages.get(material).get(direction);
+                    NormalizedImageList normalizedCargoListForDirection = new NormalizedImageList(cargoImagesForDirection);
+                    List<Bitmap> normalizedCargoImagesForDirection = normalizedCargoListForDirection.getNormalizedImages();
 
-                cursor.y = cursor.y + normalizedCargoListForDirection.getImageHeight();
+                    imageBoard.placeImageSeries(normalizedCargoImagesForDirection, cursor, ImageBoard.LayoutDirection.ROW);
+
+                    jsonMaterialImages.put(direction.name().toUpperCase(), imageBoard.imageSeriesLocationToJson(normalizedCargoImagesForDirection));
+
+                    rowHeight = Math.max(rowHeight, normalizedCargoListForDirection.getImageHeight());
+
+                    cursor.y = cursor.y + normalizedCargoListForDirection.getImageHeight();
+                }
+
+                cursor.y = cursor.y + rowHeight;
             }
         }
 
@@ -164,11 +186,19 @@ public class WorkerImageCollection {
         shadowImages.put(direction, images);
     }
 
-    public void addCargoImage(Direction direction, Bitmap image) {
-        singleCargoImages.put(direction, image);
+    public void addCargoImage(Direction direction, Material material, Bitmap image) {
+        if (!singleCargoImages.containsKey(material)) {
+            singleCargoImages.put(material, new HashMap<>());
+        }
+
+        singleCargoImages.get(material).put(direction, image);
     }
 
-    public void addCargoImages(Direction direction, Bitmap... images) {
-        multipleCargoImages.put(direction, Arrays.asList(images));
+    public void addCargoImages(Direction direction, Material material, Bitmap... images) {
+        if (!multipleCargoImages.containsKey(material)) {
+            multipleCargoImages.put(material, new HashMap<>());
+        }
+
+        multipleCargoImages.get(material).put(direction, Arrays.asList(images));
     }
 }
