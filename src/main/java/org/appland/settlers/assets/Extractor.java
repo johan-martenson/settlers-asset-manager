@@ -395,6 +395,7 @@ public class Extractor {
         WorkerImageCollection pigBreederImageCollector = workerImageCollectors.get(JobType.PIG_BREEDER);
         WorkerImageCollection millerImageCollector = workerImageCollectors.get(JobType.MILLER);
         WorkerImageCollection bakerImageCollector = workerImageCollectors.get(JobType.BAKER);
+        WorkerImageCollection metalWorkerImageCollecor = workerImageCollectors.get(JobType.METALWORKER);
 
         List<PlayerBitmap> bobBitmaps = bobGameResource.getBob().getAllBitmaps();
 
@@ -518,6 +519,204 @@ public class Extractor {
                 bobBitmaps.get(JobsBob.BAKER_CARGO_NORTH_WEST_ANIMATION_5),
                 bobBitmaps.get(JobsBob.BAKER_CARGO_NORTH_WEST_ANIMATION_6),
                 bobBitmaps.get(JobsBob.BAKER_CARGO_NORTH_WEST_ANIMATION_7)
+        );
+
+        // TODO: Handle brewer and/or well worker
+
+        // TODO: Handle metalworker carrying "shift gear"?? At index 78
+
+        metalWorkerImageCollecor.addCargoImages(SOUTH_EAST,
+                Material.TONGS,
+                bobBitmaps.get(JobsBob.METAL_WORKER_TONGS_CARGO_SOUTH_EAST_ANIMATION_0),
+                bobBitmaps.get(JobsBob.METAL_WORKER_TONGS_CARGO_SOUTH_EAST_ANIMATION_1),
+                bobBitmaps.get(JobsBob.METAL_WORKER_TONGS_CARGO_SOUTH_EAST_ANIMATION_2),
+                bobBitmaps.get(JobsBob.METAL_WORKER_TONGS_CARGO_SOUTH_EAST_ANIMATION_3),
+                bobBitmaps.get(JobsBob.METAL_WORKER_TONGS_CARGO_SOUTH_EAST_ANIMATION_4),
+                bobBitmaps.get(JobsBob.METAL_WORKER_TONGS_CARGO_SOUTH_EAST_ANIMATION_5),
+                bobBitmaps.get(JobsBob.METAL_WORKER_TONGS_CARGO_SOUTH_EAST_ANIMATION_6)
+        );
+        metalWorkerImageCollecor.addCargoImages(NORTH_WEST,
+                Material.TONGS,
+                bobBitmaps.get(JobsBob.METAL_WORKER_TONGS_CARGO_NORTH_WEST_ANIMATION_0),
+                bobBitmaps.get(JobsBob.METAL_WORKER_TONGS_CARGO_NORTH_WEST_ANIMATION_1),
+                bobBitmaps.get(JobsBob.METAL_WORKER_TONGS_CARGO_NORTH_WEST_ANIMATION_2),
+                bobBitmaps.get(JobsBob.METAL_WORKER_TONGS_CARGO_NORTH_WEST_ANIMATION_3)
+        );
+
+        metalWorkerImageCollecor.addCargoImages(SOUTH_EAST,
+                Material.HAMMER,
+                bobBitmaps.get(JobsBob.METAL_WORKER_HAMMER_CARGO_SOUTH_EAST_ANIMATION_0),
+                bobBitmaps.get(JobsBob.METAL_WORKER_HAMMER_CARGO_SOUTH_EAST_ANIMATION_1),
+                bobBitmaps.get(JobsBob.METAL_WORKER_HAMMER_CARGO_SOUTH_EAST_ANIMATION_2),
+                bobBitmaps.get(JobsBob.METAL_WORKER_HAMMER_CARGO_SOUTH_EAST_ANIMATION_3),
+                bobBitmaps.get(JobsBob.METAL_WORKER_HAMMER_CARGO_SOUTH_EAST_ANIMATION_4),
+                bobBitmaps.get(JobsBob.METAL_WORKER_HAMMER_CARGO_SOUTH_EAST_ANIMATION_5),
+                bobBitmaps.get(JobsBob.METAL_WORKER_HAMMER_CARGO_SOUTH_EAST_ANIMATION_6)
+                );
+        metalWorkerImageCollecor.addCargoImages(NORTH_WEST,
+                Material.HAMMER,
+                bobBitmaps.get(JobsBob.METAL_WORKER_HAMMER_CARGO_NORTH_WEST_ANIMATION_0),
+                bobBitmaps.get(JobsBob.METAL_WORKER_HAMMER_CARGO_NORTH_WEST_ANIMATION_1),
+                bobBitmaps.get(JobsBob.METAL_WORKER_HAMMER_CARGO_NORTH_WEST_ANIMATION_2),
+                bobBitmaps.get(JobsBob.METAL_WORKER_HAMMER_CARGO_NORTH_WEST_ANIMATION_3)
+        );
+
+        metalWorkerImageCollecor.addCargoImages(SOUTH_EAST,
+                Material.AXE,
+                bobBitmaps.get(JobsBob.METAL_WORKER_AXE_CARGO_SOUTH_EAST_ANIMATION_0),
+                bobBitmaps.get(JobsBob.METAL_WORKER_AXE_CARGO_SOUTH_EAST_ANIMATION_1),
+                bobBitmaps.get(JobsBob.METAL_WORKER_AXE_CARGO_SOUTH_EAST_ANIMATION_2),
+                bobBitmaps.get(JobsBob.METAL_WORKER_AXE_CARGO_SOUTH_EAST_ANIMATION_3),
+                bobBitmaps.get(JobsBob.METAL_WORKER_AXE_CARGO_SOUTH_EAST_ANIMATION_4)
+        );
+        metalWorkerImageCollecor.addCargoImages(NORTH_WEST,
+                Material.AXE,
+                bobBitmaps.get(JobsBob.METAL_WORKER_AXE_CARGO_NORTH_WEST_ANIMATION_0),
+                bobBitmaps.get(JobsBob.METAL_WORKER_AXE_CARGO_NORTH_WEST_ANIMATION_1),
+                bobBitmaps.get(JobsBob.METAL_WORKER_AXE_CARGO_NORTH_WEST_ANIMATION_2),
+                bobBitmaps.get(JobsBob.METAL_WORKER_AXE_CARGO_NORTH_WEST_ANIMATION_3),
+                bobBitmaps.get(JobsBob.METAL_WORKER_AXE_CARGO_NORTH_WEST_ANIMATION_4),
+                bobBitmaps.get(JobsBob.METAL_WORKER_AXE_CARGO_NORTH_WEST_ANIMATION_5)
+        );
+
+        metalWorkerImageCollecor.addCargoImages(SOUTH_EAST,
+                Material.PICK_AXE,
+                bobBitmaps.get(JobsBob.METAL_WORKER_PICK_AXE_CARGO_SOUTH_EAST_ANIMATION_0),
+                bobBitmaps.get(JobsBob.METAL_WORKER_PICK_AXE_CARGO_SOUTH_EAST_ANIMATION_1),
+                bobBitmaps.get(JobsBob.METAL_WORKER_PICK_AXE_CARGO_SOUTH_EAST_ANIMATION_2),
+                bobBitmaps.get(JobsBob.METAL_WORKER_PICK_AXE_CARGO_SOUTH_EAST_ANIMATION_3),
+                bobBitmaps.get(JobsBob.METAL_WORKER_PICK_AXE_CARGO_SOUTH_EAST_ANIMATION_4),
+                bobBitmaps.get(JobsBob.METAL_WORKER_PICK_AXE_CARGO_SOUTH_EAST_ANIMATION_5)
+        );
+        metalWorkerImageCollecor.addCargoImages(NORTH_WEST,
+                Material.PICK_AXE,
+                bobBitmaps.get(JobsBob.METAL_WORKER_PICK_AXE_CARGO_NORTH_WEST_ANIMATION_0),
+                bobBitmaps.get(JobsBob.METAL_WORKER_PICK_AXE_CARGO_NORTH_WEST_ANIMATION_1),
+                bobBitmaps.get(JobsBob.METAL_WORKER_PICK_AXE_CARGO_NORTH_WEST_ANIMATION_2),
+                bobBitmaps.get(JobsBob.METAL_WORKER_PICK_AXE_CARGO_NORTH_WEST_ANIMATION_3),
+                bobBitmaps.get(JobsBob.METAL_WORKER_PICK_AXE_CARGO_NORTH_WEST_ANIMATION_4),
+                bobBitmaps.get(JobsBob.METAL_WORKER_PICK_AXE_CARGO_NORTH_WEST_ANIMATION_5)
+        );
+
+        metalWorkerImageCollecor.addCargoImages(SOUTH_EAST,
+                Material.SHOVEL,
+                bobBitmaps.get(JobsBob.METAL_WORKER_SHOVEL_CARGO_SOUTH_EAST_ANIMATION_0),
+                bobBitmaps.get(JobsBob.METAL_WORKER_SHOVEL_CARGO_SOUTH_EAST_ANIMATION_1),
+                bobBitmaps.get(JobsBob.METAL_WORKER_SHOVEL_CARGO_SOUTH_EAST_ANIMATION_2),
+                bobBitmaps.get(JobsBob.METAL_WORKER_SHOVEL_CARGO_SOUTH_EAST_ANIMATION_3),
+                bobBitmaps.get(JobsBob.METAL_WORKER_SHOVEL_CARGO_SOUTH_EAST_ANIMATION_4)
+        );
+        metalWorkerImageCollecor.addCargoImages(NORTH_WEST,
+                Material.SHOVEL,
+                bobBitmaps.get(JobsBob.METAL_WORKER_SHOVEL_CARGO_NORTH_WEST_ANIMATION_0),
+                bobBitmaps.get(JobsBob.METAL_WORKER_SHOVEL_CARGO_NORTH_WEST_ANIMATION_1),
+                bobBitmaps.get(JobsBob.METAL_WORKER_SHOVEL_CARGO_NORTH_WEST_ANIMATION_2),
+                bobBitmaps.get(JobsBob.METAL_WORKER_SHOVEL_CARGO_NORTH_WEST_ANIMATION_3),
+                bobBitmaps.get(JobsBob.METAL_WORKER_SHOVEL_CARGO_NORTH_WEST_ANIMATION_4)
+        );
+
+        metalWorkerImageCollecor.addCargoImages(SOUTH_EAST,
+                Material.CRUCIBLE,
+                bobBitmaps.get(JobsBob.METAL_WORKER_CRUCIBLE_CARGO_SOUTH_EAST_ANIMATION_0),
+                bobBitmaps.get(JobsBob.METAL_WORKER_CRUCIBLE_CARGO_SOUTH_EAST_ANIMATION_1),
+                bobBitmaps.get(JobsBob.METAL_WORKER_CRUCIBLE_CARGO_SOUTH_EAST_ANIMATION_2),
+                bobBitmaps.get(JobsBob.METAL_WORKER_CRUCIBLE_CARGO_SOUTH_EAST_ANIMATION_3),
+                bobBitmaps.get(JobsBob.METAL_WORKER_CRUCIBLE_CARGO_SOUTH_EAST_ANIMATION_4)
+        );
+        metalWorkerImageCollecor.addCargoImages(NORTH_WEST,
+                Material.CRUCIBLE,
+                bobBitmaps.get(JobsBob.METAL_WORKER_CRUCIBLE_CARGO_NORTH_WEST_ANIMATION_0),
+                bobBitmaps.get(JobsBob.METAL_WORKER_CRUCIBLE_CARGO_NORTH_WEST_ANIMATION_1),
+                bobBitmaps.get(JobsBob.METAL_WORKER_CRUCIBLE_CARGO_NORTH_WEST_ANIMATION_2),
+                bobBitmaps.get(JobsBob.METAL_WORKER_CRUCIBLE_CARGO_NORTH_WEST_ANIMATION_3),
+                bobBitmaps.get(JobsBob.METAL_WORKER_CRUCIBLE_CARGO_NORTH_WEST_ANIMATION_4)
+        );
+
+        metalWorkerImageCollecor.addCargoImages(SOUTH_EAST,
+                Material.FISHING_ROD,
+                bobBitmaps.get(JobsBob.METAL_WORKER_FISHING_ROD_CARGO_SOUTH_EAST_ANIMATION_0),
+                bobBitmaps.get(JobsBob.METAL_WORKER_FISHING_ROD_CARGO_SOUTH_EAST_ANIMATION_1),
+                bobBitmaps.get(JobsBob.METAL_WORKER_FISHING_ROD_CARGO_SOUTH_EAST_ANIMATION_2),
+                bobBitmaps.get(JobsBob.METAL_WORKER_FISHING_ROD_CARGO_SOUTH_EAST_ANIMATION_3),
+                bobBitmaps.get(JobsBob.METAL_WORKER_FISHING_ROD_CARGO_SOUTH_EAST_ANIMATION_4),
+                bobBitmaps.get(JobsBob.METAL_WORKER_FISHING_ROD_CARGO_SOUTH_EAST_ANIMATION_5)
+        );
+        metalWorkerImageCollecor.addCargoImages(NORTH_WEST,
+                Material.FISHING_ROD,
+                bobBitmaps.get(JobsBob.METAL_WORKER_FISHING_ROD_CARGO_NORTH_WEST_ANIMATION_0),
+                bobBitmaps.get(JobsBob.METAL_WORKER_FISHING_ROD_CARGO_NORTH_WEST_ANIMATION_1),
+                bobBitmaps.get(JobsBob.METAL_WORKER_FISHING_ROD_CARGO_NORTH_WEST_ANIMATION_2),
+                bobBitmaps.get(JobsBob.METAL_WORKER_FISHING_ROD_CARGO_NORTH_WEST_ANIMATION_3),
+                bobBitmaps.get(JobsBob.METAL_WORKER_FISHING_ROD_CARGO_NORTH_WEST_ANIMATION_4)
+        );
+
+        metalWorkerImageCollecor.addCargoImages(SOUTH_EAST,
+                Material.SCYTHE,
+                bobBitmaps.get(JobsBob.METAL_WORKER_SCYTHE_CARGO_SOUTH_EAST_ANIMATION_0),
+                bobBitmaps.get(JobsBob.METAL_WORKER_SCYTHE_CARGO_SOUTH_EAST_ANIMATION_1),
+                bobBitmaps.get(JobsBob.METAL_WORKER_SCYTHE_CARGO_SOUTH_EAST_ANIMATION_2),
+                bobBitmaps.get(JobsBob.METAL_WORKER_SCYTHE_CARGO_SOUTH_EAST_ANIMATION_3),
+                bobBitmaps.get(JobsBob.METAL_WORKER_SCYTHE_CARGO_SOUTH_EAST_ANIMATION_4),
+                bobBitmaps.get(JobsBob.METAL_WORKER_SCYTHE_CARGO_SOUTH_EAST_ANIMATION_5)
+        );
+        metalWorkerImageCollecor.addCargoImages(NORTH_WEST,
+                Material.SCYTHE,
+                bobBitmaps.get(JobsBob.METAL_WORKER_SCYTHE_CARGO_NORTH_WEST_ANIMATION_0),
+                bobBitmaps.get(JobsBob.METAL_WORKER_SCYTHE_CARGO_NORTH_WEST_ANIMATION_1),
+                bobBitmaps.get(JobsBob.METAL_WORKER_SCYTHE_CARGO_NORTH_WEST_ANIMATION_2),
+                bobBitmaps.get(JobsBob.METAL_WORKER_SCYTHE_CARGO_NORTH_WEST_ANIMATION_3),
+                bobBitmaps.get(JobsBob.METAL_WORKER_SCYTHE_CARGO_NORTH_WEST_ANIMATION_4)
+        );
+
+        // TODO: figure out the purpose of the picture at 2263
+
+        metalWorkerImageCollecor.addCargoImages(SOUTH_EAST,
+                Material.CLEAVER,
+                bobBitmaps.get(JobsBob.METAL_WORKER_CLEAVER_CARGO_SOUTH_EAST_ANIMATION_0),
+                bobBitmaps.get(JobsBob.METAL_WORKER_CLEAVER_CARGO_SOUTH_EAST_ANIMATION_1),
+                bobBitmaps.get(JobsBob.METAL_WORKER_CLEAVER_CARGO_SOUTH_EAST_ANIMATION_2),
+                bobBitmaps.get(JobsBob.METAL_WORKER_CLEAVER_CARGO_SOUTH_EAST_ANIMATION_3),
+                bobBitmaps.get(JobsBob.METAL_WORKER_CLEAVER_CARGO_SOUTH_EAST_ANIMATION_4)
+        );
+        metalWorkerImageCollecor.addCargoImages(NORTH_WEST,
+                Material.CLEAVER,
+                bobBitmaps.get(JobsBob.METAL_WORKER_CLEAVER_CARGO_NORTH_WEST_ANIMATION_0),
+                bobBitmaps.get(JobsBob.METAL_WORKER_CLEAVER_CARGO_NORTH_WEST_ANIMATION_1),
+                bobBitmaps.get(JobsBob.METAL_WORKER_CLEAVER_CARGO_NORTH_WEST_ANIMATION_2),
+                bobBitmaps.get(JobsBob.METAL_WORKER_CLEAVER_CARGO_NORTH_WEST_ANIMATION_3),
+                bobBitmaps.get(JobsBob.METAL_WORKER_CLEAVER_CARGO_NORTH_WEST_ANIMATION_4)
+        );
+
+        metalWorkerImageCollecor.addCargoImages(SOUTH_EAST,
+                Material.ROLLING_PIN,
+                bobBitmaps.get(JobsBob.METAL_WORKER_ROLLING_PIN_CARGO_SOUTH_EAST_ANIMATION_0),
+                bobBitmaps.get(JobsBob.METAL_WORKER_ROLLING_PIN_CARGO_SOUTH_EAST_ANIMATION_1),
+                bobBitmaps.get(JobsBob.METAL_WORKER_ROLLING_PIN_CARGO_SOUTH_EAST_ANIMATION_2),
+                bobBitmaps.get(JobsBob.METAL_WORKER_ROLLING_PIN_CARGO_SOUTH_EAST_ANIMATION_3),
+                bobBitmaps.get(JobsBob.METAL_WORKER_ROLLING_PIN_CARGO_SOUTH_EAST_ANIMATION_4)
+        );
+        metalWorkerImageCollecor.addCargoImages(NORTH_WEST,
+                Material.ROLLING_PIN,
+                bobBitmaps.get(JobsBob.METAL_WORKER_ROLLING_PIN_CARGO_NORTH_WEST_ANIMATION_0),
+                bobBitmaps.get(JobsBob.METAL_WORKER_ROLLING_PIN_CARGO_NORTH_WEST_ANIMATION_1),
+                bobBitmaps.get(JobsBob.METAL_WORKER_ROLLING_PIN_CARGO_NORTH_WEST_ANIMATION_2),
+                bobBitmaps.get(JobsBob.METAL_WORKER_ROLLING_PIN_CARGO_NORTH_WEST_ANIMATION_3),
+                bobBitmaps.get(JobsBob.METAL_WORKER_ROLLING_PIN_CARGO_NORTH_WEST_ANIMATION_4)
+        );
+
+        // Is 2330-2335 a saw or a bow?
+
+        metalWorkerImageCollecor.addCargoImage(SOUTH_EAST,
+                Material.SAW,
+                bobBitmaps.get(JobsBob.METAL_WORKER_SAW_CARGO_SOUTH_EAST)
+        );
+        metalWorkerImageCollecor.addCargoImages(NORTH_WEST,
+                Material.SAW,
+                bobBitmaps.get(JobsBob.METAL_WORKER_SAW_CARGO_NORTH_WEST_ANIMATION_0),
+                bobBitmaps.get(JobsBob.METAL_WORKER_SAW_CARGO_NORTH_WEST_ANIMATION_1),
+                bobBitmaps.get(JobsBob.METAL_WORKER_SAW_CARGO_NORTH_WEST_ANIMATION_2),
+                bobBitmaps.get(JobsBob.METAL_WORKER_SAW_CARGO_NORTH_WEST_ANIMATION_3),
+                bobBitmaps.get(JobsBob.METAL_WORKER_SAW_CARGO_NORTH_WEST_ANIMATION_4)
         );
 
         // Write each worker image collection to file
