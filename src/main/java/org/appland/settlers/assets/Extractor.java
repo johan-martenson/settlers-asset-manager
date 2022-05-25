@@ -22,8 +22,11 @@ import org.appland.settlers.assets.gamefiles.JobsBob;
 import org.appland.settlers.assets.gamefiles.Map0ZLst;
 import org.appland.settlers.assets.gamefiles.MapBobs0Lst;
 import org.appland.settlers.assets.gamefiles.MapBobsLst;
+import org.appland.settlers.assets.gamefiles.RomBobsLst;
 import org.appland.settlers.assets.gamefiles.RomYLst;
 import org.appland.settlers.assets.gamefiles.RomZLst;
+import org.appland.settlers.assets.gamefiles.Tex5Lbm;
+import org.appland.settlers.assets.gamefiles.Tex7Lbm;
 import org.appland.settlers.assets.gamefiles.VikZLst;
 import org.appland.settlers.model.Crop;
 import org.appland.settlers.model.Material;
@@ -53,11 +56,6 @@ import static org.appland.settlers.model.Size.SMALL;
 
 public class Extractor {
 
-    private static final String ROMAN_FILE = "DATA/MBOB/ROM_Y.LST";
-    private static final String MAP_FILE = "DATA/MAPBOBS.LST";
-    private static final String GREENLAND_TEXTURE_FILE = "GFX/TEXTURES/TEX5.LBM";
-    private static final String WINTER_TEXTURE_FILE = "GFX/TEXTURES/TEX7.LBM";
-
     private static final String DEFAULT_PALETTE = "/home/johan/projects/settlers-image-manager/src/main/resources/default-palette.act";
 
     private static final String ROMAN_BUILDINGS_DIRECTORY = "roman-buildings";
@@ -67,12 +65,6 @@ public class Extractor {
     private static final String TERRAIN_SUB_DIRECTORY = "terrain";
     private static final String GREENLAND_DIRECTORY = "greenland";
     private static final String WINTER_DIRECTORY = "winter";
-
-    private static final int FLAG_INDEX = 4;
-    private static final int DEAD_TREE = 288;
-    private static final int FALLEN_DEAD_TREE = 287;
-    private static final int LAND_BORDER_ICON = 0;
-    private static final int COAST_BORDER_ICON = 2;
 
     @Option(name = "--from-dir", usage = "Asset directory to load from")
     static String fromDir;
@@ -159,17 +151,17 @@ public class Extractor {
 
         BorderImageCollector borderImageCollector = new BorderImageCollector();
 
-        borderImageCollector.addLandBorderImage(Nation.AFRICANS, getImageFromResourceLocation(afrBobsLst, LAND_BORDER_ICON));
-        borderImageCollector.addWaterBorderImage(Nation.AFRICANS, getImageFromResourceLocation(afrBobsLst, COAST_BORDER_ICON));
+        borderImageCollector.addLandBorderImage(Nation.AFRICANS, getImageFromResourceLocation(afrBobsLst, RomBobsLst.LAND_BORDER_ICON));
+        borderImageCollector.addWaterBorderImage(Nation.AFRICANS, getImageFromResourceLocation(afrBobsLst, RomBobsLst.COAST_BORDER_ICON));
 
-        borderImageCollector.addLandBorderImage(Nation.JAPANESE, getImageFromResourceLocation(japBobsLst, LAND_BORDER_ICON));
-        borderImageCollector.addWaterBorderImage(Nation.JAPANESE, getImageFromResourceLocation(japBobsLst, COAST_BORDER_ICON));
+        borderImageCollector.addLandBorderImage(Nation.JAPANESE, getImageFromResourceLocation(japBobsLst, RomBobsLst.LAND_BORDER_ICON));
+        borderImageCollector.addWaterBorderImage(Nation.JAPANESE, getImageFromResourceLocation(japBobsLst, RomBobsLst.COAST_BORDER_ICON));
 
-        borderImageCollector.addLandBorderImage(Nation.ROMANS, getImageFromResourceLocation(romBobsLst, LAND_BORDER_ICON));
-        borderImageCollector.addWaterBorderImage(Nation.ROMANS, getImageFromResourceLocation(romBobsLst, COAST_BORDER_ICON));
+        borderImageCollector.addLandBorderImage(Nation.ROMANS, getImageFromResourceLocation(romBobsLst, RomBobsLst.LAND_BORDER_ICON));
+        borderImageCollector.addWaterBorderImage(Nation.ROMANS, getImageFromResourceLocation(romBobsLst, RomBobsLst.COAST_BORDER_ICON));
 
-        borderImageCollector.addLandBorderImage(Nation.VIKINGS, getImageFromResourceLocation(vikBobsLst, LAND_BORDER_ICON));
-        borderImageCollector.addWaterBorderImage(Nation.VIKINGS, getImageFromResourceLocation(vikBobsLst, COAST_BORDER_ICON));
+        borderImageCollector.addLandBorderImage(Nation.VIKINGS, getImageFromResourceLocation(vikBobsLst, RomBobsLst.LAND_BORDER_ICON));
+        borderImageCollector.addWaterBorderImage(Nation.VIKINGS, getImageFromResourceLocation(vikBobsLst, RomBobsLst.COAST_BORDER_ICON));
 
         borderImageCollector.writeImageAtlas(toDir, defaultPalette);
     }
@@ -953,7 +945,7 @@ public class Extractor {
     private void populateNatureAndUIElements(String fromDir, String toDir) throws InvalidFormatException, UnknownResourceTypeException, InvalidHeaderException, IOException {
 
         /* Load from the map asset file */
-        List<GameResource> mapbobsLst = assetManager.loadLstFile(fromDir + "/" + MAP_FILE, defaultPalette);
+        List<GameResource> mapBobsLst = assetManager.loadLstFile(fromDir + "/" + MapBobsLst.FILENAME, defaultPalette);
 
         /* Create the out directories */
         String uiDir = toDir + "/" + UI_ELEMENTS_DIRECTORY;
@@ -972,8 +964,8 @@ public class Extractor {
         Utils.createDirectory(winterDir);
 
         /* Extract the terrains */
-        LBMGameResource greenlandGameResource = (LBMGameResource) assetManager.loadLBMFile(fromDir + "/" + GREENLAND_TEXTURE_FILE, defaultPalette);
-        LBMGameResource winterGameResource = (LBMGameResource) assetManager.loadLBMFile(fromDir + "/" + WINTER_TEXTURE_FILE, defaultPalette);
+        LBMGameResource greenlandGameResource = (LBMGameResource) assetManager.loadLBMFile(fromDir + "/" + Tex5Lbm.FILENAME, defaultPalette);
+        LBMGameResource winterGameResource = (LBMGameResource) assetManager.loadLBMFile(fromDir + "/" + Tex7Lbm.FILENAME, defaultPalette);
 
         Bitmap greenlandTextureBitmap = greenlandGameResource.getLbmFile().getBitmap();
         Bitmap winterTextureBitmap = winterGameResource.getLbmFile().getBitmap();
@@ -990,197 +982,191 @@ public class Extractor {
         /* Extract the stones */
         StonesImageCollection stonesImageCollection = new StonesImageCollection();
 
-        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.MINI, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_1_MINI));
-        stonesImageCollection.addShadowImage(StoneType.TYPE_1, StoneAmount.MINI, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_1_MINI_SHADOW));
-        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.LITTLE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_1_LITTLE));
-        stonesImageCollection.addShadowImage(StoneType.TYPE_1, StoneAmount.LITTLE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_1_LITTLE_SHADOW));
-        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.LITTLE_MORE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_1_LITTLE_MORE));
-        stonesImageCollection.addShadowImage(StoneType.TYPE_1, StoneAmount.LITTLE_MORE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_1_LITTLE_MORE_SHADOW));
-        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.MIDDLE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_1_MIDDLE));
-        stonesImageCollection.addShadowImage(StoneType.TYPE_1, StoneAmount.MIDDLE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_1_MIDDLE_SHADOW));
-        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.ALMOST_FULL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_1_ALMOST_FULL));
-        stonesImageCollection.addShadowImage(StoneType.TYPE_1, StoneAmount.ALMOST_FULL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_1_ALMOST_FULL_SHADOW));
-        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.FULL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_1_FULL));
-        stonesImageCollection.addShadowImage(StoneType.TYPE_1, StoneAmount.FULL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_1_FULL_SHADOW));
+        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.MINI, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STONE_TYPE_1_MINI));
+        stonesImageCollection.addShadowImage(StoneType.TYPE_1, StoneAmount.MINI, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STONE_TYPE_1_MINI_SHADOW));
+        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.LITTLE, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STONE_TYPE_1_LITTLE));
+        stonesImageCollection.addShadowImage(StoneType.TYPE_1, StoneAmount.LITTLE, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STONE_TYPE_1_LITTLE_SHADOW));
+        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.LITTLE_MORE, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STONE_TYPE_1_LITTLE_MORE));
+        stonesImageCollection.addShadowImage(StoneType.TYPE_1, StoneAmount.LITTLE_MORE, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STONE_TYPE_1_LITTLE_MORE_SHADOW));
+        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.MIDDLE, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STONE_TYPE_1_MIDDLE));
+        stonesImageCollection.addShadowImage(StoneType.TYPE_1, StoneAmount.MIDDLE, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STONE_TYPE_1_MIDDLE_SHADOW));
+        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.ALMOST_FULL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STONE_TYPE_1_ALMOST_FULL));
+        stonesImageCollection.addShadowImage(StoneType.TYPE_1, StoneAmount.ALMOST_FULL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STONE_TYPE_1_ALMOST_FULL_SHADOW));
+        stonesImageCollection.addImage(StoneType.TYPE_1, StoneAmount.FULL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STONE_TYPE_1_FULL));
+        stonesImageCollection.addShadowImage(StoneType.TYPE_1, StoneAmount.FULL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STONE_TYPE_1_FULL_SHADOW));
 
-        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.MINI, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_2_MINI));
-        stonesImageCollection.addShadowImage(StoneType.TYPE_2, StoneAmount.MINI, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_2_MINI_SHADOW));
-        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.LITTLE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_2_LITTLE));
-        stonesImageCollection.addShadowImage(StoneType.TYPE_2, StoneAmount.LITTLE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_2_LITTLE_SHADOW));
-        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.LITTLE_MORE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_2_LITTLE_MORE));
-        stonesImageCollection.addShadowImage(StoneType.TYPE_2, StoneAmount.LITTLE_MORE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_2_LITTLE_MORE_SHADOW));
-        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.MIDDLE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_2_MIDDLE));
-        stonesImageCollection.addShadowImage(StoneType.TYPE_2, StoneAmount.MIDDLE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_2_MIDDLE_SHADOW));
-        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.ALMOST_FULL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_2_ALMOST_FULL));
-        stonesImageCollection.addShadowImage(StoneType.TYPE_2, StoneAmount.ALMOST_FULL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_2_ALMOST_FULL_SHADOW));
-        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.FULL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_2_FULL));
-        stonesImageCollection.addShadowImage(StoneType.TYPE_2, StoneAmount.FULL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_TYPE_2_FULL_SHADOW));
+        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.MINI, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STONE_TYPE_2_MINI));
+        stonesImageCollection.addShadowImage(StoneType.TYPE_2, StoneAmount.MINI, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STONE_TYPE_2_MINI_SHADOW));
+        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.LITTLE, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STONE_TYPE_2_LITTLE));
+        stonesImageCollection.addShadowImage(StoneType.TYPE_2, StoneAmount.LITTLE, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STONE_TYPE_2_LITTLE_SHADOW));
+        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.LITTLE_MORE, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STONE_TYPE_2_LITTLE_MORE));
+        stonesImageCollection.addShadowImage(StoneType.TYPE_2, StoneAmount.LITTLE_MORE, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STONE_TYPE_2_LITTLE_MORE_SHADOW));
+        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.MIDDLE, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STONE_TYPE_2_MIDDLE));
+        stonesImageCollection.addShadowImage(StoneType.TYPE_2, StoneAmount.MIDDLE, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STONE_TYPE_2_MIDDLE_SHADOW));
+        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.ALMOST_FULL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STONE_TYPE_2_ALMOST_FULL));
+        stonesImageCollection.addShadowImage(StoneType.TYPE_2, StoneAmount.ALMOST_FULL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STONE_TYPE_2_ALMOST_FULL_SHADOW));
+        stonesImageCollection.addImage(StoneType.TYPE_2, StoneAmount.FULL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STONE_TYPE_2_FULL));
+        stonesImageCollection.addShadowImage(StoneType.TYPE_2, StoneAmount.FULL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STONE_TYPE_2_FULL_SHADOW));
 
         stonesImageCollection.writeImageAtlas(toDir, defaultPalette);
 
         /* Extract UI elements */
         UIElementsImageCollection uiElementsImageCollection = new UIElementsImageCollection();
 
-        uiElementsImageCollection.addSelectedPointImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.SELECTED_POINT));
-        uiElementsImageCollection.addHoverPoint(getImageFromResourceLocation(mapbobsLst, MapBobsLst.HOVER_POINT));
-        uiElementsImageCollection.addHoverAvailableFlag(getImageFromResourceLocation(mapbobsLst, MapBobsLst.HOVER_AVAILABLE_FLAG));
-        uiElementsImageCollection.addHoverAvailableMine(getImageFromResourceLocation(mapbobsLst, MapBobsLst.HOVER_AVAILABLE_MINE));
-        uiElementsImageCollection.addHoverAvailableBuilding(SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.HOVER_AVAILABLE_SMALL_BUILDING));
-        uiElementsImageCollection.addHoverAvailableBuilding(MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.HOVER_AVAILABLE_MEDIUM_BUILDING));
-        uiElementsImageCollection.addHoverAvailableBuilding(LARGE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.HOVER_AVAILABLE_LARGE_BUILDING));
-        uiElementsImageCollection.addHoverAvailableHarbor(getImageFromResourceLocation(mapbobsLst, MapBobsLst.HOVER_AVAILABLE_HARBOR));
-        uiElementsImageCollection.addAvailableFlag(getImageFromResourceLocation(mapbobsLst, MapBobsLst.AVAILABLE_FLAG));
-        uiElementsImageCollection.addAvailableMine(getImageFromResourceLocation(mapbobsLst, MapBobsLst.AVAILABLE_MINE));
-        uiElementsImageCollection.addAvailableBuilding(SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.AVAILABLE_SMALL_BUILDING));
-        uiElementsImageCollection.addAvailableBuilding(MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.AVAILABLE_MEDIUM_BUILDING));
-        uiElementsImageCollection.addAvailableBuilding(LARGE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.AVAILABLE_LARGE_BUILDING));
-        uiElementsImageCollection.addAvailableHarbor(getImageFromResourceLocation(mapbobsLst, MapBobsLst.AVAILABLE_HARBOR));
+        uiElementsImageCollection.addSelectedPointImage(getImageFromResourceLocation(mapBobsLst, MapBobsLst.SELECTED_POINT));
+        uiElementsImageCollection.addHoverPoint(getImageFromResourceLocation(mapBobsLst, MapBobsLst.HOVER_POINT));
+        uiElementsImageCollection.addHoverAvailableFlag(getImageFromResourceLocation(mapBobsLst, MapBobsLst.HOVER_AVAILABLE_FLAG));
+        uiElementsImageCollection.addHoverAvailableMine(getImageFromResourceLocation(mapBobsLst, MapBobsLst.HOVER_AVAILABLE_MINE));
+        uiElementsImageCollection.addHoverAvailableBuilding(SMALL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.HOVER_AVAILABLE_SMALL_BUILDING));
+        uiElementsImageCollection.addHoverAvailableBuilding(MEDIUM, getImageFromResourceLocation(mapBobsLst, MapBobsLst.HOVER_AVAILABLE_MEDIUM_BUILDING));
+        uiElementsImageCollection.addHoverAvailableBuilding(LARGE, getImageFromResourceLocation(mapBobsLst, MapBobsLst.HOVER_AVAILABLE_LARGE_BUILDING));
+        uiElementsImageCollection.addHoverAvailableHarbor(getImageFromResourceLocation(mapBobsLst, MapBobsLst.HOVER_AVAILABLE_HARBOR));
+        uiElementsImageCollection.addAvailableFlag(getImageFromResourceLocation(mapBobsLst, MapBobsLst.AVAILABLE_FLAG));
+        uiElementsImageCollection.addAvailableMine(getImageFromResourceLocation(mapBobsLst, MapBobsLst.AVAILABLE_MINE));
+        uiElementsImageCollection.addAvailableBuilding(SMALL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.AVAILABLE_SMALL_BUILDING));
+        uiElementsImageCollection.addAvailableBuilding(MEDIUM, getImageFromResourceLocation(mapBobsLst, MapBobsLst.AVAILABLE_MEDIUM_BUILDING));
+        uiElementsImageCollection.addAvailableBuilding(LARGE, getImageFromResourceLocation(mapBobsLst, MapBobsLst.AVAILABLE_LARGE_BUILDING));
+        uiElementsImageCollection.addAvailableHarbor(getImageFromResourceLocation(mapBobsLst, MapBobsLst.AVAILABLE_HARBOR));
 
         uiElementsImageCollection.writeImageAtlas(toDir, defaultPalette);
 
         /*  Extract the crops */
         CropImageCollection cropImageCollection = new CropImageCollection();
 
-        cropImageCollection.addImage(CropType.TYPE_1, Crop.GrowthState.JUST_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_1_NEWLY_PLANTED));
-        cropImageCollection.addImage(CropType.TYPE_1, Crop.GrowthState.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_1_LITTLE_GROWTH));
-        cropImageCollection.addImage(CropType.TYPE_1, Crop.GrowthState.ALMOST_GROWN, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_1_MORE_GROWTH));
-        cropImageCollection.addImage(CropType.TYPE_1, Crop.GrowthState.FULL_GROWN, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_1_FULLY_GROWN));
-        cropImageCollection.addImage(CropType.TYPE_1, Crop.GrowthState.HARVESTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_1_JUST_HARVESTED));
+        cropImageCollection.addImage(CropType.TYPE_1, Crop.GrowthState.JUST_PLANTED, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CROP_TYPE_1_NEWLY_PLANTED));
+        cropImageCollection.addImage(CropType.TYPE_1, Crop.GrowthState.SMALL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CROP_TYPE_1_LITTLE_GROWTH));
+        cropImageCollection.addImage(CropType.TYPE_1, Crop.GrowthState.ALMOST_GROWN, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CROP_TYPE_1_MORE_GROWTH));
+        cropImageCollection.addImage(CropType.TYPE_1, Crop.GrowthState.FULL_GROWN, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CROP_TYPE_1_FULLY_GROWN));
+        cropImageCollection.addImage(CropType.TYPE_1, Crop.GrowthState.HARVESTED, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CROP_TYPE_1_JUST_HARVESTED));
 
-        cropImageCollection.addImage(CropType.TYPE_2, Crop.GrowthState.JUST_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_2_NEWLY_PLANTED));
-        cropImageCollection.addImage(CropType.TYPE_2, Crop.GrowthState.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_2_LITTLE_GROWTH));
-        cropImageCollection.addImage(CropType.TYPE_2, Crop.GrowthState.ALMOST_GROWN, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_2_MORE_GROWTH));
-        cropImageCollection.addImage(CropType.TYPE_2, Crop.GrowthState.FULL_GROWN, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_2_FULLY_GROWN));
-        cropImageCollection.addImage(CropType.TYPE_2, Crop.GrowthState.HARVESTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_2_JUST_HARVESTED));
+        cropImageCollection.addImage(CropType.TYPE_2, Crop.GrowthState.JUST_PLANTED, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CROP_TYPE_2_NEWLY_PLANTED));
+        cropImageCollection.addImage(CropType.TYPE_2, Crop.GrowthState.SMALL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CROP_TYPE_2_LITTLE_GROWTH));
+        cropImageCollection.addImage(CropType.TYPE_2, Crop.GrowthState.ALMOST_GROWN, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CROP_TYPE_2_MORE_GROWTH));
+        cropImageCollection.addImage(CropType.TYPE_2, Crop.GrowthState.FULL_GROWN, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CROP_TYPE_2_FULLY_GROWN));
+        cropImageCollection.addImage(CropType.TYPE_2, Crop.GrowthState.HARVESTED, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CROP_TYPE_2_JUST_HARVESTED));
 
-        cropImageCollection.addShadowImage(CropType.TYPE_1, Crop.GrowthState.JUST_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_1_NEWLY_PLANTED_SHADOW));
-        cropImageCollection.addShadowImage(CropType.TYPE_1, Crop.GrowthState.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_1_LITTLE_GROWTH_SHADOW));
-        cropImageCollection.addShadowImage(CropType.TYPE_1, Crop.GrowthState.ALMOST_GROWN, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_1_MORE_GROWTH_SHADOW));
-        cropImageCollection.addShadowImage(CropType.TYPE_1, Crop.GrowthState.FULL_GROWN, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_1_FULLY_GROWN_SHADOW));
-        cropImageCollection.addShadowImage(CropType.TYPE_1, Crop.GrowthState.HARVESTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_1_JUST_HARVESTED_SHADOW));
+        cropImageCollection.addShadowImage(CropType.TYPE_1, Crop.GrowthState.JUST_PLANTED, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CROP_TYPE_1_NEWLY_PLANTED_SHADOW));
+        cropImageCollection.addShadowImage(CropType.TYPE_1, Crop.GrowthState.SMALL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CROP_TYPE_1_LITTLE_GROWTH_SHADOW));
+        cropImageCollection.addShadowImage(CropType.TYPE_1, Crop.GrowthState.ALMOST_GROWN, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CROP_TYPE_1_MORE_GROWTH_SHADOW));
+        cropImageCollection.addShadowImage(CropType.TYPE_1, Crop.GrowthState.FULL_GROWN, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CROP_TYPE_1_FULLY_GROWN_SHADOW));
+        cropImageCollection.addShadowImage(CropType.TYPE_1, Crop.GrowthState.HARVESTED, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CROP_TYPE_1_JUST_HARVESTED_SHADOW));
 
-        cropImageCollection.addShadowImage(CropType.TYPE_2, Crop.GrowthState.JUST_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_2_NEWLY_PLANTED_SHADOW));
-        cropImageCollection.addShadowImage(CropType.TYPE_2, Crop.GrowthState.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_2_LITTLE_GROWTH_SHADOW));
-        cropImageCollection.addShadowImage(CropType.TYPE_2, Crop.GrowthState.ALMOST_GROWN, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_2_MORE_GROWTH_SHADOW));
-        cropImageCollection.addShadowImage(CropType.TYPE_2, Crop.GrowthState.FULL_GROWN, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_2_FULLY_GROWN_SHADOW));
-        cropImageCollection.addShadowImage(CropType.TYPE_2, Crop.GrowthState.HARVESTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CROP_TYPE_2_JUST_HARVESTED_SHADOW));
+        cropImageCollection.addShadowImage(CropType.TYPE_2, Crop.GrowthState.JUST_PLANTED, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CROP_TYPE_2_NEWLY_PLANTED_SHADOW));
+        cropImageCollection.addShadowImage(CropType.TYPE_2, Crop.GrowthState.SMALL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CROP_TYPE_2_LITTLE_GROWTH_SHADOW));
+        cropImageCollection.addShadowImage(CropType.TYPE_2, Crop.GrowthState.ALMOST_GROWN, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CROP_TYPE_2_MORE_GROWTH_SHADOW));
+        cropImageCollection.addShadowImage(CropType.TYPE_2, Crop.GrowthState.FULL_GROWN, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CROP_TYPE_2_FULLY_GROWN_SHADOW));
+        cropImageCollection.addShadowImage(CropType.TYPE_2, Crop.GrowthState.HARVESTED, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CROP_TYPE_2_JUST_HARVESTED_SHADOW));
 
         cropImageCollection.writeImageAtlas(toDir, defaultPalette);
 
         /* Extract the cargo images that workers carry */
         CargoImageCollection cargoImageCollection = new CargoImageCollection();
 
-        cargoImageCollection.addCargoImage(Material.BEER, getImageFromResourceLocation(mapbobsLst, MapBobsLst.BEER_CARGO));
-        cargoImageCollection.addCargoImage(Material.TONGS, getImageFromResourceLocation(mapbobsLst, MapBobsLst.TONG_CARGO));
-        cargoImageCollection.addCargoImage(Material.AXE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.AXE_CARGO));
-        cargoImageCollection.addCargoImage(Material.SAW, getImageFromResourceLocation(mapbobsLst, MapBobsLst.SAW_CARGO));
-        cargoImageCollection.addCargoImage(Material.PICK_AXE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PICK_AXE_CARGO));
-        cargoImageCollection.addCargoImage(Material.SHOVEL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.SHOVEL_CARGO));
-        cargoImageCollection.addCargoImage(Material.CRUCIBLE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CRUCIBLE_CARGO)); //???
-        cargoImageCollection.addCargoImage(Material.FISHING_ROD, getImageFromResourceLocation(mapbobsLst, MapBobsLst.FISHING_ROD_CARGO));
-        cargoImageCollection.addCargoImage(Material.SCYTHE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.SCYTHE_CARGO));
+        cargoImageCollection.addCargoImage(Material.BEER, getImageFromResourceLocation(mapBobsLst, MapBobsLst.BEER_CARGO));
+        cargoImageCollection.addCargoImage(Material.TONGS, getImageFromResourceLocation(mapBobsLst, MapBobsLst.TONG_CARGO));
+        cargoImageCollection.addCargoImage(Material.AXE, getImageFromResourceLocation(mapBobsLst, MapBobsLst.AXE_CARGO));
+        cargoImageCollection.addCargoImage(Material.SAW, getImageFromResourceLocation(mapBobsLst, MapBobsLst.SAW_CARGO));
+        cargoImageCollection.addCargoImage(Material.PICK_AXE, getImageFromResourceLocation(mapBobsLst, MapBobsLst.PICK_AXE_CARGO));
+        cargoImageCollection.addCargoImage(Material.SHOVEL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.SHOVEL_CARGO));
+        cargoImageCollection.addCargoImage(Material.CRUCIBLE, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CRUCIBLE_CARGO)); //???
+        cargoImageCollection.addCargoImage(Material.FISHING_ROD, getImageFromResourceLocation(mapBobsLst, MapBobsLst.FISHING_ROD_CARGO));
+        cargoImageCollection.addCargoImage(Material.SCYTHE, getImageFromResourceLocation(mapBobsLst, MapBobsLst.SCYTHE_CARGO));
         // - empty bucket at 904
 
-        cargoImageCollection.addCargoImage(Material.WATER, getImageFromResourceLocation(mapbobsLst, MapBobsLst.WATER_BUCKET_CARGO));
-        cargoImageCollection.addCargoImage(Material.CLEAVER, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CLEAVER_CARGO));
-        cargoImageCollection.addCargoImage(Material.ROLLING_PIN, getImageFromResourceLocation(mapbobsLst, MapBobsLst.ROLLING_PIN_CARGO));
-        cargoImageCollection.addCargoImage(Material.BOW, getImageFromResourceLocation(mapbobsLst, MapBobsLst.BOW_CARGO));
-        cargoImageCollection.addCargoImage(Material.BOAT, getImageFromResourceLocation(mapbobsLst, MapBobsLst.BOAT_CARGO));
-        cargoImageCollection.addCargoImage(Material.SWORD, getImageFromResourceLocation(mapbobsLst, MapBobsLst.SWORD_CARGO));
+        cargoImageCollection.addCargoImage(Material.WATER, getImageFromResourceLocation(mapBobsLst, MapBobsLst.WATER_BUCKET_CARGO));
+        cargoImageCollection.addCargoImage(Material.CLEAVER, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CLEAVER_CARGO));
+        cargoImageCollection.addCargoImage(Material.ROLLING_PIN, getImageFromResourceLocation(mapBobsLst, MapBobsLst.ROLLING_PIN_CARGO));
+        cargoImageCollection.addCargoImage(Material.BOW, getImageFromResourceLocation(mapBobsLst, MapBobsLst.BOW_CARGO));
+        cargoImageCollection.addCargoImage(Material.BOAT, getImageFromResourceLocation(mapBobsLst, MapBobsLst.BOAT_CARGO));
+        cargoImageCollection.addCargoImage(Material.SWORD, getImageFromResourceLocation(mapBobsLst, MapBobsLst.SWORD_CARGO));
         // - anvil at 911
 
-        cargoImageCollection.addCargoImage(Material.FLOUR, getImageFromResourceLocation(mapbobsLst, MapBobsLst.FLOUR_CARGO));
-        cargoImageCollection.addCargoImage(Material.FISH, getImageFromResourceLocation(mapbobsLst, MapBobsLst.FISH_CARGO));
-        cargoImageCollection.addCargoImage(Material.BREAD, getImageFromResourceLocation(mapbobsLst, MapBobsLst.BREAD_CARGO));
-        cargoImageCollection.addCargoImageForNation(Nation.ROMANS, Material.SHIELD, getImageFromResourceLocation(mapbobsLst, MapBobsLst.ROMAN_SHIELD_CARGO));
-        cargoImageCollection.addCargoImage(Material.WOOD, getImageFromResourceLocation(mapbobsLst, MapBobsLst.WOOD_CARGO));
-        cargoImageCollection.addCargoImage(Material.PLANK, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PLANK_CARGO));
-        cargoImageCollection.addCargoImage(Material.STONE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.STONE_CARGO));
-        cargoImageCollection.addCargoImageForNation(Nation.VIKINGS, Material.SHIELD, getImageFromResourceLocation(mapbobsLst, MapBobsLst.VIKING_SHIELD_CARGO));
-        cargoImageCollection.addCargoImageForNation(Nation.AFRICANS, Material.SHIELD, getImageFromResourceLocation(mapbobsLst, MapBobsLst.AFRICAN_SHIELD_CARGO));
-        cargoImageCollection.addCargoImage(Material.WHEAT, getImageFromResourceLocation(mapbobsLst, MapBobsLst.WHEAT_CARGO));
-        cargoImageCollection.addCargoImage(Material.COIN, getImageFromResourceLocation(mapbobsLst, MapBobsLst.COIN_CARGO));
-        cargoImageCollection.addCargoImage(Material.GOLD, getImageFromResourceLocation(mapbobsLst, MapBobsLst.GOLD_CARGO));
-        cargoImageCollection.addCargoImage(Material.IRON, getImageFromResourceLocation(mapbobsLst, MapBobsLst.IRON_CARGO));
-        cargoImageCollection.addCargoImage(Material.COAL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.COAL_CARGO));
-        cargoImageCollection.addCargoImage(Material.MEAT, getImageFromResourceLocation(mapbobsLst, MapBobsLst.MEAT_CARGO));
-        cargoImageCollection.addCargoImage(Material.PIG, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PIG_CARGO));
-        cargoImageCollection.addCargoImageForNation(Nation.JAPANESE, Material.SHIELD, getImageFromResourceLocation(mapbobsLst, MapBobsLst.JAPANESE_SHIELD_CARGO));
+        cargoImageCollection.addCargoImage(Material.FLOUR, getImageFromResourceLocation(mapBobsLst, MapBobsLst.FLOUR_CARGO));
+        cargoImageCollection.addCargoImage(Material.FISH, getImageFromResourceLocation(mapBobsLst, MapBobsLst.FISH_CARGO));
+        cargoImageCollection.addCargoImage(Material.BREAD, getImageFromResourceLocation(mapBobsLst, MapBobsLst.BREAD_CARGO));
+        cargoImageCollection.addCargoImageForNation(Nation.ROMANS, Material.SHIELD, getImageFromResourceLocation(mapBobsLst, MapBobsLst.ROMAN_SHIELD_CARGO));
+        cargoImageCollection.addCargoImage(Material.WOOD, getImageFromResourceLocation(mapBobsLst, MapBobsLst.WOOD_CARGO));
+        cargoImageCollection.addCargoImage(Material.PLANK, getImageFromResourceLocation(mapBobsLst, MapBobsLst.PLANK_CARGO));
+        cargoImageCollection.addCargoImage(Material.STONE, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STONE_CARGO));
+        cargoImageCollection.addCargoImageForNation(Nation.VIKINGS, Material.SHIELD, getImageFromResourceLocation(mapBobsLst, MapBobsLst.VIKING_SHIELD_CARGO));
+        cargoImageCollection.addCargoImageForNation(Nation.AFRICANS, Material.SHIELD, getImageFromResourceLocation(mapBobsLst, MapBobsLst.AFRICAN_SHIELD_CARGO));
+        cargoImageCollection.addCargoImage(Material.WHEAT, getImageFromResourceLocation(mapBobsLst, MapBobsLst.WHEAT_CARGO));
+        cargoImageCollection.addCargoImage(Material.COIN, getImageFromResourceLocation(mapBobsLst, MapBobsLst.COIN_CARGO));
+        cargoImageCollection.addCargoImage(Material.GOLD, getImageFromResourceLocation(mapBobsLst, MapBobsLst.GOLD_CARGO));
+        cargoImageCollection.addCargoImage(Material.IRON, getImageFromResourceLocation(mapBobsLst, MapBobsLst.IRON_CARGO));
+        cargoImageCollection.addCargoImage(Material.COAL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.COAL_CARGO));
+        cargoImageCollection.addCargoImage(Material.MEAT, getImageFromResourceLocation(mapBobsLst, MapBobsLst.MEAT_CARGO));
+        cargoImageCollection.addCargoImage(Material.PIG, getImageFromResourceLocation(mapBobsLst, MapBobsLst.PIG_CARGO));
+        cargoImageCollection.addCargoImageForNation(Nation.JAPANESE, Material.SHIELD, getImageFromResourceLocation(mapBobsLst, MapBobsLst.JAPANESE_SHIELD_CARGO));
 
         cargoImageCollection.writeImageAtlas(toDir, defaultPalette);
 
         /* Extract signs */
         SignImageCollection signImageCollection = new SignImageCollection();
 
-        signImageCollection.addImage(SignType.IRON, SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.IRON_SIGN_SMALL_UP_RIGHT));
-        signImageCollection.addImage(SignType.IRON, MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.IRON_SIGN_MEDIUM_UP_RIGHT));
-        signImageCollection.addImage(SignType.IRON, LARGE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.IRON_SIGN_LARGE_UP_RIGHT));
+        signImageCollection.addImage(SignType.IRON, SMALL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.IRON_SIGN_SMALL_UP_RIGHT));
+        signImageCollection.addImage(SignType.IRON, MEDIUM, getImageFromResourceLocation(mapBobsLst, MapBobsLst.IRON_SIGN_MEDIUM_UP_RIGHT));
+        signImageCollection.addImage(SignType.IRON, LARGE, getImageFromResourceLocation(mapBobsLst, MapBobsLst.IRON_SIGN_LARGE_UP_RIGHT));
 
-        signImageCollection.addImage(SignType.COAL, SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.COAL_SIGN_SMALL_UP_RIGHT));
-        signImageCollection.addImage(SignType.COAL, MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.COAL_SIGN_MEDIUM_UP_RIGHT));
-        signImageCollection.addImage(SignType.COAL, LARGE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.COAL_SIGN_LARGE_UP_RIGHT));
+        signImageCollection.addImage(SignType.COAL, SMALL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.COAL_SIGN_SMALL_UP_RIGHT));
+        signImageCollection.addImage(SignType.COAL, MEDIUM, getImageFromResourceLocation(mapBobsLst, MapBobsLst.COAL_SIGN_MEDIUM_UP_RIGHT));
+        signImageCollection.addImage(SignType.COAL, LARGE, getImageFromResourceLocation(mapBobsLst, MapBobsLst.COAL_SIGN_LARGE_UP_RIGHT));
 
-        signImageCollection.addImage(SignType.STONE, SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.GRANITE_SIGN_SMALL_UP_RIGHT));
-        signImageCollection.addImage(SignType.STONE, MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.GRANITE_SIGN_MEDIUM_UP_RIGHT));
-        signImageCollection.addImage(SignType.STONE, LARGE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.GRANITE_SIGN_LARGE_UP_RIGHT));
+        signImageCollection.addImage(SignType.STONE, SMALL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.GRANITE_SIGN_SMALL_UP_RIGHT));
+        signImageCollection.addImage(SignType.STONE, MEDIUM, getImageFromResourceLocation(mapBobsLst, MapBobsLst.GRANITE_SIGN_MEDIUM_UP_RIGHT));
+        signImageCollection.addImage(SignType.STONE, LARGE, getImageFromResourceLocation(mapBobsLst, MapBobsLst.GRANITE_SIGN_LARGE_UP_RIGHT));
 
-        signImageCollection.addImage(SignType.GOLD, SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.GOLD_SIGN_SMALL_UP_RIGHT));
-        signImageCollection.addImage(SignType.GOLD, MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.GOLD_SIGN_MEDIUM_UP_RIGHT));
-        signImageCollection.addImage(SignType.GOLD, LARGE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.GOLD_SIGN_LARGE_UP_RIGHT));
+        signImageCollection.addImage(SignType.GOLD, SMALL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.GOLD_SIGN_SMALL_UP_RIGHT));
+        signImageCollection.addImage(SignType.GOLD, MEDIUM, getImageFromResourceLocation(mapBobsLst, MapBobsLst.GOLD_SIGN_MEDIUM_UP_RIGHT));
+        signImageCollection.addImage(SignType.GOLD, LARGE, getImageFromResourceLocation(mapBobsLst, MapBobsLst.GOLD_SIGN_LARGE_UP_RIGHT));
 
-        signImageCollection.addImage(SignType.WATER, LARGE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.WATER_SIGN_LARGE_UP_RIGHT));
+        signImageCollection.addImage(SignType.WATER, LARGE, getImageFromResourceLocation(mapBobsLst, MapBobsLst.WATER_SIGN_LARGE_UP_RIGHT));
 
-        signImageCollection.addImage(SignType.NOTHING, LARGE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.NOTHING_SIGN_UP_RIGHT));
+        signImageCollection.addImage(SignType.NOTHING, LARGE, getImageFromResourceLocation(mapBobsLst, MapBobsLst.NOTHING_SIGN_UP_RIGHT));
 
-        signImageCollection.addShadowImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.SIGN_SHADOW));
+        signImageCollection.addShadowImage(getImageFromResourceLocation(mapBobsLst, MapBobsLst.SIGN_SHADOW));
 
         signImageCollection.writeImageAtlas(toDir, defaultPalette);
 
         /* Extract road building icons */
         RoadBuildingImageCollection roadBuildingImageCollection = new RoadBuildingImageCollection();
 
-        roadBuildingImageCollection.addStartPointImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.ROAD_BUILDING_START_POINT));
-        roadBuildingImageCollection.addSameLevelConnectionImage(getImageFromResourceLocation(mapbobsLst, MapBobsLst.ROAD_BUILDING_SAME_LEVEL_CONNECTION));
+        roadBuildingImageCollection.addStartPointImage(getImageFromResourceLocation(mapBobsLst, MapBobsLst.ROAD_BUILDING_START_POINT));
+        roadBuildingImageCollection.addSameLevelConnectionImage(getImageFromResourceLocation(mapBobsLst, MapBobsLst.ROAD_BUILDING_SAME_LEVEL_CONNECTION));
 
-        roadBuildingImageCollection.addUpwardsConnectionImage(RoadConnectionDifference.LITTLE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.ROAD_BUILDING_LITTLE_HIGHER_CONNECTION));
-        roadBuildingImageCollection.addUpwardsConnectionImage(RoadConnectionDifference.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.ROAD_BUILDING_MEDIUM_HIGHER_CONNECTION));
-        roadBuildingImageCollection.addUpwardsConnectionImage(RoadConnectionDifference.HIGH, getImageFromResourceLocation(mapbobsLst, MapBobsLst.ROAD_BUILDING_MUCH_HIGHER_CONNECTION));
+        roadBuildingImageCollection.addUpwardsConnectionImage(RoadConnectionDifference.LITTLE, getImageFromResourceLocation(mapBobsLst, MapBobsLst.ROAD_BUILDING_LITTLE_HIGHER_CONNECTION));
+        roadBuildingImageCollection.addUpwardsConnectionImage(RoadConnectionDifference.MEDIUM, getImageFromResourceLocation(mapBobsLst, MapBobsLst.ROAD_BUILDING_MEDIUM_HIGHER_CONNECTION));
+        roadBuildingImageCollection.addUpwardsConnectionImage(RoadConnectionDifference.HIGH, getImageFromResourceLocation(mapBobsLst, MapBobsLst.ROAD_BUILDING_MUCH_HIGHER_CONNECTION));
 
-        roadBuildingImageCollection.addDownwardsConnectionImage(RoadConnectionDifference.LITTLE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.ROAD_BUILDING_LITTLE_LOWER_CONNECTION));
-        roadBuildingImageCollection.addDownwardsConnectionImage(RoadConnectionDifference.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.ROAD_BUILDING_MEDIUM_LOWER_CONNECTION));
-        roadBuildingImageCollection.addDownwardsConnectionImage(RoadConnectionDifference.HIGH, getImageFromResourceLocation(mapbobsLst, MapBobsLst.ROAD_BUILDING_MUCH_LOWER_CONNECTION));
+        roadBuildingImageCollection.addDownwardsConnectionImage(RoadConnectionDifference.LITTLE, getImageFromResourceLocation(mapBobsLst, MapBobsLst.ROAD_BUILDING_LITTLE_LOWER_CONNECTION));
+        roadBuildingImageCollection.addDownwardsConnectionImage(RoadConnectionDifference.MEDIUM, getImageFromResourceLocation(mapBobsLst, MapBobsLst.ROAD_BUILDING_MEDIUM_LOWER_CONNECTION));
+        roadBuildingImageCollection.addDownwardsConnectionImage(RoadConnectionDifference.HIGH, getImageFromResourceLocation(mapBobsLst, MapBobsLst.ROAD_BUILDING_MUCH_LOWER_CONNECTION));
 
         roadBuildingImageCollection.writeImageAtlas(toDir, defaultPalette);
-
-        /* Extract nature elements */
-        Map<Integer, String> imagesToFileMap = new HashMap<>();
-
-        imagesToFileMap.put(FALLEN_DEAD_TREE, natureDir + "/fallen-dead-tree.png");
-        imagesToFileMap.put(DEAD_TREE, natureDir + "/dead-tree.png");
 
         /* Extract fire animation */
         FireImageCollection fireImageCollection = new FireImageCollection();
 
-        fireImageCollection.addImagesForFire(FireSize.MINI, getImagesFromGameResource(mapbobsLst, MapBobsLst.MINI_FIRE_ANIMATION, 8));
+        fireImageCollection.addImagesForFire(FireSize.MINI, getImagesFromGameResource(mapBobsLst, MapBobsLst.MINI_FIRE_ANIMATION, 8));
         fireImageCollection.addImagesForFireWithShadow(
                 FireSize.SMALL,
-                getImagesFromGameResource(mapbobsLst, MapBobsLst.SMALL_FIRE_ANIMATION, 8),
-                getImagesFromGameResource(mapbobsLst, MapBobsLst.SMALL_FIRE_SHADOW_ANIMATION, 8)
+                getImagesFromGameResource(mapBobsLst, MapBobsLst.SMALL_FIRE_ANIMATION, 8),
+                getImagesFromGameResource(mapBobsLst, MapBobsLst.SMALL_FIRE_SHADOW_ANIMATION, 8)
         );
         fireImageCollection.addImagesForFireWithShadow(
                 FireSize.MEDIUM,
-                getImagesFromGameResource(mapbobsLst, MapBobsLst.MEDIUM_FIRE_ANIMATION, 8),
-                getImagesFromGameResource(mapbobsLst, MapBobsLst.MEDIUM_FIRE_SHADOW_ANIMATION, 8)
+                getImagesFromGameResource(mapBobsLst, MapBobsLst.MEDIUM_FIRE_ANIMATION, 8),
+                getImagesFromGameResource(mapBobsLst, MapBobsLst.MEDIUM_FIRE_SHADOW_ANIMATION, 8)
         );
         fireImageCollection.addImagesForFireWithShadow(
                 FireSize.LARGE,
-                getImagesFromGameResource(mapbobsLst, MapBobsLst.LARGE_FIRE_ANIMATION, 8),
-                getImagesFromGameResource(mapbobsLst, MapBobsLst.LARGE_FIRE_SHADOW_ANIMATION, 8)
+                getImagesFromGameResource(mapBobsLst, MapBobsLst.LARGE_FIRE_ANIMATION, 8),
+                getImagesFromGameResource(mapBobsLst, MapBobsLst.LARGE_FIRE_SHADOW_ANIMATION, 8)
         );
 
-        fireImageCollection.addBurntDownImage(SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.SMALL_BURNT_DOWN));
-        fireImageCollection.addBurntDownImage(MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.MEDIUM_BURNT_DOWN));
-        fireImageCollection.addBurntDownImage(LARGE, getImageFromResourceLocation(mapbobsLst, MapBobsLst.LARGE_BURNT_DOWN));
+        fireImageCollection.addBurntDownImage(SMALL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.SMALL_BURNT_DOWN));
+        fireImageCollection.addBurntDownImage(MEDIUM, getImageFromResourceLocation(mapBobsLst, MapBobsLst.MEDIUM_BURNT_DOWN));
+        fireImageCollection.addBurntDownImage(LARGE, getImageFromResourceLocation(mapBobsLst, MapBobsLst.LARGE_BURNT_DOWN));
 
         fireImageCollection.writeImageAtlas(toDir, defaultPalette);
 
@@ -1188,128 +1174,128 @@ public class Extractor {
         TreeImageCollection treeImageCollection = new TreeImageCollection("trees");
 
         /* Extract animation for tree type 1 in wind -- cypress (?) */
-        treeImageCollection.addImagesForTree(Tree.TreeType.CYPRESS, getImagesFromGameResource(mapbobsLst, MapBobsLst.CYPRESS_TREE_ANIMATION, 8));
-        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.CYPRESS, getImagesFromGameResource(mapbobsLst, MapBobsLst.CYPRESS_TREE_SHADOW_ANIMATION, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.CYPRESS, getImagesFromGameResource(mapBobsLst, MapBobsLst.CYPRESS_TREE_ANIMATION, 8));
+        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.CYPRESS, getImagesFromGameResource(mapBobsLst, MapBobsLst.CYPRESS_TREE_SHADOW_ANIMATION, 8));
 
-        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.CYPRESS, getImagesFromGameResource(mapbobsLst, MapBobsLst.CYPRESS_FALLING, 4));
-        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.CYPRESS, getImagesFromGameResource(mapbobsLst, MapBobsLst.CYPRESS_FALLING_SHADOW, 4));
+        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.CYPRESS, getImagesFromGameResource(mapBobsLst, MapBobsLst.CYPRESS_FALLING, 4));
+        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.CYPRESS, getImagesFromGameResource(mapBobsLst, MapBobsLst.CYPRESS_FALLING_SHADOW, 4));
 
-        treeImageCollection.addImageForGrowingTree(Tree.TreeType.CYPRESS, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CYPRESS_SMALLEST));
-        treeImageCollection.addImageForGrowingTree(Tree.TreeType.CYPRESS, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CYPRESS_SMALL));
-        treeImageCollection.addImageForGrowingTree(Tree.TreeType.CYPRESS, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CYPRESS_ALMOST_GROWN));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.CYPRESS, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CYPRESS_SMALLEST));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.CYPRESS, TreeSize.SMALL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CYPRESS_SMALL));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.CYPRESS, TreeSize.MEDIUM, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CYPRESS_ALMOST_GROWN));
 
-        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.CYPRESS, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CYPRESS_SHADOW_SMALLEST));
-        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.CYPRESS, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CYPRESS_SHADOW_SMALL));
-        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.CYPRESS, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CYPRESS_SHADOW_MEDIUM));
+        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.CYPRESS, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CYPRESS_SHADOW_SMALLEST));
+        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.CYPRESS, TreeSize.SMALL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CYPRESS_SHADOW_SMALL));
+        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.CYPRESS, TreeSize.MEDIUM, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CYPRESS_SHADOW_MEDIUM));
 
         /* Extract animation for tree type 2 in wind -- birch, for sure */
-        treeImageCollection.addImagesForTree(Tree.TreeType.BIRCH, getImagesFromGameResource(mapbobsLst, MapBobsLst.BIRCH_TREE_ANIMATION, 8));
-        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.BIRCH, getImagesFromGameResource(mapbobsLst, MapBobsLst.BIRCH_TREE_SHADOW_ANIMATION, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.BIRCH, getImagesFromGameResource(mapBobsLst, MapBobsLst.BIRCH_TREE_ANIMATION, 8));
+        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.BIRCH, getImagesFromGameResource(mapBobsLst, MapBobsLst.BIRCH_TREE_SHADOW_ANIMATION, 8));
 
-        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.BIRCH, getImagesFromGameResource(mapbobsLst, MapBobsLst.BIRCH_FALLING, 4));
-        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.BIRCH, getImagesFromGameResource(mapbobsLst, MapBobsLst.BIRCH_FALLING_SHADOW, 4));
+        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.BIRCH, getImagesFromGameResource(mapBobsLst, MapBobsLst.BIRCH_FALLING, 4));
+        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.BIRCH, getImagesFromGameResource(mapBobsLst, MapBobsLst.BIRCH_FALLING_SHADOW, 4));
 
-        treeImageCollection.addImageForGrowingTree(Tree.TreeType.BIRCH, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.BIRCH_SMALLEST));
-        treeImageCollection.addImageForGrowingTree(Tree.TreeType.BIRCH, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.BIRCH_SMALL));
-        treeImageCollection.addImageForGrowingTree(Tree.TreeType.BIRCH, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.BIRCH_ALMOST_GROWN));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.BIRCH, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapBobsLst, MapBobsLst.BIRCH_SMALLEST));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.BIRCH, TreeSize.SMALL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.BIRCH_SMALL));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.BIRCH, TreeSize.MEDIUM, getImageFromResourceLocation(mapBobsLst, MapBobsLst.BIRCH_ALMOST_GROWN));
 
-        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.BIRCH, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.BIRCH_SHADOW_SMALLEST));
-        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.BIRCH, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.BIRCH_SHADOW_SMALL));
-        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.BIRCH, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.BIRCH_SHADOW_MEDIUM));
+        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.BIRCH, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapBobsLst, MapBobsLst.BIRCH_SHADOW_SMALLEST));
+        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.BIRCH, TreeSize.SMALL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.BIRCH_SHADOW_SMALL));
+        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.BIRCH, TreeSize.MEDIUM, getImageFromResourceLocation(mapBobsLst, MapBobsLst.BIRCH_SHADOW_MEDIUM));
 
         /* Extract animation for tree type 3 in wind -- oak */
-        treeImageCollection.addImagesForTree(Tree.TreeType.OAK, getImagesFromGameResource(mapbobsLst, MapBobsLst.OAK_TREE_ANIMATION, 8));
-        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.OAK, getImagesFromGameResource(mapbobsLst, MapBobsLst.OAK_TREE_SHADOW_ANIMATION, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.OAK, getImagesFromGameResource(mapBobsLst, MapBobsLst.OAK_TREE_ANIMATION, 8));
+        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.OAK, getImagesFromGameResource(mapBobsLst, MapBobsLst.OAK_TREE_SHADOW_ANIMATION, 8));
 
-        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.OAK, getImagesFromGameResource(mapbobsLst, MapBobsLst.OAK_FALLING, 4));
-        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.OAK, getImagesFromGameResource(mapbobsLst, MapBobsLst.OAK_FALLING_SHADOW, 4));
+        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.OAK, getImagesFromGameResource(mapBobsLst, MapBobsLst.OAK_FALLING, 4));
+        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.OAK, getImagesFromGameResource(mapBobsLst, MapBobsLst.OAK_FALLING_SHADOW, 4));
 
-        treeImageCollection.addImageForGrowingTree(Tree.TreeType.OAK, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.OAK_SMALLEST));
-        treeImageCollection.addImageForGrowingTree(Tree.TreeType.OAK, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.OAK_SMALL));
-        treeImageCollection.addImageForGrowingTree(Tree.TreeType.OAK, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.OAK_ALMOST_GROWN));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.OAK, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapBobsLst, MapBobsLst.OAK_SMALLEST));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.OAK, TreeSize.SMALL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.OAK_SMALL));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.OAK, TreeSize.MEDIUM, getImageFromResourceLocation(mapBobsLst, MapBobsLst.OAK_ALMOST_GROWN));
 
-        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.OAK, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.OAK_SHADOW_SMALLEST));
-        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.OAK, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.OAK_SHADOW_SMALL));
-        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.OAK, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.OAK_SHADOW_MEDIUM));
+        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.OAK, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapBobsLst, MapBobsLst.OAK_SHADOW_SMALLEST));
+        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.OAK, TreeSize.SMALL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.OAK_SHADOW_SMALL));
+        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.OAK, TreeSize.MEDIUM, getImageFromResourceLocation(mapBobsLst, MapBobsLst.OAK_SHADOW_MEDIUM));
 
         /* Extract animation for tree type 4 in wind -- short palm */
-        treeImageCollection.addImagesForTree(Tree.TreeType.PALM_1, getImagesFromGameResource(mapbobsLst, MapBobsLst.PALM_1_TREE_ANIMATION, 8));
-        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.PALM_1, getImagesFromGameResource(mapbobsLst, MapBobsLst.PALM_1_TREE_SHADOW_ANIMATION, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.PALM_1, getImagesFromGameResource(mapBobsLst, MapBobsLst.PALM_1_TREE_ANIMATION, 8));
+        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.PALM_1, getImagesFromGameResource(mapBobsLst, MapBobsLst.PALM_1_TREE_SHADOW_ANIMATION, 8));
 
-        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.PALM_1, getImagesFromGameResource(mapbobsLst, MapBobsLst.PALM_1_FALLING, 4));
-        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.PALM_1, getImagesFromGameResource(mapbobsLst, MapBobsLst.PALM_1_FALLING_SHADOW, 4));
+        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.PALM_1, getImagesFromGameResource(mapBobsLst, MapBobsLst.PALM_1_FALLING, 4));
+        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.PALM_1, getImagesFromGameResource(mapBobsLst, MapBobsLst.PALM_1_FALLING_SHADOW, 4));
 
-        treeImageCollection.addImageForGrowingTree(Tree.TreeType.PALM_1, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PALM_1_SMALLEST));
-        treeImageCollection.addImageForGrowingTree(Tree.TreeType.PALM_1, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PALM_1_SMALL));
-        treeImageCollection.addImageForGrowingTree(Tree.TreeType.PALM_1, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PALM_1_ALMOST_GROWN));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.PALM_1, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapBobsLst, MapBobsLst.PALM_1_SMALLEST));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.PALM_1, TreeSize.SMALL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.PALM_1_SMALL));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.PALM_1, TreeSize.MEDIUM, getImageFromResourceLocation(mapBobsLst, MapBobsLst.PALM_1_ALMOST_GROWN));
 
-        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.PALM_1, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PALM_1_SHADOW_SMALLEST));
-        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.PALM_1, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PALM_1_SHADOW_SMALL));
-        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.PALM_1, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PALM_1_SHADOW_ALMOST_GROWN));
+        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.PALM_1, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapBobsLst, MapBobsLst.PALM_1_SHADOW_SMALLEST));
+        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.PALM_1, TreeSize.SMALL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.PALM_1_SHADOW_SMALL));
+        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.PALM_1, TreeSize.MEDIUM, getImageFromResourceLocation(mapBobsLst, MapBobsLst.PALM_1_SHADOW_ALMOST_GROWN));
 
         /* Extract animation for tree type 5 in wind -- tall palm */
-        treeImageCollection.addImagesForTree(Tree.TreeType.PALM_2, getImagesFromGameResource(mapbobsLst, MapBobsLst.PALM_2_TREE_ANIMATION, 8));
-        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.PALM_2, getImagesFromGameResource(mapbobsLst, MapBobsLst.PALM_2_TREE_SHADOW_ANIMATION, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.PALM_2, getImagesFromGameResource(mapBobsLst, MapBobsLst.PALM_2_TREE_ANIMATION, 8));
+        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.PALM_2, getImagesFromGameResource(mapBobsLst, MapBobsLst.PALM_2_TREE_SHADOW_ANIMATION, 8));
 
-        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.PALM_2, getImagesFromGameResource(mapbobsLst, MapBobsLst.PALM_2_FALLING, 4));
-        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.PALM_2, getImagesFromGameResource(mapbobsLst, MapBobsLst.PALM_2_FALLING_SHADOW, 4));
+        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.PALM_2, getImagesFromGameResource(mapBobsLst, MapBobsLst.PALM_2_FALLING, 4));
+        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.PALM_2, getImagesFromGameResource(mapBobsLst, MapBobsLst.PALM_2_FALLING_SHADOW, 4));
 
-        treeImageCollection.addImageForGrowingTree(Tree.TreeType.PALM_2, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PALM_2_SMALLEST));
-        treeImageCollection.addImageForGrowingTree(Tree.TreeType.PALM_2, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PALM_2_SMALL));
-        treeImageCollection.addImageForGrowingTree(Tree.TreeType.PALM_2, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PALM_2_ALMOST_GROWN));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.PALM_2, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapBobsLst, MapBobsLst.PALM_2_SMALLEST));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.PALM_2, TreeSize.SMALL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.PALM_2_SMALL));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.PALM_2, TreeSize.MEDIUM, getImageFromResourceLocation(mapBobsLst, MapBobsLst.PALM_2_ALMOST_GROWN));
 
-        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.PALM_2, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PALM_2_SHADOW_SMALLEST));
-        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.PALM_2, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PALM_2_SHADOW_SMALL));
-        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.PALM_2, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PALM_2_SHADOW_ALMOST_GROWN));
+        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.PALM_2, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapBobsLst, MapBobsLst.PALM_2_SHADOW_SMALLEST));
+        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.PALM_2, TreeSize.SMALL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.PALM_2_SHADOW_SMALL));
+        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.PALM_2, TreeSize.MEDIUM, getImageFromResourceLocation(mapBobsLst, MapBobsLst.PALM_2_SHADOW_ALMOST_GROWN));
 
         /* Extract animation for tree type 6 in wind -- fat palm - pine apple */
-        treeImageCollection.addImagesForTree(Tree.TreeType.PINE_APPLE, getImagesFromGameResource(mapbobsLst, MapBobsLst.PINE_APPLE_ANIMATION, 8));
-        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.PINE_APPLE, getImagesFromGameResource(mapbobsLst, MapBobsLst.PINE_APPLE_SHADOW_ANIMATION, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.PINE_APPLE, getImagesFromGameResource(mapBobsLst, MapBobsLst.PINE_APPLE_ANIMATION, 8));
+        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.PINE_APPLE, getImagesFromGameResource(mapBobsLst, MapBobsLst.PINE_APPLE_SHADOW_ANIMATION, 8));
 
         /* Extract animation for tree type 7 in wind -- pine */
-        treeImageCollection.addImagesForTree(Tree.TreeType.PINE, getImagesFromGameResource(mapbobsLst, MapBobsLst.PINE_TREE_ANIMATION, 8));
-        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.PINE, getImagesFromGameResource(mapbobsLst, MapBobsLst.PINE_TREE_SHADOW_ANIMATION, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.PINE, getImagesFromGameResource(mapBobsLst, MapBobsLst.PINE_TREE_ANIMATION, 8));
+        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.PINE, getImagesFromGameResource(mapBobsLst, MapBobsLst.PINE_TREE_SHADOW_ANIMATION, 8));
 
-        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.PINE, getImagesFromGameResource(mapbobsLst, MapBobsLst.PINE_FALLING, 4));
-        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.PINE, getImagesFromGameResource(mapbobsLst, MapBobsLst.PINE_FALLING_SHADOW, 4));
+        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.PINE, getImagesFromGameResource(mapBobsLst, MapBobsLst.PINE_FALLING, 4));
+        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.PINE, getImagesFromGameResource(mapBobsLst, MapBobsLst.PINE_FALLING_SHADOW, 4));
 
-        treeImageCollection.addImageForGrowingTree(Tree.TreeType.PINE, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PINE_SMALLEST));
-        treeImageCollection.addImageForGrowingTree(Tree.TreeType.PINE, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PINE_SMALL));
-        treeImageCollection.addImageForGrowingTree(Tree.TreeType.PINE, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PINE_ALMOST_GROWN));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.PINE, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapBobsLst, MapBobsLst.PINE_SMALLEST));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.PINE, TreeSize.SMALL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.PINE_SMALL));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.PINE, TreeSize.MEDIUM, getImageFromResourceLocation(mapBobsLst, MapBobsLst.PINE_ALMOST_GROWN));
 
-        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.PINE, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PINE_SMALLEST_SHADOW));
-        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.PINE, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PINE_SMALL_SHADOW));
-        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.PINE, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.PINE_ALMOST_GROWN_SHADOW));
+        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.PINE, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapBobsLst, MapBobsLst.PINE_SMALLEST_SHADOW));
+        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.PINE, TreeSize.SMALL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.PINE_SMALL_SHADOW));
+        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.PINE, TreeSize.MEDIUM, getImageFromResourceLocation(mapBobsLst, MapBobsLst.PINE_ALMOST_GROWN_SHADOW));
 
         /* Extract animation for tree type 8 in wind -- cherry */
-        treeImageCollection.addImagesForTree(Tree.TreeType.CHERRY, getImagesFromGameResource(mapbobsLst, MapBobsLst.CHERRY_TREE_ANIMATION, 8));
-        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.CHERRY, getImagesFromGameResource(mapbobsLst, MapBobsLst.CHERRY_TREE_SHADOW_ANIMATION, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.CHERRY, getImagesFromGameResource(mapBobsLst, MapBobsLst.CHERRY_TREE_ANIMATION, 8));
+        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.CHERRY, getImagesFromGameResource(mapBobsLst, MapBobsLst.CHERRY_TREE_SHADOW_ANIMATION, 8));
 
-        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.CHERRY, getImagesFromGameResource(mapbobsLst, MapBobsLst.CHERRY_FALLING, 4));
-        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.CHERRY, getImagesFromGameResource(mapbobsLst, MapBobsLst.CHERRY_FALLING_SHADOW, 4));
+        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.CHERRY, getImagesFromGameResource(mapBobsLst, MapBobsLst.CHERRY_FALLING, 4));
+        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.CHERRY, getImagesFromGameResource(mapBobsLst, MapBobsLst.CHERRY_FALLING_SHADOW, 4));
 
-        treeImageCollection.addImageForGrowingTree(Tree.TreeType.CHERRY, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CHERRY_SMALLEST));
-        treeImageCollection.addImageForGrowingTree(Tree.TreeType.CHERRY, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CHERRY_SMALL));
-        treeImageCollection.addImageForGrowingTree(Tree.TreeType.CHERRY, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CHERRY_ALMOST_GROWN));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.CHERRY, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CHERRY_SMALLEST));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.CHERRY, TreeSize.SMALL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CHERRY_SMALL));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.CHERRY, TreeSize.MEDIUM, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CHERRY_ALMOST_GROWN));
 
-        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.CHERRY, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CHERRY_SMALLEST_SHADOW));
-        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.CHERRY, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CHERRY_SMALL_SHADOW));
-        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.CHERRY, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.CHERRY_ALMOST_GROWN_SHADOW));
+        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.CHERRY, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CHERRY_SMALLEST_SHADOW));
+        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.CHERRY, TreeSize.SMALL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CHERRY_SMALL_SHADOW));
+        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.CHERRY, TreeSize.MEDIUM, getImageFromResourceLocation(mapBobsLst, MapBobsLst.CHERRY_ALMOST_GROWN_SHADOW));
 
         /* Extract animation for tree type 9 in wind -- fir (?) */
-        treeImageCollection.addImagesForTree(Tree.TreeType.FIR, getImagesFromGameResource(mapbobsLst, MapBobsLst.FIR_TREE_ANIMATION, 8));
-        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.FIR, getImagesFromGameResource(mapbobsLst, MapBobsLst.FIR_TREE_SHADOW_ANIMATION, 8));
+        treeImageCollection.addImagesForTree(Tree.TreeType.FIR, getImagesFromGameResource(mapBobsLst, MapBobsLst.FIR_TREE_ANIMATION, 8));
+        treeImageCollection.addImagesForTreeShadow(Tree.TreeType.FIR, getImagesFromGameResource(mapBobsLst, MapBobsLst.FIR_TREE_SHADOW_ANIMATION, 8));
 
-        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.FIR, getImagesFromGameResource(mapbobsLst, MapBobsLst.FIR_FALLING, 4));
-        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.FIR, getImagesFromGameResource(mapbobsLst, MapBobsLst.FIR_FALLING_SHADOW, 4));
+        treeImageCollection.addImagesForTreeFalling(Tree.TreeType.FIR, getImagesFromGameResource(mapBobsLst, MapBobsLst.FIR_FALLING, 4));
+        treeImageCollection.addImagesForTreeFallingShadow(Tree.TreeType.FIR, getImagesFromGameResource(mapBobsLst, MapBobsLst.FIR_FALLING_SHADOW, 4));
 
-        treeImageCollection.addImageForGrowingTree(Tree.TreeType.FIR, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.FIR_SMALLEST));
-        treeImageCollection.addImageForGrowingTree(Tree.TreeType.FIR, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.FIR_SMALL));
-        treeImageCollection.addImageForGrowingTree(Tree.TreeType.FIR, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.FIR_ALMOST_GROWN));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.FIR, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapBobsLst, MapBobsLst.FIR_SMALLEST));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.FIR, TreeSize.SMALL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.FIR_SMALL));
+        treeImageCollection.addImageForGrowingTree(Tree.TreeType.FIR, TreeSize.MEDIUM, getImageFromResourceLocation(mapBobsLst, MapBobsLst.FIR_ALMOST_GROWN));
 
-        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.FIR, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapbobsLst, MapBobsLst.FIR_SMALLEST_SHADOW));
-        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.FIR, TreeSize.SMALL, getImageFromResourceLocation(mapbobsLst, MapBobsLst.FIR_SMALL_SHADOW));
-        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.FIR, TreeSize.MEDIUM, getImageFromResourceLocation(mapbobsLst, MapBobsLst.FIR_ALMOST_GROWN_SHADOW));
+        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.FIR, TreeSize.NEWLY_PLANTED, getImageFromResourceLocation(mapBobsLst, MapBobsLst.FIR_SMALLEST_SHADOW));
+        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.FIR, TreeSize.SMALL, getImageFromResourceLocation(mapBobsLst, MapBobsLst.FIR_SMALL_SHADOW));
+        treeImageCollection.addImageForGrowingTreeShadow(Tree.TreeType.FIR, TreeSize.MEDIUM, getImageFromResourceLocation(mapBobsLst, MapBobsLst.FIR_ALMOST_GROWN_SHADOW));
 
         treeImageCollection.writeImageAtlas(natureDir, defaultPalette);
 
@@ -1324,70 +1310,68 @@ public class Extractor {
         AnimalImageCollection duckImageCollection = new AnimalImageCollection("duck");
 
         /* Ice bear */
-        iceBearImageCollection.addImages(NORTH_EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.ICE_BEAR_WALKING_NORTH_EAST_ANIMATION, 6));
-        iceBearImageCollection.addImages(EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.ICE_BEAR_WALKING_EAST_ANIMATION, 6));
-        iceBearImageCollection.addImages(SOUTH_EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.ICE_BEAR_WALKING_SOUTH_EAST_ANIMATION, 6));
-        iceBearImageCollection.addImages(SOUTH_WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.ICE_BEAR_WALKING_SOUTH_WEST_ANIMATION, 6));
-        iceBearImageCollection.addImages(WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.ICE_BEAR_WALKING_WEST_ANIMATION, 6));
-        iceBearImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.ICE_BEAR_WALKING_NORTH_WEST_ANIMATION, 6));
+        iceBearImageCollection.addImages(NORTH_EAST, getImagesFromGameResource(mapBobsLst, MapBobsLst.ICE_BEAR_WALKING_NORTH_EAST_ANIMATION, 6));
+        iceBearImageCollection.addImages(EAST, getImagesFromGameResource(mapBobsLst, MapBobsLst.ICE_BEAR_WALKING_EAST_ANIMATION, 6));
+        iceBearImageCollection.addImages(SOUTH_EAST, getImagesFromGameResource(mapBobsLst, MapBobsLst.ICE_BEAR_WALKING_SOUTH_EAST_ANIMATION, 6));
+        iceBearImageCollection.addImages(SOUTH_WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.ICE_BEAR_WALKING_SOUTH_WEST_ANIMATION, 6));
+        iceBearImageCollection.addImages(WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.ICE_BEAR_WALKING_WEST_ANIMATION, 6));
+        iceBearImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.ICE_BEAR_WALKING_NORTH_WEST_ANIMATION, 6));
 
         /* Fox */
-        foxImageCollection.addImages(NORTH_EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.FOX_WALKING_NORTH_EAST_ANIMATION, 6));
-        foxImageCollection.addImages(EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.FOX_WALKING_EAST_ANIMATION, 6));
-        foxImageCollection.addImages(SOUTH_EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.FOX_WALKING_SOUTH_EAST_ANIMATION, 6));
-        foxImageCollection.addImages(SOUTH_WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.FOX_WALKING_SOUTH_WEST_ANIMATION, 6));
-        foxImageCollection.addImages(WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.FOX_WALKING_WEST_ANIMATION, 6));
-        foxImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.FOX_WALKING_NORTH_WEST_ANIMATION, 6));
+        foxImageCollection.addImages(NORTH_EAST, getImagesFromGameResource(mapBobsLst, MapBobsLst.FOX_WALKING_NORTH_EAST_ANIMATION, 6));
+        foxImageCollection.addImages(EAST, getImagesFromGameResource(mapBobsLst, MapBobsLst.FOX_WALKING_EAST_ANIMATION, 6));
+        foxImageCollection.addImages(SOUTH_EAST, getImagesFromGameResource(mapBobsLst, MapBobsLst.FOX_WALKING_SOUTH_EAST_ANIMATION, 6));
+        foxImageCollection.addImages(SOUTH_WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.FOX_WALKING_SOUTH_WEST_ANIMATION, 6));
+        foxImageCollection.addImages(WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.FOX_WALKING_WEST_ANIMATION, 6));
+        foxImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.FOX_WALKING_NORTH_WEST_ANIMATION, 6));
 
         /* Rabbit */
-        rabbitImageCollection.addImages(NORTH_EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.RABBIT_WALKING_NORTH_EAST_ANIMATION, 6));
-        rabbitImageCollection.addImages(EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.RABBIT_WALKING_EAST_ANIMATION, 6));
-        rabbitImageCollection.addImages(SOUTH_EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.RABBIT_WALKING_SOUTH_EAST_ANIMATION, 6));
-        rabbitImageCollection.addImages(SOUTH_WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.RABBIT_WALKING_SOUTH_WEST_ANIMATION, 6));
-        rabbitImageCollection.addImages(WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.RABBIT_WALKING_WEST_ANIMATION, 6));
-        rabbitImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.RABBIT_WALKING_NORTH_WEST_ANIMATION, 6));
+        rabbitImageCollection.addImages(NORTH_EAST, getImagesFromGameResource(mapBobsLst, MapBobsLst.RABBIT_WALKING_NORTH_EAST_ANIMATION, 6));
+        rabbitImageCollection.addImages(EAST, getImagesFromGameResource(mapBobsLst, MapBobsLst.RABBIT_WALKING_EAST_ANIMATION, 6));
+        rabbitImageCollection.addImages(SOUTH_EAST, getImagesFromGameResource(mapBobsLst, MapBobsLst.RABBIT_WALKING_SOUTH_EAST_ANIMATION, 6));
+        rabbitImageCollection.addImages(SOUTH_WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.RABBIT_WALKING_SOUTH_WEST_ANIMATION, 6));
+        rabbitImageCollection.addImages(WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.RABBIT_WALKING_WEST_ANIMATION, 6));
+        rabbitImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.RABBIT_WALKING_NORTH_WEST_ANIMATION, 6));
 
         /* Stag */
-        stagImageCollection.addImages(NORTH_EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.STAG_WALKING_NORTH_EAST_ANIMATION, 8));
-        stagImageCollection.addImages(EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.STAG_WALKING_EAST_ANIMATION, 8));
-        stagImageCollection.addImages(SOUTH_EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.STAG_WALKING_SOUTH_EAST_ANIMATION, 8));
-        stagImageCollection.addImages(SOUTH_WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.STAG_WALKING_SOUTH_WEST_ANIMATION, 8));
-        stagImageCollection.addImages(WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.STAG_WALKING_WEST_ANIMATION, 8));
-        stagImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.STAG_WALKING_NORTH_WEST_ANIMATION, 8));
+        stagImageCollection.addImages(NORTH_EAST, getImagesFromGameResource(mapBobsLst, MapBobsLst.STAG_WALKING_NORTH_EAST_ANIMATION, 8));
+        stagImageCollection.addImages(EAST, getImagesFromGameResource(mapBobsLst, MapBobsLst.STAG_WALKING_EAST_ANIMATION, 8));
+        stagImageCollection.addImages(SOUTH_EAST, getImagesFromGameResource(mapBobsLst, MapBobsLst.STAG_WALKING_SOUTH_EAST_ANIMATION, 8));
+        stagImageCollection.addImages(SOUTH_WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.STAG_WALKING_SOUTH_WEST_ANIMATION, 8));
+        stagImageCollection.addImages(WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.STAG_WALKING_WEST_ANIMATION, 8));
+        stagImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.STAG_WALKING_NORTH_WEST_ANIMATION, 8));
 
         /* Deer */
-        deerImageCollection.addImages(NORTH_EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.DEER_WALKING_NORTH_EAST_ANIMATION, 8));
-        deerImageCollection.addImages(EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.DEER_WALKING_EAST_ANIMATION, 8));
-        deerImageCollection.addImages(SOUTH_EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.DEER_WALKING_SOUTH_EAST_ANIMATION, 8));
-        deerImageCollection.addImages(SOUTH_WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.DEER_WALKING_SOUTH_WEST_ANIMATION, 8));
-        deerImageCollection.addImages(WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.DEER_WALKING_WEST_ANIMATION, 8));
-        deerImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.DEER_WALKING_NORTH_WEST_ANIMATION, 8));
+        deerImageCollection.addImages(NORTH_EAST, getImagesFromGameResource(mapBobsLst, MapBobsLst.DEER_WALKING_NORTH_EAST_ANIMATION, 8));
+        deerImageCollection.addImages(EAST, getImagesFromGameResource(mapBobsLst, MapBobsLst.DEER_WALKING_EAST_ANIMATION, 8));
+        deerImageCollection.addImages(SOUTH_EAST, getImagesFromGameResource(mapBobsLst, MapBobsLst.DEER_WALKING_SOUTH_EAST_ANIMATION, 8));
+        deerImageCollection.addImages(SOUTH_WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.DEER_WALKING_SOUTH_WEST_ANIMATION, 8));
+        deerImageCollection.addImages(WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.DEER_WALKING_WEST_ANIMATION, 8));
+        deerImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.DEER_WALKING_NORTH_WEST_ANIMATION, 8));
 
         /* Sheep */
-        sheepImageCollection.addImages(NORTH_EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.SHEEP_WALKING_NORTH_EAST_ANIMATION, 2));
-        sheepImageCollection.addImages(EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.SHEEP_WALKING_EAST_ANIMATION, 2));
-        sheepImageCollection.addImages(SOUTH_EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.SHEEP_WALKING_SOUTH_EAST_ANIMATION, 2));
-        sheepImageCollection.addImages(SOUTH_WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.SHEEP_WALKING_SOUTH_WEST_ANIMATION, 2));
-        sheepImageCollection.addImages(WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.SHEEP_WALKING_WEST_ANIMATION, 2));
-        sheepImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.SHEEP_WALKING_NORTH_WEST_ANIMATION, 2));
+        sheepImageCollection.addImages(NORTH_EAST, getImagesFromGameResource(mapBobsLst, MapBobsLst.SHEEP_WALKING_NORTH_EAST_ANIMATION, 2));
+        sheepImageCollection.addImages(EAST, getImagesFromGameResource(mapBobsLst, MapBobsLst.SHEEP_WALKING_EAST_ANIMATION, 2));
+        sheepImageCollection.addImages(SOUTH_EAST, getImagesFromGameResource(mapBobsLst, MapBobsLst.SHEEP_WALKING_SOUTH_EAST_ANIMATION, 2));
+        sheepImageCollection.addImages(SOUTH_WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.SHEEP_WALKING_SOUTH_WEST_ANIMATION, 2));
+        sheepImageCollection.addImages(WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.SHEEP_WALKING_WEST_ANIMATION, 2));
+        sheepImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.SHEEP_WALKING_NORTH_WEST_ANIMATION, 2));
 
         /* Deer 2 (horse?) */
-        deer2ImageCollection.addImages(NORTH_EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.DEER_2_WALKING_NORTH_EAST_ANIMATION, 8));
-        deer2ImageCollection.addImages(EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.DEER_2_WALKING_EAST_ANIMATION, 8));
-        deer2ImageCollection.addImages(SOUTH_EAST, getImagesFromGameResource(mapbobsLst, MapBobsLst.DEER_2_WALKING_SOUTH_EAST_ANIMATION, 8));
-        deer2ImageCollection.addImages(SOUTH_WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.DEER_2_WALKING_SOUTH_WEST_ANIMATION, 8));
-        deer2ImageCollection.addImages(WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.DEER_2_WALKING_WEST_ANIMATION, 8));
-        deer2ImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapbobsLst, MapBobsLst.DEER_2_WALKING_NORTH_WEST_ANIMATION, 8));
+        deer2ImageCollection.addImages(NORTH_EAST, getImagesFromGameResource(mapBobsLst, MapBobsLst.DEER_2_WALKING_NORTH_EAST_ANIMATION, 8));
+        deer2ImageCollection.addImages(EAST, getImagesFromGameResource(mapBobsLst, MapBobsLst.DEER_2_WALKING_EAST_ANIMATION, 8));
+        deer2ImageCollection.addImages(SOUTH_EAST, getImagesFromGameResource(mapBobsLst, MapBobsLst.DEER_2_WALKING_SOUTH_EAST_ANIMATION, 8));
+        deer2ImageCollection.addImages(SOUTH_WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.DEER_2_WALKING_SOUTH_WEST_ANIMATION, 8));
+        deer2ImageCollection.addImages(WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.DEER_2_WALKING_WEST_ANIMATION, 8));
+        deer2ImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.DEER_2_WALKING_NORTH_WEST_ANIMATION, 8));
 
         /* Extract duck */
-        duckImageCollection.addImage(EAST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.DUCK_EAST));
-        duckImageCollection.addImage(SOUTH_EAST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.DUCK_EAST + 1));
-        duckImageCollection.addImage(SOUTH_WEST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.DUCK_EAST + 2));
-        duckImageCollection.addImage(WEST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.DUCK_EAST + 3));
-        duckImageCollection.addImage(NORTH_WEST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.DUCK_EAST + 4));
-        duckImageCollection.addImage(NORTH_EAST, getImageFromResourceLocation(mapbobsLst, MapBobsLst.DUCK_EAST + 5));
-
-        writeFilesFromMap(mapbobsLst, imagesToFileMap);
+        duckImageCollection.addImage(EAST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.DUCK_EAST));
+        duckImageCollection.addImage(SOUTH_EAST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.DUCK_EAST + 1));
+        duckImageCollection.addImage(SOUTH_WEST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.DUCK_EAST + 2));
+        duckImageCollection.addImage(WEST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.DUCK_EAST + 3));
+        duckImageCollection.addImage(NORTH_WEST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.DUCK_EAST + 4));
+        duckImageCollection.addImage(NORTH_EAST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.DUCK_EAST + 5));
 
         iceBearImageCollection.writeImageAtlas(natureDir + "/animals/", defaultPalette);
         foxImageCollection.writeImageAtlas(natureDir + "/animals/", defaultPalette);
@@ -1399,16 +1383,16 @@ public class Extractor {
         duckImageCollection.writeImageAtlas(natureDir + "/animals/", defaultPalette);
 
         /* Extract the donkey */
-        List<GameResource> mapbobs0 = assetManager.loadLstFile(fromDir + "/DATA/MAPBOBS0.LST", defaultPalette);
+        List<GameResource> mapBobs0 = assetManager.loadLstFile(fromDir + "/DATA/MAPBOBS0.LST", defaultPalette);
 
         AnimalImageCollection donkeyImageCollection = new AnimalImageCollection("donkey");
 
-        donkeyImageCollection.addImages(EAST, getImagesFromGameResource(mapbobs0, MapBobs0Lst.DONKEY_EAST_ANIMATION, 8));
-        donkeyImageCollection.addImages(SOUTH_EAST, getImagesFromGameResource(mapbobs0, MapBobs0Lst.DONKEY_SOUTH_EAST_ANIMATION, 8));
-        donkeyImageCollection.addImages(SOUTH_WEST, getImagesFromGameResource(mapbobs0, MapBobs0Lst.DONKEY_SOUTH_WEST_ANIMATION, 8));
-        donkeyImageCollection.addImages(WEST, getImagesFromGameResource(mapbobs0, MapBobs0Lst.DONKEY_WEST_ANIMATION, 8));
-        donkeyImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapbobs0, MapBobs0Lst.DONKEY_NORTH_WEST_ANIMATION, 8));
-        donkeyImageCollection.addImages(NORTH_EAST, getImagesFromGameResource(mapbobs0, MapBobs0Lst.DONKEY_NORTH_EAST_ANIMATION, 8));
+        donkeyImageCollection.addImages(EAST, getImagesFromGameResource(mapBobs0, MapBobs0Lst.DONKEY_EAST_ANIMATION, 8));
+        donkeyImageCollection.addImages(SOUTH_EAST, getImagesFromGameResource(mapBobs0, MapBobs0Lst.DONKEY_SOUTH_EAST_ANIMATION, 8));
+        donkeyImageCollection.addImages(SOUTH_WEST, getImagesFromGameResource(mapBobs0, MapBobs0Lst.DONKEY_SOUTH_WEST_ANIMATION, 8));
+        donkeyImageCollection.addImages(WEST, getImagesFromGameResource(mapBobs0, MapBobs0Lst.DONKEY_WEST_ANIMATION, 8));
+        donkeyImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapBobs0, MapBobs0Lst.DONKEY_NORTH_WEST_ANIMATION, 8));
+        donkeyImageCollection.addImages(NORTH_EAST, getImagesFromGameResource(mapBobs0, MapBobs0Lst.DONKEY_NORTH_EAST_ANIMATION, 8));
 
         donkeyImageCollection.writeImageAtlas(natureDir + "/animals/", defaultPalette);
 
@@ -1434,77 +1418,77 @@ public class Extractor {
 
         decorativeImageCollection.addDecorationImageWithShadow(
                 Decoration.MUSHROOM,
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_MUSHROOM),
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_MUSHROOM_SHADOW)
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_MUSHROOM),
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_MUSHROOM_SHADOW)
         );
         decorativeImageCollection.addDecorationImageWithShadow(
                 Decoration.MINI_STONE,
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_MINI_STONE),
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_MINI_STONE_SHADOW)
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_MINI_STONE),
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_MINI_STONE_SHADOW)
         );
         decorativeImageCollection.addDecorationImageWithShadow(
                 Decoration.MINI_STONES,
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_MINI_STONES),
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_MINI_STONES_SHADOW)
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_MINI_STONES),
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_MINI_STONES_SHADOW)
         );
         decorativeImageCollection.addDecorationImageWithShadow(
                 Decoration.STONE,
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_STONE),
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_STONE_SHADOW)
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_STONE),
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_STONE_SHADOW)
         );
         decorativeImageCollection.addDecorationImageWithShadow(
                 Decoration.FALLEN_TREE,
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_FALLEN_TREE),
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_FALLEN_TREE_SHADOW));
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_FALLEN_TREE),
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_FALLEN_TREE_SHADOW));
         decorativeImageCollection.addDecorationImageWithShadow(
                 Decoration.STANDING_DEAD_TREE,
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_STANDING_DEAD_TREE),
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_STANDING_DEAD_TREE_SHADOW)
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_STANDING_DEAD_TREE),
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_STANDING_DEAD_TREE_SHADOW)
                 );
         decorativeImageCollection.addDecorationImageWithShadow(
                 Decoration.SKELETON,
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_SKELETON),
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_SKELETON_SHADOW)
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_SKELETON),
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_SKELETON_SHADOW)
         );
         decorativeImageCollection.addDecorationImageWithShadow(
                 Decoration.MINI_SKELETON,
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_MINI_SKELETON),
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_MINI_SKELETON_SHADOW)
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_MINI_SKELETON),
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_MINI_SKELETON_SHADOW)
         );
         decorativeImageCollection.addDecorationImageWithShadow(
                 Decoration.FLOWERS,
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_FLOWERS),
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_FLOWERS_SHADOW)
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_FLOWERS),
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_FLOWERS_SHADOW)
         );
         decorativeImageCollection.addDecorationImageWithShadow(
                 Decoration.BUSH,
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_BUSH),
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_BUSH_SHADOW)
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_BUSH),
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_BUSH_SHADOW)
         );
         decorativeImageCollection.addDecorationImageWithShadow(
                 Decoration.LARGER_STONES,
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_LARGER_STONES),
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_LARGER_STONES_SHADOW)
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_LARGER_STONES),
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_LARGER_STONES_SHADOW)
         );
         decorativeImageCollection.addDecorationImageWithShadow(
                 Decoration.CACTUS_1,
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_CACTUS_1),
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_CACTUS_1_SHADOW)
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_CACTUS_1),
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_CACTUS_1_SHADOW)
         );
         decorativeImageCollection.addDecorationImageWithShadow(
                 Decoration.CACTUS_2,
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_CACTUS_2),
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_CACTUS_2_SHADOW)
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_CACTUS_2),
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_CACTUS_2_SHADOW)
         );
         decorativeImageCollection.addDecorationImageWithShadow(
                 Decoration.BEACH_GRASS,
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_BEACH_GRASS),
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_BEACH_GRASS_SHADOW)
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_BEACH_GRASS),
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_BEACH_GRASS_SHADOW)
         );
         decorativeImageCollection.addDecorationImageWithShadow(
                 Decoration.SMALL_GRASS,
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_SMALL_GRASS),
-                getImageFromResourceLocation(mapbobsLst, MapBobsLst.DECORATIVE_SMALL_GRASS_SHADOW)
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_SMALL_GRASS),
+                getImageFromResourceLocation(mapBobsLst, MapBobsLst.DECORATIVE_SMALL_GRASS_SHADOW)
         );
 
         decorativeImageCollection.writeImageAtlas(toDir, defaultPalette);
@@ -1857,7 +1841,7 @@ public class Extractor {
     private void populateRomanBuildings(String fromDir, String toDir) throws InvalidFormatException, UnknownResourceTypeException, InvalidHeaderException, IOException {
 
         /* Load from the roman asset file */
-        List<GameResource> romYLst = assetManager.loadLstFile(fromDir + "/" + ROMAN_FILE, defaultPalette);
+        List<GameResource> romYLst = assetManager.loadLstFile(fromDir + "/" + RomYLst.FILENAME, defaultPalette);
 
         /* Create the roman buildings directory */
         Utils.createDirectory(toDir + "/" + ROMAN_BUILDINGS_DIRECTORY);

@@ -1,6 +1,8 @@
 package org.appland.settlers.assets.gamefiles;
 
 public class RomYLst {
+    public static final String FILENAME = "DATA/MBOB/ROM_Y.LST";
+
     public static final int HEADQUARTER_SHADOW = 61;
     public static final int BARRACKS_SHADOW = 64;
     public static final int BARRACKS_UNDER_CONSTRUCTION_SHADOW = 66;

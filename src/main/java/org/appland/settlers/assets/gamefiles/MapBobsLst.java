@@ -1,6 +1,8 @@
 package org.appland.settlers.assets.gamefiles;
 
 public class MapBobsLst {
+    public static final String FILENAME = "DATA/MAPBOBS.LST";
+
     public static final int BEER_CARGO = 894;
     public static final int TONG_CARGO = 895;
     public static final int AXE_CARGO = 896;
