@@ -1,6 +1,8 @@
 package org.appland.settlers.assets.collectors;
 
 import org.appland.settlers.assets.Bitmap;
+import org.appland.settlers.assets.Bob;
+import org.appland.settlers.assets.BodyType;
 import org.appland.settlers.assets.Direction;
 import org.appland.settlers.assets.ImageBoard;
 import org.appland.settlers.assets.Nation;
@@ -19,6 +21,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static org.appland.settlers.assets.BodyType.FAT;
 
 public class WorkerImageCollection {
     private final String name;
@@ -200,5 +204,29 @@ public class WorkerImageCollection {
         }
 
         multipleCargoImages.get(material).put(direction, Arrays.asList(images));
+    }
+
+    public void readCargoImagesFromBob(Material material, BodyType bodyType, int bobId, Bob jobsBob) {
+        int fatOffset = 0;
+
+        if (bodyType == FAT) {
+            fatOffset = 1;
+        }
+
+        multipleCargoImages.put(material, new HashMap<>());
+
+        for (Direction direction : Direction.values()) {
+
+            List<Bitmap> cargoImagesForDirection = new ArrayList<>();
+
+            for (int i = 0; i < 8; i++) {
+                int link = ((bobId * 8 + i) * 2 + fatOffset) * 6 + direction.ordinal();
+                int index = jobsBob.getLinkForIndex(link);
+
+                cargoImagesForDirection.add(jobsBob.getBitmapAtIndex(index));
+            }
+
+            multipleCargoImages.get(material).put(direction, cargoImagesForDirection);
+        }
     }
 }

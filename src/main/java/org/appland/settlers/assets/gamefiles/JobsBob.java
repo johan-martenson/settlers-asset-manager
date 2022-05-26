@@ -1,5 +1,10 @@
 package org.appland.settlers.assets.gamefiles;
 
+import org.appland.settlers.assets.WorkerDetails;
+
+import static org.appland.settlers.assets.BodyType.FAT;
+import static org.appland.settlers.assets.BodyType.THIN;
+
 public class JobsBob {
     public static final String FILENAME = "DATA/BOBS/JOBS.BOB";
 
@@ -35,6 +40,48 @@ public class JobsBob {
     public static final int PACK_DONKEY_BOB_ID = 37;
     public static final int BOAT_CARRIER_BOB_ID = 37;
     public static final int CHAR_BURNER_BOB_ID = 37;
+
+    public static final int WOODCUTTER_WITH_WOOD_CARGO_BOB_ID = 61;
+    public static final int CARPENTER_WITH_PLANK_BOB_ID = 62;
+    public static final int STONEMASON_WITH_STONE_CARGO_BOB_ID = 63;
+    public static final int MINTER_WITH_COIN_CARGO_BOB_ID = 64;
+    public static final int MINER_WITH_GOLD_CARGO_BOB_ID = 65;
+    public static final int MINER_WITH_IRON_CARGO_BOB_ID = 66;
+    public static final int MINER_WITH_COAL_CARGO_BOB_ID = 67;
+    public static final int MINER_WITH_STONE_CARGO_BOB_ID = 68;
+    public static final int FISHERMAN_WITH_FISH_CARGO_BOB_ID = 70;
+    public static final int FARMER_WITH_WHEAT_CARGO_BOB_ID = 71;
+    public static final int PIG_BREEDER_WITH_PIG_CARGO_BOB_ID = 73;
+    public static final int MILLER_WITH_FLOUR_CARGO_BOB_ID = 75;
+    public static final int BAKER_WITH_BREAD_CARGO_BOB_ID = 76;
+    public static final int METAL_WORKER_WITH_TONGS_CARGO_BOB_ID = 78;
+    public static final int METAL_WORKER_WITH_HAMMER_CARGO_BOB_ID = 79;
+    public static final int METAL_WORKER_WITH_AXE_CARGO_BOB_ID = 80;
+    public static final int METAL_WORKER_WITH_PICK_AXE_CARGO_BOB_ID = 81;
+    public static final int METAL_WORKER_WITH_SHOVEL_CARGO_BOB_ID = 82;
+    public static final int METAL_WORKER_WITH_CRUCIBLE_CARGO_BOB_ID = 83;
+    public static final int METAL_WORKER_WITH_FISHING_ROD_CARGO_BOB_ID = 84;
+    public static final int METAL_WORKER_WITH_SCYTHE_CARGO_BOB_ID = 85;
+    public static final int METAL_WORKER_WITH_CLEAVER_CARGO_BOB_ID = 87;
+    public static final int METAL_WORKER_WITH_ROLLING_PIN_CARGO_BOB_ID = 88;
+    public static final int HUNTER_WITH_MEAT_CARGO_BOB_ID = 89;
+    public static final int SHIPWRIGHT_WITH_BOAT_CARGO_BOB_ID = 90;
+    public static final int METAL_WORKER_WITH_SAW_CARGO_BOB_ID = 91;
+    public static final int SHIPWRIGHT_WITH_PLANK_CARGO_BOB_ID = 92;
+
+    public static final WorkerDetails HUNTER_BOB = new WorkerDetails(THIN, JobsBob.HUNTER_BOB_ID);
+    public static final WorkerDetails SHIPWRIGHT_BOB = new WorkerDetails(THIN, JobsBob.SHIP_WRIGHT_BOB_ID);
+    public static final WorkerDetails METAL_WORKER_BOB = new WorkerDetails(THIN, JobsBob.METALWORKER_BOB_ID);
+    public static final WorkerDetails BAKER_BOB = new WorkerDetails(FAT, JobsBob.BAKER_BOB_ID);
+    public static final WorkerDetails MILLER_BOB = new WorkerDetails(FAT, JobsBob.MILLER_BOB_ID);
+    public static final WorkerDetails PIG_BREEDER_BOB = new WorkerDetails(THIN, JobsBob.PIG_BREEDER_BOB_ID);
+    public static final WorkerDetails FARMER_BOB = new WorkerDetails(THIN, JobsBob.FARMER_BOB_ID);
+    public static final WorkerDetails FISHERMAN_BOB = new WorkerDetails(THIN, JobsBob.FISHERMAN_BOB_ID);
+    public static final WorkerDetails MINER_BOB = new WorkerDetails(THIN, JobsBob.MINER_BOB_ID);
+    public static final WorkerDetails MINTER_BOB = new WorkerDetails(THIN, JobsBob.MINTER_BOB_ID);
+    public static final WorkerDetails STONEMASON_BOB = new WorkerDetails(THIN, JobsBob.STONEMASON_BOB_ID);
+    public static final WorkerDetails CARPENTER_BOB = new WorkerDetails(THIN, JobsBob.CARPENTER_BOB_ID);
+    public static final WorkerDetails WOODCUTTER_BOB = new WorkerDetails(THIN, JobsBob.WOODCUTTER_BOB_ID);
 
     public static final int WOODCUTTER_CARGO_EAST = 2059;
     public static final int WOODCUTTER_CARGO_SOUTH_EAST = 2060;

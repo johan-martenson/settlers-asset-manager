@@ -72,4 +72,12 @@ public class Bob {
     public int[] getLinks() {
         return links;
     }
+
+    public PlayerBitmap getBitmapAtIndex(int index) {
+        return playerBitmaps[index];
+    }
+
+    public int getLinkForIndex(int link) {
+        return links[link];
+    }
 }

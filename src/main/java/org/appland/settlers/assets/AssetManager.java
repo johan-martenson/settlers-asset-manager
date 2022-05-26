@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.appland.settlers.assets.BodyType.FAT;
 import static org.appland.settlers.assets.GameResourceType.PLAYER_BITMAP_RESOURCE;
 import static org.appland.settlers.assets.ResourceType.NONE;
 import static org.appland.settlers.assets.SoundType.MIDI;
@@ -2207,7 +2208,7 @@ public class AssetManager {
                         WorkerDetails workerDetails = workerDetailsMap.get(job);
 
                         id = workerDetails.getBobId(nation);
-                        fat = workerDetails.isFat();
+                        fat = workerDetails.getBodyType() == FAT;
 
                         StackedBitmaps bitmaps = new StackedBitmaps();
 

@@ -1,18 +1,28 @@
 package org.appland.settlers.assets;
 
+import static org.appland.settlers.assets.BodyType.FAT;
+import static org.appland.settlers.assets.BodyType.THIN;
+
 public class WorkerDetails {
     public final static int NUMBER_NATION_SPECIFIC_JOBS = 6;
 
     private final int id;
-    private final boolean fat;
+    private final BodyType bodyType;
 
-    public WorkerDetails(boolean fat, int id) {
-        this.fat = fat;
+    public WorkerDetails(BodyType bodyType, int id) {
+        this.bodyType = bodyType;
         this.id = id;
     }
 
-    public boolean isFat() {
-        return fat;
+    public WorkerDetails(boolean fat, int id) {
+
+        if (fat) {
+            bodyType = FAT;
+        } else {
+            bodyType = THIN;
+        }
+
+        this.id = id;
     }
 
     public int getBobId(Nation nation) {
@@ -46,5 +56,9 @@ public class WorkerDetails {
         int calcId = multiplier * NUMBER_NATION_SPECIFIC_JOBS - id;
 
         return calcId;
+    }
+
+    public BodyType getBodyType() {
+        return bodyType;
     }
 }
