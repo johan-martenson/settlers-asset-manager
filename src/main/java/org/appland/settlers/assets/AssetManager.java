@@ -84,7 +84,7 @@ public class AssetManager {
         byte[] header = streamReader.getUint8ArrayAsBytes(2);
 
         /* Load txt file if needed */
-        if (header[1] == 0xFD && header[0] == 0xE7) {
+        if (header[1] == (byte)0xFD && header[0] == (byte)0xE7) {
             List<String> strings = loadTextFromStream(streamReader);
 
             gameResources.add(new TextResource(strings));
@@ -330,7 +330,7 @@ public class AssetManager {
         byte[] header = streamReader.getUint8ArrayAsBytes(2);
 
         /* Handle straight text data */
-        if (header[1] != 0xE7 && header[0] != 0xFD) {
+        if (header[1] != (byte)0xE7 && header[0] != (byte)0xFD) {
 
             /* Get the remaining text data */
             byte[] remainingBytes = streamReader.getRemainingBytes();
@@ -418,8 +418,8 @@ public class AssetManager {
         StreamReader streamReader = new StreamReader(fileInputStream, ByteOrder.LITTLE_ENDIAN);
 
         /* Read header */
-        short nx_ = streamReader.getInt16();
-        short ny_ = streamReader.getInt16();
+        short nx = streamReader.getInt16();
+        short ny = streamReader.getInt16();
         long unknown1 = streamReader.getUint32();
         int width = streamReader.getUint16();
         int height = streamReader.getUint16();
@@ -427,8 +427,8 @@ public class AssetManager {
         long length = streamReader.getUint32();
 
         if (debug) {
-            System.out.println(" - nx_: " + nx_);
-            System.out.println(" - ny_: " + ny_);
+            System.out.println(" - nx_: " + nx);
+            System.out.println(" - ny_: " + ny);
             System.out.println(" - Unknown 1: " + unknown1);
             System.out.println(" - Width: " + width);
             System.out.println(" - Height: " + height);
@@ -441,8 +441,8 @@ public class AssetManager {
 
         BitmapRLE bitmap = new BitmapRLE(width, height, data, palette, length, TextureFormat.BGRA);
 
-        bitmap.setNx(nx_);
-        bitmap.setNy(ny_);
+        bitmap.setNx(nx);
+        bitmap.setNy(ny);
 
         return bitmap;
     }
