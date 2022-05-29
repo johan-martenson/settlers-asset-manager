@@ -8,6 +8,7 @@ import org.appland.settlers.assets.ImageBoard;
 import org.appland.settlers.assets.Nation;
 import org.appland.settlers.assets.NormalizedImageList;
 import org.appland.settlers.assets.Palette;
+import org.appland.settlers.assets.PlayerBitmap;
 import org.appland.settlers.model.Material;
 import org.json.simple.JSONObject;
 
@@ -80,6 +81,10 @@ public class WorkerImageCollection {
 
             for (Direction direction : Direction.values()) {
 
+                if (directionToImageMap.get(direction).isEmpty()) {
+                    continue;
+                }
+
                 // Handle each image per nation x direction
                 List<Bitmap> workerImages = directionToImageMap.get(direction);
                 NormalizedImageList normalizedWorkerList = new NormalizedImageList(workerImages);
@@ -151,6 +156,10 @@ public class WorkerImageCollection {
 
             for (Material material : multipleCargoImages.keySet()) {
 
+                if (material == null) {
+                    continue;
+                }
+
                 JSONObject jsonMaterialImages = new JSONObject();
 
                 jsonMultipleCargoImages.put(material.name().toUpperCase(), jsonMaterialImages);
@@ -173,8 +182,6 @@ public class WorkerImageCollection {
 
                     cursor.y = cursor.y + normalizedCargoListForDirection.getImageHeight();
                 }
-
-                cursor.y = cursor.y + rowHeight;
             }
         }
 
@@ -227,6 +234,21 @@ public class WorkerImageCollection {
             }
 
             multipleCargoImages.get(material).put(direction, cargoImagesForDirection);
+        }
+    }
+
+    public void readBodyImagesFromBob(BodyType bodyType, Bob carrierBob) {
+        for (Direction direction : Direction.values()) {
+
+            List<Bitmap> bodyImagesForDirection = new ArrayList<>();
+
+            for (int animationIndex = 0; animationIndex < 8; animationIndex++) {
+                PlayerBitmap body = carrierBob.getBody(bodyType == FAT, direction.ordinal(), animationIndex);
+
+                bodyImagesForDirection.add(body);
+            }
+
+            this.nationToDirectionToImageMap.get(Nation.ROMANS).put(direction, bodyImagesForDirection);
         }
     }
 }

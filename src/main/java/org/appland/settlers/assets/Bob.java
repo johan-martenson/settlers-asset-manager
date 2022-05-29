@@ -43,6 +43,7 @@ public class Bob {
         return Arrays.asList(this.playerBitmaps);
     }
 
+    // TODO: change from directionIndex to just direction
     public PlayerBitmap getBody(boolean fat, long directionIndex, int animationIndex) {
         long bodyIndex;
 

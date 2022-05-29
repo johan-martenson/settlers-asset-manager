@@ -284,4 +284,26 @@ public class MapBobsLst {
     public static final int STONE_TYPE_2_MIDDLE_SHADOW = 353;
     public static final int STONE_TYPE_2_ALMOST_FULL_SHADOW = 354;
     public static final int STONE_TYPE_2_FULL_SHADOW = 355;
+    public static final int FOX_SHADOW_EAST = 638;
+    public static final int FOX_SHADOW_SOUTH_EAST = 639;
+    public static final int FOX_SHADOW_SOUTH_WEST = 640;
+    public static final int FOX_SHADOW_WEST = 641;
+    public static final int FOX_SHADOW_NORTH_WEST = 642;
+    public static final int FOX_SHADOW_NORTH_EAST = 643;
+    public static final int STAG_SHADOW_EAST = 693;
+    public static final int STAG_SHADOW_SOUTH_EAST = 694;
+    public static final int STAG_SHADOW_SOUTH_WEST = 695;
+    public static final int STAG_SHADOW_WEST = 696;
+    public static final int STAG_SHADOW_NORTH_WEST = 697;
+    public static final int STAG_SHADOW_NORTH_EAST = 698;
+    public static final int DEER_SHADOW_EAST = 748;
+    public static final int DEER_SHADOW_SOUTH_EAST = 749;
+    public static final int DEER_SHADOW_SOUTH_WEST = 750;
+    public static final int DEER_SHADOW_WEST = 751;
+    public static final int DEER_SHADOW_NORTH_WEST = 752;
+    public static final int DEER_SHADOW_NORTH_EAST = 753;
+    public static final int DUCK_SHADOW = 760;
+    public static final int DEER_2_SHADOW_EAST = 809;
+    public static final int DEER_2_SHADOW_SOUTH_EAST = 810;
+    public static final int DEER_2_SHADOW_SOUTH_WEST = 811;
 }

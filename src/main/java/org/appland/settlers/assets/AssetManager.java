@@ -645,6 +645,21 @@ public class AssetManager {
         return bitmap;
     }
 
+    public Bob loadBobFile(String filename, Palette defaultPalette) throws IOException, InvalidFormatException {
+        FileInputStream fileInputStream = new FileInputStream(filename);
+        StreamReader streamReader = new StreamReader(fileInputStream, ByteOrder.LITTLE_ENDIAN);
+
+        byte[] header = streamReader.getUint8ArrayAsBytes(2);
+
+        if (header[1] == 0x01 && Unsigned.getUnsignedByte(ByteBuffer.wrap(header)) == 0xF6) {
+            Bob bob = loadBobFromStream(fileInputStream, defaultPalette).getBob();
+
+            return bob;
+        }
+
+        return null;
+    }
+
     private BobGameResource loadBobFromStream(FileInputStream fileInputStream, Palette palette) throws IOException, InvalidFormatException {
         StreamReader streamReader = new StreamReader(fileInputStream, ByteOrder.LITTLE_ENDIAN);
 

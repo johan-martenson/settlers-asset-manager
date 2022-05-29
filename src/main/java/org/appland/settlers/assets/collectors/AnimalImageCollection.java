@@ -20,6 +20,7 @@ import java.util.Map;
 public class AnimalImageCollection {
     private final String name;
     private final Map<Direction, List<Bitmap>> directionToImageMap;
+    private final Map<Direction, Bitmap> shadowImages;
 
     public AnimalImageCollection(String name) {
         this.name = name;
@@ -28,6 +29,7 @@ public class AnimalImageCollection {
         for (Direction direction : Direction.values()) {
             this.directionToImageMap.put(direction, new ArrayList<>());
         }
+        shadowImages = new HashMap<>();
     }
 
     public void addImage(Direction direction, Bitmap workerImage) {
@@ -40,9 +42,14 @@ public class AnimalImageCollection {
         ImageBoard imageBoard = new ImageBoard();
 
         JSONObject jsonImageAtlas = new JSONObject();
+        JSONObject jsonImages = new JSONObject();
+
+        jsonImageAtlas.put("images", jsonImages);
 
         // Fill in the images into the image atlas
         Point cursor = new Point(0, 0);
+
+        // Fill in animal walking in each direction
         for (Direction direction : Direction.values()) {
 
             cursor.x = 0;
@@ -55,9 +62,28 @@ public class AnimalImageCollection {
 
             JSONObject jsonDirectionInfo = imageBoard.imageSeriesLocationToJson(normalizedDirectionImages);
 
-            jsonImageAtlas.put(direction.name().toUpperCase(), jsonDirectionInfo);
+            jsonImages.put(direction.name().toUpperCase(), jsonDirectionInfo);
 
             cursor.y = cursor.y + directionNormalizedList.getImageHeight();
+        }
+
+        // Fill in shadows if they exist. One per direction
+        if (!shadowImages.isEmpty()) {
+            cursor.x = 0;
+
+            JSONObject jsonShadowImages = new JSONObject();
+
+            jsonImageAtlas.put("shadowImages", jsonShadowImages);
+
+            for (Direction direction : shadowImages.keySet()) {
+                Bitmap shadowImage = shadowImages.get(direction);
+
+                imageBoard.placeImage(shadowImage, cursor);
+
+                jsonShadowImages.put(direction.name().toUpperCase(), imageBoard.imageLocationToJson(shadowImage));
+
+                cursor.x = cursor.x + shadowImage.getWidth();
+            }
         }
 
         // Write the image atlas
@@ -70,5 +96,9 @@ public class AnimalImageCollection {
 
     public void addImages(Direction direction, List<Bitmap> images) {
         this.directionToImageMap.get(direction).addAll(images);
+    }
+
+    public void addShadowImage(Direction direction, Bitmap image) {
+        shadowImages.put(direction, image);
     }
 }

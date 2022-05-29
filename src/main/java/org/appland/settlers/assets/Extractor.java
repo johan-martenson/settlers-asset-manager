@@ -17,6 +17,7 @@ import org.appland.settlers.assets.collectors.UIElementsImageCollection;
 import org.appland.settlers.assets.collectors.WorkerImageCollection;
 import org.appland.settlers.assets.gamefiles.AfrZLst;
 import org.appland.settlers.assets.gamefiles.BootBobsLst;
+import org.appland.settlers.assets.gamefiles.CarrierBob;
 import org.appland.settlers.assets.gamefiles.JapZLst;
 import org.appland.settlers.assets.gamefiles.JobsBob;
 import org.appland.settlers.assets.gamefiles.Map0ZLst;
@@ -45,6 +46,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import static org.appland.settlers.assets.BodyType.FAT;
+import static org.appland.settlers.assets.BodyType.THIN;
 import static org.appland.settlers.assets.Direction.EAST;
 import static org.appland.settlers.assets.Direction.NORTH_EAST;
 import static org.appland.settlers.assets.Direction.NORTH_WEST;
@@ -628,6 +631,38 @@ public class Extractor {
                 }
         );
 
+        // Extract couriers
+        Bob carrierBob = assetManager.loadBobFile(fromDir + "/" + CarrierBob.FILENAME, defaultPalette);
+
+        WorkerImageCollection thinCarrier = new WorkerImageCollection("thin-carrier");
+        WorkerImageCollection fatCarrier = new WorkerImageCollection("fat-carrier");
+
+        thinCarrier.readBodyImagesFromBob(THIN, carrierBob);
+        fatCarrier.readBodyImagesFromBob(FAT, carrierBob);
+
+        for (CarrierCargo carrierCargo : CarrierCargo.values()) {
+            Material material = CarrierBob.CARGO_BOB_ID_TO_MATERIAL_MAP.get(carrierCargo.ordinal());
+
+            thinCarrier.readCargoImagesFromBob(material, THIN, carrierCargo.ordinal(), carrierBob);
+            fatCarrier.readCargoImagesFromBob(material, FAT, carrierCargo.ordinal(), carrierBob);
+        }
+
+        thinCarrier.addShadowImages(EAST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_EAST_SHADOW_ANIMATION, 8));
+        thinCarrier.addShadowImages(SOUTH_EAST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_SOUTH_EAST_SHADOW_ANIMATION, 8));
+        thinCarrier.addShadowImages(SOUTH_WEST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_SOUTH_WEST_SHADOW_ANIMATION, 8));
+        thinCarrier.addShadowImages(WEST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_WEST_SHADOW_ANIMATION, 8));
+        thinCarrier.addShadowImages(NORTH_WEST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_NORTH_WEST_SHADOW_ANIMATION, 8));
+        thinCarrier.addShadowImages(NORTH_EAST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_NORTH_EAST_SHADOW_ANIMATION, 8));
+
+        fatCarrier.addShadowImages(EAST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_EAST_SHADOW_ANIMATION, 8));
+        fatCarrier.addShadowImages(SOUTH_EAST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_SOUTH_EAST_SHADOW_ANIMATION, 8));
+        fatCarrier.addShadowImages(SOUTH_WEST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_SOUTH_WEST_SHADOW_ANIMATION, 8));
+        fatCarrier.addShadowImages(WEST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_WEST_SHADOW_ANIMATION, 8));
+        fatCarrier.addShadowImages(NORTH_WEST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_NORTH_WEST_SHADOW_ANIMATION, 8));
+        fatCarrier.addShadowImages(NORTH_EAST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_NORTH_EAST_SHADOW_ANIMATION, 8));
+
+        thinCarrier.writeImageAtlas(toDir + "/", defaultPalette);
+        fatCarrier.writeImageAtlas(toDir + "/", defaultPalette);
     }
 
     /**
@@ -1231,6 +1266,13 @@ public class Extractor {
         foxImageCollection.addImages(WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.FOX_WALKING_WEST_ANIMATION, 6));
         foxImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.FOX_WALKING_NORTH_WEST_ANIMATION, 6));
 
+        foxImageCollection.addShadowImage(EAST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.FOX_SHADOW_EAST));
+        foxImageCollection.addShadowImage(SOUTH_EAST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.FOX_SHADOW_SOUTH_EAST));
+        foxImageCollection.addShadowImage(SOUTH_WEST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.FOX_SHADOW_SOUTH_WEST));
+        foxImageCollection.addShadowImage(WEST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.FOX_SHADOW_WEST));
+        foxImageCollection.addShadowImage(NORTH_WEST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.FOX_SHADOW_NORTH_WEST));
+        foxImageCollection.addShadowImage(NORTH_EAST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.FOX_SHADOW_NORTH_EAST));
+
         /* Rabbit */
         rabbitImageCollection.addImages(NORTH_EAST, getImagesFromGameResource(mapBobsLst, MapBobsLst.RABBIT_WALKING_NORTH_EAST_ANIMATION, 6));
         rabbitImageCollection.addImages(EAST, getImagesFromGameResource(mapBobsLst, MapBobsLst.RABBIT_WALKING_EAST_ANIMATION, 6));
@@ -1247,6 +1289,13 @@ public class Extractor {
         stagImageCollection.addImages(WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.STAG_WALKING_WEST_ANIMATION, 8));
         stagImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.STAG_WALKING_NORTH_WEST_ANIMATION, 8));
 
+        stagImageCollection.addShadowImage(EAST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STAG_SHADOW_EAST));
+        stagImageCollection.addShadowImage(SOUTH_EAST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STAG_SHADOW_SOUTH_EAST));
+        stagImageCollection.addShadowImage(SOUTH_WEST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STAG_SHADOW_SOUTH_WEST));
+        stagImageCollection.addShadowImage(WEST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STAG_SHADOW_WEST));
+        stagImageCollection.addShadowImage(NORTH_WEST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STAG_SHADOW_NORTH_WEST));
+        stagImageCollection.addShadowImage(NORTH_EAST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.STAG_SHADOW_NORTH_EAST));
+
         /* Deer */
         deerImageCollection.addImages(NORTH_EAST, getImagesFromGameResource(mapBobsLst, MapBobsLst.DEER_WALKING_NORTH_EAST_ANIMATION, 8));
         deerImageCollection.addImages(EAST, getImagesFromGameResource(mapBobsLst, MapBobsLst.DEER_WALKING_EAST_ANIMATION, 8));
@@ -1254,6 +1303,13 @@ public class Extractor {
         deerImageCollection.addImages(SOUTH_WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.DEER_WALKING_SOUTH_WEST_ANIMATION, 8));
         deerImageCollection.addImages(WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.DEER_WALKING_WEST_ANIMATION, 8));
         deerImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.DEER_WALKING_NORTH_WEST_ANIMATION, 8));
+
+        deerImageCollection.addShadowImage(EAST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.DEER_SHADOW_EAST));
+        deerImageCollection.addShadowImage(SOUTH_EAST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.DEER_SHADOW_SOUTH_EAST));
+        deerImageCollection.addShadowImage(SOUTH_WEST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.DEER_SHADOW_SOUTH_WEST));
+        deerImageCollection.addShadowImage(WEST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.DEER_SHADOW_WEST));
+        deerImageCollection.addShadowImage(NORTH_WEST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.DEER_SHADOW_NORTH_WEST));
+        deerImageCollection.addShadowImage(NORTH_EAST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.DEER_SHADOW_NORTH_EAST));
 
         /* Sheep */
         sheepImageCollection.addImages(NORTH_EAST, getImagesFromGameResource(mapBobsLst, MapBobsLst.SHEEP_WALKING_NORTH_EAST_ANIMATION, 2));
@@ -1271,6 +1327,10 @@ public class Extractor {
         deer2ImageCollection.addImages(WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.DEER_2_WALKING_WEST_ANIMATION, 8));
         deer2ImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapBobsLst, MapBobsLst.DEER_2_WALKING_NORTH_WEST_ANIMATION, 8));
 
+        deer2ImageCollection.addShadowImage(EAST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.DEER_2_SHADOW_EAST));
+        deer2ImageCollection.addShadowImage(SOUTH_EAST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.DEER_2_SHADOW_SOUTH_EAST));
+        deer2ImageCollection.addShadowImage(SOUTH_WEST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.DEER_2_SHADOW_SOUTH_WEST));
+
         /* Extract duck */
         duckImageCollection.addImage(EAST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.DUCK_EAST));
         duckImageCollection.addImage(SOUTH_EAST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.DUCK_EAST + 1));
@@ -1278,6 +1338,8 @@ public class Extractor {
         duckImageCollection.addImage(WEST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.DUCK_EAST + 3));
         duckImageCollection.addImage(NORTH_WEST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.DUCK_EAST + 4));
         duckImageCollection.addImage(NORTH_EAST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.DUCK_EAST + 5));
+
+        duckImageCollection.addShadowImage(EAST, getImageFromResourceLocation(mapBobsLst, MapBobsLst.DUCK_SHADOW));
 
         iceBearImageCollection.writeImageAtlas(natureDir + "/animals/", defaultPalette);
         foxImageCollection.writeImageAtlas(natureDir + "/animals/", defaultPalette);
@@ -1289,16 +1351,20 @@ public class Extractor {
         duckImageCollection.writeImageAtlas(natureDir + "/animals/", defaultPalette);
 
         /* Extract the donkey */
-        List<GameResource> mapBobs0 = assetManager.loadLstFile(fromDir + "/DATA/MAPBOBS0.LST", defaultPalette);
+        List<GameResource> mapBobs0Lst = assetManager.loadLstFile(fromDir + "/DATA/MAPBOBS0.LST", defaultPalette);
 
         AnimalImageCollection donkeyImageCollection = new AnimalImageCollection("donkey");
 
-        donkeyImageCollection.addImages(EAST, getImagesFromGameResource(mapBobs0, MapBobs0Lst.DONKEY_EAST_ANIMATION, 8));
-        donkeyImageCollection.addImages(SOUTH_EAST, getImagesFromGameResource(mapBobs0, MapBobs0Lst.DONKEY_SOUTH_EAST_ANIMATION, 8));
-        donkeyImageCollection.addImages(SOUTH_WEST, getImagesFromGameResource(mapBobs0, MapBobs0Lst.DONKEY_SOUTH_WEST_ANIMATION, 8));
-        donkeyImageCollection.addImages(WEST, getImagesFromGameResource(mapBobs0, MapBobs0Lst.DONKEY_WEST_ANIMATION, 8));
-        donkeyImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapBobs0, MapBobs0Lst.DONKEY_NORTH_WEST_ANIMATION, 8));
-        donkeyImageCollection.addImages(NORTH_EAST, getImagesFromGameResource(mapBobs0, MapBobs0Lst.DONKEY_NORTH_EAST_ANIMATION, 8));
+        donkeyImageCollection.addImages(EAST, getImagesFromGameResource(mapBobs0Lst, MapBobs0Lst.DONKEY_EAST_ANIMATION, 8));
+        donkeyImageCollection.addImages(SOUTH_EAST, getImagesFromGameResource(mapBobs0Lst, MapBobs0Lst.DONKEY_SOUTH_EAST_ANIMATION, 8));
+        donkeyImageCollection.addImages(SOUTH_WEST, getImagesFromGameResource(mapBobs0Lst, MapBobs0Lst.DONKEY_SOUTH_WEST_ANIMATION, 8));
+        donkeyImageCollection.addImages(WEST, getImagesFromGameResource(mapBobs0Lst, MapBobs0Lst.DONKEY_WEST_ANIMATION, 8));
+        donkeyImageCollection.addImages(NORTH_WEST, getImagesFromGameResource(mapBobs0Lst, MapBobs0Lst.DONKEY_NORTH_WEST_ANIMATION, 8));
+        donkeyImageCollection.addImages(NORTH_EAST, getImagesFromGameResource(mapBobs0Lst, MapBobs0Lst.DONKEY_NORTH_EAST_ANIMATION, 8));
+
+        donkeyImageCollection.addShadowImage(EAST, getImageFromResourceLocation(mapBobs0Lst, MapBobs0Lst.DONKEY_EAST_SHADOW));
+        donkeyImageCollection.addShadowImage(SOUTH_EAST, getImageFromResourceLocation(mapBobs0Lst, MapBobs0Lst.DONKEY_SOUTH_EAST_SHADOW));
+        donkeyImageCollection.addShadowImage(SOUTH_WEST, getImageFromResourceLocation(mapBobs0Lst, MapBobs0Lst.DONKEY_SOUTH_WEST_SHADOW));
 
         donkeyImageCollection.writeImageAtlas(natureDir + "/animals/", defaultPalette);
 
