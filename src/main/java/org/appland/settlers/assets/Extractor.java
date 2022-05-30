@@ -30,6 +30,7 @@ import org.appland.settlers.assets.gamefiles.Tex5Lbm;
 import org.appland.settlers.assets.gamefiles.Tex7Lbm;
 import org.appland.settlers.assets.gamefiles.VikZLst;
 import org.appland.settlers.model.Crop;
+import org.appland.settlers.model.FlagType;
 import org.appland.settlers.model.Material;
 import org.appland.settlers.model.Tree;
 import org.appland.settlers.model.TreeSize;
