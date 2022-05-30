@@ -15,4 +15,10 @@ public class BootBobsLst {
     public static final int SHIP_NORTH_WEST_SHADOW = 9;
     public static final int SHIP_NORTH_EAST = 10;
     public static final int SHIP_NORTH_EAST_SHADOW = 11;
+    public static final int SHIP_CONSTRUCTION_JUST_STARTED = 12;
+    public static final int SHIP_CONSTRUCTION_JUST_STARTED_SHADOW = 13;
+    public static final int SHIP_CONSTRUCTION_HALF_WAY = 14;
+    public static final int SHIP_CONSTRUCTION_HALF_WAY_SHADOW = 15;
+    public static final int SHIP_CONSTRUCTION_ALMOST_DONE = 16;
+    public static final int SHIP_CONSTRUCTION_ALMOST_DONE_SHADOW = 17;
 }

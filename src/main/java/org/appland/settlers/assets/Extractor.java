@@ -168,6 +168,24 @@ public class Extractor {
                 getImageFromResourceLocation(bootBobsLst, BootBobsLst.SHIP_NORTH_EAST_SHADOW)
         );
 
+        shipImageCollection.addShipUnderConstructionImageWithShadow(
+                ShipConstructionProgress.JUST_STARTED,
+                getImageFromResourceLocation(bootBobsLst, BootBobsLst.SHIP_CONSTRUCTION_JUST_STARTED),
+                getImageFromResourceLocation(bootBobsLst, BootBobsLst.SHIP_CONSTRUCTION_JUST_STARTED_SHADOW)
+        );
+
+        shipImageCollection.addShipUnderConstructionImageWithShadow(
+                ShipConstructionProgress.HALF_WAY,
+                getImageFromResourceLocation(bootBobsLst, BootBobsLst.SHIP_CONSTRUCTION_HALF_WAY),
+                getImageFromResourceLocation(bootBobsLst, BootBobsLst.SHIP_CONSTRUCTION_HALF_WAY_SHADOW)
+        );
+
+        shipImageCollection.addShipUnderConstructionImageWithShadow(
+                ShipConstructionProgress.ALMOST_DONE,
+                getImageFromResourceLocation(bootBobsLst, BootBobsLst.SHIP_CONSTRUCTION_ALMOST_DONE),
+                getImageFromResourceLocation(bootBobsLst, BootBobsLst.SHIP_CONSTRUCTION_ALMOST_DONE_SHADOW)
+        );
+
         shipImageCollection.writeImageAtlas(toDir, defaultPalette);
     }
 

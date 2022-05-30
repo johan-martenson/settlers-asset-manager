@@ -5,6 +5,7 @@ import org.appland.settlers.assets.Direction;
 import org.appland.settlers.assets.ImageBoard;
 import org.appland.settlers.assets.ImageWithShadow;
 import org.appland.settlers.assets.Palette;
+import org.appland.settlers.assets.ShipConstructionProgress;
 import org.json.simple.JSONObject;
 
 import java.awt.Point;
@@ -17,9 +18,11 @@ import java.util.Map;
 public class ShipImageCollection {
 
     private final Map<Direction, ImageWithShadow> images;
+    private final Map<ShipConstructionProgress, ImageWithShadow> underConstructionImages;
 
     public ShipImageCollection() {
         images = new HashMap<>();
+        underConstructionImages = new HashMap<>();
     }
 
     public void addShipImageWithShadow(Direction direction, Bitmap image, Bitmap shadowImage) {
@@ -32,6 +35,11 @@ public class ShipImageCollection {
         ImageBoard imageBoard = new ImageBoard();
 
         JSONObject jsonImageAtlas = new JSONObject();
+        JSONObject jsonReady = new JSONObject();
+        JSONObject jsonUnderConstruction = new JSONObject();
+
+        jsonImageAtlas.put("ready", jsonReady);
+        jsonImageAtlas.put("underConstruction", jsonUnderConstruction);
 
         // Fill in the image atlas
         Point cursor = new Point(0, 0);
@@ -44,7 +52,7 @@ public class ShipImageCollection {
 
             JSONObject jsonDirection = new JSONObject();
 
-            jsonImageAtlas.put(direction.name().toUpperCase(), jsonDirection);
+            jsonReady.put(direction.name().toUpperCase(), jsonDirection);
 
             // Place the image
             imageBoard.placeImage(imageWithShadow.image, cursor);
@@ -59,11 +67,47 @@ public class ShipImageCollection {
             jsonDirection.put("shadowImage", imageBoard.imageLocationToJson(imageWithShadow.shadowImage));
 
             cursor.y = cursor.y + Math.max(imageWithShadow.image.getHeight(), imageWithShadow.shadowImage.getHeight());
-
-            // Write the image atlas to file
-            imageBoard.writeBoardToBitmap(palette).writeToFile(toDir + "/image-atlas-ship.png");
-
-            Files.writeString(Paths.get(toDir, "image-atlas-ship.json"), jsonImageAtlas.toJSONString());
         }
+
+        cursor.x = 0;
+
+        // Fill in ship under construction
+        for (ShipConstructionProgress progress : ShipConstructionProgress.values()) {
+
+            if (!underConstructionImages.containsKey(progress)) {
+                continue;
+            }
+
+            cursor.x = 0;
+
+            ImageWithShadow imageWithShadow = underConstructionImages.get(progress);
+
+            JSONObject jsonProgress = new JSONObject();
+
+            jsonUnderConstruction.put(progress.name().toUpperCase(), jsonProgress);
+
+            // Fill in image
+            imageBoard.placeImage(imageWithShadow.image, cursor);
+
+            jsonProgress.put("image", imageBoard.imageLocationToJson(imageWithShadow.image));
+
+            cursor.x = cursor.x + imageWithShadow.image.getWidth();
+
+            // Fill in shadow image
+            imageBoard.placeImage(imageWithShadow.shadowImage, cursor);
+
+            jsonProgress.put("shadowImage", imageBoard.imageLocationToJson(imageWithShadow.shadowImage));
+
+            cursor.y = cursor.y + Math.max(imageWithShadow.image.getHeight(), imageWithShadow.shadowImage.getHeight());
+        }
+
+        // Write the image atlas to file
+        imageBoard.writeBoardToBitmap(palette).writeToFile(toDir + "/image-atlas-ship.png");
+
+        Files.writeString(Paths.get(toDir, "image-atlas-ship.json"), jsonImageAtlas.toJSONString());
+    }
+
+    public void addShipUnderConstructionImageWithShadow(ShipConstructionProgress progress, Bitmap image, Bitmap shadowImage) {
+        underConstructionImages.put(progress, new ImageWithShadow(image, shadowImage));
     }
 }
