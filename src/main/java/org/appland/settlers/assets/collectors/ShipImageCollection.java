@@ -1,7 +1,7 @@
 package org.appland.settlers.assets.collectors;
 
 import org.appland.settlers.assets.Bitmap;
-import org.appland.settlers.assets.Direction;
+import org.appland.settlers.assets.CompassDirection;
 import org.appland.settlers.assets.ImageBoard;
 import org.appland.settlers.assets.ImageWithShadow;
 import org.appland.settlers.assets.Palette;
@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class ShipImageCollection {
 
-    private final Map<Direction, ImageWithShadow> images;
+    private final Map<CompassDirection, ImageWithShadow> images;
     private final Map<ShipConstructionProgress, ImageWithShadow> underConstructionImages;
 
     public ShipImageCollection() {
@@ -25,8 +25,8 @@ public class ShipImageCollection {
         underConstructionImages = new HashMap<>();
     }
 
-    public void addShipImageWithShadow(Direction direction, Bitmap image, Bitmap shadowImage) {
-        this.images.put(direction, new ImageWithShadow(image, shadowImage));
+    public void addShipImageWithShadow(CompassDirection compassDirection, Bitmap image, Bitmap shadowImage) {
+        this.images.put(compassDirection, new ImageWithShadow(image, shadowImage));
     }
 
     public void writeImageAtlas(String toDir, Palette palette) throws IOException {
@@ -44,15 +44,15 @@ public class ShipImageCollection {
         // Fill in the image atlas
         Point cursor = new Point(0, 0);
 
-        for (Direction direction : images.keySet()) {
+        for (CompassDirection compassDirection : images.keySet()) {
 
             cursor.x = 0;
 
-            ImageWithShadow imageWithShadow = images.get(direction);
+            ImageWithShadow imageWithShadow = images.get(compassDirection);
 
             JSONObject jsonDirection = new JSONObject();
 
-            jsonReady.put(direction.name().toUpperCase(), jsonDirection);
+            jsonReady.put(compassDirection.name().toUpperCase(), jsonDirection);
 
             // Place the image
             imageBoard.placeImage(imageWithShadow.image, cursor);

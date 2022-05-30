@@ -48,12 +48,12 @@ import java.util.Map.Entry;
 
 import static org.appland.settlers.assets.BodyType.FAT;
 import static org.appland.settlers.assets.BodyType.THIN;
-import static org.appland.settlers.assets.Direction.EAST;
-import static org.appland.settlers.assets.Direction.NORTH_EAST;
-import static org.appland.settlers.assets.Direction.NORTH_WEST;
-import static org.appland.settlers.assets.Direction.SOUTH_EAST;
-import static org.appland.settlers.assets.Direction.SOUTH_WEST;
-import static org.appland.settlers.assets.Direction.WEST;
+import static org.appland.settlers.assets.CompassDirection.EAST;
+import static org.appland.settlers.assets.CompassDirection.NORTH_EAST;
+import static org.appland.settlers.assets.CompassDirection.NORTH_WEST;
+import static org.appland.settlers.assets.CompassDirection.SOUTH_EAST;
+import static org.appland.settlers.assets.CompassDirection.SOUTH_WEST;
+import static org.appland.settlers.assets.CompassDirection.WEST;
 import static org.appland.settlers.model.Material.AXE;
 import static org.appland.settlers.model.Material.BOAT;
 import static org.appland.settlers.model.Material.BREAD;
@@ -337,15 +337,15 @@ public class Extractor {
             WorkerImageCollection workerImageCollection = new WorkerImageCollection(jobType.name().toLowerCase());
 
             for (Nation nation : Nation.values()) {
-                for (Direction direction : Direction.values()) {
+                for (CompassDirection compassDirection : CompassDirection.values()) {
 
-                    StackedBitmaps[] stackedBitmaps = renderedWorker.getAnimation(nation, direction);
+                    StackedBitmaps[] stackedBitmaps = renderedWorker.getAnimation(nation, compassDirection);
 
                     if (stackedBitmaps == null) {
                         System.out.println("Stacked bitmaps is null");
                         System.out.println(jobType);
                         System.out.println(nation);
-                        System.out.println(direction);
+                        System.out.println(compassDirection);
                     }
 
                     for (int i = 0; i < stackedBitmaps.length; i++) {
@@ -406,7 +406,7 @@ public class Extractor {
                             merged.copyNonTransparentPixels(head, headToUpperLeft, headFromUpperLeft, headVisibleArea.getDimension());
 
                             /* Store the image in the worker image collection */
-                            workerImageCollection.addImage(nation, direction, merged);
+                            workerImageCollection.addImage(nation, compassDirection, merged);
                         }
                     }
                 }

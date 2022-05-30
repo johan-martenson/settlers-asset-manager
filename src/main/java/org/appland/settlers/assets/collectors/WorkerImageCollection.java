@@ -3,7 +3,7 @@ package org.appland.settlers.assets.collectors;
 import org.appland.settlers.assets.Bitmap;
 import org.appland.settlers.assets.Bob;
 import org.appland.settlers.assets.BodyType;
-import org.appland.settlers.assets.Direction;
+import org.appland.settlers.assets.CompassDirection;
 import org.appland.settlers.assets.ImageBoard;
 import org.appland.settlers.assets.Nation;
 import org.appland.settlers.assets.NormalizedImageList;
@@ -27,10 +27,10 @@ import static org.appland.settlers.assets.BodyType.FAT;
 
 public class WorkerImageCollection {
     private final String name;
-    private final Map<Nation, Map<Direction, List<Bitmap>>> nationToDirectionToImageMap;
-    private final Map<Direction, List<Bitmap>> shadowImages;
-    private final Map<Material, Map<Direction, Bitmap>> singleCargoImages;
-    private final Map<Material, Map<Direction, List<Bitmap>>> multipleCargoImages;
+    private final Map<Nation, Map<CompassDirection, List<Bitmap>>> nationToDirectionToImageMap;
+    private final Map<CompassDirection, List<Bitmap>> shadowImages;
+    private final Map<Material, Map<CompassDirection, Bitmap>> singleCargoImages;
+    private final Map<Material, Map<CompassDirection, List<Bitmap>>> multipleCargoImages;
 
     public WorkerImageCollection(String name) {
         this.name = name;
@@ -40,8 +40,8 @@ public class WorkerImageCollection {
 
             this.nationToDirectionToImageMap.put(nation, new HashMap<>());
 
-            for (Direction direction : Direction.values()) {
-                this.nationToDirectionToImageMap.get(nation).put(direction, new ArrayList<>());
+            for (CompassDirection compassDirection : CompassDirection.values()) {
+                this.nationToDirectionToImageMap.get(nation).put(compassDirection, new ArrayList<>());
             }
         }
 
@@ -50,8 +50,8 @@ public class WorkerImageCollection {
         multipleCargoImages = new HashMap<>();
     }
 
-    public void addImage(Nation nation, Direction direction, Bitmap workerImage) {
-        this.nationToDirectionToImageMap.get(nation).get(direction).add(workerImage);
+    public void addImage(Nation nation, CompassDirection compassDirection, Bitmap workerImage) {
+        this.nationToDirectionToImageMap.get(nation).get(compassDirection).add(workerImage);
     }
 
     public void writeImageAtlas(String directory, Palette palette) throws IOException {
@@ -73,42 +73,42 @@ public class WorkerImageCollection {
 
             cursor.x = 0;
 
-            Map<Direction, List<Bitmap>> directionToImageMap = nationToDirectionToImageMap.get(nation);
+            Map<CompassDirection, List<Bitmap>> directionToImageMap = nationToDirectionToImageMap.get(nation);
 
             JSONObject jsonNationInfo = new JSONObject();
 
             jsonImages.put(nation.name().toUpperCase(), jsonNationInfo);
 
-            for (Direction direction : Direction.values()) {
+            for (CompassDirection compassDirection : CompassDirection.values()) {
 
-                if (directionToImageMap.get(direction).isEmpty()) {
+                if (directionToImageMap.get(compassDirection).isEmpty()) {
                     continue;
                 }
 
                 // Handle each image per nation x direction
-                List<Bitmap> workerImages = directionToImageMap.get(direction);
+                List<Bitmap> workerImages = directionToImageMap.get(compassDirection);
                 NormalizedImageList normalizedWorkerList = new NormalizedImageList(workerImages);
                 List<Bitmap> normalizedWorkerImages = normalizedWorkerList.getNormalizedImages();
 
                 imageBoard.placeImageSeries(normalizedWorkerImages, cursor, ImageBoard.LayoutDirection.ROW);
 
-                jsonNationInfo.put(direction.name().toUpperCase(), imageBoard.imageSeriesLocationToJson(normalizedWorkerImages));
+                jsonNationInfo.put(compassDirection.name().toUpperCase(), imageBoard.imageSeriesLocationToJson(normalizedWorkerImages));
 
                 cursor.y = cursor.y + normalizedWorkerList.getImageHeight();
             }
         }
 
         // Write shadows, per direction (seems to be the same regardless of nation)
-        for (Direction direction : shadowImages.keySet()) {
+        for (CompassDirection compassDirection : shadowImages.keySet()) {
             cursor.x = 0;
 
-            List<Bitmap> shadowImagesForDirection = shadowImages.get(direction);
+            List<Bitmap> shadowImagesForDirection = shadowImages.get(compassDirection);
             NormalizedImageList normalizedShadowListForDirection = new NormalizedImageList(shadowImagesForDirection);
             List<Bitmap> normalizedShadowImagesForDirection = normalizedShadowListForDirection.getNormalizedImages();
 
             imageBoard.placeImageSeries(normalizedShadowImagesForDirection, cursor, ImageBoard.LayoutDirection.ROW);
 
-            jsonShadowImages.put(direction.name().toUpperCase(), imageBoard.imageSeriesLocationToJson(normalizedShadowImagesForDirection));
+            jsonShadowImages.put(compassDirection.name().toUpperCase(), imageBoard.imageSeriesLocationToJson(normalizedShadowImagesForDirection));
 
             cursor.y = cursor.y + normalizedShadowListForDirection.getImageHeight();
         }
@@ -130,12 +130,12 @@ public class WorkerImageCollection {
 
                 cursor.x = 0;
 
-                for (Direction direction : singleCargoImages.get(material).keySet()) {
-                    Bitmap cargoImageForDirection = singleCargoImages.get(material).get(direction);
+                for (CompassDirection compassDirection : singleCargoImages.get(material).keySet()) {
+                    Bitmap cargoImageForDirection = singleCargoImages.get(material).get(compassDirection);
 
                     imageBoard.placeImage(cargoImageForDirection, cursor);
 
-                    jsonMaterialImage.put(direction.name().toUpperCase(), imageBoard.imageLocationToJson(cargoImageForDirection));
+                    jsonMaterialImage.put(compassDirection.name().toUpperCase(), imageBoard.imageLocationToJson(cargoImageForDirection));
 
                     rowHeight = Math.max(rowHeight, cargoImageForDirection.getHeight());
 
@@ -168,15 +168,15 @@ public class WorkerImageCollection {
 
                 int rowHeight = 0;
 
-                for (Direction direction : multipleCargoImages.get(material).keySet()) {
+                for (CompassDirection compassDirection : multipleCargoImages.get(material).keySet()) {
 
-                    List<Bitmap> cargoImagesForDirection = multipleCargoImages.get(material).get(direction);
+                    List<Bitmap> cargoImagesForDirection = multipleCargoImages.get(material).get(compassDirection);
                     NormalizedImageList normalizedCargoListForDirection = new NormalizedImageList(cargoImagesForDirection);
                     List<Bitmap> normalizedCargoImagesForDirection = normalizedCargoListForDirection.getNormalizedImages();
 
                     imageBoard.placeImageSeries(normalizedCargoImagesForDirection, cursor, ImageBoard.LayoutDirection.ROW);
 
-                    jsonMaterialImages.put(direction.name().toUpperCase(), imageBoard.imageSeriesLocationToJson(normalizedCargoImagesForDirection));
+                    jsonMaterialImages.put(compassDirection.name().toUpperCase(), imageBoard.imageSeriesLocationToJson(normalizedCargoImagesForDirection));
 
                     rowHeight = Math.max(rowHeight, normalizedCargoListForDirection.getImageHeight());
 
@@ -193,24 +193,24 @@ public class WorkerImageCollection {
         Files.writeString(filePath, jsonImageAtlas.toJSONString());
     }
 
-    public void addShadowImages(Direction direction, List<Bitmap> images) {
-        shadowImages.put(direction, images);
+    public void addShadowImages(CompassDirection compassDirection, List<Bitmap> images) {
+        shadowImages.put(compassDirection, images);
     }
 
-    public void addCargoImage(Direction direction, Material material, Bitmap image) {
+    public void addCargoImage(CompassDirection compassDirection, Material material, Bitmap image) {
         if (!singleCargoImages.containsKey(material)) {
             singleCargoImages.put(material, new HashMap<>());
         }
 
-        singleCargoImages.get(material).put(direction, image);
+        singleCargoImages.get(material).put(compassDirection, image);
     }
 
-    public void addCargoImages(Direction direction, Material material, Bitmap... images) {
+    public void addCargoImages(CompassDirection compassDirection, Material material, Bitmap... images) {
         if (!multipleCargoImages.containsKey(material)) {
             multipleCargoImages.put(material, new HashMap<>());
         }
 
-        multipleCargoImages.get(material).put(direction, Arrays.asList(images));
+        multipleCargoImages.get(material).put(compassDirection, Arrays.asList(images));
     }
 
     public void readCargoImagesFromBob(Material material, BodyType bodyType, int bobId, Bob jobsBob) {
@@ -222,33 +222,33 @@ public class WorkerImageCollection {
 
         multipleCargoImages.put(material, new HashMap<>());
 
-        for (Direction direction : Direction.values()) {
+        for (CompassDirection compassDirection : CompassDirection.values()) {
 
             List<Bitmap> cargoImagesForDirection = new ArrayList<>();
 
             for (int i = 0; i < 8; i++) {
-                int link = ((bobId * 8 + i) * 2 + fatOffset) * 6 + direction.ordinal();
+                int link = ((bobId * 8 + i) * 2 + fatOffset) * 6 + compassDirection.ordinal();
                 int index = jobsBob.getLinkForIndex(link);
 
                 cargoImagesForDirection.add(jobsBob.getBitmapAtIndex(index));
             }
 
-            multipleCargoImages.get(material).put(direction, cargoImagesForDirection);
+            multipleCargoImages.get(material).put(compassDirection, cargoImagesForDirection);
         }
     }
 
     public void readBodyImagesFromBob(BodyType bodyType, Bob carrierBob) {
-        for (Direction direction : Direction.values()) {
+        for (CompassDirection compassDirection : CompassDirection.values()) {
 
             List<Bitmap> bodyImagesForDirection = new ArrayList<>();
 
             for (int animationIndex = 0; animationIndex < 8; animationIndex++) {
-                PlayerBitmap body = carrierBob.getBody(bodyType == FAT, direction.ordinal(), animationIndex);
+                PlayerBitmap body = carrierBob.getBody(bodyType == FAT, compassDirection.ordinal(), animationIndex);
 
                 bodyImagesForDirection.add(body);
             }
 
-            this.nationToDirectionToImageMap.get(Nation.ROMANS).put(direction, bodyImagesForDirection);
+            this.nationToDirectionToImageMap.get(Nation.ROMANS).put(compassDirection, bodyImagesForDirection);
         }
     }
 }

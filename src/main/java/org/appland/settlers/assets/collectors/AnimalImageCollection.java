@@ -1,7 +1,7 @@
 package org.appland.settlers.assets.collectors;
 
 import org.appland.settlers.assets.Bitmap;
-import org.appland.settlers.assets.Direction;
+import org.appland.settlers.assets.CompassDirection;
 import org.appland.settlers.assets.ImageBoard;
 import org.appland.settlers.assets.NormalizedImageList;
 import org.appland.settlers.assets.Palette;
@@ -19,21 +19,21 @@ import java.util.Map;
 
 public class AnimalImageCollection {
     private final String name;
-    private final Map<Direction, List<Bitmap>> directionToImageMap;
-    private final Map<Direction, Bitmap> shadowImages;
+    private final Map<CompassDirection, List<Bitmap>> directionToImageMap;
+    private final Map<CompassDirection, Bitmap> shadowImages;
 
     public AnimalImageCollection(String name) {
         this.name = name;
         directionToImageMap = new HashMap<>();
 
-        for (Direction direction : Direction.values()) {
-            this.directionToImageMap.put(direction, new ArrayList<>());
+        for (CompassDirection compassDirection : CompassDirection.values()) {
+            this.directionToImageMap.put(compassDirection, new ArrayList<>());
         }
         shadowImages = new HashMap<>();
     }
 
-    public void addImage(Direction direction, Bitmap workerImage) {
-        this.directionToImageMap.get(direction).add(workerImage);
+    public void addImage(CompassDirection compassDirection, Bitmap workerImage) {
+        this.directionToImageMap.get(compassDirection).add(workerImage);
     }
 
     public void writeImageAtlas(String directory, Palette palette) throws IOException {
@@ -50,11 +50,11 @@ public class AnimalImageCollection {
         Point cursor = new Point(0, 0);
 
         // Fill in animal walking in each direction
-        for (Direction direction : Direction.values()) {
+        for (CompassDirection compassDirection : CompassDirection.values()) {
 
             cursor.x = 0;
 
-            List<Bitmap> directionImages = directionToImageMap.get(direction);
+            List<Bitmap> directionImages = directionToImageMap.get(compassDirection);
             NormalizedImageList directionNormalizedList = new NormalizedImageList(directionImages);
             List<Bitmap> normalizedDirectionImages = directionNormalizedList.getNormalizedImages();
 
@@ -62,7 +62,7 @@ public class AnimalImageCollection {
 
             JSONObject jsonDirectionInfo = imageBoard.imageSeriesLocationToJson(normalizedDirectionImages);
 
-            jsonImages.put(direction.name().toUpperCase(), jsonDirectionInfo);
+            jsonImages.put(compassDirection.name().toUpperCase(), jsonDirectionInfo);
 
             cursor.y = cursor.y + directionNormalizedList.getImageHeight();
         }
@@ -75,12 +75,12 @@ public class AnimalImageCollection {
 
             jsonImageAtlas.put("shadowImages", jsonShadowImages);
 
-            for (Direction direction : shadowImages.keySet()) {
-                Bitmap shadowImage = shadowImages.get(direction);
+            for (CompassDirection compassDirection : shadowImages.keySet()) {
+                Bitmap shadowImage = shadowImages.get(compassDirection);
 
                 imageBoard.placeImage(shadowImage, cursor);
 
-                jsonShadowImages.put(direction.name().toUpperCase(), imageBoard.imageLocationToJson(shadowImage));
+                jsonShadowImages.put(compassDirection.name().toUpperCase(), imageBoard.imageLocationToJson(shadowImage));
 
                 cursor.x = cursor.x + shadowImage.getWidth();
             }
@@ -94,11 +94,11 @@ public class AnimalImageCollection {
         Files.writeString(filePath, jsonImageAtlas.toJSONString());
     }
 
-    public void addImages(Direction direction, List<Bitmap> images) {
-        this.directionToImageMap.get(direction).addAll(images);
+    public void addImages(CompassDirection compassDirection, List<Bitmap> images) {
+        this.directionToImageMap.get(compassDirection).addAll(images);
     }
 
-    public void addShadowImage(Direction direction, Bitmap image) {
-        shadowImages.put(direction, image);
+    public void addShadowImage(CompassDirection compassDirection, Bitmap image) {
+        shadowImages.put(compassDirection, image);
     }
 }

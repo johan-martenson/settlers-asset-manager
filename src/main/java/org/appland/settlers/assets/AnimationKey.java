@@ -4,11 +4,11 @@ import java.util.Objects;
 
 public class AnimationKey {
     private final Nation nation;
-    private final Direction direction;
+    private final CompassDirection compassDirection;
 
-    public AnimationKey(Nation nation, Direction direction) {
+    public AnimationKey(Nation nation, CompassDirection compassDirection) {
         this.nation = nation;
-        this.direction = direction;
+        this.compassDirection = compassDirection;
     }
 
     @Override
@@ -16,19 +16,19 @@ public class AnimationKey {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AnimationKey that = (AnimationKey) o;
-        return nation == that.nation && direction == that.direction;
+        return nation == that.nation && compassDirection == that.compassDirection;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nation, direction);
+        return Objects.hash(nation, compassDirection);
     }
 
     @Override
     public String toString() {
         return "AnimationKey{" +
                 "nation=" + nation +
-                ", direction=" + direction +
+                ", direction=" + compassDirection +
                 '}';
     }
 }

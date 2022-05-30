@@ -2214,7 +2214,7 @@ public class AssetManager {
             RenderedWorker worker = new RenderedWorker(job);
 
             for (Nation nation : Nation.values()) {
-                for (Direction direction : Direction.values()) {
+                for (CompassDirection compassDirection : CompassDirection.values()) {
 
                     for (int animationStep = 0; animationStep < 8; animationStep++) {
                         boolean fat;
@@ -2227,10 +2227,10 @@ public class AssetManager {
 
                         StackedBitmaps bitmaps = new StackedBitmaps();
 
-                        bitmaps.add(jobsBob.getBody(fat, direction.ordinal(), animationStep));
-                        bitmaps.add(jobsBob.getOverlay(id, fat, direction.ordinal(), animationStep));
+                        bitmaps.add(jobsBob.getBody(fat, compassDirection.ordinal(), animationStep));
+                        bitmaps.add(jobsBob.getOverlay(id, fat, compassDirection.ordinal(), animationStep));
 
-                        worker.setAnimationStep(nation, direction, bitmaps, animationStep);
+                        worker.setAnimationStep(nation, compassDirection, bitmaps, animationStep);
 
                         workerImages.put(job, worker);
                     }

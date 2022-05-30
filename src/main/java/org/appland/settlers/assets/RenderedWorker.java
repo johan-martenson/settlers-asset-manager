@@ -12,8 +12,8 @@ public class RenderedWorker {
         animationMap = new HashMap<>();
     }
 
-    public void setAnimationStep(Nation nation, Direction direction, StackedBitmaps bitmaps, int animationStep) {
-        AnimationKey animationKey = new AnimationKey(nation, direction);
+    public void setAnimationStep(Nation nation, CompassDirection compassDirection, StackedBitmaps bitmaps, int animationStep) {
+        AnimationKey animationKey = new AnimationKey(nation, compassDirection);
 
         if (!animationMap.containsKey(animationKey)) {
             animationMap.put(animationKey, new StackedBitmaps[8]);
@@ -24,8 +24,8 @@ public class RenderedWorker {
         animation[animationStep] = bitmaps;
     }
 
-    public StackedBitmaps[] getAnimation(Nation nation, Direction direction) {
-        return animationMap.get(new AnimationKey(nation, direction));
+    public StackedBitmaps[] getAnimation(Nation nation, CompassDirection compassDirection) {
+        return animationMap.get(new AnimationKey(nation, compassDirection));
     }
 
     @Override

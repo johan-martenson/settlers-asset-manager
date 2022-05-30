@@ -1,6 +1,6 @@
 package org.appland.settlers.assets;
 
-public enum Direction {
+public enum CompassDirection {
     EAST,
     SOUTH_EAST,
     SOUTH_WEST,
