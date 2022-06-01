@@ -378,16 +378,16 @@ public class Reader {
                             j = j + 1;
                         }
 
-                        StringBuffer linksAsStr = new StringBuffer();
+                        StringBuilder linksAsStr = new StringBuilder();
 
                         int[] links = bob.getLinks();
 
                         for (int linkIndex = 0; linkIndex < links.length; linkIndex++) {
                             if (linkIndex % NUMBER_LINKS_PER_OVERLAY == 0) {
-                                linksAsStr.append("# Job ID " + (linkIndex / NUMBER_LINKS_PER_OVERLAY) + "\n");
+                                linksAsStr.append("# Job ID ").append(linkIndex / NUMBER_LINKS_PER_OVERLAY).append("\n");
                             }
 
-                            linksAsStr.append(linkIndex + ", " + links[linkIndex] + "\n");
+                            linksAsStr.append(linkIndex).append(", ").append(links[linkIndex]).append("\n");
                         }
 
                         Files.writeString(Paths.get(dirToWrite, "links.txt"), linksAsStr.toString());
