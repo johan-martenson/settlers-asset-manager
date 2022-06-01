@@ -99,10 +99,12 @@ public class WorkerImageCollection {
         }
 
         // Write shadows, per direction (seems to be the same regardless of nation)
-        for (CompassDirection compassDirection : shadowImages.keySet()) {
+        for (Map.Entry<CompassDirection, List<Bitmap>> entry : shadowImages.entrySet()) {
+            CompassDirection compassDirection = entry.getKey();
+            List<Bitmap> shadowImagesForDirection = entry.getValue();
+
             cursor.x = 0;
 
-            List<Bitmap> shadowImagesForDirection = shadowImages.get(compassDirection);
             NormalizedImageList normalizedShadowListForDirection = new NormalizedImageList(shadowImagesForDirection);
             List<Bitmap> normalizedShadowImagesForDirection = normalizedShadowListForDirection.getNormalizedImages();
 
@@ -130,8 +132,10 @@ public class WorkerImageCollection {
 
                 cursor.x = 0;
 
-                for (CompassDirection compassDirection : singleCargoImages.get(material).keySet()) {
-                    Bitmap cargoImageForDirection = singleCargoImages.get(material).get(compassDirection);
+                for (Map.Entry<CompassDirection, Bitmap> entry : singleCargoImages.get(material).entrySet()) {
+
+                    CompassDirection compassDirection = entry.getKey();
+                    Bitmap cargoImageForDirection = entry.getValue();
 
                     imageBoard.placeImage(cargoImageForDirection, cursor);
 
@@ -168,9 +172,11 @@ public class WorkerImageCollection {
 
                 int rowHeight = 0;
 
-                for (CompassDirection compassDirection : multipleCargoImages.get(material).keySet()) {
+                for (Map.Entry<CompassDirection, List<Bitmap>> entry : multipleCargoImages.get(material).entrySet()) {
 
-                    List<Bitmap> cargoImagesForDirection = multipleCargoImages.get(material).get(compassDirection);
+                    CompassDirection compassDirection = entry.getKey();
+                    List<Bitmap> cargoImagesForDirection = entry.getValue();
+
                     NormalizedImageList normalizedCargoListForDirection = new NormalizedImageList(cargoImagesForDirection);
                     List<Bitmap> normalizedCargoImagesForDirection = normalizedCargoListForDirection.getNormalizedImages();
 

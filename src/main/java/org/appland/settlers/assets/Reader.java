@@ -172,12 +172,14 @@ public class Reader {
     private static void printInformation(Map<String, List<GameResource>> gameResourceMap) {
         System.out.println();
 
-        for (String inputFile : gameResourceMap.keySet()) {
+        for (Map.Entry<String, List<GameResource>> entry : gameResourceMap.entrySet()) {
+            String inputFile = entry.getKey();
+            List<GameResource> gameResourceList = entry.getValue();
 
             System.out.println();
             System.out.println(" - File: " + inputFile);
 
-            for (GameResource gameResource : gameResourceMap.get(inputFile)) {
+            for (GameResource gameResource : gameResourceList) {
 
                 switch (gameResource.getType()) {
                     case PLAYER_BITMAP_RESOURCE:
@@ -307,14 +309,16 @@ public class Reader {
 
     private static void writeToDirectory(Map<String, List<GameResource>> gameResourceMap, String dirToWrite) throws IOException {
 
-        for (String inputFilename : gameResourceMap.keySet()) {
+        for (Map.Entry<String, List<GameResource>> entry : gameResourceMap.entrySet()) {
+            String inputFilename = entry.getKey();
+            List<GameResource> gameResourceList = entry.getValue();
 
             int i = 0;
 
             int lastSeparator = inputFilename.lastIndexOf("/");
             String filenameWithoutPath = inputFilename.substring(lastSeparator + 1);
 
-            for (GameResource gameResource : gameResourceMap.get(inputFilename)) {
+            for (GameResource gameResource : gameResourceList) {
 
                 String outFile = dirToWrite + "/" + filenameWithoutPath + "-" + i + ".png";
 

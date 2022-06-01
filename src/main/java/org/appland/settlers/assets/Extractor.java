@@ -349,9 +349,7 @@ public class Extractor {
                         System.out.println(compassDirection);
                     }
 
-                    for (int i = 0; i < stackedBitmaps.length; i++) {
-                        StackedBitmaps frame = stackedBitmaps[i];
-
+                    for (StackedBitmaps frame : stackedBitmaps) {
                         PlayerBitmap body = frame.getBitmaps().get(0);
                         PlayerBitmap head = frame.getBitmaps().get(1);
 

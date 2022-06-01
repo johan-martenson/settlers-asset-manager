@@ -44,11 +44,11 @@ public class ShipImageCollection {
         // Fill in the image atlas
         Point cursor = new Point(0, 0);
 
-        for (CompassDirection compassDirection : images.keySet()) {
+        for (Map.Entry<CompassDirection, ImageWithShadow> entry : images.entrySet()) {
+            CompassDirection compassDirection = entry.getKey();
+            ImageWithShadow imageWithShadow = entry.getValue();
 
             cursor.x = 0;
-
-            ImageWithShadow imageWithShadow = images.get(compassDirection);
 
             JSONObject jsonDirection = new JSONObject();
 

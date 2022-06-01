@@ -75,8 +75,9 @@ public class AnimalImageCollection {
 
             jsonImageAtlas.put("shadowImages", jsonShadowImages);
 
-            for (CompassDirection compassDirection : shadowImages.keySet()) {
-                Bitmap shadowImage = shadowImages.get(compassDirection);
+            for (Map.Entry<CompassDirection, Bitmap> entry : shadowImages.entrySet()) {
+                CompassDirection compassDirection = entry.getKey();
+                Bitmap shadowImage = entry.getValue();
 
                 imageBoard.placeImage(shadowImage, cursor);
 
