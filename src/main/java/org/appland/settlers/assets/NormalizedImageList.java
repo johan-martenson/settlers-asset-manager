@@ -1,5 +1,6 @@
 package org.appland.settlers.assets;
 
+import java.awt.Dimension;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,29 +15,26 @@ public class NormalizedImageList {
 
     public NormalizedImageList(List<Bitmap> images) {
 
-        int maxWidth = 0;
-        int maxHeight = 0;
-        int maxNx = 0;
-        int maxNy = 0;
-        int minNx = 0;
-        int minNy = 0;
+        int maxWidthBeforeNx = 0;
+        int maxWidthAfterNx = 0;
+        int maxHeightBelowNy = 0;
+        int maxHeightAboveNy = 0;
 
         // Calculate the normalized width, height, nx, and ny
         for (Bitmap image : images) {
-            maxWidth = Math.max(maxWidth, image.width);
-            maxHeight = Math.max(maxHeight, image.height);
+            Area visibleArea = image.getVisibleArea();
 
-            maxNx = Math.max(maxNx, image.nx);
-            maxNy = Math.max(maxNy, image.ny);
+            maxWidthBeforeNx = Math.max(maxWidthBeforeNx, image.nx - visibleArea.x);
+            maxWidthAfterNx = Math.max(maxWidthAfterNx, visibleArea.width - image.nx + visibleArea.x);
 
-            minNx = Math.max(minNx, image.nx);
-            minNy = Math.max(minNy, image.ny);
+            maxHeightBelowNy = Math.max(maxHeightBelowNy, image.ny - visibleArea.y);
+            maxHeightAboveNy = Math.max(maxHeightAboveNy, visibleArea.height - image.ny + visibleArea.y);
         }
 
-        this.width = maxWidth + maxNx;
-        this.height = maxHeight + maxNy;
-        this.nx = maxNx;
-        this.ny = maxNy;
+        this.width = maxWidthBeforeNx + maxWidthAfterNx;
+        this.height = maxHeightBelowNy + maxHeightAboveNy;
+        this.nx = maxWidthBeforeNx;
+        this.ny = maxHeightBelowNy;
 
         // Store the originals
         this.originalImages = images;
@@ -44,19 +42,38 @@ public class NormalizedImageList {
         // Create a list of adjusted images where they all share the same width, height, and offsets
         this.normalizedImages = new ArrayList<>();
 
-        for (int i = 0; i < originalImages.size(); i++) {
-            Bitmap originalImage = originalImages.get(i);
+        for (Bitmap originalImage : originalImages) {
             Bitmap normalizedImage = new Bitmap(width, height, originalImages.get(0).getPalette(), TextureFormat.BGRA);
+
+            Point copyTo = new Point(0, 0);
+            Point copyFrom = new Point(0, 0);
+
+            if (originalImage.nx < nx) {
+                copyTo.x = nx - originalImage.nx;
+                copyFrom.x = 0;
+            } else {
+                copyFrom.x = originalImage.nx - nx;
+            }
+
+            if (originalImage.ny < ny) {
+                copyTo.y = ny - originalImage.ny;
+                copyFrom.y = 0;
+            } else {
+                copyFrom.y = originalImage.ny - ny;
+            }
 
             normalizedImage.copyNonTransparentPixels(
                     originalImage,
-                    new Point(maxNx - originalImage.nx, maxNy - originalImage.ny),
-                    new Point(0, 0),
-                    originalImage.getDimension()
+                    copyTo,
+                    copyFrom,
+                    new Dimension(
+                            Math.min(nx, originalImage.nx) + Math.min(width - nx, originalImage.getWidth() - originalImage.nx),
+                            Math.min(ny, originalImage.ny) + Math.min(height - ny, originalImage.getHeight() - originalImage.ny)
+                    )
             );
 
-            normalizedImage.nx = maxNx;
-            normalizedImage.ny = maxNy;
+            normalizedImage.nx = nx;
+            normalizedImage.ny = ny;
 
             this.normalizedImages.add(normalizedImage);
         }
@@ -72,10 +89,6 @@ public class NormalizedImageList {
 
     public int getImageWidth() {
         return width;
-    }
-
-    public Point getDrawOffset() {
-        return new Point(nx, ny);
     }
 
     public int size() {
