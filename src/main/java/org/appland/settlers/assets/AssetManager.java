@@ -716,18 +716,16 @@ public class AssetManager {
         /* Follow links to create complete pictures */
         int numberLinks = streamReader.getUint16();
         int[] links = new int[numberLinks];
-        boolean[] loaded = new boolean[numberOverlayImages];
 
-        for (int i = 0; i < loaded.length; i++) {
-            loaded[i] = false;
-        }
+        // Default value for boolean array is false
+        boolean[] loaded = new boolean[numberOverlayImages];
 
         for (long i = 0; i < numberLinks; i++) {
             links[(int)i] = streamReader.getUint16();
             int unknown = streamReader.getUint16();
 
             if (links[(int)i] >= numberOverlayImages) {
-                throw new InvalidFormatException("Number of overlay images is " + numberOverlayImages + ". Cannot have more than that: " + links[(int)i]);
+                throw new InvalidFormatException("Number of overlay images is: " + numberOverlayImages + ". Cannot have more than: " + links[(int)i]);
             }
 
             /* Skip the image if it's already loaded */

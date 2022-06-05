@@ -269,18 +269,18 @@ public class Extractor {
     private void populateWorkers(String fromDir, String toDir) throws InvalidFormatException, UnknownResourceTypeException, InvalidHeaderException, IOException {
 
         /* Load worker image parts */
-        List<GameResource> jobsBob = assetManager.loadLstFile(fromDir + "/" + JobsBob.FILENAME, defaultPalette);
+        List<GameResource> jobsBobList = assetManager.loadLstFile(fromDir + "/" + JobsBob.FILENAME, defaultPalette);
         List<GameResource> map0ZLst = assetManager.loadLstFile(fromDir + "/" + Map0ZLst.FILENAME, defaultPalette);
 
-        if (jobsBob.size() != 1) {
-            throw new RuntimeException("Wrong size of game resources in bob file. Must be 1, but was: " + jobsBob.size());
+        if (jobsBobList.size() != 1) {
+            throw new RuntimeException("Wrong size of game resources in bob file. Must be 1, but was: " + jobsBobList.size());
         }
 
-        if (! (jobsBob.get(0) instanceof BobGameResource)) {
-            throw new RuntimeException("Element must be Bob game resource. Was: " + jobsBob.get(0).getClass().getName());
+        if (! (jobsBobList.get(0) instanceof BobGameResource)) {
+            throw new RuntimeException("Element must be Bob game resource. Was: " + jobsBobList.get(0).getClass().getName());
         }
 
-        BobGameResource bobGameResource = (BobGameResource) jobsBob.get(0);
+        BobGameResource jobsBobGameResource = (BobGameResource) jobsBobList.get(0);
 
         /* Construct the worker details map */
         Map<JobType, WorkerDetails> workerDetailsMap = new HashMap<>();
@@ -329,7 +329,7 @@ public class Extractor {
         workerDetailsMap.put(JobType.CHAR_BURNER, new WorkerDetails(false, JobsBob.CHAR_BURNER_BOB_ID));
 
         /* Composite the worker images and animations */
-        Map<JobType, RenderedWorker> renderedWorkers = assetManager.renderWorkerImages(bobGameResource.getBob(), workerDetailsMap);
+        Map<JobType, RenderedWorker> renderedWorkers = assetManager.renderWorkerImages(jobsBobGameResource.getBob(), workerDetailsMap);
         Map<JobType, WorkerImageCollection> workerImageCollectors = new HashMap<>();
 
         for (JobType jobType : JobType.values()) {
@@ -405,7 +405,7 @@ public class Extractor {
                             merged.copyNonTransparentPixels(head, headToUpperLeft, headFromUpperLeft, headVisibleArea.getDimension());
 
                             /* Store the image in the worker image collection */
-                            workerImageCollection.addImage(nation, compassDirection, merged);
+                            workerImageCollection.addNationSpecificFullImage(nation, compassDirection, merged);
                         }
                     }
                 }
@@ -437,7 +437,7 @@ public class Extractor {
         WorkerImageCollection hunterWorkerImageCollector = workerImageCollectors.get(JobType.HUNTER);
         WorkerImageCollection shipwrightWorkerImageCollector = workerImageCollectors.get(JobType.SHIP_WRIGHT);
 
-        Bob bob = ((BobGameResource) jobsBob.get(0)).getBob();
+        Bob bob = ((BobGameResource) jobsBobList.get(0)).getBob();
 
         woodcutterImageCollector.readCargoImagesFromBob(
                 Material.WOOD,
@@ -649,19 +649,33 @@ public class Extractor {
         );
 
         // Extract couriers
+        Bob jobsBob = jobsBobGameResource.getBob();
         Bob carrierBob = assetManager.loadBobFile(fromDir + "/" + CarrierBob.FILENAME, defaultPalette);
 
-        WorkerImageCollection thinCarrier = new WorkerImageCollection("thin-carrier");
-        WorkerImageCollection fatCarrier = new WorkerImageCollection("fat-carrier");
+        WorkerImageCollection thinCarrier = new WorkerImageCollection("thin-carrier-no-cargo");
+        WorkerImageCollection fatCarrier = new WorkerImageCollection("fat-carrier-no-cargo");
+        WorkerImageCollection thinCarrierWithCargo = new WorkerImageCollection("thin-carrier-with-cargo");
+        WorkerImageCollection fatCarrierWithCargo = new WorkerImageCollection("fat-carrier-with-cargo");
 
-        thinCarrier.readBodyImagesFromBob(THIN, carrierBob);
-        fatCarrier.readBodyImagesFromBob(FAT, carrierBob);
+        // Read body images
+        thinCarrier.readBodyImagesFromBob(THIN, jobsBob);
+        fatCarrier.readBodyImagesFromBob(FAT, jobsBob);
+        thinCarrierWithCargo.readBodyImagesFromBob(THIN, carrierBob);
+        fatCarrierWithCargo.readBodyImagesFromBob(FAT, carrierBob);
 
+        // Read walking images without cargo
+        thinCarrier.readHeadImagesWithoutCargoFromBob(THIN, JobsBob.HELPER_BOB_ID, jobsBob);
+        fatCarrier.readHeadImagesWithoutCargoFromBob(FAT, JobsBob.HELPER_BOB_ID, jobsBob);
+
+        thinCarrier.mergeBodyAndHeadImages(defaultPalette);
+        fatCarrier.mergeBodyAndHeadImages(defaultPalette);
+
+        // Read walking animation for each type of cargo
         for (CarrierCargo carrierCargo : CarrierCargo.values()) {
             Material material = CarrierBob.CARGO_BOB_ID_TO_MATERIAL_MAP.get(carrierCargo.ordinal());
 
-            thinCarrier.readCargoImagesFromBob(material, THIN, carrierCargo.ordinal(), carrierBob);
-            fatCarrier.readCargoImagesFromBob(material, FAT, carrierCargo.ordinal(), carrierBob);
+            thinCarrierWithCargo.readCargoImagesFromBob(material, THIN, carrierCargo.ordinal(), carrierBob);
+            fatCarrierWithCargo.readCargoImagesFromBob(material, FAT, carrierCargo.ordinal(), carrierBob);
         }
 
         thinCarrier.addShadowImages(EAST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_EAST_SHADOW_ANIMATION, 8));
@@ -678,8 +692,24 @@ public class Extractor {
         fatCarrier.addShadowImages(NORTH_WEST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_NORTH_WEST_SHADOW_ANIMATION, 8));
         fatCarrier.addShadowImages(NORTH_EAST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_NORTH_EAST_SHADOW_ANIMATION, 8));
 
+        thinCarrierWithCargo.addShadowImages(EAST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_EAST_SHADOW_ANIMATION, 8));
+        thinCarrierWithCargo.addShadowImages(SOUTH_EAST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_SOUTH_EAST_SHADOW_ANIMATION, 8));
+        thinCarrierWithCargo.addShadowImages(SOUTH_WEST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_SOUTH_WEST_SHADOW_ANIMATION, 8));
+        thinCarrierWithCargo.addShadowImages(WEST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_WEST_SHADOW_ANIMATION, 8));
+        thinCarrierWithCargo.addShadowImages(NORTH_WEST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_NORTH_WEST_SHADOW_ANIMATION, 8));
+        thinCarrierWithCargo.addShadowImages(NORTH_EAST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_NORTH_EAST_SHADOW_ANIMATION, 8));
+
+        fatCarrierWithCargo.addShadowImages(EAST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_EAST_SHADOW_ANIMATION, 8));
+        fatCarrierWithCargo.addShadowImages(SOUTH_EAST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_SOUTH_EAST_SHADOW_ANIMATION, 8));
+        fatCarrierWithCargo.addShadowImages(SOUTH_WEST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_SOUTH_WEST_SHADOW_ANIMATION, 8));
+        fatCarrierWithCargo.addShadowImages(WEST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_WEST_SHADOW_ANIMATION, 8));
+        fatCarrierWithCargo.addShadowImages(NORTH_WEST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_NORTH_WEST_SHADOW_ANIMATION, 8));
+        fatCarrierWithCargo.addShadowImages(NORTH_EAST, getImagesFromGameResource(map0ZLst, Map0ZLst.WALKING_NORTH_EAST_SHADOW_ANIMATION, 8));
+
         thinCarrier.writeImageAtlas(toDir + "/", defaultPalette);
         fatCarrier.writeImageAtlas(toDir + "/", defaultPalette);
+        thinCarrierWithCargo.writeImageAtlas(toDir + "/", defaultPalette);
+        fatCarrierWithCargo.writeImageAtlas(toDir + "/", defaultPalette);
     }
 
     /**
