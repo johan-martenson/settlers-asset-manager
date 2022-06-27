@@ -34,6 +34,7 @@ import org.appland.settlers.model.FlagType;
 import org.appland.settlers.model.Material;
 import org.appland.settlers.model.Tree;
 import org.appland.settlers.model.TreeSize;
+import org.appland.settlers.model.WorkerAction;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
@@ -271,6 +272,7 @@ public class Extractor {
         /* Load worker image parts */
         List<GameResource> jobsBobList = assetManager.loadLstFile(fromDir + "/" + JobsBob.FILENAME, defaultPalette);
         List<GameResource> map0ZLst = assetManager.loadLstFile(fromDir + "/" + Map0ZLst.FILENAME, defaultPalette);
+        List<GameResource> romBobsLst = assetManager.loadLstFile(fromDir + "/" + RomBobsLst.FILENAME, defaultPalette);
 
         if (jobsBobList.size() != 1) {
             throw new RuntimeException("Wrong size of game resources in bob file. Must be 1, but was: " + jobsBobList.size());
@@ -436,6 +438,11 @@ public class Extractor {
         WorkerImageCollection metalWorkerImageCollector = workerImageCollectors.get(JobType.METALWORKER);
         WorkerImageCollection hunterWorkerImageCollector = workerImageCollectors.get(JobType.HUNTER);
         WorkerImageCollection shipwrightWorkerImageCollector = workerImageCollectors.get(JobType.SHIP_WRIGHT);
+        WorkerImageCollection brewerWorkerImageCollector = workerImageCollectors.get(JobType.BREWER);
+        WorkerImageCollection foresterWorkerImageCollector = workerImageCollectors.get(JobType.FORESTER);
+        WorkerImageCollection planerWorkerImageCollector = workerImageCollectors.get(JobType.PLANER);
+        WorkerImageCollection geologistWorkerImageCollector = workerImageCollectors.get(JobType.GEOLOGIST);
+        WorkerImageCollection builderWorkerImageCollector = workerImageCollectors.get(JobType.BUILDER);
 
         Bob bob = ((BobGameResource) jobsBobList.get(0)).getBob();
 
@@ -446,12 +453,16 @@ public class Extractor {
                 bob
         );
 
+        woodcutterImageCollector.addWorkAnimation(WorkerAction.CUTTING, getImagesFromGameResource(romBobsLst, RomBobsLst.CUTTING, 8));
+
         carpenterImageCollector.readCargoImagesFromBob(
                 PLANK,
                 JobsBob.CARPENTER_BOB.getBodyType(),
                 JobsBob.CARPENTER_WITH_PLANK_BOB_ID,
                 bob
         );
+
+        carpenterImageCollector.addWorkAnimation(WorkerAction.SAWING, getImagesFromGameResource(romBobsLst, RomBobsLst.SAWING, 6));
 
         stonemasonImageCollector.readCargoImagesFromBob(
                 STONE,
@@ -460,12 +471,25 @@ public class Extractor {
                 bob
         );
 
+        stonemasonImageCollector.addWorkAnimation(WorkerAction.HACKING_STONE, getImagesFromGameResource(romBobsLst, RomBobsLst.HACKING_STONE, 8));
+
+        foresterWorkerImageCollector.addWorkAnimation(WorkerAction.PLANTING_TREE, getImagesFromGameResource(romBobsLst, RomBobsLst.DIGGING_AND_PLANTING, 36));
+
+        planerWorkerImageCollector.addWorkAnimation(WorkerAction.DIGGING_AND_STOMPING, getImagesFromGameResource(romBobsLst, RomBobsLst.DIGGING_AND_STOMPING, 26));
+
+        geologistWorkerImageCollector.addWorkAnimation(WorkerAction.INVESTIGATING, getImagesFromGameResource(romBobsLst, RomBobsLst.INVESTIGATING, 16));
+
+        builderWorkerImageCollector.addWorkAnimation(WorkerAction.HAMMERING_HOUSE_HIGH_AND_LOW, getImagesFromGameResource(romBobsLst, RomBobsLst.HAMMERING_HOUSE_HIGH_AND_LOW, 8));
+        builderWorkerImageCollector.addWorkAnimation(WorkerAction.INSPECTING_HOUSE_CONSTRUCTION, getImagesFromGameResource(romBobsLst, RomBobsLst.INSPECTING_HOUSE_CONSTRUCTION, 4));
+
         minterImageCollector.readCargoImagesFromBob(
                 COIN,
                 JobsBob.MINTER_BOB.getBodyType(),
                 JobsBob.MINTER_WITH_COIN_CARGO_BOB_ID,
                 bob
         );
+
+        // TODO: add work animation for minter
 
         minerImageCollector.readCargoImagesFromBob(
                 GOLD,
@@ -495,6 +519,8 @@ public class Extractor {
                 bob
         );
 
+        // TODO: add work animation for miner
+
         // TODO: job id 69 == carrying crucible/anvil?
 
         fishermanImageCollector.readCargoImagesFromBob(
@@ -504,12 +530,30 @@ public class Extractor {
                 bob
         );
 
+        fishermanImageCollector.addWorkAnimationInDirection(
+                WorkerAction.FISHING,
+                EAST,
+                getImagesFromGameResource(romBobsLst, RomBobsLst.FISHING_EAST, 8));
+
+        fishermanImageCollector.addWorkAnimationInDirection(
+                WorkerAction.FISHING,
+                SOUTH_EAST,
+                getImagesFromGameResource(romBobsLst, RomBobsLst.FISHING_SOUTH_EAST, 8));
+
+        fishermanImageCollector.addWorkAnimationInDirection(
+                WorkerAction.FISHING,
+                SOUTH_WEST,
+                getImagesFromGameResource(romBobsLst, RomBobsLst.FISHING_SOUTH_WEST, 8));
+
         farmerImageCollector.readCargoImagesFromBob(
                 WHEAT,
                 JobsBob.FARMER_BOB.getBodyType(),
                 JobsBob.FARMER_WITH_WHEAT_CARGO_BOB_ID,
                 bob
         );
+
+        farmerImageCollector.addWorkAnimation(WorkerAction.PLANTING_WHEAT, getImagesFromGameResource(romBobsLst, RomBobsLst.SOWING, 8));
+        farmerImageCollector.addWorkAnimation(WorkerAction.HARVESTING, getImagesFromGameResource(romBobsLst, RomBobsLst.HARVESTING, 8));
 
         pigBreederImageCollector.readCargoImagesFromBob(
                 PIG,
@@ -532,7 +576,11 @@ public class Extractor {
                 bob
         );
 
+        bakerImageCollector.addWorkAnimation(WorkerAction.BAKING, getImagesFromGameResource(romBobsLst, RomBobsLst.BAKING, 8));
+
         // TODO: Handle brewer and/or well worker
+
+        brewerWorkerImageCollector.addWorkAnimation(WorkerAction.DRINKING_BEER, getImagesFromGameResource(romBobsLst, RomBobsLst.DRINKING_BEER, 8));
 
         // TODO: Handle metalworker carrying "shift gear". Assume it's tongs
 
@@ -622,6 +670,9 @@ public class Extractor {
                 JobsBob.HUNTER_WITH_MEAT_CARGO_BOB_ID,
                 bob
         );
+
+        hunterWorkerImageCollector.addWorkAnimation(WorkerAction.SHOOTING, getImagesFromGameResource(romBobsLst, RomBobsLst.HUNTING, 13));
+        hunterWorkerImageCollector.addWorkAnimation(WorkerAction.PICKING_UP_MEAT, getImagesFromGameResource(romBobsLst, RomBobsLst.PICKING_UP_MEAT, 12));
 
         shipwrightWorkerImageCollector.readCargoImagesFromBob(
                 BOAT,

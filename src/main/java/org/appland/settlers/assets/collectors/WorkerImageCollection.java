@@ -11,6 +11,7 @@ import org.appland.settlers.assets.Palette;
 import org.appland.settlers.assets.PlayerBitmap;
 import org.appland.settlers.assets.TextureFormat;
 import org.appland.settlers.model.Material;
+import org.appland.settlers.model.WorkerAction;
 import org.json.simple.JSONObject;
 
 import java.awt.Point;
@@ -24,6 +25,8 @@ import java.util.List;
 import java.util.Map;
 
 import static org.appland.settlers.assets.BodyType.FAT;
+import static org.appland.settlers.assets.ImageBoard.LayoutDirection.COLUMN;
+import static org.appland.settlers.assets.ImageBoard.LayoutDirection.ROW;
 
 public class WorkerImageCollection {
     private final String name;
@@ -33,6 +36,8 @@ public class WorkerImageCollection {
     private final Map<CompassDirection, List<Bitmap>> commonHeadImagesWithoutCargo;
     private final Map<CompassDirection, List<Bitmap>> commonBodyImages;
     private final Map<CompassDirection, List<Bitmap>> commonBodyAndHeadImages;
+    private final Map<WorkerAction, List<Bitmap>> commonActions;
+    private final Map<WorkerAction, Map<CompassDirection, List<Bitmap>>> commonActionsWithDirection;
 
     public WorkerImageCollection(String name) {
         this.name = name;
@@ -43,6 +48,8 @@ public class WorkerImageCollection {
         commonCargoImages = new HashMap<>();
         commonBodyImages = new HashMap<>();
         commonBodyAndHeadImages = new HashMap<>();
+        commonActions = new HashMap<>();
+        commonActionsWithDirection = new HashMap<>();
     }
 
     public void addNationSpecificFullImage(Nation nation, CompassDirection compassDirection, Bitmap workerImage) {
@@ -78,9 +85,14 @@ public class WorkerImageCollection {
         JSONObject jsonImageAtlas = new JSONObject();
         JSONObject jsonCommon = new JSONObject();
         JSONObject jsonNationSpecific = new JSONObject();
+        JSONObject jsonActions = new JSONObject();
 
         jsonImageAtlas.put("common", jsonCommon);
         jsonImageAtlas.put("nationSpecific", jsonNationSpecific);
+
+        if (!commonActionsWithDirection.isEmpty() || !commonActions.isEmpty()) {
+            jsonCommon.put("actions", jsonActions);
+        }
 
         Point cursor = new Point(0, 0);
 
@@ -99,7 +111,7 @@ public class WorkerImageCollection {
                 NormalizedImageList normalizedImageList = new NormalizedImageList(images);
                 List<Bitmap> normalizedImages = normalizedImageList.getNormalizedImages();
 
-                imageBoard.placeImageSeries(normalizedImages, cursor, ImageBoard.LayoutDirection.ROW);
+                imageBoard.placeImageSeries(normalizedImages, cursor, ROW);
 
                 jsonImages.put(compassDirection.name().toUpperCase(), imageBoard.imageSeriesLocationToJson(normalizedImages));
 
@@ -119,7 +131,7 @@ public class WorkerImageCollection {
                 NormalizedImageList normalizedImageList = new NormalizedImageList(images);
                 List<Bitmap> normalizedImages = normalizedImageList.getNormalizedImages();
 
-                imageBoard.placeImageSeries(normalizedImages, cursor, ImageBoard.LayoutDirection.ROW);
+                imageBoard.placeImageSeries(normalizedImages, cursor, ROW);
 
                 jsonBodyImages.put(compassDirection.name().toUpperCase(), imageBoard.imageSeriesLocationToJson(normalizedImages));
 
@@ -135,8 +147,6 @@ public class WorkerImageCollection {
 
             for (Nation nation : Nation.values()) {
 
-                cursor.x = 0;
-
                 Map<CompassDirection, List<Bitmap>> directionToImageMap = nationSpecificBodyAndHeadImages.get(nation);
 
                 JSONObject jsonNationInfo = new JSONObject();
@@ -149,12 +159,14 @@ public class WorkerImageCollection {
                         continue;
                     }
 
+                    cursor.x = 0;
+
                     // Handle each image per nation x direction
                     List<Bitmap> workerImages = directionToImageMap.get(compassDirection);
                     NormalizedImageList normalizedWorkerList = new NormalizedImageList(workerImages);
                     List<Bitmap> normalizedWorkerImages = normalizedWorkerList.getNormalizedImages();
 
-                    imageBoard.placeImageSeries(normalizedWorkerImages, cursor, ImageBoard.LayoutDirection.ROW);
+                    imageBoard.placeImageSeries(normalizedWorkerImages, cursor, ROW);
 
                     jsonNationInfo.put(compassDirection.name().toUpperCase(), imageBoard.imageSeriesLocationToJson(normalizedWorkerImages));
 
@@ -178,11 +190,39 @@ public class WorkerImageCollection {
                 NormalizedImageList normalizedShadowListForDirection = new NormalizedImageList(shadowImagesForDirection);
                 List<Bitmap> normalizedShadowImagesForDirection = normalizedShadowListForDirection.getNormalizedImages();
 
-                imageBoard.placeImageSeries(normalizedShadowImagesForDirection, cursor, ImageBoard.LayoutDirection.ROW);
+                imageBoard.placeImageSeries(normalizedShadowImagesForDirection, cursor, ROW);
 
                 jsonShadowImages.put(compassDirection.name().toUpperCase(), imageBoard.imageSeriesLocationToJson(normalizedShadowImagesForDirection));
 
                 cursor.y = cursor.y + normalizedShadowListForDirection.getImageHeight();
+            }
+        }
+
+        // Write direction-specific actions (if any)
+        if (!commonActionsWithDirection.isEmpty()) {
+            for (Map.Entry<WorkerAction, Map<CompassDirection, List<Bitmap>>> entry : commonActionsWithDirection.entrySet()) {
+                String action = entry.getKey().name().toUpperCase();
+                Map<CompassDirection, List<Bitmap>> actions = entry.getValue();
+
+                JSONObject jsonAction = new JSONObject();
+
+                jsonActions.put(action, jsonAction);
+
+                for (Map.Entry<CompassDirection, List<Bitmap>> actionEntry : actions.entrySet()) {
+                    CompassDirection compassDirection = actionEntry.getKey();
+                    List<Bitmap> images = actionEntry.getValue();
+
+                    cursor.x = 0;
+
+                    NormalizedImageList normalizedImageList = new NormalizedImageList(images);
+                    List<Bitmap> normalizedImages = normalizedImageList.getNormalizedImages();
+
+                    imageBoard.placeImageSeries(normalizedImages, cursor, ROW);
+
+                    jsonAction.put(compassDirection.name().toUpperCase(), imageBoard.imageSeriesLocationToJson(normalizedImages));
+
+                    cursor.y = cursor.y + normalizedImageList.getImageHeight();
+                }
             }
         }
 
@@ -203,26 +243,45 @@ public class WorkerImageCollection {
 
                 jsonMultipleCargoImages.put(material.name().toUpperCase(), jsonMaterialImages);
 
-                cursor.x = 0;
-
-                int rowHeight = 0;
-
                 for (Map.Entry<CompassDirection, List<Bitmap>> entry : commonCargoImages.get(material).entrySet()) {
 
                     CompassDirection compassDirection = entry.getKey();
                     List<Bitmap> cargoImagesForDirection = entry.getValue();
 
+                    cursor.x = 0;
+
                     NormalizedImageList normalizedCargoListForDirection = new NormalizedImageList(cargoImagesForDirection);
                     List<Bitmap> normalizedCargoImagesForDirection = normalizedCargoListForDirection.getNormalizedImages();
 
-                    imageBoard.placeImageSeries(normalizedCargoImagesForDirection, cursor, ImageBoard.LayoutDirection.ROW);
+                    imageBoard.placeImageSeries(normalizedCargoImagesForDirection, cursor, ROW);
 
                     jsonMaterialImages.put(compassDirection.name().toUpperCase(), imageBoard.imageSeriesLocationToJson(normalizedCargoImagesForDirection));
 
-                    rowHeight = Math.max(rowHeight, normalizedCargoListForDirection.getImageHeight());
-
                     cursor.y = cursor.y + normalizedCargoListForDirection.getImageHeight();
                 }
+            }
+        }
+
+        // Write actions that apply to any direction (if any)
+        if (!commonActions.isEmpty()) {
+            for (Map.Entry<WorkerAction, List<Bitmap>> entry : commonActions.entrySet()) {
+                String action = entry.getKey().name().toUpperCase();
+                List<Bitmap> images = entry.getValue();
+
+                cursor.x = imageBoard.getCurrentWidth();
+                cursor.y = 0;
+
+                JSONObject jsonAction = new JSONObject();
+
+                NormalizedImageList normalizedImageList = new NormalizedImageList(images);
+                List<Bitmap> normalizedImages = normalizedImageList.getNormalizedImages();
+
+                imageBoard.placeImageSeries(normalizedImages, cursor, COLUMN);
+
+                jsonActions.put(action, jsonAction);
+                jsonAction.put("any", imageBoard.imageSeriesLocationToJson(normalizedImages));
+
+                cursor.y = cursor.y + normalizedImageList.getImageHeight();
             }
         }
 
@@ -350,5 +409,17 @@ public class WorkerImageCollection {
 
             commonBodyImages.put(compassDirection, bodyImagesForDirection);
         }
+    }
+
+    public void addWorkAnimation(WorkerAction action, List<Bitmap> images) {
+        commonActions.put(action, images);
+    }
+
+    public void addWorkAnimationInDirection(WorkerAction action, CompassDirection direction, List<Bitmap> images) {
+        if (!commonActionsWithDirection.containsKey(action)) {
+            commonActionsWithDirection.put(action, new HashMap<>());
+        }
+
+        commonActionsWithDirection.get(action).put(direction, images);
     }
 }

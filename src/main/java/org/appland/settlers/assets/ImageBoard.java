@@ -174,4 +174,23 @@ public class ImageBoard {
         ROW,
         COLUMN
     }
+
+    public int getCurrentWidth() {
+        int currentWidth = 0;
+
+        for (ImageOnBoard imageOnBoard : images.values()) {
+            currentWidth = Math.max(currentWidth, imageOnBoard.image.width + imageOnBoard.x);
+        }
+
+        for (ImageSeries imageSeries : imageSeries.values()) {
+
+            if (imageSeries.layoutDirection == LayoutDirection.ROW) {
+                currentWidth = Math.max(currentWidth, imageSeries.width * imageSeries.images.size() + imageSeries.x);
+            } else {
+                currentWidth = Math.max(currentWidth, imageSeries.width + imageSeries.x);
+            }
+        }
+
+        return currentWidth;
+    }
 }
