@@ -436,4 +436,21 @@ public class Bitmap {
     public int getNy() {
         return ny;
     }
+
+    public Bitmap getMirror() {
+        Bitmap mirror = new Bitmap(width, height, width - nx, ny, palette, format);
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                byte red = getRedAsByte(x, y);
+                byte green = getGreenAsByte(x, y);
+                byte blue = getBlueAsByte(x, y);
+                byte alpha = getAlphaAsByte(x, y);
+
+                mirror.setPixelValue(width - x - 1, y, red, green, blue, alpha);
+            }
+        }
+
+        return mirror;
+    }
 }

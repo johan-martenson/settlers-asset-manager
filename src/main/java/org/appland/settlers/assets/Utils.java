@@ -12,6 +12,8 @@ import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -196,5 +198,17 @@ public class Utils {
         }
 
         return result;
+    }
+
+    public static List<Bitmap> mirrorImageSeries(List<Bitmap> images) {
+        List<Bitmap> mirroredSeries = new ArrayList<>();
+
+        for (Bitmap image : images) {
+            Bitmap mirroredImage = image.getMirror();
+
+            mirroredSeries.add(mirroredImage);
+        }
+
+        return mirroredSeries;
     }
 }
