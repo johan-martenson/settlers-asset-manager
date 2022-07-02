@@ -530,6 +530,38 @@ public class Extractor {
                 bob
         );
 
+        // Lower fishing rod
+        fishermanImageCollector.addWorkAnimationInDirection(
+                WorkerAction.LOWER_FISHING_ROD,
+                EAST,
+                getImagesFromGameResource(romBobsLst, RomBobsLst.LOWERING_FISHING_ROD_EAST, 8));
+
+        fishermanImageCollector.addWorkAnimationInDirection(
+                WorkerAction.LOWER_FISHING_ROD,
+                SOUTH_EAST,
+                getImagesFromGameResource(romBobsLst, RomBobsLst.LOWERING_FISHING_ROD_SOUTH_EAST, 8));
+
+        fishermanImageCollector.addWorkAnimationInDirection(
+                WorkerAction.LOWER_FISHING_ROD,
+                SOUTH_WEST,
+                getImagesFromGameResource(romBobsLst, RomBobsLst.LOWERING_FISHING_ROD_SOUTH_WEST, 8));
+
+        fishermanImageCollector.addWorkAnimationInDirection(
+                WorkerAction.LOWER_FISHING_ROD,
+                WEST,
+                getImagesFromGameResource(romBobsLst, RomBobsLst.LOWERING_FISHING_ROD_WEST, 8));
+
+        fishermanImageCollector.addWorkAnimationInDirection(
+                WorkerAction.LOWER_FISHING_ROD,
+                WEST,
+                getImagesFromGameResource(romBobsLst, RomBobsLst.LOWERING_FISHING_ROD_NORTH_WEST, 8));
+
+        fishermanImageCollector.addWorkAnimationInDirection(
+                WorkerAction.LOWER_FISHING_ROD,
+                WEST,
+                getImagesFromGameResource(romBobsLst, RomBobsLst.LOWERING_FISHING_ROD_NORTH_EAST, 8));
+
+        // Keep fishing
         fishermanImageCollector.addWorkAnimationInDirection(
                 WorkerAction.FISHING,
                 EAST,
@@ -548,7 +580,48 @@ public class Extractor {
         fishermanImageCollector.addWorkAnimationInDirection(
                 WorkerAction.FISHING,
                 WEST,
-                Utils.mirrorImageSeries(getImagesFromGameResource(romBobsLst, RomBobsLst.FISHING_EAST, 8)));
+                getImagesFromGameResource(romBobsLst, RomBobsLst.FISHING_WEST, 8));
+
+        fishermanImageCollector.addWorkAnimationInDirection(
+                WorkerAction.FISHING,
+                WEST,
+                getImagesFromGameResource(romBobsLst, RomBobsLst.FISHING_NORTH_WEST, 8));
+
+        fishermanImageCollector.addWorkAnimationInDirection(
+                WorkerAction.FISHING,
+                WEST,
+                getImagesFromGameResource(romBobsLst, RomBobsLst.FISHING_NORTH_EAST, 8));
+
+        // Pull up fish
+        fishermanImageCollector.addWorkAnimationInDirection(
+                WorkerAction.LOWER_FISHING_ROD,
+                EAST,
+                getImagesFromGameResource(romBobsLst, RomBobsLst.PULL_UP_FISH_EAST, 8));
+
+        fishermanImageCollector.addWorkAnimationInDirection(
+                WorkerAction.LOWER_FISHING_ROD,
+                SOUTH_EAST,
+                getImagesFromGameResource(romBobsLst, RomBobsLst.PULL_UP_FISH_SOUTH_EAST, 8));
+
+        fishermanImageCollector.addWorkAnimationInDirection(
+                WorkerAction.LOWER_FISHING_ROD,
+                SOUTH_WEST,
+                getImagesFromGameResource(romBobsLst, RomBobsLst.PULL_UP_FISH_SOUTH_WEST, 8));
+
+        fishermanImageCollector.addWorkAnimationInDirection(
+                WorkerAction.LOWER_FISHING_ROD,
+                WEST,
+                getImagesFromGameResource(romBobsLst, RomBobsLst.PULL_UP_FISH_WEST, 8));
+
+        fishermanImageCollector.addWorkAnimationInDirection(
+                WorkerAction.LOWER_FISHING_ROD,
+                WEST,
+                getImagesFromGameResource(romBobsLst, RomBobsLst.PULL_UP_FISH_NORTH_WEST, 8));
+
+        fishermanImageCollector.addWorkAnimationInDirection(
+                WorkerAction.LOWER_FISHING_ROD,
+                WEST,
+                getImagesFromGameResource(romBobsLst, RomBobsLst.PULL_UP_FISH_NORTH_EAST, 8));
 
         farmerImageCollector.readCargoImagesFromBob(
                 WHEAT,
