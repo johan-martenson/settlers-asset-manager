@@ -594,32 +594,32 @@ public class Extractor {
 
         // Pull up fish
         fishermanImageCollector.addWorkAnimationInDirection(
-                WorkerAction.LOWER_FISHING_ROD,
+                WorkerAction.PULL_UP_FISHING_ROD,
                 EAST,
                 getImagesFromGameResource(romBobsLst, RomBobsLst.PULL_UP_FISH_EAST, 8));
 
         fishermanImageCollector.addWorkAnimationInDirection(
-                WorkerAction.LOWER_FISHING_ROD,
+                WorkerAction.PULL_UP_FISHING_ROD,
                 SOUTH_EAST,
                 getImagesFromGameResource(romBobsLst, RomBobsLst.PULL_UP_FISH_SOUTH_EAST, 8));
 
         fishermanImageCollector.addWorkAnimationInDirection(
-                WorkerAction.LOWER_FISHING_ROD,
+                WorkerAction.PULL_UP_FISHING_ROD,
                 SOUTH_WEST,
                 getImagesFromGameResource(romBobsLst, RomBobsLst.PULL_UP_FISH_SOUTH_WEST, 8));
 
         fishermanImageCollector.addWorkAnimationInDirection(
-                WorkerAction.LOWER_FISHING_ROD,
+                WorkerAction.PULL_UP_FISHING_ROD,
                 WEST,
                 getImagesFromGameResource(romBobsLst, RomBobsLst.PULL_UP_FISH_WEST, 8));
 
         fishermanImageCollector.addWorkAnimationInDirection(
-                WorkerAction.LOWER_FISHING_ROD,
+                WorkerAction.PULL_UP_FISHING_ROD,
                 WEST,
                 getImagesFromGameResource(romBobsLst, RomBobsLst.PULL_UP_FISH_NORTH_WEST, 8));
 
         fishermanImageCollector.addWorkAnimationInDirection(
-                WorkerAction.LOWER_FISHING_ROD,
+                WorkerAction.PULL_UP_FISHING_ROD,
                 WEST,
                 getImagesFromGameResource(romBobsLst, RomBobsLst.PULL_UP_FISH_NORTH_EAST, 8));
 
