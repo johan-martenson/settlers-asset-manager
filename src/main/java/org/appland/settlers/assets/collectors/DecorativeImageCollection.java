@@ -1,9 +1,9 @@
 package org.appland.settlers.assets.collectors;
 
 import org.appland.settlers.assets.Bitmap;
-import org.appland.settlers.assets.Decoration;
 import org.appland.settlers.assets.ImageBoard;
 import org.appland.settlers.assets.Palette;
+import org.appland.settlers.model.DecorationType;
 import org.json.simple.JSONObject;
 
 import java.awt.Point;
@@ -14,18 +14,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DecorativeImageCollection {
-    private final Map<Decoration, DecorationImage> decorations;
+    private final Map<DecorationType, DecorationTypeImage> DecorationTypes;
 
     public DecorativeImageCollection() {
-        decorations = new HashMap<>();
+        DecorationTypes = new HashMap<>();
     }
 
-    public void addDecorationImage(Decoration decoration, Bitmap image) {
-        decorations.put(decoration, new DecorationImage(image));
+    public void addDecorationTypeImage(DecorationType DecorationType, Bitmap image) {
+        DecorationTypes.put(DecorationType, new DecorationTypeImage(image));
     }
 
-    public void addDecorationImageWithShadow(Decoration decoration, Bitmap image, Bitmap shadowImage) {
-        decorations.put(decoration, new DecorationImage(image, shadowImage));
+    public void addDecorationImageWithShadow(DecorationType DecorationType, Bitmap image, Bitmap shadowImage) {
+        DecorationTypes.put(DecorationType, new DecorationTypeImage(image, shadowImage));
     }
 
     public void writeImageAtlas(String dir, Palette palette) throws IOException {
@@ -36,32 +36,32 @@ public class DecorativeImageCollection {
 
         Point cursor = new Point(0, 0);
 
-        for (Map.Entry<Decoration, DecorationImage> entry : this.decorations.entrySet()) {
-            Decoration decoration = entry.getKey();
+        for (Map.Entry<DecorationType, DecorationTypeImage> entry : this.DecorationTypes.entrySet()) {
+            DecorationType DecorationType = entry.getKey();
             Bitmap image = entry.getValue().image;
             Bitmap shadowImage = entry.getValue().shadowImage;
 
             int rowHeight = 0;
             cursor.x = 0;
 
-            JSONObject jsonDecoration = new JSONObject();
+            JSONObject jsonDecorationType = new JSONObject();
 
-            jsonImageAtlas.put(decoration.name().toUpperCase(), jsonDecoration);
+            jsonImageAtlas.put(DecorationType.name().toUpperCase(), jsonDecorationType);
 
-            // Decoration image
+            // DecorationType image
             imageBoard.placeImage(image, cursor);
 
-            jsonDecoration.put("image", imageBoard.imageLocationToJson(image));
+            jsonDecorationType.put("image", imageBoard.imageLocationToJson(image));
 
             rowHeight = image.getHeight();
 
             cursor.x = cursor.x + image.getWidth();
 
-            // Decoration shadow image
+            // DecorationType shadow image
             if (shadowImage != null) {
                 imageBoard.placeImage(shadowImage, cursor);
 
-                jsonDecoration.put("shadowImage", imageBoard.imageLocationToJson(shadowImage));
+                jsonDecorationType.put("shadowImage", imageBoard.imageLocationToJson(shadowImage));
 
                 rowHeight = Math.max(rowHeight, shadowImage.getHeight());
             }
@@ -75,17 +75,17 @@ public class DecorativeImageCollection {
         Files.writeString(Paths.get(dir, "image-atlas-decorations.json"), jsonImageAtlas.toJSONString());
     }
 
-    private class DecorationImage {
+    private class DecorationTypeImage {
 
         private final Bitmap image;
         private final Bitmap shadowImage;
 
-        public DecorationImage(Bitmap image) {
+        public DecorationTypeImage(Bitmap image) {
             this.image = image;
             shadowImage = null;
         }
 
-        public DecorationImage(Bitmap image, Bitmap shadowImage) {
+        public DecorationTypeImage(Bitmap image, Bitmap shadowImage) {
             this.image = image;
             this.shadowImage = shadowImage;
         }

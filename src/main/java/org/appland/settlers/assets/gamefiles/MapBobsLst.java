@@ -1,6 +1,6 @@
 package org.appland.settlers.assets.gamefiles;
 
-    /**
+/**
      * Layout of data in MAPBOBS.LST
      *
      * 0     Palette
@@ -452,7 +452,7 @@ public class MapBobsLst {
     public static final int DECORATIVE_SKELETON_SHADOW = 335;
     public static final int DECORATIVE_MINI_SKELETON_SHADOW = 336;
     public static final int DECORATIVE_FLOWERS_SHADOW = 337;
-    public static final int DECORATIVE_BUSH_SHADOW = 338;
+    public static final int DECORATIVE_LARGE_BUSH_SHADOW = 338;
     public static final int DECORATIVE_LARGER_STONES_SHADOW = 339;
     public static final int DECORATIVE_CACTUS_1_SHADOW = 340;
     public static final int DECORATIVE_CACTUS_2_SHADOW = 341;
@@ -473,15 +473,15 @@ public class MapBobsLst {
     public static final int DECORATIVE_SKELETON = 289;
     public static final int DECORATIVE_MINI_SKELETON = 290;
     public static final int DECORATIVE_FLOWERS = 291;
-    public static final int DECORATIVE_BUSH = 292;
+    public static final int DECORATIVE_LARGE_BUSH = 292;
     public static final int DECORATIVE_LARGER_STONES = 293;
     public static final int DECORATIVE_CACTUS_1 = 294;
     public static final int DECORATIVE_CACTUS_2 = 295;
     public static final int DECORATIVE_BEACH_GRASS = 296;
     public static final int DECORATIVE_SMALL_GRASS = 297;
-    public static final int SMALL_FIRE_SHADOW_ANIMATION = 1058;
-    public static final int MEDIUM_FIRE_SHADOW_ANIMATION = 1066;
-    public static final int LARGE_FIRE_SHADOW_ANIMATION = 1074;
+    public static final int DECORATIVE_BUSH = 321;
+    public static final int DECORATIVE_SMALL_BUSH = 322;
+    public static final int DECORATIVE_MINI_BUSH = 323;
     public static final int SIGN_SHADOW = 386;
     public static final int STONE_TYPE_1_MINI_SHADOW = 344;
     public static final int STONE_TYPE_1_LITTLE_SHADOW = 345;
@@ -495,6 +495,9 @@ public class MapBobsLst {
     public static final int STONE_TYPE_2_MIDDLE_SHADOW = 353;
     public static final int STONE_TYPE_2_ALMOST_FULL_SHADOW = 354;
     public static final int STONE_TYPE_2_FULL_SHADOW = 355;
+    public static final int DECORATIVE_BUSH_SHADOW = 367;
+    public static final int DECORATIVE_SMALL_BUSH_SHADOW = 368;
+    public static final int DECORATIVE_MINI_BUSH_SHADOW = 369;
     public static final int FOX_SHADOW_EAST = 638;
     public static final int FOX_SHADOW_SOUTH_EAST = 639;
     public static final int FOX_SHADOW_SOUTH_WEST = 640;
@@ -517,4 +520,11 @@ public class MapBobsLst {
     public static final int DEER_2_SHADOW_EAST = 809;
     public static final int DEER_2_SHADOW_SOUTH_EAST = 810;
     public static final int DEER_2_SHADOW_SOUTH_WEST = 811;
+    public static final int SMALL_FIRE_SHADOW_ANIMATION = 1058;
+    public static final int MEDIUM_FIRE_SHADOW_ANIMATION = 1066;
+    public static final int LARGE_FIRE_SHADOW_ANIMATION = 1074;
+    public static final int DECORATIVE_GRASS_2 = 324;
+    public static final int DECORATIVE_MINI_GRASS = 325;
+    public static final int DECORATIVE_GRASS_2_SHADOW = 370;
+    public static final int DECORATIVE_MINI_GRASS_SHADOW = 371;
 }

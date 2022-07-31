@@ -37,4 +37,9 @@ public class RomBobsLst {
     public static final int PULL_UP_FISH_WEST = 1662;
     public static final int PULL_UP_FISH_NORTH_WEST = 1670;
     public static final int PULL_UP_FISH_NORTH_EAST = 1678;
+    public static final int SIT_DOWN = 1726;
+    public static final int CHEW_GUM = 1737;
+    public static final int JUMP_SKIP_ROPE = 1745;
+    public static final int READ_NEWSPAPER = 1759;
+    public static final int TOUCH_NOSE = 1770;
 }
